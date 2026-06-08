@@ -1,0 +1,673 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Design System/AI Usage Guide" />
+
+# AI Usage Guide — Figma Make-ready Design System
+
+This guide explains how `design-system-ai-lab` can be used as a controlled
+generation system for AI-assisted interface production.
+
+The goal is not to let AI invent interfaces from scratch.
+
+The goal is to help AI tools compose product screens using:
+
+- the published design system package
+- package styles
+- foundations and design tokens
+- components
+- form components
+- decision components
+- business patterns
+- component contracts
+- prompt constraints
+- acceptance criteria
+
+---
+
+## Core message
+
+A design system can become more than a visual library.
+
+It can become a **generation infrastructure** for product interfaces.
+
+In this model, the designer does not become a prompt operator.
+
+The designer becomes the architect of the system that makes prompts reliable.
+
+The AI should not generate from imagination.
+
+It should generate from a governed system.
+
+---
+
+## Import rules
+
+AI-generated screens must import components from the package root.
+
+Allowed:
+
+```tsx
+import {
+  Button,
+  CustomerStatusCard,
+  MetricGrid,
+  PageHeader,
+} from "design-system-ai-lab";
+```
+
+Not allowed:
+
+```tsx
+import { Button } from "design-system-ai-lab/dist/components/button";
+```
+
+Generated screens must import styles once:
+
+```tsx
+import "design-system-ai-lab/styles.css";
+```
+
+Do not create local component wrappers.
+
+Do not create a local design-system folder such as:
+
+```txt
+packages/design-system-ai-lab/
+```
+
+---
+
+## What the AI is allowed to use
+
+The AI should use the package vocabulary in this order of preference:
+
+1. business patterns when they match the screen intent
+2. decision components for screen structure
+3. generic components for reusable UI blocks
+4. form components for dialogs and input flows
+5. custom markup only when no existing component or pattern fits
+
+---
+
+## Components
+
+Generic UI components:
+
+- `Badge`
+- `Button`
+- `Card`
+- `Dialog`
+- `DialogClose`
+- `DialogFooter`
+- `MetricCard`
+- `PageHeader`
+
+Use these components for broad UI composition.
+
+Prefer business patterns when the requested section matches an existing pattern.
+
+---
+
+## Forms
+
+Form components:
+
+- `Field`
+- `Input`
+- `Label`
+- `Select`
+- `Textarea`
+
+Use these components for all generated forms and dialogs.
+
+Preferred:
+
+```tsx
+<Field label="Owner" htmlFor="owner">
+  <Input id="owner" placeholder="CSM" />
+</Field>
+```
+
+Avoid:
+
+```tsx
+<input style={{ height: "40px", borderRadius: "6px" }} />
+```
+
+Form rules:
+
+- use `Field` to group label, control, helper text and errors
+- connect `label` and control with `htmlFor` and `id` when possible
+- use `Input` for short values
+- use `Select` for limited choices
+- use `Textarea` for notes and recommendations
+- do not generate inline-styled raw form controls
+
+---
+
+## Decision components
+
+Decision-oriented components:
+
+- `ActionCard`
+- `ActionList`
+- `AlertCard`
+- `MetricGrid`
+- `PriorityList`
+- `SectionHeader`
+- `StatusSummary`
+
+Use these components to help users understand:
+
+- context
+- metrics
+- risks
+- recommendations
+- next actions
+
+Rules:
+
+- use `MetricGrid` to arrange decision-relevant `MetricCard` items
+- use `PriorityList` to group alerts and risks
+- use `ActionList` to group recommended or planned actions
+- use `SectionHeader` for section headings and section-level actions
+- use `StatusSummary` for structured context and label/value metadata
+- every `AlertCard` must include a recommendation
+- every `ActionCard` must include owner, due date and priority
+
+---
+
+## Business patterns
+
+Business patterns are the preferred layer for AI-assisted generation.
+
+Available patterns:
+
+- `ConnectivityCoverageCard`
+- `CreateActionDialog`
+- `CustomerStatusCard`
+- `RenewalRiskSummary`
+- `ValueProofCard`
+
+Use `CustomerStatusCard` for customer identity, plan, contract, coverage and
+account context.
+
+Use `ConnectivityCoverageCard` for monitoring coverage, disconnected assets and
+recovery context.
+
+Use `RenewalRiskSummary` for renewal readiness, value proof status and
+mitigation signals.
+
+Use `ValueProofCard` for customer-ready proof points and service outcomes.
+
+Use `CreateActionDialog` for action creation flows.
+
+Do not rebuild these sections manually with raw `Card`, `Badge`, `div`, `dt` and
+`dd` markup when the matching pattern exists.
+
+---
+
+## Token rules
+
+The official token namespace is:
+
+```txt
+--ec-*
+```
+
+Examples:
+
+```txt
+--ec-color-background
+--ec-color-surface
+--ec-color-text-primary
+--ec-color-border
+--ec-color-primary
+--ec-radius-sm
+--ec-shadow-card
+```
+
+Compatibility aliases are available for generated code:
+
+```txt
+--background
+--foreground
+--border
+--input-background
+--radius-sm
+--radius-md
+```
+
+These aliases help Figma Make and shadcn-like generators, but they do not
+replace the official `--ec-*` token system.
+
+The AI should not create:
+
+- new color palettes
+- decorative gradients
+- arbitrary shadows
+- arbitrary radius values
+- custom visual effects
+- new typography systems
+
+---
+
+## Screen generation principle
+
+A good AI-generated interface should answer three questions:
+
+1. What is happening?
+2. Why does it matter?
+3. What should the user do next?
+
+Generated screens should usually include:
+
+1. clear page title and user goal
+2. customer or business context
+3. decision-relevant metrics
+4. priority risks or blockers
+5. recommended actions
+6. a way to create, review or assign a follow-up action
+
+---
+
+## Component usage rules
+
+### PageHeader
+
+Use `PageHeader` at the top of a main screen.
+
+It should include:
+
+- a clear title
+- a short description of the user goal
+- the main action when relevant
+
+Example:
+
+```tsx
+<PageHeader
+  title="Customer monitoring"
+  description="Understand customer status, risks and next actions."
+  actions={<CreateActionDialog />}
+/>
+```
+
+---
+
+### Button
+
+Use `Button` for user actions.
+
+Available variants:
+
+- `primary`: main action
+- `secondary`: contextual action
+- `ghost`: low-emphasis action
+- `danger`: destructive action
+
+Rules:
+
+- use only one primary button per screen section
+- do not use `danger` unless the action is destructive
+- labels must be explicit and action-oriented
+- use `Button` directly as a `Dialog` trigger
+- do not create local wrappers such as `ForwardedButton`
+
+Good labels:
+
+- Create action
+- Review plan
+- Open details
+- Check connectivity
+- Prepare value summary
+
+Bad labels:
+
+- OK
+- Submit
+- Click here
+- More
+
+Example:
+
+```tsx
+<Button variant="primary" size="md">
+  Create action
+</Button>
+```
+
+---
+
+### Badge
+
+Use `Badge` to communicate status, tone or metadata.
+
+Available tones:
+
+- `neutral`: metadata
+- `success`: healthy or complete state
+- `warning`: partial, delayed or uncertain state
+- `danger`: critical risk
+- `primary`: active plan, selected state or main category
+
+Rules:
+
+- a badge is not a button
+- badge text should be short
+- use `danger` only for genuinely critical states
+- use `warning` for ambiguity, delay or partial completion
+
+Example:
+
+```tsx
+<Badge tone="warning">Connectivity partial</Badge>
+```
+
+---
+
+### MetricCard
+
+Use `MetricCard` for decision-relevant metrics.
+
+Good metrics:
+
+- connected equipment
+- open critical alerts
+- overdue actions
+- renewal readiness
+- recommendations reviewed
+- value proof status
+
+Bad metrics:
+
+- vanity metrics
+- raw data without context
+- metrics that do not help the user decide what to do next
+
+Example:
+
+```tsx
+<MetricCard
+  label="Connected equipment"
+  value="68%"
+  helper="17 of 25 assets monitored"
+  trend="-12% this month"
+/>
+```
+
+---
+
+### AlertCard
+
+Use `AlertCard` for risks, alerts, anomalies or signals requiring attention.
+
+Available severities:
+
+- `critical`: urgent risk
+- `warning`: situation to monitor
+- `info`: useful signal
+
+Rules:
+
+- every alert must include a recommendation
+- critical alerts should appear before warning and info alerts
+- do not use `critical` for incomplete or pending information
+- the recommendation should guide the next action
+
+Example:
+
+```tsx
+<AlertCard
+  severity="critical"
+  title="Critical equipment no longer monitored"
+  equipment="Main HVAC control unit"
+  description="The customer has no visibility on a critical asset."
+  recommendation="Escalate to support and notify the customer proactively."
+/>
+```
+
+---
+
+### ActionCard
+
+Use `ActionCard` for recommended, planned or overdue actions.
+
+Available priorities:
+
+- `high`: urgent or high business impact
+- `medium`: important but not urgent
+- `low`: useful but secondary
+
+Rules:
+
+- every action should have an owner
+- every action should have a due date
+- every action should have a priority
+- action titles should describe actual work to do
+
+Example:
+
+```tsx
+<ActionCard
+  title="Plan connectivity review with the customer"
+  owner="CSM"
+  dueDate="This week"
+  priority="high"
+/>
+```
+
+---
+
+### Dialog
+
+Use `Dialog` for short focused creation or confirmation tasks.
+
+Rules:
+
+- avoid long forms
+- do not use `Dialog` as a full-page workflow
+- keep creation dialogs to the minimum fields required
+- use clear titles and descriptions
+- use `DialogFooter` and `DialogClose` for custom dialog footers
+- prefer `CreateActionDialog` for action creation flows
+
+Example:
+
+```tsx
+<Dialog
+  trigger={<Button>Create action</Button>}
+  title="Create action"
+  description="Add a follow-up action with an owner, due date and priority."
+>
+  ...
+</Dialog>
+```
+
+---
+
+## Recommended screen patterns
+
+### Customer monitoring screen
+
+Use this structure:
+
+1. `PageHeader` with `CreateActionDialog` as primary action
+2. `CustomerStatusCard` for customer context
+3. `MetricGrid` with decision-relevant `MetricCard` items
+4. `ConnectivityCoverageCard` when monitoring coverage matters
+5. `PriorityList` with `AlertCard` items sorted by severity
+6. `ActionList` with `ActionCard` items for recommended actions
+
+This pattern is useful because it starts from the user decision:
+
+> Understand the customer situation, identify priority risks, and decide what to
+> do next.
+
+### Renewal risk review screen
+
+Use this structure:
+
+1. `PageHeader` with a renewal-related action
+2. `RenewalRiskSummary` for renewal context
+3. `ValueProofCard` for service outcomes and proof gaps
+4. `MetricGrid` for readiness or adoption metrics
+5. `PriorityList` with renewal risks
+6. `ActionList` with mitigation actions
+
+This pattern is useful because it starts from the renewal decision:
+
+> Understand renewal exposure, prove value and launch mitigation actions.
+
+---
+
+## Example prompt
+
+```txt
+Create a complete customer monitoring screen in App.tsx using
+`design-system-ai-lab`.
+
+User goal:
+Help a service or customer success user understand customer status, identify
+priority risks and decide the next best actions.
+
+Package rules:
+- Import components from `design-system-ai-lab`
+- Import styles from `design-system-ai-lab/styles.css`
+- Do not import from internal package paths
+- Do not create local component wrappers
+- Do not create a local design system package
+
+Screen structure:
+1. PageHeader with title, description and CreateActionDialog as primary action
+2. CustomerStatusCard with customer, plan, contract, CSM, renewal date and coverage
+3. MetricGrid with three decision-relevant metrics
+4. ConnectivityCoverageCard for monitoring coverage
+5. PriorityList with AlertCard items sorted by severity
+6. ActionList with ActionCard items for recommended next steps
+
+Use:
+- CustomerStatusCard for customer context
+- ConnectivityCoverageCard for monitoring coverage
+- MetricGrid and MetricCard for metrics
+- PriorityList and AlertCard for priority risks
+- ActionList and ActionCard for recommended actions
+- CreateActionDialog for the primary action
+
+Constraints:
+- Use existing package components and patterns only
+- Use existing tokens only
+- Keep the interface B2B, sober and readable
+- Prioritize actionability over decoration
+- Every alert must include a recommendation
+- Every action must include an owner, due date and priority
+- Do not create inline-styled form fields
+```
+
+---
+
+## Anti-prompt
+
+Do not generate a generic SaaS dashboard.
+
+Do not create:
+
+- new colors
+- decorative gradients
+- custom cards outside the design system
+- multiple primary buttons competing with each other
+- charts without a clear decision purpose
+- metrics that do not help the user act
+- alert blocks without recommendations
+- actions without owner or due date
+- inline-styled raw form fields
+- local component wrappers
+- local design-system folders
+
+Avoid prompts such as:
+
+```txt
+Create a beautiful SaaS dashboard with modern cards, gradients and charts.
+```
+
+Prefer prompts such as:
+
+```txt
+Create a decision-oriented interface using the approved `design-system-ai-lab`
+package, styles, components and patterns.
+```
+
+---
+
+## Acceptance checklist
+
+Before accepting an AI-generated screen, check:
+
+- the screen has one clear user goal
+- the UI imports components from `design-system-ai-lab`
+- the UI imports `design-system-ai-lab/styles.css`
+- the UI uses existing components and patterns
+- the UI uses form components for form fields
+- the UI avoids internal package imports
+- the UI avoids local component wrappers
+- the UI avoids local design-system folders
+- the UI avoids inline-styled raw form controls
+- the primary action is obvious
+- critical states are visually distinguishable
+- metrics are decision-relevant
+- alerts include recommendations
+- actions include owner, due date and priority
+- the layout can be explained in terms of user decision-making
+
+---
+
+## Demo narrative
+
+The objective is not to automate design judgment.
+
+The objective is to automate part of repetitive interface production.
+
+The designer defines:
+
+- the design system
+- foundations and tokens
+- UX principles
+- component contracts
+- prompt rules
+- screen patterns
+- quality criteria
+
+AI tools generate:
+
+- first screen drafts
+- coherent component compositions
+- simple interactions
+- structured variants
+- reusable prototype code
+
+The designer stays responsible for:
+
+- the user problem
+- the experience logic
+- the hierarchy of information
+- the final quality
+
+In other words:
+
+> The design system becomes an infrastructure for interface generation.
+
+---
+
+## What this guide proves
+
+This guide demonstrates that the design system has four layers:
+
+1. **Foundations** — tokens, colors, typography and aliases
+2. **Components and patterns** — reusable UI vocabulary
+3. **Contracts** — rules that explain when and how to use the vocabulary
+4. **Prompts** — constrained instructions that help AI compose interfaces
+
+This is the bridge toward Figma Make:
+
+> Figma Make should not generate from a blank canvas. It should generate from
+> the design system vocabulary, rules and constraints.

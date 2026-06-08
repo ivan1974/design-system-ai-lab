@@ -1,0 +1,115 @@
+# Dependencies
+node_modules/
+
+# Builds and generated outputs
+dist/
+dist-ssr/
+build/
+coverage/
+storybook-static/
+
+# Package artifacts
+*.tgz
+*.tar
+*.tar.gz
+*.zip
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+*storybook.log
+
+# Runtime / cache
+.cache/
+.parcel-cache/
+.vite/
+.vitest/
+.turbo/
+.next/
+.nuxt/
+.svelte-kit/
+.temp/
+.tmp/
+tmp/
+temp/
+
+# TypeScript
+*.tsbuildinfo
+
+# Local env
+.env
+.env.*
+!.env.example
+.envrc
+*.local
+
+# npm / package manager state
+.npm/
+.pnpm-store/
+.yarn/*
+!.yarn/releases/
+!.yarn/plugins/
+!.yarn/sdks/
+!.yarn/versions/
+package-lock.json.tmp
+yarn.lock.tmp
+pnpm-lock.yaml.tmp
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.code-workspace
+
+# OS — macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+*.icloud
+
+# OS — Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# OS — Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk

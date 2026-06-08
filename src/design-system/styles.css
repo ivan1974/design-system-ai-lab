@@ -1,0 +1,42 @@
+@import "tailwindcss";
+@import "./foundations/tokens.css";
+
+:root {
+  /* Compatibility aliases for Figma Make / shadcn-like generators. */
+  --background: var(--ec-color-background);
+  --foreground: var(--ec-color-text-primary);
+
+  --card: var(--ec-color-surface);
+  --card-foreground: var(--ec-color-text-primary);
+
+  --popover: var(--ec-color-surface);
+  --popover-foreground: var(--ec-color-text-primary);
+
+  --primary: var(--ec-color-primary);
+  --primary-foreground: var(--ec-color-primary-foreground);
+
+  --secondary: var(--ec-color-surface-muted);
+  --secondary-foreground: var(--ec-color-text-primary);
+
+  --muted: var(--ec-color-surface-muted);
+  --muted-foreground: var(--ec-color-text-muted);
+
+  --accent: var(--ec-color-surface-muted);
+  --accent-foreground: var(--ec-color-text-primary);
+
+  --destructive: var(--ec-color-danger);
+  --destructive-foreground: var(--ec-color-primary-foreground);
+
+  --border: var(--ec-color-border);
+  --input: var(--ec-color-border);
+  --input-background: var(--ec-color-surface);
+  --ring: var(--ec-color-primary);
+
+  --radius-sm: var(--ec-radius-sm);
+  --radius-md: var(--ec-radius-md);
+  --radius-lg: var(--ec-radius-lg);
+
+  --text-primary: var(--ec-color-text-primary);
+  --text-secondary: var(--ec-color-text-secondary);
+  --text-muted: var(--ec-color-text-muted);
+}
