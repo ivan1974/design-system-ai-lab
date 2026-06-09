@@ -2,6 +2,9 @@
 export { Badge } from "./components/badge";
 export type { BadgeProps, BadgeTone } from "./components/badge";
 
+export { Breadcrumbs } from "./components/breadcrumbs";
+export type { BreadcrumbItem, BreadcrumbsProps } from "./components/breadcrumbs";
+
 export { Button } from "./components/button";
 export type { ButtonProps } from "./components/button";
 
@@ -26,6 +29,9 @@ export type { DividerOrientation, DividerProps } from "./components/divider";
 
 export { DocumentRow } from "./components/document-row";
 export type { DocumentRowProps } from "./components/document-row";
+
+export { HeaderTabs } from "./components/header-tabs";
+export type { HeaderTabsProps } from "./components/header-tabs";
 
 export { KeyValueList, KeyValueRow } from "./components/key-value-list";
 export type {
@@ -66,12 +72,27 @@ export type {
   SlideOverPanelProps,
 } from "./components/panel";
 
+export { SecondaryNavigation } from "./components/secondary-navigation";
+export type {
+  SecondaryNavigationItem,
+  SecondaryNavigationProps,
+} from "./components/secondary-navigation";
+
+export { SegmentedControl } from "./components/segmented-control";
+export type {
+  SegmentedControlItem,
+  SegmentedControlProps,
+} from "./components/segmented-control";
+
 export { Surface } from "./components/surface";
 export type {
   SurfacePadding,
   SurfaceProps,
   SurfaceVariant,
 } from "./components/surface";
+
+export { Tabs } from "./components/tabs";
+export type { TabItem, TabsProps, TabsSize, TabsVariant } from "./components/tabs";
 
 export { Timeline, TimelineItem } from "./components/timeline";
 export type { TimelineItemProps, TimelineProps } from "./components/timeline";
