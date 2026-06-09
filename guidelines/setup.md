@@ -97,6 +97,11 @@ import {
   StickyActionBar,
   SectionBlock,
   SectionStack,
+  Surface,
+  ListContainer,
+  Well,
+  Divider,
+  Toolbar,
   KeyValueList,
   KeyValueRow,
   MetricStrip,
@@ -213,6 +218,9 @@ local Tag
 local Metric
 local form components
 local workspace primitives
+local surface wrappers
+local toolbar wrappers
+local list containers
 ```
 
 Small local render helpers are acceptable only if they:
@@ -238,7 +246,7 @@ Figma Make must render a complete visible screen in `App.tsx`.
 
 Do not leave `App.tsx` empty.
 
-Do not generate only a component library.
+Do not generate only package setup code.
 
 Do not stop after setting up packages.
 
@@ -249,6 +257,40 @@ system package.
 
 The screen should have one clear user goal and one clear primary decision or
 next action.
+
+---
+
+## Surface primitive rule
+
+Use surface primitives before creating styled div wrappers.
+
+Use:
+
+```txt
+Surface
+ListContainer
+Well
+Divider
+Toolbar
+```
+
+Use `Surface` for structured content regions.
+
+Use `ListContainer` for grouped rows.
+
+Use `Well` for contextual emphasis inside a larger surface.
+
+Use `Divider` for separation.
+
+Use `Toolbar` for local controls and action groups.
+
+Avoid:
+
+```tsx
+<div className="rounded-lg border bg-white p-6 shadow-sm">
+  ...
+</div>
+```
 
 ---
 
@@ -345,13 +387,22 @@ The generated project may import the following from `design-system-ai-lab`.
 - `Dialog`
 - `DialogClose`
 - `DialogFooter`
+- `Divider`
 - `DocumentRow`
+- `Heading`
 - `KeyValueList`
 - `KeyValueRow`
+- `ListContainer`
 - `MetricCard`
 - `PageHeader`
+- `PageHeading`
+- `SectionHeading`
+- `Surface`
+- `Text`
 - `Timeline`
 - `TimelineItem`
+- `Toolbar`
+- `Well`
 
 ### Forms
 
@@ -412,7 +463,7 @@ prompt explicitly requests a custom element and no existing component fits.
 Use business patterns before low-level components when a pattern fits the screen
 intent.
 
-Use workspace and compact components before creating long stacks of generic cards.
+Use workspace, surface and compact components before creating long stacks of generic cards.
 
 ---
 
@@ -433,229 +484,3 @@ It should not generate a full component library.
 It should not generate a parallel design system.
 
 It should not create local UI component folders that duplicate the package.
-
----
-
-## Forbidden setup patterns
-
-Do not create a local package replacement.
-
-Do not generate this structure:
-
-```txt
-packages/design-system-ai-lab/
-  package.json
-  src/index.ts
-  src/styles.css
-```
-
-Do not import from internal package paths:
-
-```tsx
-import { Button } from "design-system-ai-lab/dist/components/button";
-```
-
-Do not import recreated local UI components:
-
-```tsx
-import { Button } from "./components/ui/button";
-import { Card } from "./components/ui/card";
-import { Badge } from "./components/ui/badge";
-```
-
-Do not recreate design system components with Radix, MUI, shadcn-like files or
-custom local implementations.
-
-Do not create local wrappers such as:
-
-```tsx
-function ForwardedButton() {
-  return <button />;
-}
-```
-
-Do not create custom primitives that duplicate:
-
-```txt
-Button
-Card
-Badge
-Dialog
-Field
-Input
-Select
-Textarea
-WorkspaceShell
-FilterBar
-MasterDetailLayout
-DetailPanel
-SectionBlock
-KeyValueList
-MetricStrip
-SemanticTag
-StatusPill
-SourceStrengthPill
-CustomerStatusCard
-ConnectivityCoverageCard
-RenewalRiskSummary
-ValueProofCard
-ActionCard
-ActionRow
-AlertCard
-```
-
-The package already provides the compatible components.
-
----
-
-## Form setup rule
-
-Generated forms must use package form components.
-
-Correct:
-
-```tsx
-<Field label="Owner" htmlFor="owner">
-  <Input id="owner" placeholder="CSM" />
-</Field>
-```
-
-Incorrect:
-
-```tsx
-<input style={{ height: "40px", borderRadius: "6px" }} />
-```
-
-Use:
-
-- `Field` for label, helper and error layout
-- `Input` for short values
-- `Select` for limited choices
-- `Textarea` for notes and recommendations
-- `Label` only for lower-level custom form composition when `Field` does not fit
-
-Rules:
-
-- connect `htmlFor` and `id` when possible
-- do not rely only on placeholders
-- do not create raw `input`, `select` or `textarea` elements when package components fit
-- do not use disabled form fields for display-only context
-- use display components, compact primitives or business patterns for display-only data
-
----
-
-## Styling setup rule
-
-The generated project must use:
-
-```tsx
-import "design-system-ai-lab/styles.css";
-```
-
-Do not recreate the package styles manually.
-
-Do not duplicate token definitions.
-
-Do not add a competing design token system.
-
-Do not add a new visual identity.
-
-The generated app may use utility classes for layout, but visual identity should
-come from the package styles and tokens.
-
-Use `className` for layout adjustments only.
-
-Do not use `className` to redefine package component identity.
-
-Do not use inline styles to recreate tokens, colors, shadows, radius or form
-states.
-
----
-
-## React compatibility
-
-The package is designed for React-based Make environments.
-
-Expected peer dependencies are React and React DOM.
-
-Do not add a second React version to work around dependency issues.
-
-Do not bundle React inside generated design system code.
-
-Do not recreate the design system locally to bypass dependency resolution.
-
-If dependency resolution fails, preserve the intended package imports and revise
-the project setup instead of generating a parallel design system.
-
----
-
-## If package import fails
-
-If Make cannot resolve the package at first, do not recreate the entire design
-system.
-
-Instead:
-
-1. keep the intended package imports
-2. generate the screen structure in `App.tsx`
-3. preserve the intended component vocabulary
-4. avoid creating replacement components unless explicitly asked
-5. preserve the rules from `Guidelines.md`, `tokens.md` and `styles.md`
-
-Use this correction instruction:
-
-```txt
-Revise the project.
-
-Use the published npm package design-system-ai-lab directly.
-Do not create packages/design-system-ai-lab.
-Do not recreate design system components locally.
-Import components from design-system-ai-lab.
-Import styles from design-system-ai-lab/styles.css.
-Use documented prop values only.
-Do not invent variant, tone, severity, priority, strength or mode values.
-Do not create local visual components or wrappers.
-Small local render helpers are acceptable only if they compose approved package components.
-Use workspace components for list/detail review.
-Use business patterns when they match the section intent.
-Use compact primitives instead of card stacks for repeated facts, signals and actions.
-Use form components instead of inline-styled raw inputs.
-Update App.tsx so it renders a complete visible screen using imports from design-system-ai-lab.
-```
-
----
-
-## Setup validation checklist
-
-After generation, verify:
-
-- `design-system-ai-lab` is listed as a dependency when dependency files are present
-- components are imported from `design-system-ai-lab`
-- styles are imported from `design-system-ai-lab/styles.css`
-- no internal package paths are used
-- all design-system component props use documented values only
-- no local `packages/design-system-ai-lab` folder was created
-- no local replacement components were created
-- no local visual wrapper duplicates package components
-- no inline-styled raw form fields were created
-- small local helpers only compose package components and do not create visual identity
-- `App.tsx` renders a complete visible screen
-- the generated screen uses approved components and patterns
-- business patterns are used when they match the section intent
-- workspace components are used when list/detail review is needed
-- compact rows and primitives are used for repeated information
-- form controls have visible labels
-- `htmlFor` and `id` are connected when possible
-- utility classes are used for layout, not for recreating component identity
-- package styles and tokens remain the source of visual identity
-
-For UX, AI usage, evidence, accessibility, eco-design and full acceptance review,
-use `Guidelines.md`.
-
----
-
-## Final principle
-
-The setup should make Figma Make a consumer of the design system package.
-
-It should not turn Figma Make into a generator of a new design system.
