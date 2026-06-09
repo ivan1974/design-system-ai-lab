@@ -175,6 +175,7 @@ export {
 } from "./patterns/asset-intelligence-summary";
 export type {
   AssetIntelligenceReadiness,
+  AssetIntelligenceSummaryMode,
   AssetIntelligenceSummaryProps,
 } from "./patterns/asset-intelligence-summary";
 
@@ -191,6 +192,7 @@ export {
   ConnectivityCoverageCard,
 } from "./patterns/connectivity-coverage-card";
 export type {
+  ConnectivityCoverageCardMode,
   ConnectivityCoverageCardProps,
 } from "./patterns/connectivity-coverage-card";
 
@@ -208,7 +210,10 @@ export type {
 } from "./patterns/create-action-dialog";
 
 export { CustomerStatusCard } from "./patterns/customer-status-card";
-export type { CustomerStatusCardProps } from "./patterns/customer-status-card";
+export type {
+  CustomerStatusCardMode,
+  CustomerStatusCardProps,
+} from "./patterns/customer-status-card";
 
 export {
   RecommendationReviewPanel,
@@ -216,6 +221,7 @@ export {
 export type {
   RecommendationReviewPanelBadge,
   RecommendationReviewPanelItem,
+  RecommendationReviewPanelMode,
   RecommendationReviewPanelProps,
 } from "./patterns/recommendation-review-panel";
 
@@ -227,12 +233,14 @@ export type {
 export { ServiceRiskSummary } from "./patterns/service-risk-summary";
 export type {
   ServiceRiskLevel,
+  ServiceRiskSummaryMode,
   ServiceRiskSummaryProps,
 } from "./patterns/service-risk-summary";
 
 export { ValueProofCard } from "./patterns/value-proof-card";
 export type {
   ValueProofBadge,
+  ValueProofCardMode,
   ValueProofCardProps,
   ValueProofPoint,
 } from "./patterns/value-proof-card";
