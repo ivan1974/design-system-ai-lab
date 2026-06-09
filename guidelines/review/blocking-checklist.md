@@ -42,13 +42,14 @@ Review the generated output in this order:
 ```txt
 1. App.tsx output
 2. package usage
-3. component usage
-4. workspace structure
-5. form usage
-6. business pattern usage
-7. alert and action completeness
-8. evidence and trust integrity
-9. proof and value integrity
+3. documented prop values
+4. local visual component usage
+5. workspace structure
+6. form usage
+7. business pattern usage
+8. alert and action completeness
+9. evidence and trust integrity
+10. proof and value integrity
 ```
 
 A screen can be visually imperfect and still pass this checklist.
@@ -103,12 +104,35 @@ import { Card } from "./components/ui/card";
 
 ---
 
-### 3. No local design system components
+### 3. Documented prop values only
+
+- [ ] Every package component prop uses a documented value.
+- [ ] No undocumented `variant` value is used.
+- [ ] No undocumented `tone` value is used.
+- [ ] No undocumented `severity` value is used.
+- [ ] No undocumented `priority` value is used.
+- [ ] No undocumented `strength` value is used.
+- [ ] No undocumented `mode`, `size` or `status` value is used.
+
+Reject if Make guesses enum-like prop values instead of using the component contract, Storybook story or TypeScript declaration.
+
+Repair with:
+
+```txt
+repair-prompts/invalid-props-or-local-visual-components.md
+```
+
+---
+
+### 4. No local visual components
 
 - [ ] No local `Button`, `Card`, `Badge`, `Dialog`, `MetricCard`, `AlertCard`, `ActionCard`, `WorkspaceShell`, `MasterDetailLayout`, `DetailPanel` or `PageHeader` replacement was created.
-- [ ] No local wrappers were created for package components.
+- [ ] No local visual wrappers were created for package components.
+- [ ] No local `Pill`, `Tag`, `Metric`, `Row`, `Panel`, `Header` or form primitive duplicates package components.
 - [ ] No shadcn-like, Radix-based, MUI or unrelated component system was introduced.
 - [ ] Package components are used directly.
+
+Small local helpers are acceptable only if they compose approved package components and do not introduce their own visual style, tokens, states or primitives.
 
 Reject if Make creates:
 
@@ -121,9 +145,15 @@ LocalCard
 ForwardedButton
 ```
 
+Repair with:
+
+```txt
+repair-prompts/invalid-props-or-local-visual-components.md
+```
+
 ---
 
-### 4. Workspace structure is used when needed
+### 5. Workspace structure is used when needed
 
 - [ ] A review/comparison task uses workspace structure instead of a long card stack.
 - [ ] `WorkspaceShell` is used for a decision workspace when the screen has scope, filters or multiple review areas.
@@ -135,7 +165,7 @@ Reject if the prompt asks for review, comparison or item inspection and the outp
 
 ---
 
-### 5. No raw form fields
+### 6. No raw form fields
 
 - [ ] `CreateActionDialog` is used for standard action creation flows.
 - [ ] Forms use package form components when form fields are needed.
@@ -148,7 +178,7 @@ Reject if Make uses raw form controls instead of the package form system.
 
 ---
 
-### 6. Business patterns are used when available
+### 7. Business patterns are used when available
 
 - [ ] Business patterns are used when they match the section intent.
 - [ ] `CustomerStatusCard` is used for customer context when relevant.
@@ -165,7 +195,7 @@ Reject if a known business section is rebuilt manually while an approved pattern
 
 ---
 
-### 7. Alerts are actionable
+### 8. Alerts are actionable
 
 - [ ] `AlertCard` is used for important risks or blockers.
 - [ ] Every `AlertCard` has a severity.
@@ -178,7 +208,7 @@ Reject if an alert explains a problem but gives no recommendation.
 
 ---
 
-### 8. Actions are accountable
+### 9. Actions are accountable
 
 - [ ] `ActionRow` or `ActionCard` is used for assigned actions when relevant.
 - [ ] Every `ActionRow` has an owner.
@@ -193,7 +223,7 @@ Reject if actions are missing owner, due date or priority.
 
 ---
 
-### 9. Evidence is not invented
+### 10. Evidence is not invented
 
 - [ ] No invented source is presented as real.
 - [ ] No invented evidence is presented as real.
@@ -208,7 +238,7 @@ Reject if the screen creates false evidence or makes unsupported claims look val
 
 ---
 
-### 10. Proof and value are not overstated
+### 11. Proof and value are not overstated
 
 - [ ] Expected outcomes are not presented as proven value.
 - [ ] Internal proof is not presented as customer-ready proof without validation.
@@ -220,7 +250,7 @@ Reject if the screen makes weak, internal or expected proof look customer-ready.
 
 ---
 
-### 11. Asset and AI safety are respected when relevant
+### 12. Asset and AI safety are respected when relevant
 
 - [ ] Non-connected assets are not presented as live-monitored.
 - [ ] Partial visibility is not presented as complete asset knowledge.
@@ -250,6 +280,7 @@ prompts/workspace-v2.md
 repair-prompts/card-saturation.md
 repair-prompts/weak-layout.md
 repair-prompts/missing-detail-panel.md
+repair-prompts/invalid-props-or-local-visual-components.md
 review/anti-patterns.md
 ```
 
