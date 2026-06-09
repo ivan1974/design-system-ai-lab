@@ -1,644 +1,724 @@
 # Component audit roadmap
 
-This roadmap defines how to audit, update and evolve the design system
-components and business patterns so they correctly carry the documented
-knowledge, principles, composition rules and review criteria.
-
-It is a working document for the next phase of the demo: first align component
-and pattern documentation, then use the findings to decide which implementation
-changes are needed in the code.
-
----
-
 ## Purpose
 
-The knowledge, principles, composition guides and review documents are now
-aligned around a common model:
+This roadmap defines how to evolve the design system from a set of useful
+business cards into a true decision workspace system.
+
+The goal is not to remove cards.
+
+The goal is to stop using cards as the default answer to every business need.
+
+Target shift:
 
 ```txt
-Observed facts
-→ source scope and evidence strength
-→ interpreted signals
-→ evidence-aware recommendations
-→ owned actions
-→ expected outcome or proof status when relevant
-→ human validation when needed
+From: business-card design system
+To: decision workspace design system
 ```
 
-The next step is to verify whether each component and pattern can support this
-model without forcing Figma Make to invent local markup, bypass the package or
-hide important trust information.
-
-This audit should answer three questions:
-
-1. Does the documentation tell Figma Make how to use the component correctly?
-2. Does the component API support the trust, evidence and asset-intelligence
-   signals required by the documentation?
-3. Does the implementation need to evolve before the component can be considered
-   production-ready for these use cases?
-
----
-
-## Reference documents
-
-Use these files as the source of truth during the audit:
+A decision workspace must support:
 
 ```txt
-Guidelines.md
-setup.md
-knowledge/ux-insights.md
-knowledge/user-needs.md
-knowledge/design-implications.md
-knowledge/tested-patterns.md
-knowledge/open-questions.md
-knowledge/asset-intelligence.md
-principles/accessibility.md
-principles/ai-usage.md
-principles/eco-design.md
-principles/evidence-and-trust.md
-composition/overview.md
-composition/decision-layout.md
-composition/screen-patterns.md
-review/acceptance-checklist.md
-review/anti-patterns.md
-tokens.md
-styles.md
+exploration
+comparison
+drill-down
+dense operational review
+source and evidence checking
+recommendation review
+owned follow-through
 ```
 
 ---
 
-## Audit goals
+## Why this evolution is needed
 
-The audit should ensure that components and patterns:
+The current design system is strong on principles, tokens, business semantics,
+evidence discipline and Make governance.
 
-- support documented user needs when relevant
-- preserve evidence and trust-critical information
-- do not hide uncertainty, scope limits or proof gaps
-- distinguish observed facts from interpretation
-- distinguish raw Health facts from Intelligence interpretation
-- distinguish expected outcomes, technical outcomes, internal proof and
-  customer-ready proof
-- show asset scope, connectivity status, source scope and source strength when
-  they affect trust
-- avoid using confidence language as a substitute for source evidence
-- avoid presenting non-connected assets as live-monitored
-- avoid presenting expected outcomes as proven value
-- avoid using GenAI for structured retrieval or source facts
-- keep human validation visible for critical decisions
-- remain accessible, sober and eco-conscious
-- use package components instead of local wrappers or custom reconstructions
-
----
-
-## Audit method
-
-Audit each component or pattern with the same grid.
-
-### 1. Current role
-
-Document what the component currently does.
-
-Questions:
-
-- What decision or interaction does it support?
-- Is it a primitive, decision component or business pattern?
-- Is it used directly by Figma Make or mostly through higher-level patterns?
-
-### 2. Knowledge alignment
-
-Identify which knowledge files are relevant.
-
-Questions:
-
-- Does the component support a documented user need?
-- Does it support asset intelligence, value proof, renewal risk, monitoring,
-  action ownership or customer communication?
-- Does it need to reflect open questions or demo-only assumptions?
-
-### 3. Trust signals
-
-Identify what trust-critical information the component should be able to carry.
-
-Possible signals:
+However, many decision and pattern components still encourage generated screens
+like this:
 
 ```txt
-source
-freshness
-source scope
-source strength
-asset scope
-connectivity status
-partial visibility
-validation status
-proof status
-owner
-due date
-priority
-affected scope
-human validation
-```
-
-### 4. Asset-heavy behavior
-
-Define whether the component has specific asset-intelligence responsibilities.
-
-Check whether it should support:
-
-```txt
-asset hierarchy
-site, zone, room or asset group
-connected assets
-partially connected assets
-non-connected assets
-raw Health facts
-lifecycle facts
-Intelligence interpretation
-expected outcomes
-technical outcomes
-internal proof
-customer-ready proof
-```
-
-### 5. AI usage constraints
-
-Check whether the component could encourage wrong AI usage.
-
-Do not use GenAI for:
-
-```txt
-basic retrieval
-counts
-statuses
-dates
-owners
-asset hierarchy
-telemetry values
-connectivity status
-lifecycle status
-source scope
-source strength
-proof source facts
-```
-
-Use GenAI only for:
-
-```txt
-synthesis
-explanation
-prioritization
-recommendation
-proof gap explanation
-grounded action-plan drafting
-customer-ready reformulation from grounded facts
-```
-
-### 6. Documentation gaps
-
-Identify missing documentation sections.
-
-Typical missing sections:
-
-- Knowledge alignment
-- Evidence and trust rules
-- Asset-heavy behavior
-- AI usage constraints
-- Anti-patterns
-- Review checklist
-- Example with incomplete data
-- Example with proof gap
-
-### 7. Code gaps
-
-Identify whether current props and implementation are enough.
-
-Questions:
-
-- Are required trust signals available as props?
-- Are optional props typed clearly enough?
-- Does the component make important states visible by default?
-- Does it rely too much on free-text content?
-- Would Figma Make need to build local markup to express the required state?
-- Are examples and stories needed to guide generation?
-
-### 8. Priority decision
-
-Classify the component or pattern.
-
-```txt
-P0 — Must fix before relying on the component for asset intelligence or value proof
-P1 — Important alignment improvement
-P2 — Documentation or usage-rule cleanup
-P3 — No immediate change needed
-```
-
----
-
-## Audit matrix template
-
-Use this matrix while reviewing each component or pattern.
-
-| Item | Type | Current role | Trust signals needed | Asset-heavy impact | Documentation update | Code update | Priority |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| ComponentName | Simple / Decision / Pattern | TBD | TBD | TBD | Yes / No | Yes / No | P0 / P1 / P2 / P3 |
-
----
-
-## Phase 1 — Audit simple components
-
-Simple components should not carry complex business logic, but they must not
-contradict the principles.
-
-Primary focus:
-
-- accessibility
-- clear labels
-- no status by color alone
-- no decorative complexity
-- no false confidence through style
-- no local wrappers
-- correct use inside decision components and patterns
-
-Components to audit:
-
-```txt
-Badge
-Button
+PageHeader
 Card
-Dialog
-Field
-Input
-Label
-Select
-Textarea
-```
-
-Expected documentation updates:
-
-- clarify when the component is safe to use directly
-- clarify when a decision component or pattern should be preferred
-- add trust-sensitive examples for `Badge`, `Card` and `Dialog`
-- add anti-patterns for color-only status or over-generic containers
-
-Expected code updates:
-
-- likely low
-- possible examples or stories updates
-- possible accessibility or label improvements if gaps are found
-
-Priority estimate:
-
-```txt
-P1 — Badge, Dialog, Card
-P2 — Button, Field, Input, Label, Select, Textarea
-```
-
----
-
-## Phase 2 — Audit decision components
-
-Decision components carry the screen logic from facts to action.
-
-Primary focus:
-
-- visible facts before interpretation
-- evidence-aware recommendations
-- trust and source cues
-- ownership and follow-through
-- no unsupported alerts or actions
-- no hidden uncertainty
-
-Components to audit:
-
-```txt
-MetricCard
-MetricGrid
-AlertCard
-PriorityList
-ActionCard
+Card
+Card
+Card
 ActionList
-SectionHeader
-StatusSummary
 ```
 
-Expected documentation updates:
-
-- add evidence and trust rules
-- add asset-heavy behavior when relevant
-- add AI usage constraints
-- add anti-patterns and review criteria
-- clarify how each component participates in the decision flow
-
-Expected code updates:
-
-- likely medium
-- possible props for source, freshness, source scope, source strength,
-  affected scope, recommendation, evidence and validation state
-- possible examples or stories for proof gaps and partial visibility
-
-Priority estimate:
+That structure is safe, but it is not enough for operational workflows such as:
 
 ```txt
-P0 — MetricCard, AlertCard, ActionCard
-P1 — StatusSummary, MetricGrid, PriorityList, ActionList
-P2 — SectionHeader
+installed base review
+asset intelligence review
+recommendation validation
+renewal risk queue
+customer review preparation
+service action follow-up
 ```
 
----
-
-## Phase 3 — Audit business patterns
-
-Business patterns should encode the most important knowledge and prevent generic
-screens.
-
-Primary focus:
-
-- asset intelligence
-- monitoring coverage
-- renewal risk
-- customer-ready value proof
-- action creation
-- trust and proof discipline
-
-Patterns to audit:
+The uploaded installed-base prototype shows useful interaction patterns that the
+current design system does not yet support well:
 
 ```txt
-CustomerStatusCard
-ConnectivityCoverageCard
-RenewalRiskSummary
-ValueProofCard
-CreateActionDialog
+asset list + detail panel
+filter bar + filter panel
+right-side detail drawer
+detail tabs
+sticky action footer
+compact facts
+semantic tags
+status pills
+component hierarchy
+timeline
+document rows
+peer benchmark detail
+intelligence explanation
 ```
 
-Expected documentation updates:
+The prototype is a good UX reference, not an implementation model.
 
-- add knowledge alignment
-- add asset intelligence behavior
-- add proof discipline
-- add AI usage constraints
-- add review checklist
-- add examples for partial, incomplete and customer-ready states
-
-Expected code updates:
-
-- likely medium to high
-- possible new props for asset scope, source scope, source strength,
-  partially connected assets, proof status, proof gaps, expected outcomes,
-  technical outcomes, internal proof and customer-ready proof
-- possible stricter TypeScript types
-- possible example and story additions
-
-Priority estimate:
+It also contains design-system anti-patterns that should not be copied:
 
 ```txt
-P0 — ConnectivityCoverageCard, ValueProofCard
-P1 — CustomerStatusCard, RenewalRiskSummary, CreateActionDialog
+inline styles
+local tokens
+arbitrary colors
+raw HTML controls
+onclick handlers
+local CSS classes
+emoji icons as system icons
+animated pulse / blink effects
+strong benchmark claims without explicit proof governance
+confidence labels that need source evidence and validation rules
 ```
 
 ---
 
-## Component-specific audit focus
+## Design direction
 
-### Badge
-
-Check whether badge documentation supports clear trust labels such as:
+The new system should follow this rule:
 
 ```txt
-Partially connected
-Expected outcome, not proven
-Technical outcome, not customer-ready proof
-Internal proof, not customer-ready
-Source strength: partial
+Use cards for emphasis.
+Use rows for facts.
+Use panels for context.
+Use layouts for decision flow.
+Use sticky actions for follow-through.
 ```
 
-Do not rely on tone alone.
-
-### MetricCard
-
-Check whether `MetricCard` can show:
+Cards should remain available for:
 
 ```txt
-source
-freshness
-source scope
-source strength
-helper text
-trend context
-validation status
-partial visibility
+high-priority summaries
+risk emphasis
+proof blocks
+recommendation details
+customer-ready review modules
 ```
 
-Avoid metrics that sound precise but are not grounded in source evidence.
-
-### AlertCard
-
-Check whether `AlertCard` supports:
+But cards should not be the default primitive for:
 
 ```txt
-visible fact
-interpreted signal
-affected scope
-recommendation
-evidence or source context
-severity
-human validation when needed
+every fact
+every metric
+every source cue
+every action
+every document
+every timeline item
+every detail section
 ```
 
-Asset alerts should include enough asset, source or connectivity context to make
-the recommendation reviewable.
+---
 
-### ActionCard
+## Audit lens
 
-Check whether `ActionCard` supports:
+Audit each component with the same question:
 
 ```txt
-owner
-due date
+Does this component help the user decide, verify, compare, drill down or act?
+```
+
+For each component or pattern, evaluate:
+
+```txt
+current role
+current abstraction level
+card dependency
+workspace compatibility
+drawer compatibility
+dense layout compatibility
+source and evidence support
+asset-intelligence support
+actionability
+Figma Make risk
+recommended evolution
 priority
-status
-affected scope
-asset context
-handoff context
-validation state
 ```
-
-Asset-related actions should include site, zone, room, asset group or asset
-context when needed for follow-through.
-
-### StatusSummary
-
-Check whether `StatusSummary` avoids hiding partial visibility behind a single
-overconfident status.
-
-It should be able to show uncertainty, scope limits and proof status when they
-affect the decision.
-
-### CustomerStatusCard
-
-Check whether `CustomerStatusCard` can show:
-
-```txt
-customer or account context
-plan or contract status
-owner
-coverage status
-asset scope
-connectivity status
-source scope
-source strength
-trust status
-renewal timing
-```
-
-It should not imply full operational visibility when only monitored assets are
-represented.
-
-### ConnectivityCoverageCard
-
-Check whether `ConnectivityCoverageCard` can show:
-
-```txt
-connected assets
-partially connected assets
-non-connected assets
-disconnected critical assets
-coverage rate
-affected scope
-source scope
-source strength
-freshness
-monitoring status
-```
-
-This is likely a P0 pattern for code evolution.
-
-### RenewalRiskSummary
-
-Check whether `RenewalRiskSummary` can show:
-
-```txt
-risk reason
-risk signal
-proof gap
-mitigation action
-owner
-source evidence
-expected outcome
-customer-ready proof status
-```
-
-It must not use confidence language as a substitute for source evidence.
-
-### ValueProofCard
-
-Check whether `ValueProofCard` can distinguish:
-
-```txt
-expected outcome
-technical outcome
-internal proof
-customer-ready proof
-proof gap
-source evidence
-proof freshness
-validation status
-```
-
-This is likely a P0 pattern for code evolution.
-
-### CreateActionDialog
-
-Check whether `CreateActionDialog` keeps human ownership visible and supports
-critical decision safeguards.
-
-For asset-related actions, check whether the action can include site, zone, room,
-asset group or asset context.
 
 ---
 
-## Documentation update standard
-
-Each component or pattern documentation should include, when relevant:
+## Priority definitions
 
 ```txt
-Purpose
-When to use
-When not to use
-Knowledge alignment
-Evidence and trust rules
-Asset-heavy behavior
-AI usage constraints
-Accessibility notes
-Eco-design notes
-Anti-patterns
-Review checklist
-Example usage
+P0 — Needed before decision workspace generation can be reliable
+P1 — Important for the first workspace examples
+P2 — Useful refinement after core layouts and compact components exist
+P3 — Keep as-is for now
 ```
 
-For simple components, keep the documentation lightweight and avoid forcing
-business logic into primitives.
+---
 
-For decision components and patterns, make trust and decision responsibility
-explicit.
+# Phase A — Audit current components
+
+## Objective
+
+Create a clear map of what to keep, refactor, split, create or deprecate.
+
+This phase should not produce code first.
+
+It should produce an implementation map.
 
 ---
 
-## Code evolution decision rules
+## Audit matrix
 
-Do not change component code until documentation gaps are clear.
+Use this matrix while reviewing each component.
 
-Change the code when:
-
-- required trust signals cannot be expressed with existing props
-- required states depend on free-text workarounds
-- Figma Make would need local wrappers to represent the right structure
-- source scope, source strength or proof status cannot be shown clearly
-- asset-heavy states cannot be represented without ambiguity
-- expected outcomes, technical outcomes, internal proof and customer-ready proof
-  cannot be distinguished
-- human validation or action ownership cannot be represented
-
-Do not change the code when:
-
-- documentation can solve the issue through usage rules
-- the component is a primitive and the responsibility belongs to a higher-level
-  decision component or pattern
-- the state can be expressed safely through existing typed props and examples
+| Item | Type | Current role | Current issue | Workspace need | Decision | Priority |
+| --- | --- | --- | --- | --- | --- | --- |
+| ComponentName | Base / Form / Decision / Pattern / Composition | TBD | TBD | TBD | Keep / Refactor / Split / Create / Deprecate | P0 / P1 / P2 / P3 |
 
 ---
 
-## Implementation backlog template
+## Initial audit map
 
-After documentation audit, create a code backlog with this format:
+### Keep
 
-| Item | Gap | Proposed change | Breaking? | Priority | Notes |
-| --- | --- | --- | --- | --- | --- |
-| ConnectivityCoverageCard | Missing partially connected state | Add optional `partiallyConnectedAssets` prop | No | P0 | Required for asset intelligence demo |
-| ValueProofCard | Proof states collapsed | Add explicit proof state props | Maybe | P0 | Needs type review |
+These components remain useful and should mostly keep their current role.
+
+| Item | Type | Rationale | Priority |
+| --- | --- | --- | --- |
+| Button | Base | Still needed for actions, but hierarchy must remain sober. | P3 |
+| Dialog | Base | Useful for action creation and confirmation flows. | P2 |
+| Field | Form | Needed to avoid raw form controls. | P3 |
+| Input | Form | Needed for structured forms. | P3 |
+| Label | Form | Needed for accessibility. | P3 |
+| Select | Form | Needed for controlled choices. | P3 |
+| Textarea | Form | Needed for notes and rationale. | P3 |
+| MetricGrid | Decision | Useful for small metric groups, but should not be the only layout option. | P2 |
+| PriorityList | Decision | Useful for blockers and risks. | P2 |
+| ActionList | Decision | Useful when actions are presented as cards. | P2 |
 
 ---
 
-## Acceptance criteria for the audit phase
+### Refactor
 
-The audit phase is complete when:
+These components are useful but need to become less card-centric or more
+workspace-compatible.
 
-- every simple component has been reviewed
-- every decision component has been reviewed
-- every business pattern has been reviewed
-- each item has a documented priority
-- each item has a documentation decision
-- each item has a code decision
-- P0 code gaps are identified clearly
-- no component documentation contradicts the knowledge layer or principles
-- no pattern encourages hidden uncertainty, fake proof or overconfident AI usage
+| Item | Type | Current issue | Recommended evolution | Priority |
+| --- | --- | --- | --- | --- |
+| Card | Base | Overused as generic container. | Clarify when to use cards for emphasis, not as default layout primitive. | P0 |
+| Badge | Base | Carries too many meanings. | Split stable attributes and dynamic status into SemanticTag / StatusPill. | P0 |
+| MetricCard | Decision | Too large for dense telemetry or secondary signals. | Keep for primary KPIs; add CompactMetric / MetricStrip for dense signals. | P0 |
+| AlertCard | Decision | Useful but often card-heavy. | Keep for priority risks; add AlertRow or RiskRow later if needed. | P1 |
+| ActionCard | Decision | Useful but not always appropriate for dense action lists. | Keep for major actions; add ActionRow for compact workflows. | P1 |
+| RecommendationCard | Decision | Useful but can become too large in review flows. | Add compact row variant or RecommendationRow. | P1 |
+| StatusSummary | Decision | Can hide partial visibility behind one status. | Add visible scope, source strength and uncertainty patterns. | P1 |
+| SectionHeader | Decision | Useful but too weak for workspace sections. | Align with SectionStack and panel sections. | P2 |
+
+---
+
+### Split or modularize
+
+These business patterns should become composable workspace sections rather than
+single large cards.
+
+| Item | Current issue | Proposed split | Priority |
+| --- | --- | --- | --- |
+| CustomerStatusCard | Too card-centric for drawer and compact context. | CustomerContextBar, CustomerStatusSummary, CustomerScopeFacts. | P1 |
+| ConnectivityCoverageCard | Useful but should support compact coverage review. | CoverageSummary, ConnectivityBreakdown, MonitoringScopeNotice. | P1 |
+| RenewalRiskSummary | Strong concept but locked into summary card behavior. | RenewalContextSummary, RenewalBlockerList, ProofGapSummary. | P2 |
+| ValueProofCard | Needs clearer proof taxonomy. | ValueProofSummary, ProofPointList, ProofGapNotice, ExpectedOutcomeNotice. | P1 |
+| CustomerReviewReadinessCard | Useful but should fit drawer/QBR workspace. | ReviewReadinessSummary, ReadinessChecklist, ReviewBlockerList. | P2 |
+| AssetIntelligenceSummary | Needs hierarchy, signals and interpretation separation. | AssetScopeHeader, HealthSignalGroup, IntelligenceInterpretationBlock, SourceQualityBlock, ValidationNotice. | P0 |
+| ServiceRiskSummary | Useful but too summary-heavy. | RiskSummaryBlock, AffectedScopeBlock, ServiceImpactBlock, ValidationNotice. | P1 |
+| RecommendationReviewPanel | Important but should support compact review. | RecommendationSetHeader, RecommendationList, RecommendationRow, EvidenceSummary, ValidationStatus. | P0 |
+
+---
+
+### Create
+
+These are the missing components needed to support decision workspace generation.
+
+#### Composition layouts
+
+| Item | Role | Priority |
+| --- | --- | --- |
+| WorkspaceShell | Page-level shell for dense operational screens. | P1 |
+| MasterDetailLayout | Main list/table plus detail area. | P0 |
+| DetailPanel | Right-side detail container. | P0 |
+| DetailPanelHeader | Contextual header for selected item. | P0 |
+| DetailPanelTabs | Tabs for overview, health, intelligence, history, documents. | P0 |
+| DetailPanelBody | Scrollable content area. | P0 |
+| DetailPanelFooter | Sticky action area. | P0 |
+| StickyActionBar | Persistent contextual actions. | P0 |
+| FilterBar | Quick filters above a list or table. | P1 |
+| FilterPanel | Extended filter panel. | P1 |
+| SectionStack | Vertical stack of sections without card saturation. | P0 |
+| TwoColumnLayout | Detail page with primary and secondary columns. | P1 |
+
+#### Compact components
+
+| Item | Role | Priority |
+| --- | --- | --- |
+| KeyValueList | Compact fact display. | P0 |
+| KeyValueRow | Single fact row. | P0 |
+| CompactMetric | Small metric for dense telemetry or secondary signals. | P0 |
+| MetricStrip | Horizontal or grid group of compact metrics. | P0 |
+| SemanticTag | Stable attribute: asset family, offer, DPP, cohort. | P0 |
+| StatusPill | Dynamic status: critical, live, non-connected, review needed. | P0 |
+| PriorityPill | Action or recommendation priority. | P1 |
+| SourceStrengthPill | Source quality or evidence strength. | P1 |
+| EvidenceRow | Compact evidence item. | P1 |
+| SignalRow | Compact observed signal. | P1 |
+| ActionRow | Compact owned action. | P1 |
+| DocumentRow | Downloadable or linked document row. | P1 |
+| Timeline | History container. | P1 |
+| TimelineItem | Maintenance, alert, install or service event. | P1 |
+| ComponentHierarchy | Asset-to-component hierarchy. | P0 |
+| ComponentHierarchyItem | One row in a component hierarchy. | P0 |
+
+#### Business workspace patterns
+
+| Item | Role | Priority |
+| --- | --- | --- |
+| InstalledBaseExplorer | Workspace example/pattern for asset list + detail. | P1 |
+| AssetDetailPanel | Detail panel pattern for selected asset. | P0 |
+| AssetHealthOverview | Health section using compact metrics and source cues. | P0 |
+| PeerBenchmarkPanel | Explainable benchmark section with source and validation cues. | P1 |
+| ServiceHistoryTimeline | Maintenance and alert history pattern. | P1 |
+| DocumentList | Document grouping pattern. | P2 |
+| RecommendationSet | Compact recommendation review pattern. | P1 |
+
+---
+
+### Deprecate or discourage
+
+These should not necessarily be removed, but should be discouraged in Make
+generation unless explicitly needed.
+
+| Item / Usage | Reason | Replacement |
+| --- | --- | --- |
+| Generic full-width card stack | Encourages dashboard-like screens. | MasterDetailLayout, SectionStack, TwoColumnLayout. |
+| Card used for every fact | Creates card saturation. | KeyValueList, EvidenceRow, SignalRow. |
+| MetricCard for every signal | Makes dense telemetry too heavy. | CompactMetric, MetricStrip. |
+| Badge used for every semantic role | Mixes stable attributes, status and priority. | SemanticTag, StatusPill, PriorityPill. |
+| Large business pattern for every drawer section | Makes drawers too heavy. | Compact sections and pattern subcomponents. |
+
+---
+
+# Phase B — Create workspace composition layouts
+
+## Objective
+
+Make `composition/` strong enough to produce list + detail, drawer, tabs and
+action-footer workspaces.
+
+## Build order
+
+```txt
+1. MasterDetailLayout
+2. DetailPanel
+3. DetailPanelHeader
+4. DetailPanelTabs
+5. DetailPanelBody
+6. DetailPanelFooter
+7. StickyActionBar
+8. SectionStack
+9. FilterBar
+10. TwoColumnLayout
+```
+
+## Expected files
+
+```txt
+src/design-system/composition/master-detail-layout.tsx
+src/design-system/composition/detail-panel.tsx
+src/design-system/composition/detail-panel-tabs.tsx
+src/design-system/composition/sticky-action-bar.tsx
+src/design-system/composition/section-stack.tsx
+src/design-system/composition/filter-bar.tsx
+src/design-system/composition/two-column-layout.tsx
+```
+
+## Storybook examples
+
+```txt
+Default
+With selected item
+With empty detail
+With filters
+With sticky action bar
+Asset review workspace
+Renewal queue workspace
+```
+
+## Acceptance criteria
+
+```txt
+A generated screen can show a dense list and a detail area without relying on a one-column stack of cards.
+The detail area can include tabs and a sticky action footer.
+The layout remains usable with partial data and empty states.
+```
+
+---
+
+# Phase C — Create compact components
+
+## Objective
+
+Give designers and Make smaller building blocks for dense, evidence-aware
+business information.
+
+## Build order
+
+```txt
+1. KeyValueList / KeyValueRow
+2. SemanticTag
+3. StatusPill
+4. CompactMetric / MetricStrip
+5. SourceStrengthPill
+6. EvidenceRow
+7. SignalRow
+8. ActionRow
+9. Timeline / TimelineItem
+10. DocumentRow
+11. ComponentHierarchy / ComponentHierarchyItem
+```
+
+## Key semantic split
+
+```txt
+SemanticTag = stable attribute
+StatusPill = dynamic status
+PriorityPill = action or recommendation urgency
+SourceStrengthPill = quality of evidence or source
+```
+
+Examples:
+
+```txt
+SemanticTag: MV Switchgear, UPS, EcoCare Advanced, DPP Enabled
+StatusPill: Critical, Live monitored, Non-connected, Review needed
+PriorityPill: High priority, Medium priority
+SourceStrengthPill: Source strength: partial, Internal proof, Customer-ready
+```
+
+## Acceptance criteria
+
+```txt
+A workspace can show facts, signals, source cues, actions and timeline events without wrapping every item in a Card.
+Color is never the only carrier of status.
+Source and validation states remain visible when trust matters.
+```
+
+---
+
+# Phase D — Refactor card-centric business patterns
+
+## Objective
+
+Make business patterns modular, dense and compatible with workspace layouts.
+
+## Refactor order
+
+```txt
+1. AssetIntelligenceSummary
+2. RecommendationReviewPanel
+3. ServiceRiskSummary
+4. ValueProofCard
+5. CustomerStatusCard
+6. ConnectivityCoverageCard
+7. RenewalRiskSummary
+8. CustomerReviewReadinessCard
+```
+
+## Required pattern capabilities
+
+Each refactored pattern should support:
+
+```txt
+comfortable usage in pages
+compact usage in drawers
+facts before interpretation
+source scope when trust matters
+source strength when evidence is partial
+freshness when timing matters
+validation status before customer use
+owned actions when follow-through is required
+```
+
+## Pattern modes
+
+Where useful, add:
+
+```txt
+variant="card" | "section" | "compact"
+density="comfortable" | "compact"
+```
+
+Only add variants when the visual difference is meaningful and maintainable.
+
+Do not create variants just to solve one demo screen.
+
+---
+
+# Phase E — Update golden examples
+
+## Objective
+
+Teach Figma Make the new decision workspace standard.
+
+## Update order
+
+```txt
+1. asset-recommendation-review.App.tsx
+2. customer-monitoring.App.tsx
+3. renewal-risk-review.App.tsx
+4. qbr-readiness.App.tsx
+5. optional installed-base-explorer.App.tsx
+```
+
+## New golden standard
+
+Golden examples should show:
+
+```txt
+workspace layouts
+list + detail when useful
+compact sections
+less full-width card stacking
+tabs or drill-down when relevant
+sticky actions for follow-through
+facts before interpretation
+source cues and validation state
+semantic tags vs status pills
+actions connected to risks or recommendations
+```
+
+---
+
+# Phase F — Update Make guidelines
+
+## Objective
+
+Make sure Figma Make understands the new design-system vocabulary.
+
+## Files to update
+
+```txt
+guidelines/Guidelines.md
+guidelines/setup.md
+guidelines/tokens.md
+guidelines/styles.md
+guidelines/prompts/*.md
+guidelines/examples/golden/README.md
+guidelines/review/blocking-checklist.md
+guidelines/review/quality-checklist.md
+guidelines/review/anti-patterns.md
+guidelines/repair-prompts/*.md
+tests/generation-rules/*
+```
+
+## New guideline principle
+
+Add this principle to `Guidelines.md` and `styles.md`:
+
+```txt
+Do not default to a vertical stack of business cards.
+Use workspace layouts when the user needs to review, compare, drill down or act across multiple items.
+Prefer master-detail layouts for asset, customer, recommendation or risk review flows.
+Use compact components for secondary facts, evidence, source context and history.
+Use cards only when a section needs visual containment or prioritization.
+```
+
+## Prompt updates
+
+Prompts should instruct Make to:
+
+```txt
+use MasterDetailLayout when reviewing multiple assets, customers, risks or recommendations
+use DetailPanel for selected item review
+use SectionStack instead of repeated Card sections
+use KeyValueList for facts
+use CompactMetric / MetricStrip for dense signals
+use SemanticTag for stable attributes
+use StatusPill for dynamic states
+use StickyActionBar for persistent contextual actions
+avoid one-column card stacks when the screen intent is exploratory or review-heavy
+```
+
+## Review checklist updates
+
+Add to blocking review:
+
+```txt
+Reject if Make creates a generic one-column card stack when the prompt asks for a workspace, list-detail view or drill-down flow.
+```
+
+Add to quality review:
+
+```txt
+Cards are used intentionally, not by default.
+Layout supports comparison, drill-down and action.
+Compact components reduce repetition and improve scanability.
+```
+
+## Repair prompt updates
+
+Create later:
+
+```txt
+repair-prompts/card-saturation.md
+repair-prompts/weak-workspace-layout.md
+repair-prompts/missing-detail-panel.md
+```
+
+---
+
+# Sprint plan
+
+## Sprint 1 — Audit and target architecture
+
+```txt
+1. Refocus component-audit-roadmap.md on decision workspace evolution.
+2. Audit current components and classify Keep / Refactor / Split / Create.
+3. Confirm build order for composition and compact components.
+4. Identify first screen to rebuild as workspace.
+```
+
+Deliverable:
+
+```txt
+component-audit-roadmap.md becomes the implementation map for the next design-system evolution.
+```
+
+## Sprint 2 — Workspace layouts
+
+```txt
+1. Build MasterDetailLayout.
+2. Build DetailPanel family.
+3. Build StickyActionBar.
+4. Build SectionStack.
+5. Add composition stories.
+```
+
+Deliverable:
+
+```txt
+The design system can generate a non-card-stack workspace.
+```
+
+## Sprint 3 — Compact components
+
+```txt
+1. Build KeyValueList.
+2. Build SemanticTag and StatusPill.
+3. Build CompactMetric and MetricStrip.
+4. Build ComponentHierarchy.
+5. Build Timeline.
+```
+
+Deliverable:
+
+```txt
+The design system can express dense operational information without card saturation.
+```
+
+## Sprint 4 — Asset intelligence workspace
+
+```txt
+1. Refactor AssetIntelligenceSummary.
+2. Refactor RecommendationReviewPanel.
+3. Create AssetDetailPanel pattern.
+4. Create updated asset-recommendation golden example.
+```
+
+Deliverable:
+
+```txt
+The first decision workspace is available and teachable to Make.
+```
+
+## Sprint 5 — Make kit v2
+
+```txt
+1. Update Guidelines.md with decision workspace principle.
+2. Update setup.md with new public API.
+3. Update styles.md with card saturation rules.
+4. Update prompts and golden examples.
+5. Add repair prompts for card saturation and weak workspace layout.
+```
+
+Deliverable:
+
+```txt
+Figma Make can generate decision workspaces, not only card-based dashboards.
+```
+
+---
+
+# Real build priority
+
+Start with this order:
+
+```txt
+1. MasterDetailLayout
+2. DetailPanel + tabs + sticky footer
+3. SectionStack
+4. KeyValueList
+5. SemanticTag / StatusPill
+6. CompactMetric / MetricStrip
+7. ComponentHierarchy
+8. Timeline
+9. AssetIntelligenceSummary refactor
+10. RecommendationReviewPanel refactor
+11. Asset recommendation golden v2
+12. Guidelines Make v2
+```
+
+This order reflects the real UX need shown by the prototype:
+
+```txt
+exploration first
+drill-down second
+dense facts third
+business patterns fourth
+Make documentation last
+```
 
 ---
 
 ## Final principle
 
-Component documentation should make the right generated screen easier than the
-wrong one.
+The next design-system evolution should not add more large business cards.
 
-If a component or pattern cannot help Figma Make preserve evidence, trust,
-source context, asset visibility, action ownership and proof discipline, revise
-its documentation first, then evolve its implementation only where the documented
-contract cannot be supported by the existing code.
+It should add the missing workspace grammar:
+
+```txt
+workspace
+panel
+section
+row
+pill
+tag
+compact metric
+timeline
+hierarchy
+sticky action
+```
+
+That is the foundation for a real decision workspace system.
