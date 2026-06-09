@@ -14,7 +14,7 @@ export const StickyActionBar = forwardRef<HTMLDivElement, StickyActionBarProps>(
         ref={ref}
         className={[
           "sticky bottom-0 z-10 border-t border-(--ec-color-border)",
-          "bg-(--ec-color-surface)/95 px-4 py-3 backdrop-blur-sm",
+          "bg-(--ec-color-surface) px-4 py-3",
           className,
         ].join(" ")}
         {...props}
