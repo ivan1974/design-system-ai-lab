@@ -1,10 +1,12 @@
 import { forwardRef } from "react";
 import type { HTMLAttributes } from "react";
-import { StatusSummary } from "../decision/status-summary";
-import type {
-  StatusSummaryBadge,
-  StatusSummaryItem,
-} from "../decision/status-summary";
+import { Card } from "../components/card";
+import { KeyValueList, KeyValueRow } from "../components/key-value-list";
+import { SectionBlock, SectionStack } from "../composition/section-stack";
+import { SemanticTag } from "../decision/semantic-tag";
+import type { StatusSummaryBadge, StatusSummaryItem } from "../decision/status-summary";
+
+export type CustomerStatusCardMode = "card" | "section" | "compact";
 
 export type CustomerStatusCardProps = Omit<
   HTMLAttributes<HTMLElement>,
@@ -25,6 +27,7 @@ export type CustomerStatusCardProps = Omit<
   badges?: StatusSummaryBadge[];
   extraItems?: StatusSummaryItem[];
   title?: string;
+  mode?: CustomerStatusCardMode;
 };
 
 export const CustomerStatusCard = forwardRef<
@@ -48,44 +51,60 @@ export const CustomerStatusCard = forwardRef<
       badges = [],
       extraItems = [],
       title = "Customer status",
+      mode = "card",
+      className = "",
       ...props
     },
     ref,
   ) => {
-    const items: StatusSummaryItem[] = [
-      { label: "Customer", value: customerName },
-      ...(plan ? [{ label: "Plan", value: plan }] : []),
-      ...(contract ? [{ label: "Contract", value: contract }] : []),
-      ...(csm ? [{ label: "CSM", value: csm }] : []),
-      ...(renewalDate ? [{ label: "Renewal date", value: renewalDate }] : []),
-      ...(assetsCovered
-        ? [{ label: "Assets covered", value: assetsCovered }]
-        : []),
-      ...(coverage ? [{ label: "Coverage", value: coverage }] : []),
-      ...(customerObjective
-        ? [{ label: "Customer objective", value: customerObjective }]
-        : []),
-      ...(sourceContext
-        ? [{ label: "Source context", value: sourceContext }]
-        : []),
-      ...(validationStatus
-        ? [{ label: "Validation status", value: validationStatus }]
-        : []),
-      ...(proofReadiness
-        ? [{ label: "Proof readiness", value: proofReadiness }]
-        : []),
-      ...extraItems,
-    ];
+    const content = (
+      <SectionStack gap="sm">
+        {badges.length > 0 && (
+          <div className="flex flex-wrap gap-2">
+            {badges.map((badge) => (
+              <SemanticTag key={badge.label} tone={badge.tone ?? "neutral"}>{badge.label}</SemanticTag>
+            ))}
+          </div>
+        )}
+        <SectionBlock title="Customer context">
+          <KeyValueList columns={mode === "compact" ? 2 : 3}>
+            <KeyValueRow label="Customer" value={customerName} />
+            {plan && <KeyValueRow label="Plan" value={plan} />}
+            {contract && <KeyValueRow label="Contract" value={contract} />}
+            {csm && <KeyValueRow label="CSM" value={csm} />}
+            {renewalDate && <KeyValueRow label="Renewal date" value={renewalDate} />}
+            {assetsCovered && <KeyValueRow label="Assets covered" value={assetsCovered} />}
+            {coverage && <KeyValueRow label="Coverage" value={coverage} />}
+            {customerObjective && <KeyValueRow label="Customer objective" value={customerObjective} />}
+            {sourceContext && <KeyValueRow label="Source context" value={sourceContext} />}
+            {validationStatus && <KeyValueRow label="Validation" value={validationStatus} />}
+            {proofReadiness && <KeyValueRow label="Proof readiness" value={proofReadiness} />}
+            {extraItems.map((item) => (
+              <KeyValueRow key={item.label} label={item.label} value={item.value} />
+            ))}
+          </KeyValueList>
+        </SectionBlock>
+      </SectionStack>
+    );
+
+    if (mode === "card") {
+      return (
+        <Card ref={ref} title={title} description={description} className={className} {...props}>
+          {content}
+        </Card>
+      );
+    }
 
     return (
-      <StatusSummary
-        ref={ref}
-        title={title}
-        description={description}
-        badges={badges}
-        items={items}
-        {...props}
-      />
+      <section ref={ref} className={className} {...props}>
+        {mode !== "compact" && (
+          <header className="mb-4">
+            <h2 className="text-sm font-semibold text-(--ec-color-text-primary)">{title}</h2>
+            {description && <p className="mt-1 text-sm text-(--ec-color-text-secondary)">{description}</p>}
+          </header>
+        )}
+        {content}
+      </section>
     );
   },
 );
