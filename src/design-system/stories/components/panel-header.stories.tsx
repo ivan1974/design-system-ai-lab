@@ -4,9 +4,8 @@ import { Button, PanelHeader, StatusPill } from "../../index";
 
 const meta = {
   title: "Design System/Components/PanelHeader",
-  component: PanelHeader,
   parameters: { layout: "padded" },
-} satisfies Meta<typeof PanelHeader>;
+} satisfies Meta;
 
 export default meta;
 
