@@ -15,6 +15,20 @@ export type TextProps = HTMLAttributes<HTMLParagraphElement> & {
   variant?: "body" | "muted" | "caption";
 };
 
+export type PageHeadingProps = HTMLAttributes<HTMLElement> & {
+  title: string;
+  description?: string;
+  eyebrow?: ReactNode;
+  actions?: ReactNode;
+};
+
+export type SectionHeadingProps = HTMLAttributes<HTMLElement> & {
+  title: string;
+  description?: string;
+  eyebrow?: ReactNode;
+  actions?: ReactNode;
+};
+
 const headingSizeClasses: Record<HeadingSize, string> = {
   page: "text-[length:var(--ec-title-page-size)] leading-[var(--ec-title-page-line-height)] tracking-(--ec-letter-spacing-tight) font-semibold",
   section: "text-[length:var(--ec-title-section-size)] leading-[var(--ec-title-section-line-height)] tracking-(--ec-letter-spacing-tight) font-semibold",
@@ -68,5 +82,51 @@ export const Text = forwardRef<HTMLParagraphElement, TextProps>(
   },
 );
 
+export const PageHeading = forwardRef<HTMLElement, PageHeadingProps>(
+  ({ title, description, eyebrow, actions, className = "", ...props }, ref) => {
+    return (
+      <header
+        ref={ref}
+        className={[
+          "flex flex-col gap-6 md:flex-row md:items-start md:justify-between",
+          className,
+        ].join(" ")}
+        {...props}
+      >
+        <div className="min-w-0 space-y-3">
+          {eyebrow && <div className="text-[length:var(--ec-text-caption-size)] font-medium uppercase tracking-[0.08em] text-(--ec-color-primary)">{eyebrow}</div>}
+          <Heading level={1} size="page">{title}</Heading>
+          {description && <Text className="max-w-3xl">{description}</Text>}
+        </div>
+        {actions && <div className="flex shrink-0 flex-wrap items-center gap-3 md:justify-end">{actions}</div>}
+      </header>
+    );
+  },
+);
+
+export const SectionHeading = forwardRef<HTMLElement, SectionHeadingProps>(
+  ({ title, description, eyebrow, actions, className = "", ...props }, ref) => {
+    return (
+      <header
+        ref={ref}
+        className={[
+          "flex flex-col gap-4 md:flex-row md:items-start md:justify-between",
+          className,
+        ].join(" ")}
+        {...props}
+      >
+        <div className="min-w-0 space-y-2">
+          {eyebrow && <div className="text-[length:var(--ec-text-caption-size)] font-medium uppercase tracking-[0.08em] text-(--ec-color-text-muted)">{eyebrow}</div>}
+          <Heading level={2} size="section">{title}</Heading>
+          {description && <Text className="max-w-2xl">{description}</Text>}
+        </div>
+        {actions && <div className="flex shrink-0 flex-wrap items-center gap-3 md:justify-end">{actions}</div>}
+      </header>
+    );
+  },
+);
+
 Heading.displayName = "Heading";
 Text.displayName = "Text";
+PageHeading.displayName = "PageHeading";
+SectionHeading.displayName = "SectionHeading";
