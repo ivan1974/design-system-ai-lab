@@ -19,7 +19,9 @@ Use a decision workspace structure.
 Use WorkspaceShell for the page shell.
 Use FilterBar for scope and filters.
 Use MasterDetailLayout when the user reviews a list and a selected item.
-Use DetailPanel, DetailPanelTabs and StickyActionBar for selected-item review.
+Use WorkspaceDetailPanel for selected-item review when the detail panel should open and close.
+Use DetailPanel, DetailPanelTabs and StickyActionBar for static selected-item review only when interactivity is not needed.
+Use detailMode="inline" for desktop side detail and detailMode="overlay" when the central workspace should keep full width.
 Use SectionStack and SectionBlock for dense grouping.
 Use Surface, ListContainer, Well, Divider and Toolbar instead of local styled div wrappers.
 Use CustomerQueueRow, AssetQueueRow, RiskQueueRow, RecommendationQueueRow or ReviewQueueRow for repeated review objects.
@@ -41,6 +43,7 @@ Use:
 WorkspaceShell
 FilterBar
 MasterDetailLayout
+WorkspaceDetailPanel
 DetailPanel
 DetailPanelTabs
 StickyActionBar
@@ -99,6 +102,26 @@ But do not use cards for every repeated item.
 
 ---
 
+## Interactive panel choices
+
+Use `WorkspaceDetailPanel` when selected-item detail should be closable.
+
+Use `MasterDetailLayout` with:
+
+```txt
+detailOpen
+detailMode="inline" | "overlay"
+onDetailOpenChange
+```
+
+Use inline mode when detail is part of the desktop layout.
+
+Use overlay mode when the central workspace should keep full width or the panel should slide from the right.
+
+Do not create local drawer, side panel or slide-over components.
+
+---
+
 ## Prop value discipline
 
 Make must use documented enum values only.
@@ -144,6 +167,10 @@ local AssetRow
 local RiskRow
 local RecommendationRow
 local QueueItem
+local Drawer
+local SlideOver
+local SidePanel
+local DetailPanel wrapper
 ```
 
 Acceptable only when useful:
@@ -167,6 +194,7 @@ Import design-system-ai-lab/styles.css once.
 Use the decision workspace standard.
 Use business patterns when they match the section intent.
 Use queue rows for repeated customers, assets, risks and recommendations.
+Use WorkspaceDetailPanel for closable selected-item detail.
 Use rows and compact primitives for repeated facts, signals, evidence and actions.
 Use only documented prop values for package components.
 Do not create local visual components or wrappers.
@@ -207,7 +235,7 @@ A workspace v2 Make output should pass these checks:
 - The screen supports one clear decision.
 - The layout is not a generic dashboard.
 - A list/detail task uses `MasterDetailLayout`.
-- A selected item review uses `DetailPanel` when detail review is needed.
+- A selected item review uses `WorkspaceDetailPanel` when detail should open and close.
 - Customer, asset, risk and recommendation queues use queue row components.
 - Repeated facts use `KeyValueList` or rows.
 - Repeated actions use `ActionRow`.
