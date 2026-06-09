@@ -2,57 +2,67 @@
 
 ## Purpose
 
-This file defines the visual style rules Figma Make should follow when
-generating screens with the `design-system-ai-lab` package.
+This file defines the visual style rules Figma Make should follow when generating
+screens with the `design-system-ai-lab` package.
 
-The goal is to keep generated interfaces consistent with the design system and
-to avoid generic, decorative, inaccessible, noisy or ungoverned UI generation.
+Its role is to frame the visual output of generated screens without multiplying
+low-level styling rules.
 
-Generated screens should look like sober B2B product interfaces, not marketing
-pages or generic dashboard templates.
+Use `styles.md` to define:
+
+- visual personality
+- layout principles
+- typography rules
+- density rules
+- card usage rules
+- button hierarchy
+- status communication
+- forbidden visual patterns
+- style review criteria
+
+Do not use this file as the full design system documentation.
+
+For generation rules, screen routing, AI usage, evidence, accessibility and
+acceptance criteria, read:
+
+```txt
+Guidelines.md
+```
+
+For technical setup and package imports, read:
+
+```txt
+setup.md
+```
+
+For token names, aliases and tone mapping, read:
+
+```txt
+tokens.md
+```
 
 ---
 
 ## Core style principle
 
-Use the design system styles.
+The visual style must remain:
 
-Do not invent a new visual identity.
+- sober
+- B2B
+- readable
+- structured
+- action-oriented
+- evidence-aware
 
-Figma Make should compose interfaces using:
+Generated screens should look like operational product interfaces.
 
-- package components
-- form components
-- decision components
-- business patterns
-- package CSS
-- existing design tokens
-- approved utility classes
-- sober B2B layouts
+They should not look like marketing pages, generic SaaS dashboards or decorative
+analytics templates.
 
-Prefer package components and business patterns before manual styling.
+Style should support understanding, trust and action.
 
-Style usage must support the transversal principles:
-
-```txt
-principles/accessibility.md
-principles/eco-design.md
-principles/ai-usage.md
-principles/evidence-and-trust.md
-```
-
-This means style should support readability, hierarchy, evidence, trust and
-actionability.
-
-Style should not hide uncertainty, communicate status only through color,
-create decorative complexity or replace approved components and patterns.
-
-Style should also preserve trust-critical distinctions when they affect the
-decision: asset scope, connectivity status, source scope, source strength,
-freshness, Health versus Intelligence, expected outcomes, technical outcomes,
-internal proof and customer-ready proof.
-
-Generated screens should support understanding, decision-making and action.
+Style should not create decoration, hide uncertainty, make weak evidence look
+stronger or replace approved package components and business patterns.
 
 ---
 
@@ -64,168 +74,119 @@ Always import the design system CSS once:
 import "design-system-ai-lab/styles.css";
 ```
 
-This CSS includes:
-
-- design tokens
-- compatibility aliases
-- base styles
-- component styling dependencies
-- Tailwind-generated utility classes used by the package
-
-The package may expose CSS variables using the `--ec-*` prefix.
-
-This prefix is a stable technical namespace kept for package compatibility.
-
-Do not rename this namespace in generated screens.
-
-Do not interpret the prefix as product-facing copy.
-
 Do not duplicate the design system CSS in generated files.
 
 Do not recreate `:root` tokens locally.
 
 Do not create a competing theme file unless explicitly requested.
 
+Do not create a new visual identity.
+
 ---
 
-## Visual tone
+## Visual personality
 
 Generated screens should feel:
 
+- calm
 - sober
-- B2B
-- structured
-- readable
+- professional
+- trustworthy
 - operational
+- product-oriented
 - decision-oriented
-- calm and trustworthy
-- evidence-aware
 
-Avoid styles that feel:
+Generated screens should not feel:
 
 - playful
+- flashy
 - consumer-app-like
-- decorative
-- overly colorful
 - marketing-oriented
-- generic SaaS template-like
 - futuristic without a business reason
+- generic SaaS template-like
+- visually impressive but weak in actionability
 
----
-
-## Design system layers and style responsibility
-
-Use the right layer for the styling need.
-
-### Business patterns
-
-Use business patterns for complete business sections:
-
-- `CustomerStatusCard`
-- `ConnectivityCoverageCard`
-- `RenewalRiskSummary`
-- `ValueProofCard`
-- `CreateActionDialog`
-
-These patterns already apply the right visual structure and spacing.
-
-Do not rebuild equivalent sections manually with custom cards and layout styles.
-
-### Decision components
-
-Use decision components for metrics, risks, actions and summaries:
-
-- `MetricGrid`
-- `PriorityList`
-- `ActionList`
-- `StatusSummary`
-- `AlertCard`
-- `ActionCard`
-- `SectionHeader`
-
-These components guide visual hierarchy around decisions.
-
-### Components and forms
-
-Use package components and form components before raw HTML styling.
-
-Do not create local buttons, badges, cards, form fields or dialogs.
-
----
-
-## Color usage
-
-Use the colors provided by the design system tokens.
-
-Prefer token-based utility classes such as:
-
-```tsx
-<main className="min-h-screen bg-(--ec-color-background) p-8">
-  ...
-</main>
-```
-
-Do not create new color palettes.
-
-Do not use arbitrary decorative colors.
-
-Do not use color as the only way to communicate status.
-
-Status should also be communicated through text labels, badges, titles or
-recommendations.
-
-When status affects trust, add visible context such as freshness, validation
-state, source context or evidence.
-
-For asset-heavy screens, color must not be the only distinction between
-connected, partially connected and non-connected assets.
-
-For value proof screens, color must not make expected outcomes, technical
-outcomes, internal proof and customer-ready proof look equivalent.
-
-Avoid using muted or decorative styling for information the user needs to trust
-or validate.
-
----
-
-## Backgrounds and surfaces
-
-Use simple backgrounds and surfaces.
-
-Preferred patterns:
-
-```tsx
-bg-(--ec-color-background)
-bg-(--ec-color-surface)
-bg-(--ec-color-surface-muted)
-```
-
-Use `--ec-color-background` for the main page background.
-
-Use package `Card`, `StatusSummary` and business patterns for content surfaces.
-
-Avoid:
+A good generated screen should feel like:
 
 ```txt
-gradients
-image backgrounds
-glassmorphism
-blurred surfaces
-neon effects
-colorful hero backgrounds
+A sober operational B2B interface that helps a service user understand status,
+risks, evidence and next actions.
 ```
 
-The screen should be easy to scan and should not compete visually with the
-content.
+A bad generated screen feels like:
+
+```txt
+A generic analytics dashboard with decorative cards, colorful charts and unclear
+actionability.
+```
 
 ---
 
-## Typography
+## Layout principles
 
-Use the typography already provided by the design system CSS and utility
-classes.
+Use layout to clarify the user decision.
 
-Preferred text styles:
+The default reading order should be:
+
+```txt
+Context
+→ decision signals
+→ risks or blockers
+→ recommendations when relevant
+→ owned actions
+```
+
+For common service decision screens, this often becomes:
+
+```txt
+PageHeader
+→ Customer or service context
+→ metrics
+→ risks
+→ actions
+```
+
+Use simple layout utilities for structure:
+
+```txt
+min-h-screen
+mx-auto
+max-w-5xl
+max-w-6xl
+max-w-7xl
+p-4
+p-6
+p-8
+grid
+flex
+gap-3
+gap-4
+gap-6
+space-y-4
+space-y-8
+items-start
+items-center
+justify-between
+```
+
+Use whitespace to clarify hierarchy and grouping.
+
+Do not create overly complex layouts.
+
+Do not create large dashboard grids by default.
+
+Do not add columns, panels or sections only to make the screen feel rich.
+
+Do not turn a decision-support screen into a long scrolling dashboard without
+stronger prioritization.
+
+---
+
+## Typography rules
+
+Use typography to clarify hierarchy, not to create decoration.
+
+Preferred text utilities:
 
 ```txt
 text-xs
@@ -239,6 +200,13 @@ font-semibold
 tracking-tight
 ```
 
+Use larger type for primary headings and important summaries.
+
+Use smaller type for metadata and helper text.
+
+Keep evidence, freshness, source strength, validation context and proof status
+readable when they affect trust.
+
 Do not introduce:
 
 - custom font stacks
@@ -246,138 +214,136 @@ Do not introduce:
 - oversized display typography
 - marketing-style headline systems
 - unnecessary all-caps labels
+- typography that makes weak evidence look stronger than it is
 
-Text should support clarity, hierarchy and decision-making.
-
-Text should also support trust.
-
-Evidence, freshness, validation status and uncertainty should remain readable
-when they affect the user's decision.
-
-Do not make important validation or uncertainty labels visually too subtle.
-
-Source strength, partial visibility, Health versus Intelligence labels and
-proof status should remain readable when they affect trust.
-
-Do not use larger type, stronger weight or confident wording to make weak
-evidence appear stronger than it is.
+Do not rely on confident wording, larger type or stronger weight to replace
+source evidence.
 
 ---
 
-## Spacing and layout
+## Density rules
 
-Use simple, readable spacing.
+Generated screens should remain dense enough for B2B operational work.
 
-Preferred layout utilities:
+Prefer focused density:
 
-```txt
-p-4
-p-6
-p-8
-gap-2
-gap-3
-gap-4
-gap-6
-space-y-3
-space-y-4
-space-y-8
-mx-auto
-max-w-5xl
-max-w-6xl
-max-w-7xl
-grid
-flex
-items-start
-items-center
-justify-between
-```
+- 2 to 4 key metrics
+- 2 to 5 priority risks or blockers
+- 2 to 5 owned actions
+- one main action per main screen section
+- one clear decision per generated screen
 
-Use whitespace to clarify grouping and hierarchy.
+Avoid:
 
-Do not create overly complex layouts.
+- too many cards
+- too many metrics
+- too many badges
+- too many primary actions
+- decorative whitespace
+- long unprioritized scrolling layouts
+- dense data dumps without grouping
+- marketing-style spacious layouts
 
-Avoid dense information blocks without grouping.
-
-Avoid excessive spacing that makes the screen feel like a marketing landing
-page.
-
-Generated screens should remain dense enough for operational B2B work.
-
-Use spacing to reduce cognitive load, not to inflate the screen.
-
-Avoid turning decision-support screens into long scrolling dashboards without
-stronger prioritization.
-
-Keep the main reading order clear:
-
-```txt
-Context
-→ Metrics
-→ Risks
-→ Actions
-```
+Use spacing to reduce cognitive load, not to inflate the interface.
 
 ---
 
-## Radius and shadows
+## Card usage rules
 
-Use the design system radius and shadow tokens through approved components.
+Use cards to group related information around one purpose.
 
-When additional layout wrappers need radius or shadow, use existing tokens only:
-
-```txt
-rounded-(--ec-radius-sm)
-rounded-(--ec-radius-md)
-rounded-(--ec-radius-lg)
-shadow-(--ec-shadow-card)
-shadow-(--ec-shadow-popover)
-```
-
-Do not use arbitrary values such as:
-
-```txt
-rounded-[22px]
-rounded-3xl
-shadow-2xl
-shadow-blue-500/40
-```
-
-Avoid dramatic elevation.
-
-The interface should feel structured, not flashy.
-
----
-
-## Component styling
-
-Do not restyle package components from scratch.
-
-Use component props and composition first.
-
-For example:
+Prefer business patterns when they match the section intent:
 
 ```tsx
-<Button variant="secondary">View details</Button>
+<CustomerStatusCard />
+<ConnectivityCoverageCard />
+<RenewalRiskSummary />
+<ValueProofCard />
+<AssetIntelligenceSummary />
+<ServiceRiskSummary />
+<RecommendationReviewPanel />
+<CustomerReviewReadinessCard />
 ```
 
-Do not replace the component with a custom local button.
+Use decision components for metrics, risks, recommendations and actions:
 
-Do not override package component styles unless the prompt explicitly asks for a
-design system extension.
+```tsx
+<MetricGrid />
+<MetricCard />
+<PriorityList />
+<AlertCard />
+<ActionList />
+<ActionCard />
+<RecommendationCard />
+<StatusSummary />
+```
 
-Do not create local component wrappers to alter styling.
+Use generic `Card` only when no more specific business pattern or decision
+component fits.
 
-Do not use manual styling to recreate existing components, decision components
-or business patterns.
+Do not rebuild known business sections with raw `Card`, `div`, `dt` or `dd`
+markup when a dedicated pattern exists.
 
-If a business pattern matches the section intent, use the pattern instead of
-restyling `Card`, `Badge`, `MetricCard` or raw `div` structures.
+Do not create generic cards titled:
+
+```txt
+Overview
+Details
+Data
+Info
+Misc
+```
+
+Cards should help the user understand what matters and what to do next.
 
 ---
 
-## Form styling
+## Button hierarchy
 
-Use package form components for all generated forms.
+Buttons should be explicit and action-oriented.
+
+Use:
+
+- primary style for the main action
+- secondary style for contextual actions
+- ghost style for low-emphasis actions
+- danger style only for destructive actions
+
+Do not use multiple competing primary buttons in the same section.
+
+Avoid vague button labels:
+
+```txt
+OK
+Submit
+More
+Click here
+Go
+```
+
+Prefer explicit button labels:
+
+```txt
+Create action
+Review risk
+Plan follow-up
+Check connectivity
+View details
+Prepare value summary
+Validate recommendation
+```
+
+Use `Button` directly as a `Dialog` trigger.
+
+Do not create a local `ForwardedButton` or custom button wrapper.
+
+Do not recreate a custom button system.
+
+---
+
+## Form styling rules
+
+Use package form components for generated forms.
 
 Preferred:
 
@@ -414,81 +380,22 @@ fit the need.
 
 ---
 
-## Buttons
+## Status communication
 
-Buttons should be clear and action-oriented.
+Status must be communicated through text, structure and components, not color
+alone.
 
 Use:
 
-- `primary` for the main action
-- `secondary` for contextual actions
-- `ghost` for low-emphasis actions
-- `danger` only for destructive actions
-
-Do not use multiple competing primary buttons in the same screen section.
-
-Avoid vague labels such as:
-
-```txt
-OK
-Submit
-More
-Click here
-```
-
-Prefer explicit labels such as:
-
-```txt
-Create action
-Review risk
-Plan follow-up
-Check connectivity
-View details
-Prepare value summary
-```
-
-Use `Button` directly as a `Dialog` trigger.
-
-Do not create a local `ForwardedButton` or custom button wrapper.
-
----
-
-## Badges
-
-Badges should communicate concise status, tone or metadata.
-
-Use tones consistently:
-
-- `neutral` for secondary metadata
-- `success` for healthy or complete states
-- `warning` for partial, delayed or uncertain states
-- `danger` for critical risk
-- `primary` for active plan, membership or selected state
-
-Do not use badges as buttons.
-
-Do not make badge labels long.
-
-Do not use status colors without explanatory text.
-
-For evidence-sensitive states, the badge label should explain the state clearly.
-
-For asset-heavy screens, badge labels should explicitly distinguish partially
-connected assets, non-connected assets, source strength and proof status.
-
-For value proof screens, badge labels should distinguish expected outcomes,
-technical outcomes, internal proof and customer-ready proof.
+- `Badge` for concise status, tone or metadata
+- `AlertCard` for risks that need explanation and recommendation
+- `StatusSummary` for structured metadata
+- business patterns for known business status sections
 
 Good:
 
 ```tsx
-<Badge tone="warning">Source data requires review</Badge>
-```
-
-Good:
-
-```tsx
-<Badge tone="warning">Partially connected</Badge>
+<Badge tone="warning">Connectivity partial</Badge>
 ```
 
 Good:
@@ -500,179 +407,47 @@ Good:
 Good:
 
 ```tsx
-<Badge tone="info">Internal proof, not customer-ready</Badge>
+<AlertCard
+  severity="critical"
+  title="Critical equipment no longer monitored"
+  equipment="Main switchboard"
+  description="The customer may lose visibility on key assets."
+  recommendation="Plan a connectivity review with the customer and support team."
+/>
 ```
 
-Weak:
+Avoid:
 
 ```tsx
-<Badge tone="warning">Warning</Badge>
+<span className="text-(--ec-color-warning)">Warning</span>
 ```
 
----
+For evidence-sensitive states, the UI should clarify what is known, what is
+uncertain and what still needs validation.
 
-## Metrics
+For asset-heavy screens, labels should explicitly distinguish connected,
+partially connected and non-connected assets.
 
-Metrics should be visually readable and decision-relevant.
+For value proof screens, labels should distinguish expected outcomes, technical
+outcomes, internal proof and customer-ready proof.
 
-Use `MetricCard` for metrics.
-
-Use `MetricGrid` to arrange multiple metrics.
-
-Each metric should include:
-
-- a clear label
-- a meaningful value
-- helper text when useful
-- trend only when it helps interpretation
-
-Avoid metrics without context.
-
-Avoid large metric grids with too many numbers.
-
-Avoid vanity metrics that do not help the user decide what to do next.
+Do not use visual confidence, stronger color or larger typography to replace
+source evidence.
 
 ---
 
-## Alerts and risks
-
-Use `AlertCard` for alerts, risks, blockers and important signals.
-
-Use `PriorityList` to group alerts and risks.
-
-Alerts should be sorted by severity or business impact.
-
-Every alert must include a recommendation.
-
-Important recommendations should be supported by visible context or evidence.
-
-Alerts should not create false certainty when data is incomplete, outdated or
-inferred.
-
-Asset-related alerts should include enough asset, source or connectivity
-context to make the recommendation reviewable.
-
-Do not style raw Health facts and Intelligence interpretation at the same
-visual level when the distinction affects trust.
-
-Do not use visual styling alone to indicate severity.
-
-Severity should also be clear from the title, description or badge.
-
----
-
-## Actions
-
-Use `ActionCard` for recommended, planned or overdue actions.
-
-Use `ActionList` to group actions.
-
-Every action should include:
-
-- owner
-- due date
-- priority
-
-Actions should look actionable, not like generic notes.
-
-Action titles should describe concrete work.
-
-Actions should be grounded in the visible context, risk, recommendation or
-evidence shown earlier on the screen.
-
-Asset-related actions should include site, zone, room, asset group or asset
-context when needed for follow-through.
-
-Avoid vague action titles such as:
-
-```txt
-Follow up
-Review
-Check
-Update
-```
-
----
-
-## Dialogs
-
-Use `Dialog` for short focused creation or confirmation flows.
-
-Use `DialogFooter` and `DialogClose` for custom footers.
-
-Prefer `CreateActionDialog` for action creation.
-
-Dialog content should remain compact.
-
-Do not use a dialog for a complex multi-step workflow.
-
-Do not create decorative modal styles.
-
-Do not create local wrappers to make `Button` work as a trigger.
-
-The package `Button` is already compatible with `Dialog` trigger usage.
-
----
-
-## Business pattern styling
-
-Use business patterns as complete sections.
-
-Do not manually restyle them unless explicitly asked.
-
-Examples:
-
-```tsx
-<CustomerStatusCard />
-<ConnectivityCoverageCard />
-<RenewalRiskSummary />
-<ValueProofCard />
-<CreateActionDialog />
-```
-
-These patterns exist to prevent Make from recreating known sections with
-improvised layout and styling.
-
-They also help preserve evidence and trust because they structure facts,
-signals, proof points and next actions consistently.
-
----
-
-## Charts and visualization
-
-For this demo scope, avoid decorative charts.
-
-Only include charts if explicitly requested and if they support a decision.
-
-Prefer metrics, alerts, summaries, proof points and actions over generic charts.
-
-Do not generate charts just to make the screen look like a dashboard.
-
----
-
-## Tables
-
-Avoid large unstructured tables.
-
-If tabular information is needed, keep it small and decision-oriented.
-
-For this Make kit, prefer `StatusSummary`, `MetricCard`, `AlertCard`,
-`ActionCard`, `ValueProofCard` and business patterns over tables.
-
----
-
-## Evidence and trust styling
+## Evidence-aware styling
 
 Style should help users distinguish:
 
 ```txt
 facts
-source scope and source strength
-signals
-recommendations
-actions
-validation states
-expected outcome or proof status
+→ source scope and source strength
+→ signals
+→ recommendations
+→ actions
+→ validation states
+→ expected outcome or proof status
 ```
 
 Use structured components and patterns instead of visual tricks.
@@ -698,10 +473,6 @@ Avoid:
 </Card>
 ```
 
-The first example provides structured evidence and freshness.
-
-The second example relies on vague color-coded wording.
-
 Do not use style to make uncertain information look certain.
 
 Do not hide validation context in overly muted text when it affects the user's
@@ -714,21 +485,34 @@ Do not use visual hierarchy to make partial asset visibility look complete,
 non-connected assets look live-monitored, AI interpretation look like
 source-system truth or expected outcomes look like proven value.
 
-Technical outcomes and internal proof should not be styled as customer-ready
-proof without validation.
-
 ---
+
+## Charts and tables
+
+Avoid decorative charts.
+
+Only include charts if explicitly requested and if they support a decision.
+
+Prefer metrics, summaries, risks, proof points and actions over generic charts.
+
+Do not generate charts just to make the screen look like a dashboard.
 
 Avoid large unstructured tables.
 
 If tabular information is needed, keep it small and decision-oriented.
 
-For this Make kit, prefer `StatusSummary`, `MetricCard`, `AlertCard`,
-`ActionCard`, `ValueProofCard` and business patterns over tables.
+For this Make kit, prefer:
+
+- `StatusSummary`
+- `MetricCard`
+- `AlertCard`
+- `ActionCard`
+- `ValueProofCard`
+- business patterns
 
 ---
 
-## Empty states and loading states
+## Empty and loading states
 
 If the prompt asks for states, keep them simple.
 
@@ -737,8 +521,6 @@ Empty states should explain:
 - what is missing
 - why it matters
 - what the user can do next
-
-When data is unavailable, do not imply certainty.
 
 Good empty-state copy:
 
@@ -752,6 +534,8 @@ Weak empty-state copy:
 No data.
 ```
 
+When data is unavailable, do not imply certainty.
+
 Do not create decorative empty illustrations unless explicitly requested.
 
 Loading states should be calm and minimal.
@@ -760,16 +544,23 @@ Do not create animated decorative loading experiences.
 
 ---
 
-## Anti-patterns
+## Forbidden visual patterns
 
 Do not generate:
 
 - generic SaaS dashboards
 - decorative hero sections
-- gradients
+- decorative gradients
 - glassmorphism
 - neumorphism
+- blurred surfaces
+- glow effects
+- neon effects
 - bright marketing visuals
+- arbitrary shadows
+- arbitrary radius values
+- decorative charts
+- generic dashboard cards
 - custom card systems
 - custom button systems
 - custom badge systems
@@ -778,6 +569,11 @@ Do not generate:
 - too many charts
 - dense data dumps
 - unlabeled status colors
+- multiple competing primary actions
+- inline-styled raw form controls
+- local component wrappers
+- local design system folders
+- manual styling used to recreate business patterns
 - visual styling that hides uncertainty
 - visual styling that hides asset scope, source scope, source strength or proof status
 - visual styling that makes weak evidence look stronger than it is
@@ -786,37 +582,14 @@ Do not generate:
 - technical outcomes or internal proof styled as customer-ready proof without validation
 - unsupported recommendations styled as authoritative
 - evidence-sensitive information shown too subtly
-- multiple competing primary actions
-- inline-styled raw form controls
-- local component wrappers
-- local design system folders
-- manual styling used to recreate business patterns
-
----
-
-## Good style direction
-
-A good generated screen should feel like:
-
-```txt
-A sober operational B2B interface that helps a service user understand status,
-risks and next actions.
-```
-
-A bad generated screen feels like:
-
-```txt
-A generic analytics dashboard with decorative cards, colorful charts and unclear
-actionability.
-```
 
 ---
 
 ## Style review checklist
 
+After generation, verify:
+
 - the screen imports `design-system-ai-lab/styles.css`
-- the official `--ec-*` namespace is kept for compatibility
-- the `--ec-*` prefix is not used as product-facing copy
 - package styles are not duplicated locally
 - generated styles do not create a competing visual system
 - no competing theme file was created
@@ -824,8 +597,11 @@ actionability.
 - no package components were recreated locally
 - no form controls were styled inline
 - no new color palette was introduced
-- no gradients or decorative backgrounds were introduced
+- no decorative gradients or decorative backgrounds were introduced
+- no glassmorphism, glow effect or blurred surface was introduced
 - no arbitrary radius or shadow values were introduced
+- no generic dashboard card system was created
+- no custom button, badge, card, modal or form system was created
 - business patterns are used before manual section styling
 - decision components are used for metrics, risks and actions
 - status is not communicated by color alone
@@ -833,15 +609,12 @@ actionability.
 - source strength remains readable when it affects trust
 - asset scope, source scope, connectivity status and proof status are not hidden by styling
 - partially connected and non-connected assets are labelled in text, not color alone
-- Health versus Intelligence distinction is visible when both are present
 - expected outcomes are not styled as proven value
 - technical outcomes and internal proof are not styled as customer-ready proof without validation
-- confidence language does not replace source evidence
 - uncertainty is not hidden by visual styling
 - recommendations are not styled as authoritative without supporting evidence
 - the screen is readable and operational
 - the visual hierarchy supports decision-making
-- visual hierarchy follows context, metrics, risks and actions when relevant
 
 ---
 
@@ -853,5 +626,4 @@ If a visual choice does not improve clarity, hierarchy, trust or actionability,
 do not add it.
 
 If a visual choice hides uncertainty, creates false confidence, makes weak
-evidence look stronger than it is or replaces an approved component or pattern,
-remove it.
+evidence look stronger or replaces an approved component or pattern, remove it.
