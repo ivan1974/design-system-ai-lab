@@ -2,10 +2,10 @@ import {
   ActionRow,
   AlertCard,
   AssetQueueRow,
+  Breadcrumbs,
   Button,
   CompactMetric,
   ConnectivityCoverageCard,
-  DetailPanelTabs,
   FilterBar,
   KeyValueList,
   KeyValueRow,
@@ -18,6 +18,7 @@ import {
   SemanticTag,
   StatusPill,
   StickyActionBar,
+  Tabs,
   WorkspaceDetailPanel,
   WorkspaceShell,
 } from "design-system-ai-lab";
@@ -35,12 +36,21 @@ export default function App() {
     <main className="min-h-screen bg-(--ec-color-background)">
       <WorkspaceShell
         header={
-          <PageHeading
-            eyebrow="Customer monitoring"
-            title="Review what needs attention next"
-            description="Keep customer context, monitoring scope, source limits and next actions visible in one workspace."
-            actions={<Button size="sm">Create follow-up action</Button>}
-          />
+          <div className="space-y-5">
+            <Breadcrumbs
+              items={[
+                { id: "customers", label: "Customers", href: "#" },
+                { id: "northstar", label: "Northstar Manufacturing", href: "#" },
+                { id: "monitoring", label: "Monitoring review", current: true },
+              ]}
+            />
+            <PageHeading
+              eyebrow="Customer monitoring"
+              title="Review what needs attention next"
+              description="Keep customer context, monitoring scope, source limits and next actions visible in one workspace."
+              actions={<Button size="sm">Create follow-up action</Button>}
+            />
+          </div>
         }
         controls={
           <FilterBar
@@ -117,13 +127,15 @@ export default function App() {
                 />
               }
             >
-              <DetailPanelTabs
+              <Tabs
                 tabs={[
-                  { id: "overview", label: "Overview", active: true },
+                  { id: "overview", label: "Overview" },
                   { id: "coverage", label: "Coverage" },
                   { id: "risks", label: "Risks", count: 1 },
                   { id: "actions", label: "Actions", count: 2 },
                 ]}
+                defaultValue="overview"
+                ariaLabel="Monitoring detail tabs"
               />
               <SectionStack>
                 <ConnectivityCoverageCard
