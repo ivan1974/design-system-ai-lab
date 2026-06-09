@@ -1,10 +1,14 @@
 import { forwardRef } from "react";
 import type { HTMLAttributes } from "react";
-import { StatusSummary } from "../decision/status-summary";
-import type {
-  StatusSummaryBadge,
-  StatusSummaryItem,
-} from "../decision/status-summary";
+import { Card } from "../components/card";
+import { CompactMetric } from "../components/compact-metric";
+import { KeyValueList, KeyValueRow } from "../components/key-value-list";
+import { MetricStrip } from "../components/metric-strip";
+import { SectionBlock, SectionStack } from "../composition/section-stack";
+import { SemanticTag } from "../decision/semantic-tag";
+import type { StatusSummaryBadge, StatusSummaryItem } from "../decision/status-summary";
+
+export type ConnectivityCoverageCardMode = "card" | "section" | "compact";
 
 export type ConnectivityCoverageCardProps = Omit<
   HTMLAttributes<HTMLElement>,
@@ -29,6 +33,7 @@ export type ConnectivityCoverageCardProps = Omit<
   extraItems?: StatusSummaryItem[];
   title?: string;
   description?: string;
+  mode?: ConnectivityCoverageCardMode;
 };
 
 export const ConnectivityCoverageCard = forwardRef<
@@ -56,65 +61,70 @@ export const ConnectivityCoverageCard = forwardRef<
       extraItems = [],
       title = "Connectivity coverage",
       description = "Monitoring coverage, disconnected assets and recovery context.",
+      mode = "card",
+      className = "",
       ...props
     },
     ref,
   ) => {
-    const items: StatusSummaryItem[] = [
-      ...(customerName ? [{ label: "Customer", value: customerName }] : []),
-      ...(coverageRate ? [{ label: "Coverage rate", value: coverageRate }] : []),
-      ...(connectedAssets
-        ? [{ label: "Connected assets", value: connectedAssets }]
-        : []),
-      ...(disconnectedAssets
-        ? [{ label: "Disconnected assets", value: disconnectedAssets }]
-        : []),
-      ...(criticalDisconnectedAssets
-        ? [
-          {
-            label: "Critical disconnected assets",
-            value: criticalDisconnectedAssets,
-          },
-        ]
-        : []),
-      ...(monitoringStatus
-        ? [{ label: "Monitoring status", value: monitoringStatus }]
-        : []),
-      ...(affectedScope
-        ? [{ label: "Affected scope", value: affectedScope }]
-        : []),
-      ...(lastUpdate ? [{ label: "Last update", value: lastUpdate }] : []),
-      ...(sourceScope ? [{ label: "Source scope", value: sourceScope }] : []),
-      ...(sourceStrength
-        ? [{ label: "Source strength", value: sourceStrength }]
-        : []),
-      ...(coverageBasis
-        ? [{ label: "Coverage basis", value: coverageBasis }]
-        : []),
-      ...(validationStatus
-        ? [{ label: "Validation status", value: validationStatus }]
-        : []),
-      ...(recoveryStatus
-        ? [{ label: "Recovery status", value: recoveryStatus }]
-        : []),
-      ...(customerDependency
-        ? [{ label: "Customer dependency", value: customerDependency }]
-        : []),
-      ...(serviceDependency
-        ? [{ label: "Service dependency", value: serviceDependency }]
-        : []),
-      ...extraItems,
-    ];
+    const content = (
+      <SectionStack gap="sm">
+        {badges.length > 0 && (
+          <div className="flex flex-wrap gap-2">
+            {badges.map((badge) => (
+              <SemanticTag key={badge.label} tone={badge.tone ?? "neutral"}>{badge.label}</SemanticTag>
+            ))}
+          </div>
+        )}
+
+        {(coverageRate || connectedAssets || disconnectedAssets || criticalDisconnectedAssets) && (
+          <MetricStrip columns={4}>
+            {coverageRate && <CompactMetric label="Coverage rate" value={coverageRate} />}
+            {connectedAssets && <CompactMetric label="Connected" value={connectedAssets} tone="success" />}
+            {disconnectedAssets && <CompactMetric label="Disconnected" value={disconnectedAssets} tone="warning" />}
+            {criticalDisconnectedAssets && <CompactMetric label="Critical disconnected" value={criticalDisconnectedAssets} tone="danger" />}
+          </MetricStrip>
+        )}
+
+        <SectionBlock title="Coverage context">
+          <KeyValueList columns={mode === "compact" ? 2 : 3}>
+            {customerName && <KeyValueRow label="Customer" value={customerName} />}
+            {monitoringStatus && <KeyValueRow label="Monitoring status" value={monitoringStatus} />}
+            {affectedScope && <KeyValueRow label="Affected scope" value={affectedScope} />}
+            {lastUpdate && <KeyValueRow label="Last update" value={lastUpdate} />}
+            {sourceScope && <KeyValueRow label="Source scope" value={sourceScope} />}
+            {sourceStrength && <KeyValueRow label="Source strength" value={sourceStrength} />}
+            {coverageBasis && <KeyValueRow label="Coverage basis" value={coverageBasis} />}
+            {validationStatus && <KeyValueRow label="Validation" value={validationStatus} />}
+            {recoveryStatus && <KeyValueRow label="Recovery" value={recoveryStatus} />}
+            {customerDependency && <KeyValueRow label="Customer dependency" value={customerDependency} />}
+            {serviceDependency && <KeyValueRow label="Service dependency" value={serviceDependency} />}
+            {extraItems.map((item) => (
+              <KeyValueRow key={item.label} label={item.label} value={item.value} />
+            ))}
+          </KeyValueList>
+        </SectionBlock>
+      </SectionStack>
+    );
+
+    if (mode === "card") {
+      return (
+        <Card ref={ref} title={title} description={description} className={className} {...props}>
+          {content}
+        </Card>
+      );
+    }
 
     return (
-      <StatusSummary
-        ref={ref}
-        title={title}
-        description={description}
-        badges={badges}
-        items={items}
-        {...props}
-      />
+      <section ref={ref} className={className} {...props}>
+        {mode !== "compact" && (
+          <header className="mb-4">
+            <h2 className="text-sm font-semibold text-(--ec-color-text-primary)">{title}</h2>
+            {description && <p className="mt-1 text-sm text-(--ec-color-text-secondary)">{description}</p>}
+          </header>
+        )}
+        {content}
+      </section>
     );
   },
 );
