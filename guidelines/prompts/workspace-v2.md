@@ -21,6 +21,8 @@ Use FilterBar for scope and filters.
 Use MasterDetailLayout when the user reviews a list and a selected item.
 Use DetailPanel, DetailPanelTabs and StickyActionBar for selected-item review.
 Use SectionStack and SectionBlock for dense grouping.
+Use Surface, ListContainer, Well, Divider and Toolbar instead of local styled div wrappers.
+Use CustomerQueueRow, AssetQueueRow, RiskQueueRow, RecommendationQueueRow or ReviewQueueRow for repeated review objects.
 Use KeyValueList, MetricStrip and rows for repeated facts, signals, evidence and actions.
 Use only documented prop values for every design-system component.
 Do not invent values for variant, tone, severity, priority, strength or mode props.
@@ -44,16 +46,31 @@ DetailPanelTabs
 StickyActionBar
 SectionStack
 SectionBlock
+Surface
+ListContainer
+Well
+Divider
+Toolbar
+```
+
+For repeated review objects, use:
+
+```txt
+CustomerQueueRow
+AssetQueueRow
+RiskQueueRow
+RecommendationQueueRow
+ReviewQueueRow
 ```
 
 For repeated information, use:
 
 ```txt
-SignalRow
 EvidenceRow
 ActionRow
 DocumentRow
 TimelineItem
+SignalRow only for simple observed signals, not customer/asset/risk/recommendation queues
 ```
 
 For compact facts and signals, use:
@@ -122,6 +139,11 @@ local Metric
 local Dialog
 local form components
 local design-system wrapper components
+local CustomerRow
+local AssetRow
+local RiskRow
+local RecommendationRow
+local QueueItem
 ```
 
 Acceptable only when useful:
@@ -144,6 +166,7 @@ Use imports from design-system-ai-lab only.
 Import design-system-ai-lab/styles.css once.
 Use the decision workspace standard.
 Use business patterns when they match the section intent.
+Use queue rows for repeated customers, assets, risks and recommendations.
 Use rows and compact primitives for repeated facts, signals, evidence and actions.
 Use only documented prop values for package components.
 Do not create local visual components or wrappers.
@@ -185,6 +208,7 @@ A workspace v2 Make output should pass these checks:
 - The layout is not a generic dashboard.
 - A list/detail task uses `MasterDetailLayout`.
 - A selected item review uses `DetailPanel` when detail review is needed.
+- Customer, asset, risk and recommendation queues use queue row components.
 - Repeated facts use `KeyValueList` or rows.
 - Repeated actions use `ActionRow`.
 - Repeated evidence uses `EvidenceRow`.
