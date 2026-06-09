@@ -171,6 +171,13 @@ export type {
   RecommendationReadiness,
 } from "./decision/recommendation-card";
 
+export { ReviewQueueRow } from "./decision/review-queue-row";
+export type {
+  ReviewQueueRowDensity,
+  ReviewQueueRowMetric,
+  ReviewQueueRowProps,
+} from "./decision/review-queue-row";
+
 export { SectionHeader } from "./decision/section-header";
 export type { SectionHeaderProps } from "./decision/section-header";
 
@@ -200,6 +207,9 @@ export type {
 } from "./decision/status-summary";
 
 // Patterns
+export { AssetQueueRow } from "./patterns/asset-queue-row";
+export type { AssetQueueRowProps } from "./patterns/asset-queue-row";
+
 export {
   AssetIntelligenceSummary,
 } from "./patterns/asset-intelligence-summary";
@@ -226,6 +236,9 @@ export type {
   ConnectivityCoverageCardProps,
 } from "./patterns/connectivity-coverage-card";
 
+export { CustomerQueueRow } from "./patterns/customer-queue-row";
+export type { CustomerQueueRowProps } from "./patterns/customer-queue-row";
+
 export {
   CustomerReviewReadinessCard,
 } from "./patterns/customer-review-readiness-card";
@@ -245,6 +258,9 @@ export type {
   CustomerStatusCardProps,
 } from "./patterns/customer-status-card";
 
+export { RecommendationQueueRow } from "./patterns/recommendation-queue-row";
+export type { RecommendationQueueRowProps } from "./patterns/recommendation-queue-row";
+
 export {
   RecommendationReviewPanel,
 } from "./patterns/recommendation-review-panel";
@@ -259,6 +275,9 @@ export { RenewalRiskSummary } from "./patterns/renewal-risk-summary";
 export type {
   RenewalRiskSummaryProps,
 } from "./patterns/renewal-risk-summary";
+
+export { RiskQueueRow } from "./patterns/risk-queue-row";
+export type { RiskQueueRowProps } from "./patterns/risk-queue-row";
 
 export { ServiceRiskSummary } from "./patterns/service-risk-summary";
 export type {
