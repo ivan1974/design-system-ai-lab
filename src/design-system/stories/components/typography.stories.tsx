@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Button, Heading, PageHeading, SectionHeading, Text } from "../../index";
 
 const meta = {
-  title: "Components/Typography",
+  title: "Design System/Components/Typography",
   parameters: {
     layout: "padded",
   },
