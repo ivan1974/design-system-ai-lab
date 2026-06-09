@@ -1,8 +1,11 @@
 import { forwardRef } from "react";
 import type { HTMLAttributes, ReactNode } from "react";
-import { Badge } from "../components/badge";
 import type { BadgeTone } from "../components/badge";
 import { Card } from "../components/card";
+import { KeyValueList, KeyValueRow } from "../components/key-value-list";
+import { SectionBlock, SectionStack } from "../composition/section-stack";
+import { SemanticTag } from "../decision/semantic-tag";
+import { StatusPill } from "../decision/status-pill";
 
 export type ValueProofPoint = {
   label: string;
@@ -13,6 +16,8 @@ export type ValueProofBadge = {
   label: string;
   tone?: BadgeTone;
 };
+
+export type ValueProofCardMode = "card" | "section" | "compact";
 
 export type ValueProofCardProps = Omit<
   HTMLAttributes<HTMLElement>,
@@ -29,6 +34,7 @@ export type ValueProofCardProps = Omit<
   expectedOutcome?: string;
   badges?: ValueProofBadge[];
   proofPoints: ValueProofPoint[];
+  mode?: ValueProofCardMode;
 };
 
 export const ValueProofCard = forwardRef<HTMLElement, ValueProofCardProps>(
@@ -45,81 +51,65 @@ export const ValueProofCard = forwardRef<HTMLElement, ValueProofCardProps>(
       expectedOutcome,
       badges = [],
       proofPoints,
+      mode = "card",
       className = "",
       ...props
     },
     ref,
   ) => {
-    const contextItems = [
-      period && { label: "Period", value: period },
-      customerObjective && {
-        label: "Customer objective",
-        value: customerObjective,
-      },
-      proofStatus && { label: "Proof status", value: proofStatus },
-      proofReadiness && { label: "Proof readiness", value: proofReadiness },
-      validationStatus && {
-        label: "Validation status",
-        value: validationStatus,
-      },
-      sourceContext && { label: "Source context", value: sourceContext },
-      expectedOutcome && { label: "Expected outcome", value: expectedOutcome },
-    ].filter(Boolean) as { label: string; value: ReactNode }[];
+    const content = (
+      <SectionStack gap="sm">
+        {(badges.length > 0 || proofReadiness) && (
+          <div className="flex flex-wrap gap-2">
+            {proofReadiness && <StatusPill tone={proofReadiness.toLowerCase().includes("ready") ? "success" : "warning"}>{proofReadiness}</StatusPill>}
+            {badges.map((badge) => (
+              <SemanticTag key={badge.label} tone={badge.tone ?? "neutral"}>{badge.label}</SemanticTag>
+            ))}
+          </div>
+        )}
 
-    return (
-      <Card
-        ref={ref}
-        title={title}
-        description={description}
-        className={className}
-        {...props}
-      >
-        <div className="space-y-4">
-          {badges.length > 0 && (
-            <div className="flex flex-wrap gap-2">
-              {badges.map((badge) => (
-                <Badge key={badge.label} tone={badge.tone ?? "neutral"}>
-                  {badge.label}
-                </Badge>
-              ))}
-            </div>
-          )}
+        <SectionBlock title="Proof context">
+          <KeyValueList columns={mode === "compact" ? 2 : 3}>
+            {period && <KeyValueRow label="Period" value={period} />}
+            {customerObjective && <KeyValueRow label="Customer objective" value={customerObjective} />}
+            {proofStatus && <KeyValueRow label="Proof status" value={proofStatus} />}
+            {validationStatus && <KeyValueRow label="Validation" value={validationStatus} />}
+            {sourceContext && <KeyValueRow label="Source context" value={sourceContext} />}
+            {expectedOutcome && <KeyValueRow label="Expected outcome" value={expectedOutcome} helper="Expected outcome is not proven value." />}
+          </KeyValueList>
+        </SectionBlock>
 
-          {contextItems.length > 0 && (
-            <dl className="grid grid-cols-1 gap-6 md:grid-cols-3">
-              {contextItems.map((item) => (
-                <div key={item.label} className="min-w-0">
-                  <dt className="mb-1 text-xs text-(--ec-color-text-muted)">
-                    {item.label}
-                  </dt>
-                  <dd className="text-sm font-medium text-(--ec-color-text-primary)">
-                    {item.value}
-                  </dd>
-                </div>
-              ))}
-            </dl>
-          )}
-
-          <div className="space-y-3">
+        <SectionBlock title="Proof points">
+          <div className="divide-y divide-(--ec-color-border)">
             {proofPoints.map((point) => (
-              <div
-                key={point.label}
-                className={[
-                  "rounded-(--ec-radius-sm) border border-(--ec-color-border)",
-                  "bg-(--ec-color-surface-muted) p-3",
-                ].join(" ")}
-              >
-                <p className="text-sm font-semibold text-(--ec-color-text-primary)">
-                  {point.label}
-                </p>
-                <p className="mt-1 text-sm text-(--ec-color-text-secondary)">
-                  {point.value}
-                </p>
+              <div key={point.label} className="py-3 first:pt-0 last:pb-0">
+                <p className="text-sm font-medium text-(--ec-color-text-primary)">{point.label}</p>
+                <p className="mt-1 text-sm text-(--ec-color-text-secondary)">{point.value}</p>
               </div>
             ))}
           </div>
-        </div>
-      </Card>
+        </SectionBlock>
+      </SectionStack>
+    );
+
+    if (mode === "card") {
+      return (
+        <Card ref={ref} title={title} description={description} className={className} {...props}>
+          {content}
+        </Card>
+      );
+    }
+
+    return (
+      <section ref={ref} className={className} {...props}>
+        {mode !== "compact" && (
+          <header className="mb-4">
+            <h2 className="text-sm font-semibold text-(--ec-color-text-primary)">{title}</h2>
+            {description && <p className="mt-1 text-sm text-(--ec-color-text-secondary)">{description}</p>}
+          </header>
+        )}
+        {content}
+      </section>
     );
   },
 );
