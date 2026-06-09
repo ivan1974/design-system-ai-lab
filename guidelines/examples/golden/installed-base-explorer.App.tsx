@@ -1,15 +1,24 @@
 import {
+  ActionRow,
+  Button,
+  CompactMetric,
   DetailPanel,
   DetailPanelBody,
+  DetailPanelFooter,
   DetailPanelHeader,
+  DetailPanelTabs,
+  EvidenceRow,
   FilterBar,
   KeyValueList,
   KeyValueRow,
   MasterDetailLayout,
+  MetricStrip,
   SectionBlock,
+  SectionStack,
   SemanticTag,
   SignalRow,
   StatusPill,
+  StickyActionBar,
   WorkspaceShell,
 } from "design-system-ai-lab";
 
@@ -26,19 +35,22 @@ export default function App() {
     <main className="min-h-screen bg-(--ec-color-background)">
       <WorkspaceShell
         header={
-          <div>
-            <p className="text-sm font-medium text-(--ec-color-primary)">Installed base explorer</p>
-            <h1 className="mt-1 text-2xl font-semibold text-(--ec-color-text-primary)">Explore assets with source context</h1>
-            <p className="mt-2 max-w-3xl text-sm text-(--ec-color-text-secondary)">
-              Review asset identity, monitoring scope and evidence in a master-detail workspace.
-            </p>
+          <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+            <div>
+              <p className="text-sm font-medium text-(--ec-color-primary)">Installed base explorer</p>
+              <h1 className="mt-1 text-2xl font-semibold text-(--ec-color-text-primary)">Explore assets with source context</h1>
+              <p className="mt-2 max-w-3xl text-sm text-(--ec-color-text-secondary)">
+                Review asset identity, monitoring scope, evidence and next action in a master-detail workspace.
+              </p>
+            </div>
+            <Button size="sm">Create asset action</Button>
           </div>
         }
         controls={
           <FilterBar
             title="Installed base"
             description="Filter by site, status and monitoring scope."
-            resultCount="3 assets shown"
+            resultCount="3 assets shown · source scope: known installed base and connected assets"
             filters={
               <>
                 <SemanticTag>Lyon DC</SemanticTag>
@@ -66,24 +78,67 @@ export default function App() {
                 description="Selected asset detail. Facts and source limits appear before interpretation."
                 meta={<StatusPill tone="warning">Review needed</StatusPill>}
               />
+              <DetailPanelTabs
+                tabs={[
+                  { id: "overview", label: "Overview", active: true },
+                  { id: "health", label: "Health" },
+                  { id: "evidence", label: "Evidence", count: 1 },
+                  { id: "actions", label: "Actions", count: 2 },
+                ]}
+              />
               <DetailPanelBody>
-                <SectionBlock title="Identity and scope">
-                  <KeyValueList columns={2}>
-                    <KeyValueRow label="Site" value="Lyon DC" />
-                    <KeyValueRow label="Service plan" value="EcoCare Advanced" />
-                    <KeyValueRow label="Monitoring" value="Connected asset" />
-                    <KeyValueRow label="Validation" value="Review before customer use" />
-                  </KeyValueList>
-                </SectionBlock>
+                <SectionStack>
+                  <SectionBlock title="Identity and scope">
+                    <KeyValueList columns={2}>
+                      <KeyValueRow label="Site" value="Lyon DC" />
+                      <KeyValueRow label="Service plan" value="EcoCare Advanced" />
+                      <KeyValueRow label="Monitoring" value="Connected asset" />
+                      <KeyValueRow label="Validation" value="Review before customer use" />
+                    </KeyValueList>
+                  </SectionBlock>
+
+                  <SectionBlock title="Health signals">
+                    <MetricStrip columns={3}>
+                      <CompactMetric label="Load" value="82%" tone="warning" />
+                      <CompactMetric label="Temperature" value="41°C" tone="warning" />
+                      <CompactMetric label="Freshness" value="18h" />
+                    </MetricStrip>
+                  </SectionBlock>
+
+                  <SectionBlock title="Evidence">
+                    <EvidenceRow
+                      label="Monitoring signal"
+                      description="Recent trend requires expert review before customer-facing interpretation."
+                      source="Monitoring platform"
+                      sourceScope="Connected asset only"
+                      sourceStrength="partial"
+                      freshness="18 hours"
+                      validationStatus="Expert review needed"
+                    />
+                  </SectionBlock>
+                </SectionStack>
               </DetailPanelBody>
+              <DetailPanelFooter>
+                <StickyActionBar
+                  context="Next action: validate source before customer use."
+                  secondaryActions={<Button variant="secondary" size="sm">Add note</Button>}
+                  primaryAction={<Button size="sm">Assign validation</Button>}
+                />
+              </DetailPanelFooter>
             </DetailPanel>
           }
         />
+
+        <SectionBlock title="Open actions">
+          <ActionRow title="Validate asset interpretation" owner="Service Expert" dueDate="Next 3 business days" priority="high" status="todo" />
+          <ActionRow title="Prepare customer-ready summary" owner="CSM" dueDate="Before customer review" priority="medium" status="todo" />
+        </SectionBlock>
 
         {/*
           Why this is compliant:
           - Shows installed base exploration as a master-detail workspace.
           - Keeps asset facts and source limits visible.
+          - Uses compact signals, evidence rows and owned actions.
           - Avoids generic tables and decorative dashboards.
         */}
       </WorkspaceShell>
