@@ -18,8 +18,9 @@ export const FilterBar = forwardRef<HTMLDivElement, FilterBarProps>(
       <div
         ref={ref}
         className={[
-          "rounded-(--ec-radius-md) border border-(--ec-color-border)",
-          "bg-(--ec-color-surface) p-4",
+          "rounded-(--ec-radius-lg) border border-(--ec-color-border-soft)",
+          "bg-(--ec-color-surface-raised) p-4 shadow-(--ec-shadow-card)",
+          "backdrop-blur-[2px]",
           className,
         ].join(" ")}
         {...props}
@@ -33,12 +34,12 @@ export const FilterBar = forwardRef<HTMLDivElement, FilterBarProps>(
                 </h2>
               )}
               {description && (
-                <p className="mt-1 text-sm text-(--ec-color-text-secondary)">
+                <p className="mt-1 text-sm leading-6 text-(--ec-color-text-secondary)">
                   {description}
                 </p>
               )}
               {resultCount && (
-                <p className="mt-1 text-xs text-(--ec-color-text-muted)">
+                <p className="mt-1 text-xs font-medium text-(--ec-color-text-muted)">
                   {resultCount}
                 </p>
               )}
