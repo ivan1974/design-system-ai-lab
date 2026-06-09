@@ -1,6 +1,8 @@
 import { forwardRef } from "react";
 import type { HTMLAttributes, ReactNode } from "react";
 
+import { Heading, Text } from "../components/typography";
+
 export type DetailPanelProps = HTMLAttributes<HTMLElement> & {
   children: ReactNode;
 };
@@ -54,14 +56,8 @@ export const DetailPanelHeader = forwardRef<
         {...props}
       >
         <div className="min-w-0 space-y-3">
-          <h2 className="text-[length:var(--ec-title-section-size)] font-semibold leading-[var(--ec-title-section-line-height)] tracking-(--ec-letter-spacing-tight) text-(--ec-color-text-primary)">
-            {title}
-          </h2>
-          {description && (
-            <p className="max-w-prose text-[length:var(--ec-text-body-size)] leading-[var(--ec-text-body-line-height)] text-(--ec-color-text-secondary)">
-              {description}
-            </p>
-          )}
+          <Heading level={2} size="section">{title}</Heading>
+          {description && <Text className="max-w-prose">{description}</Text>}
           {meta && <div className="pt-2">{meta}</div>}
         </div>
         {actions && <div className="shrink-0">{actions}</div>}
