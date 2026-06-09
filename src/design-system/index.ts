@@ -21,6 +21,9 @@ export type {
   DialogProps,
 } from "./components/dialog";
 
+export { Divider } from "./components/divider";
+export type { DividerOrientation, DividerProps } from "./components/divider";
+
 export { DocumentRow } from "./components/document-row";
 export type { DocumentRowProps } from "./components/document-row";
 
@@ -29,6 +32,12 @@ export type {
   KeyValueListProps,
   KeyValueRowProps,
 } from "./components/key-value-list";
+
+export { ListContainer } from "./components/list-container";
+export type {
+  ListContainerProps,
+  ListContainerSpacing,
+} from "./components/list-container";
 
 export { MetricCard } from "./components/metric-card";
 export type {
@@ -42,8 +51,18 @@ export type { MetricStripProps } from "./components/metric-strip";
 export { PageHeader } from "./components/page-header";
 export type { PageHeaderProps } from "./components/page-header";
 
+export { Surface } from "./components/surface";
+export type {
+  SurfacePadding,
+  SurfaceProps,
+  SurfaceVariant,
+} from "./components/surface";
+
 export { Timeline, TimelineItem } from "./components/timeline";
 export type { TimelineItemProps, TimelineProps } from "./components/timeline";
+
+export { Toolbar } from "./components/toolbar";
+export type { ToolbarProps } from "./components/toolbar";
 
 export { Heading, PageHeading, SectionHeading, Text } from "./components/typography";
 export type {
@@ -52,6 +71,9 @@ export type {
   SectionHeadingProps,
   TextProps,
 } from "./components/typography";
+
+export { Well } from "./components/well";
+export type { WellPadding, WellProps, WellTone } from "./components/well";
 
 // Forms
 export { Field } from "./forms/field";
