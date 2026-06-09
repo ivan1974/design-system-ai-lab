@@ -1,6 +1,10 @@
 import { forwardRef } from "react";
 import type { HTMLAttributes, ReactNode } from "react";
 
+import { SlideOverPanel } from "../components/panel";
+
+export type MasterDetailLayoutDetailMode = "inline" | "overlay";
+
 export type MasterDetailLayoutProps = HTMLAttributes<HTMLDivElement> & {
   list: ReactNode;
   detail: ReactNode;
@@ -9,6 +13,8 @@ export type MasterDetailLayoutProps = HTMLAttributes<HTMLDivElement> & {
   detailLabel?: string;
   detailWidth?: "sm" | "md" | "lg";
   detailOpen?: boolean;
+  detailMode?: MasterDetailLayoutDetailMode;
+  onDetailOpenChange?: (open: boolean) => void;
 };
 
 export const MasterDetailLayout = forwardRef<
@@ -24,6 +30,8 @@ export const MasterDetailLayout = forwardRef<
       detailLabel = "Selected item detail",
       detailWidth = "md",
       detailOpen = true,
+      detailMode = "inline",
+      onDetailOpenChange,
       className = "",
       ...props
     },
@@ -36,24 +44,38 @@ export const MasterDetailLayout = forwardRef<
           ? "lg:grid-cols-[minmax(0,1fr)_32rem]"
           : "lg:grid-cols-[minmax(0,1fr)_26rem]";
 
+    const hasInlineDetail = detailMode === "inline" && detailOpen;
+
     return (
-      <div ref={ref} className={["space-y-4", className].join(" ")} {...props}>
+      <div ref={ref} className={["space-y-6", className].join(" ")} {...props}>
         {filters && <div>{filters}</div>}
         <div
           className={[
-            "grid gap-4",
-            detailOpen ? detailWidthClassName : "lg:grid-cols-1",
+            "grid gap-6 transition-[grid-template-columns] duration-300 ease-out",
+            hasInlineDetail ? detailWidthClassName : "lg:grid-cols-1",
           ].join(" ")}
         >
           <section aria-label={listLabel} className="min-w-0">
             {list}
           </section>
-          {detailOpen && (
+          {hasInlineDetail && (
             <aside aria-label={detailLabel} className="min-w-0">
               {detail}
             </aside>
           )}
         </div>
+
+        {detailMode === "overlay" && (
+          <SlideOverPanel
+            open={detailOpen}
+            onOpenChange={onDetailOpenChange}
+            size={detailWidth === "lg" ? "xl" : detailWidth === "sm" ? "md" : "lg"}
+          >
+            <aside aria-label={detailLabel} className="h-full min-w-0">
+              {detail}
+            </aside>
+          </SlideOverPanel>
+        )}
       </div>
     );
   },
