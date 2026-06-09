@@ -14,6 +14,7 @@ import {
   KeyValueRow,
   MasterDetailLayout,
   MetricStrip,
+  PageHeading,
   SectionBlock,
   SectionStack,
   SemanticTag,
@@ -36,16 +37,12 @@ export default function App() {
     <main className="min-h-screen bg-(--ec-color-background)">
       <WorkspaceShell
         header={
-          <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
-            <div>
-              <p className="text-sm font-medium text-(--ec-color-primary)">Customer monitoring</p>
-              <h1 className="mt-1 text-2xl font-semibold text-(--ec-color-text-primary)">Review what needs attention next</h1>
-              <p className="mt-2 max-w-3xl text-sm text-(--ec-color-text-secondary)">
-                Keep customer context, monitoring scope, source limits and next actions visible in one workspace.
-              </p>
-            </div>
-            <Button size="sm">Create follow-up action</Button>
-          </div>
+          <PageHeading
+            eyebrow="Customer monitoring"
+            title="Review what needs attention next"
+            description="Keep customer context, monitoring scope, source limits and next actions visible in one workspace."
+            actions={<Button size="sm">Create follow-up action</Button>}
+          />
         }
         controls={
           <FilterBar
