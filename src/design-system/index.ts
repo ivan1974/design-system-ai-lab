@@ -51,6 +51,21 @@ export type { MetricStripProps } from "./components/metric-strip";
 export { PageHeader } from "./components/page-header";
 export type { PageHeaderProps } from "./components/page-header";
 
+export {
+  PanelBody,
+  PanelClose,
+  PanelFooter,
+  PanelHeader,
+  SlideOverPanel,
+} from "./components/panel";
+export type {
+  PanelBodyProps,
+  PanelCloseProps,
+  PanelFooterProps,
+  PanelHeaderProps,
+  SlideOverPanelProps,
+} from "./components/panel";
+
 export { Surface } from "./components/surface";
 export type {
   SurfacePadding,
@@ -96,7 +111,17 @@ export { WorkspaceShell } from "./composition/workspace-shell";
 export type { WorkspaceShellProps } from "./composition/workspace-shell";
 
 export { MasterDetailLayout } from "./composition/master-detail-layout";
-export type { MasterDetailLayoutProps } from "./composition/master-detail-layout";
+export type {
+  MasterDetailLayoutDetailMode,
+  MasterDetailLayoutProps,
+} from "./composition/master-detail-layout";
+
+export { WorkspaceDetailPanel } from "./composition/workspace-detail-panel";
+export type {
+  WorkspaceDetailPanelMode,
+  WorkspaceDetailPanelProps,
+  WorkspaceDetailPanelSize,
+} from "./composition/workspace-detail-panel";
 
 export {
   DetailPanel,
