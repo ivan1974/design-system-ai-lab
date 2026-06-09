@@ -1,40 +1,27 @@
 import { forwardRef } from "react";
 import type { HTMLAttributes, ReactNode } from "react";
 
+import { PageHeading } from "./typography";
+
 export type PageHeaderProps = HTMLAttributes<HTMLElement> & {
   title: string;
   description?: string;
+  eyebrow?: ReactNode;
   actions?: ReactNode;
 };
 
 export const PageHeader = forwardRef<HTMLElement, PageHeaderProps>(
-  ({ title, description, actions, className = "", ...props }, ref) => {
+  ({ title, description, eyebrow, actions, className = "", ...props }, ref) => {
     return (
-      <header
+      <PageHeading
         ref={ref}
-        className={[
-          "flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between sm:gap-6",
-          className,
-        ].join(" ")}
+        title={title}
+        description={description}
+        eyebrow={eyebrow}
+        actions={actions}
+        className={className}
         {...props}
-      >
-        <div className="min-w-0">
-          <h1 className="text-2xl font-semibold tracking-tight text-(--ec-color-text-primary)">
-            {title}
-          </h1>
-          {description && (
-            <p className="mt-2 max-w-3xl text-sm text-(--ec-color-text-secondary)">
-              {description}
-            </p>
-          )}
-        </div>
-
-        {actions && (
-          <div className="flex flex-wrap items-center gap-2 sm:justify-end">
-            {actions}
-          </div>
-        )}
-      </header>
+      />
     );
   },
 );
