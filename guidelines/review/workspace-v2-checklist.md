@@ -38,7 +38,23 @@ review/quality-checklist.md
 
 ---
 
-## 3. Card saturation
+## 3. Prop and helper discipline
+
+- [ ] Package component props use documented values only.
+- [ ] Make does not invent `variant`, `tone`, `severity`, `priority`, `strength`, `mode`, `status` or `size` values.
+- [ ] Small local render helpers only compose approved package components.
+- [ ] No local visual helper creates a new button, card, badge, pill, tag, row, panel or form system.
+- [ ] Inline styles do not recreate component states, surfaces, badges, cards, radius, shadows or visual identity.
+
+Use this repair prompt when this fails:
+
+```txt
+repair-prompts/invalid-props-or-local-visual-components.md
+```
+
+---
+
+## 4. Card saturation
 
 - [ ] The screen is not a long stack of equal cards.
 - [ ] Repeated facts use `KeyValueList` and `KeyValueRow`.
@@ -55,7 +71,7 @@ repair-prompts/card-saturation.md
 
 ---
 
-## 4. Evidence hierarchy
+## 5. Evidence hierarchy
 
 - [ ] Facts appear before interpretation.
 - [ ] Source scope is visible when trust depends on it.
@@ -66,7 +82,7 @@ repair-prompts/card-saturation.md
 
 ---
 
-## 5. Actionability
+## 6. Actionability
 
 - [ ] Actions are specific.
 - [ ] Actions have owner, due date and priority.
@@ -75,7 +91,7 @@ repair-prompts/card-saturation.md
 
 ---
 
-## 6. Visual sobriety
+## 7. Visual sobriety
 
 - [ ] The screen remains B2B and operational.
 - [ ] No decorative gradients are used.
