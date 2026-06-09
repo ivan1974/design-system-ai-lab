@@ -89,7 +89,7 @@ export const DetailPanelFooter = forwardRef<
     <div
       ref={ref}
       className={[
-        "border-t border-(--ec-color-border) bg-(--ec-color-surface-subtle)",
+        "border-t border-(--ec-color-border) bg-(--ec-color-surface-muted)",
         "px-4 py-3",
         className,
       ].join(" ")}
