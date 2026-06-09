@@ -24,18 +24,56 @@ quality.
 
 ---
 
-## Figma Make compatibility rule
+## How this file should be used
 
-When generating code, Figma Make must:
+`Guidelines.md` is the mandatory entry point for Figma Make.
 
-- render a complete visible screen in `App.tsx`
-- import components from `design-system-ai-lab`
-- import styles from `design-system-ai-lab/styles.css`
-- use package components and patterns directly
-- avoid local design system recreation
-- avoid local wrappers around package components
-- avoid internal package imports
-- avoid generic dashboard output when a decision screen is requested
+Keep this file concise, operational and generation-oriented.
+
+Use it to define:
+
+- the non-negotiable generation contract
+- the required package usage
+- the screen intent router
+- the approved component vocabulary
+- the transversal principles that always apply
+- the blocking acceptance criteria
+- the correction instruction when generation drifts
+
+Use the more specific guideline files only when Make needs deeper detail about a
+component, pattern, principle, prompt or review criterion.
+
+Do not turn `Guidelines.md` into the full design system documentation.
+
+The detailed documentation should remain in the linked files.
+
+---
+
+## Non-negotiable generation contract
+
+When generating code, Figma Make must follow these rules.
+
+These rules are blocking.
+
+If one of them is not respected, the generated screen should be revised before it
+is accepted.
+
+1. Render a complete visible screen in `App.tsx`.
+2. Import components only from `design-system-ai-lab`.
+3. Import styles once from `design-system-ai-lab/styles.css`.
+4. Never import from `design-system-ai-lab/dist/*`, `design-system-ai-lab/src/*`, `./components/ui/*` or `packages/design-system-ai-lab/*`.
+5. Never create a local `packages/design-system-ai-lab` folder.
+6. Never recreate `Button`, `Card`, `Badge`, `Dialog`, form components or business patterns locally.
+7. Use business patterns before rebuilding known business sections manually.
+8. Use decision components for metrics, risks, recommendations and actions.
+9. Use form components for every generated form field.
+10. Generate one clear decision-oriented screen, not a generic dashboard.
+11. Show visible facts before AI interpretation.
+12. Never invent evidence, sources, asset facts, telemetry, citations or value proof.
+13. Every `AlertCard` must include a recommendation.
+14. Every `ActionCard` must include owner, due date and priority.
+15. Expected outcomes must not be presented as proven value.
+16. Critical customer, contract, service, renewal, asset or value-proof decisions must keep human validation visible.
 
 Use this package import pattern:
 
@@ -65,6 +103,8 @@ Do not create:
 packages/design-system-ai-lab
 local Button wrappers
 local Card wrappers
+local Badge wrappers
+local Dialog wrappers
 local design-system copies
 custom UI primitives that duplicate package components
 ```
@@ -251,7 +291,17 @@ composition/screen-patterns.md
 
 ---
 
-## Pattern-first routing map
+## Screen intent router
+
+Use this router before selecting components.
+
+A generated screen must support one primary user decision.
+
+Do not include every available business pattern by default.
+
+Use only the patterns that support the requested screen intent.
+
+### Pattern-first routing map
 
 Use business patterns before low-level components when a pattern fits the section
 intent.
@@ -276,7 +326,85 @@ Do not rebuild customer context, renewal context, value proof, risk summaries,
 recommendation review or action lists with raw `Card` or `div` wrappers when a
 dedicated pattern exists.
 
----
+### Customer monitoring
+
+Use when the user needs to understand customer status, monitoring coverage,
+priority service risks and next actions.
+
+Use by default:
+
+- `PageHeader`
+- `CustomerStatusCard`
+- `MetricGrid` with 2 to 4 `MetricCard` items
+- `ConnectivityCoverageCard` when monitoring coverage matters
+- `ServiceRiskSummary` when a monitoring or service gap needs synthesis
+- `PriorityList` with 2 to 5 `AlertCard` items
+- `ActionList` with 2 to 5 `ActionCard` items
+- `CreateActionDialog` when action creation is part of the flow
+
+Do not use by default:
+
+- `RenewalRiskSummary`
+- `ValueProofCard`
+- `CustomerReviewReadinessCard`
+
+Use those only when renewal, value proof or customer review readiness is part of
+the requested decision.
+
+### Renewal risk review
+
+Use when the user needs to prepare or mitigate a renewal risk.
+
+Use by default:
+
+- `PageHeader`
+- `RenewalRiskSummary`
+- `CustomerReviewReadinessCard` when customer discussion readiness matters
+- `ValueProofCard` when service outcomes or proof gaps matter
+- `MetricGrid` with readiness, adoption or proof metrics
+- `PriorityList` with renewal blockers
+- `RecommendationReviewPanel` when recommendations need review
+- `ActionList` with mitigation actions
+
+Do not use by default:
+
+- `ConnectivityCoverageCard`, unless connectivity affects renewal risk
+- `AssetIntelligenceSummary`, unless asset scope affects the review
+
+### Asset recommendation review
+
+Use when the user needs to review asset health, lifecycle, modernization or asset
+recommendations.
+
+Use by default:
+
+- `PageHeader`
+- `CustomerStatusCard` when customer context matters
+- `AssetIntelligenceSummary`
+- `ServiceRiskSummary` when partial asset visibility creates service risk
+- `RecommendationReviewPanel` with `RecommendationCard` items
+- `ActionList` with validation or follow-up actions
+
+Do not use by default:
+
+- `RenewalRiskSummary`
+- `ValueProofCard`, unless value proof is explicitly requested
+
+### Customer review readiness or QBR preparation
+
+Use when the user needs to prepare a customer review, QBR, renewal discussion or
+service meeting.
+
+Use by default:
+
+- `PageHeader`
+- `CustomerStatusCard`
+- `CustomerReviewReadinessCard`
+- `ValueProofCard` when proof readiness or outcomes matter
+- `ServiceRiskSummary` when service risk affects the review
+- `RecommendationReviewPanel` when recommendations need review
+- `PriorityList` with blockers
+- `ActionList` with preparation actions
 
 ## Approved vocabulary
 
@@ -853,69 +981,22 @@ lifecycle status, data source, source strength, expected outcomes or proven valu
 
 ## Preferred screen structures
 
-### Customer monitoring
+Use `Screen intent router` first.
 
-For customer monitoring or service decision screens, prefer this structure:
+The structures below are defaults, not mandatory templates.
 
-1. `PageHeader` with `CreateActionDialog` as primary action.
-2. `CustomerStatusCard` for customer context.
-3. `MetricGrid` with 2 to 4 decision-relevant `MetricCard` items.
-4. `ConnectivityCoverageCard` when monitoring coverage matters.
-5. `ServiceRiskSummary` when service risk needs synthesis.
-6. `PriorityList` with 2 to 5 `AlertCard` items sorted by severity.
-7. `ActionList` with 2 to 5 `ActionCard` items for recommended next steps.
+Figma Make should adapt them to the requested user decision and avoid adding
+patterns that do not support that decision.
 
-AI should support synthesis, risk explanation, recommendation or drafting.
+Detailed screen composition guidance lives in:
 
-AI should not retrieve basic customer facts.
-
-The most important risk or decision should be visible quickly.
-
-Recommended actions should be easy to find.
-
-### Renewal risk review
-
-For renewal risk review screens, prefer this structure:
-
-1. `PageHeader` with a renewal or mitigation action.
-2. `RenewalRiskSummary` for renewal context.
-3. `CustomerReviewReadinessCard` when customer discussion readiness matters.
-4. `ValueProofCard` for service outcomes and proof gaps.
-5. `MetricGrid` with readiness or adoption metrics.
-6. `PriorityList` with renewal blockers sorted by severity.
-7. `RecommendationReviewPanel` with `RecommendationCard` items when recommendations need review.
-8. `ActionList` with mitigation actions.
-
-AI should support renewal risk explanation, value proof synthesis, mitigation
-recommendations or customer-ready drafting.
-
-AI should not retrieve the renewal date, owner, contract number or basic status.
-
-### Asset recommendation review
-
-For asset recommendation review screens, prefer this structure:
-
-1. `PageHeader` with a validation or follow-up action.
-2. `CustomerStatusCard` when customer context matters.
-3. `AssetIntelligenceSummary` for source, Health and Intelligence context.
-4. `ServiceRiskSummary` when partial asset visibility creates service risk.
-5. `RecommendationReviewPanel` with `RecommendationCard` items.
-6. `ActionList` with expert validation or follow-up actions.
-
-### Customer review readiness or QBR preparation
-
-For customer review readiness or QBR preparation screens, prefer this structure:
-
-1. `PageHeader` with a preparation action.
-2. `CustomerStatusCard` for customer context.
-3. `CustomerReviewReadinessCard` for review readiness.
-4. `ValueProofCard` for proof readiness and proof points.
-5. `ServiceRiskSummary` when service risk affects the review.
-6. `RecommendationReviewPanel` when recommendations need review.
-7. `PriorityList` with blockers.
-8. `ActionList` with preparation actions.
-
----
+```txt
+composition/overview.md
+composition/decision-layout.md
+composition/screen-patterns.md
+prompts/customer-monitoring.md
+prompts/renewal-risk-review.md
+```
 
 ## AI-assisted output rules
 
@@ -993,6 +1074,27 @@ Generated code should avoid:
 
 ## Acceptance criteria
 
+### Blocking acceptance criteria
+
+The generated screen should be rejected or revised if any of these checks fail:
+
+- `App.tsx` does not render a complete visible screen.
+- components are not imported from `design-system-ai-lab`.
+- `design-system-ai-lab/styles.css` is not imported.
+- internal package paths are used.
+- local design system components are created.
+- raw inline-styled form controls are generated.
+- an existing business pattern is manually rebuilt with raw markup.
+- the screen is a generic dashboard instead of a decision-oriented screen.
+- alerts do not include recommendations.
+- actions do not include owner, due date and priority.
+- important recommendations are not supported by visible or auditable evidence.
+- evidence, sources, citations, asset facts, telemetry or value proof are invented.
+- expected outcomes are presented as proven value.
+- critical decisions do not include human validation.
+
+### Full review criteria
+
 Before considering a generated screen acceptable, verify:
 
 - the screen imports components from `design-system-ai-lab`
@@ -1037,7 +1139,7 @@ Before considering a generated screen acceptable, verify:
 - human validation is present for critical decisions
 - the screen can be explained in terms of user decision-making
 
-Review details:
+Detailed review files:
 
 ```txt
 review/acceptance-checklist.md
@@ -1046,7 +1148,10 @@ review/anti-patterns.md
 
 ---
 
-## If the package is not used correctly
+## Repair instruction
+
+Use this instruction when Make drifts away from the package, recreates components,
+creates a generic dashboard or ignores the generation contract.
 
 If generated code recreates components or creates a local package, revise it
 using this instruction:

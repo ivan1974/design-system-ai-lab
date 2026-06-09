@@ -5,13 +5,39 @@
 This file explains how Figma Make should use the design tokens provided by the
 `design-system-ai-lab` package.
 
-Tokens define the visual foundation of the design system package.
+Its role is to keep generated screens visually coherent with the design system.
 
-Figma Make should use the existing token vocabulary instead of inventing new
-visual values.
+Use `tokens.md` to define:
 
-The goal is to keep generated screens coherent, accessible, sober, reusable and
-governed by the package styles.
+- the official token namespace
+- compatibility aliases
+- color usage rules
+- status tone mapping
+- radius, spacing and shadow rules
+- acceptable utility usage
+- token-related anti-patterns
+- token review criteria
+
+Do not use this file as the full design system documentation.
+
+For generation rules, screen routing, AI usage, evidence, accessibility and
+acceptance criteria, read:
+
+```txt
+Guidelines.md
+```
+
+For technical setup and package imports, read:
+
+```txt
+setup.md
+```
+
+For broader visual style rules, read:
+
+```txt
+styles.md
+```
 
 ---
 
@@ -19,31 +45,25 @@ governed by the package styles.
 
 Use the tokens already provided by the design system CSS.
 
-Do not create new tokens unless the designer explicitly asks for a design system
-extension.
+Do not invent new visual values.
 
-Do not hardcode arbitrary colors, radius values, spacing systems or shadow
-values when a token or package component already exists.
+Do not create a new color palette, spacing scale, radius system, shadow system or
+local theme unless the designer explicitly asks for a design system extension.
 
 Prefer package components and business patterns before manual token usage.
 
-Token usage must also support the transversal principles:
+Tokens should support:
 
-```txt
-principles/accessibility.md
-principles/eco-design.md
-principles/ai-usage.md
-principles/evidence-and-trust.md
-```
+- hierarchy
+- readability
+- grouping
+- status communication
+- accessibility
+- sober B2B visual style
+- trust-sensitive distinctions when relevant
 
-This means tokens should not be used to create decorative complexity, hide
-uncertainty, communicate status only through color or bypass the approved
-component vocabulary.
-
-Tokens must also preserve trust-critical cues when they affect the decision:
-asset scope, connectivity status, source scope, source strength, freshness,
-Health versus Intelligence distinction, expected outcome status and proof
-status.
+Tokens should not be used to create decorative complexity or make weak evidence
+look stronger than it is.
 
 ---
 
@@ -65,7 +85,7 @@ Do not create a competing theme file unless explicitly requested.
 
 ---
 
-## Token naming convention
+## Official token namespace
 
 The official design system token namespace is:
 
@@ -73,33 +93,50 @@ The official design system token namespace is:
 --ec-*
 ```
 
-The `--ec-*` prefix is kept for package compatibility and should be treated as
-the stable technical token namespace.
+The `--ec-*` prefix is the stable technical namespace for the package.
 
-Do not rename this namespace in generated screens.
+Do not rename it.
 
-Do not interpret the prefix as product-facing copy.
+Do not use it as product-facing copy.
 
 Examples:
 
 ```txt
 --ec-color-background
 --ec-color-surface
+--ec-color-surface-muted
 --ec-color-text-primary
+--ec-color-text-secondary
+--ec-color-text-muted
 --ec-color-border
 --ec-color-primary
+--ec-color-primary-hover
+--ec-color-primary-foreground
+--ec-color-success
+--ec-color-warning
+--ec-color-danger
+--ec-radius-sm
 --ec-radius-md
+--ec-radius-lg
+--ec-spacing-xs
+--ec-spacing-sm
+--ec-spacing-md
+--ec-spacing-lg
+--ec-spacing-xl
 --ec-shadow-card
+--ec-shadow-popover
 ```
 
 Use these tokens through package components, business patterns and approved
 utility classes.
 
+Manual token usage should be limited to page-level layout or simple wrappers.
+
 ---
 
 ## Compatibility aliases
 
-The package also provides compatibility aliases for Figma Make and shadcn-like
+The package may provide compatibility aliases for Figma Make and shadcn-like
 generated code.
 
 Common aliases include:
@@ -118,41 +155,29 @@ Common aliases include:
 --radius-lg
 ```
 
-These aliases are provided to make generated code more tolerant.
+These aliases make generated code more tolerant.
 
-They do not replace the official design system token namespace.
+They do not replace the official `--ec-*` token namespace.
 
-When writing simple custom layout wrappers, prefer `--ec-*` tokens when possible.
+When writing custom layout wrappers, prefer `--ec-*` tokens when possible.
 
-When Make generates aliases such as `--background` or `--foreground`, keep them
-only if they map to the package CSS and do not introduce a new visual system.
+Keep compatibility aliases only when they map to the package CSS and do not
+introduce a new visual system.
+
+Do not redefine compatibility aliases locally.
 
 ---
 
-## Color tokens
+## Color token rules
 
 ### Background and surfaces
 
-Use these tokens for page backgrounds and containers:
+Use:
 
 ```txt
 --ec-color-background
 --ec-color-surface
 --ec-color-surface-muted
-```
-
-Recommended usage:
-
-```tsx
-<main className="min-h-screen bg-(--ec-color-background) p-8">
-  ...
-</main>
-```
-
-```tsx
-<section className="bg-(--ec-color-surface)">
-  ...
-</section>
 ```
 
 Use `--ec-color-background` for the main page background.
@@ -161,27 +186,27 @@ Use `--ec-color-surface` for cards and elevated content areas.
 
 Use `--ec-color-surface-muted` for secondary areas or subtle contrast.
 
+Recommended page wrapper:
+
+```tsx
+<main className="min-h-screen bg-(--ec-color-background) p-8">
+  ...
+</main>
+```
+
 Prefer `Card`, `StatusSummary` and business patterns before manually creating
 surface containers.
 
 ---
 
-### Text colors
+### Text hierarchy
 
-Use these tokens for text hierarchy:
+Use:
 
 ```txt
 --ec-color-text-primary
 --ec-color-text-secondary
 --ec-color-text-muted
-```
-
-Recommended usage:
-
-```tsx
-<h1 className="text-(--ec-color-text-primary)">Customer monitoring</h1>
-<p className="text-(--ec-color-text-secondary)">Understand risks and next actions.</p>
-<p className="text-(--ec-color-text-muted)">Last updated 2 hours ago</p>
 ```
 
 Use `--ec-color-text-primary` for main titles and important content.
@@ -192,46 +217,31 @@ Use `--ec-color-text-muted` for metadata and low-emphasis information.
 
 Do not introduce new text colors for decoration.
 
-Use text hierarchy to clarify meaning, not to create decorative emphasis.
-
-Important evidence, freshness or validation context should remain readable and
-should not be hidden in overly muted text when it affects trust.
-
-The same applies to source strength, partial visibility, connectivity status,
-Health versus Intelligence labels and proof status.
-
-Do not make expected outcomes, technical outcomes, internal proof or
-customer-ready proof look equivalent through identical text treatment when the
-distinction affects trust.
+Do not hide important evidence, source, freshness, validation or proof status in
+overly muted text when it affects trust.
 
 ---
 
-### Border color
+### Borders
 
-Use this token for borders:
+Use:
 
 ```txt
 --ec-color-border
 ```
 
-Recommended usage:
-
-```tsx
-<div className="border border-(--ec-color-border)">
-  ...
-</div>
-```
-
 Do not create custom border colors.
 
-Do not use colored borders for decoration unless they communicate a meaningful
-status.
+Do not use colored borders for decoration.
+
+Use status components such as `Badge`, `AlertCard` and business patterns when a
+status needs to be communicated.
 
 ---
 
-### Primary color
+### Primary actions
 
-Use these tokens for the primary action color:
+Use:
 
 ```txt
 --ec-color-primary
@@ -239,23 +249,21 @@ Use these tokens for the primary action color:
 --ec-color-primary-foreground
 ```
 
-These are already used by the `Button` component.
+These tokens are already used by `Button`.
 
-Prefer using:
+Prefer:
 
 ```tsx
 <Button>Primary action</Button>
 ```
 
-instead of manually styling a primary button.
-
-Do not create custom primary button styles.
+Do not manually recreate primary button styles.
 
 ---
 
 ### Semantic colors
 
-Use semantic tokens for status and risk communication:
+Use:
 
 ```txt
 --ec-color-success
@@ -263,41 +271,11 @@ Use semantic tokens for status and risk communication:
 --ec-color-danger
 ```
 
-Use them for:
-
-- success states
-- warning states
-- critical states
-- destructive states
-
-Prefer package components such as `Badge`, `AlertCard`, `ActionCard` and
-business patterns instead of manually applying semantic colors.
-
-Good:
+Prefer semantic components instead of manual semantic color styling:
 
 ```tsx
 <Badge tone="warning">Connectivity partial</Badge>
 ```
-
-Good:
-
-```tsx
-<Badge tone="warning">Partially connected</Badge>
-```
-
-Good:
-
-```tsx
-<Badge tone="warning">Expected outcome, not proven</Badge>
-```
-
-Good:
-
-```tsx
-<Badge tone="info">Internal proof, not customer-ready</Badge>
-```
-
-Good:
 
 ```tsx
 <AlertCard
@@ -315,24 +293,73 @@ Avoid:
 <span style={{ color: "orange" }}>Connectivity partial</span>
 ```
 
-Do not communicate state by color alone.
+Do not communicate status by color alone.
 
-The label should explain the status.
-
-When the status affects trust, add visible context such as source, freshness,
-validation state or evidence.
-
-For asset-heavy screens, status labels should distinguish connected, partially
-connected and non-connected assets in text, not only through tone.
-
-For value proof screens, status labels should distinguish expected outcomes,
-technical outcomes, internal proof and customer-ready proof.
+The label must explain the status.
 
 ---
 
-## Radius tokens
+## Status tone mapping
 
-Available radius tokens:
+Use this mapping when generating status labels or badges.
+
+| State | Preferred tone |
+| --- | --- |
+| Active plan | `primary` |
+| Current or selected | `primary` |
+| Managed service | `primary` |
+| Connected | `success` |
+| Healthy | `success` |
+| Completed | `success` |
+| Customer-ready proof | `success` |
+| Informational metadata | `neutral` |
+| Renewal in 90 days | `neutral` |
+| Source or freshness metadata | `neutral` |
+| Health fact | `neutral` |
+| Intelligence interpretation | `neutral` |
+| Connectivity partial | `warning` |
+| Partially connected | `warning` |
+| Source strength: partial | `warning` |
+| Review needed | `warning` |
+| Expected outcome, not proven | `warning` |
+| Technical outcome, not customer-ready proof | `warning` |
+| Internal proof, not customer-ready | `warning` |
+| Critical risk | `danger` |
+| Critical assets disconnected | `danger` |
+| Non-connected critical assets | `danger` |
+| Renewal at risk | `danger` |
+| Overdue | `danger` |
+
+Allowed `Badge` tones are:
+
+```txt
+neutral
+primary
+success
+warning
+danger
+```
+
+Do not generate:
+
+```txt
+info
+critical
+error
+muted
+default
+secondary
+```
+
+Use `neutral` for informational badges instead of `info`.
+
+Use `danger` for critical risk instead of `critical`.
+
+---
+
+## Radius token rules
+
+Use:
 
 ```txt
 --ec-radius-sm
@@ -340,21 +367,21 @@ Available radius tokens:
 --ec-radius-lg
 ```
 
-Use them through package components whenever possible.
+Guidance:
 
-When needed for layout wrappers, use:
+- `--ec-radius-sm` for compact controls
+- `--ec-radius-md` for cards and grouped content
+- `--ec-radius-lg` for larger surfaces such as dialogs
+
+Use package components whenever possible.
+
+For simple wrappers, use token-based utilities only when needed:
 
 ```txt
 rounded-(--ec-radius-sm)
 rounded-(--ec-radius-md)
 rounded-(--ec-radius-lg)
 ```
-
-Usage guidance:
-
-- `--ec-radius-sm` for compact controls
-- `--ec-radius-md` for cards and grouped content
-- `--ec-radius-lg` for larger surfaces such as dialogs
 
 Do not use arbitrary radius values such as:
 
@@ -367,7 +394,9 @@ unless the designer explicitly asks for a new visual direction.
 
 ---
 
-## Spacing tokens
+## Spacing token rules
+
+Use the existing package spacing scale and supported layout utilities.
 
 Available spacing tokens:
 
@@ -379,8 +408,7 @@ Available spacing tokens:
 --ec-spacing-xl
 ```
 
-In generated code, prefer the existing utility classes already supported by the
-package CSS:
+Preferred layout utilities:
 
 ```txt
 p-4
@@ -398,40 +426,28 @@ Use spacing to clarify hierarchy and grouping.
 
 Do not create a new spacing scale.
 
-Do not use excessive spacing that makes the interface feel like a marketing
-page.
+Do not use excessive spacing that makes an operational screen feel like a
+marketing page.
 
 Generated screens should remain dense enough for B2B operational work.
 
-Use spacing to reduce cognitive load, not to inflate the screen.
-
-Avoid excessive vertical spacing that turns decision-support screens into long
-scrolling dashboards without stronger prioritization.
-
 ---
 
-## Shadow tokens
+## Shadow token rules
 
-Available shadow tokens:
+Use:
 
 ```txt
 --ec-shadow-card
 --ec-shadow-popover
 ```
 
-Use:
-
-```txt
-shadow-(--ec-shadow-card)
-shadow-(--ec-shadow-popover)
-```
-
-Usage guidance:
+Guidance:
 
 - `--ec-shadow-card` for subtle content grouping
 - `--ec-shadow-popover` for dialogs and floating surfaces
 
-Avoid dramatic shadows such as:
+Avoid dramatic or decorative shadows such as:
 
 ```txt
 shadow-xl
@@ -445,9 +461,9 @@ The visual style should remain sober and operational.
 
 ## Token usage through components
 
-Prefer using package components because they already apply the right tokens.
+Prefer package components because they already apply the right tokens.
 
-For example:
+Preferred:
 
 ```tsx
 <Card title="Customer status">
@@ -455,7 +471,7 @@ For example:
 </Card>
 ```
 
-is preferred over:
+Less preferred:
 
 ```tsx
 <section className="rounded-(--ec-radius-md) border border-(--ec-color-border) bg-(--ec-color-surface) shadow-(--ec-shadow-card)">
@@ -466,7 +482,7 @@ is preferred over:
 Prefer business patterns even more when the section intent matches an available
 pattern.
 
-For example:
+Preferred:
 
 ```tsx
 <CustomerStatusCard
@@ -476,12 +492,8 @@ For example:
 />
 ```
 
-is preferred over manually rebuilding customer status with raw layout markup.
-
-Use manual token classes only for page-level layout or simple wrappers.
-
-Do not use manual token styling to recreate existing package components,
-decision components or business patterns.
+Manual token classes should not recreate existing components, decision
+components or business patterns.
 
 ---
 
@@ -489,7 +501,7 @@ decision components or business patterns.
 
 Form components already use the correct tokens.
 
-Prefer:
+Preferred:
 
 ```tsx
 <Field label="Owner" htmlFor="owner">
@@ -515,45 +527,9 @@ Do not manually recreate input, select or textarea token styles.
 
 ---
 
-## Do not redefine tokens
-
-Do not generate local CSS like this:
-
-```css
-:root {
-  --ec-color-primary: #7c3aed;
-  --ec-radius-md: 20px;
-}
-```
-
-Do not override tokens to make a screen more decorative.
-
-Do not create a new theme unless explicitly requested.
-
-Do not redefine compatibility aliases locally unless the designer explicitly asks
-for a new theme layer.
-
----
-
-## Do not invent non-system tokens
-
-Avoid creating new tokens such as:
-
-```txt
---primary-blue
---dashboard-gradient
---card-glow
---brand-purple
---radius-premium
-```
-
-These weaken the design system and make generated screens inconsistent.
-
----
-
 ## Acceptable utility usage
 
-The generated screen may use layout utilities such as:
+Generated screens may use layout utilities such as:
 
 ```txt
 min-h-screen
@@ -576,7 +552,45 @@ Do not use arbitrary values to bypass the token system.
 
 ---
 
-## Status communication
+## Forbidden token patterns
+
+Do not generate local CSS like this:
+
+```css
+:root {
+  --ec-color-primary: #7c3aed;
+  --ec-radius-md: 20px;
+}
+```
+
+Do not create non-system tokens such as:
+
+```txt
+--primary-blue
+--dashboard-gradient
+--card-glow
+--brand-purple
+--radius-premium
+```
+
+Do not use token-like classes or styles to create:
+
+- decorative gradients
+- glassmorphism
+- glow effects
+- arbitrary shadow systems
+- arbitrary radius systems
+- custom badge systems
+- custom button systems
+- custom form systems
+- a new color palette
+- a new visual identity
+
+Do not override tokens to make a screen more decorative.
+
+---
+
+## Status communication rules
 
 Use tokens and components together to communicate state.
 
@@ -589,36 +603,13 @@ Good:
 Good:
 
 ```tsx
-<AlertCard
-  severity="critical"
-  title="Connectivity loss on critical equipment"
-  equipment="Main switchboard"
-  description="The customer may lose visibility on key assets."
-  recommendation="Plan a connectivity review with the customer and support team."
-/>
+<Badge tone="warning">Source strength: partial</Badge>
 ```
-
-Avoid relying only on color:
-
-```tsx
-<span className="text-(--ec-color-danger)">Issue</span>
-```
-
-Text should explain the meaning of the status.
-
-For evidence-sensitive states, the UI should also clarify what is known, what is
-uncertain and what still needs validation.
-
-Do not rely on visual confidence, stronger color or larger typography to
-replace source evidence.
-
-Confidence language should never be used as a substitute for source strength,
-source scope or proof status.
 
 Good:
 
 ```tsx
-<Badge tone="warning">Source data requires review</Badge>
+<Badge tone="warning">Expected outcome, not proven</Badge>
 ```
 
 Good:
@@ -631,19 +622,7 @@ Good:
   monitoringStatus="Partial monitoring coverage"
   lastUpdate="18 hours ago"
   badges={[{ label: "Connectivity partial", tone: "warning" }]}
- />
-```
-
-Good:
-
-```tsx
-<Badge tone="warning">Source strength: partial</Badge>
-```
-
-Good:
-
-```tsx
-<Badge tone="warning">Technical outcome, not customer-ready proof</Badge>
+/>
 ```
 
 Avoid:
@@ -652,9 +631,13 @@ Avoid:
 <span className="text-(--ec-color-warning)">Warning</span>
 ```
 
-The first two examples provide meaning and context.
+Text should explain the meaning of the status.
 
-The last example relies on color and a vague label.
+For evidence-sensitive states, the UI should clarify what is known, what is
+uncertain and what still needs validation.
+
+Do not rely on visual confidence, stronger color or larger typography to replace
+source evidence.
 
 ---
 
@@ -663,7 +646,7 @@ The last example relies on color and a vague label.
 After generation, verify:
 
 - the screen imports `design-system-ai-lab/styles.css`
-- the official `--ec-*` namespace is kept for compatibility
+- the official `--ec-*` namespace is preserved
 - the `--ec-*` prefix is not used as product-facing copy
 - compatibility aliases are not redefined locally
 - no new color palette is introduced
@@ -671,15 +654,10 @@ After generation, verify:
 - no arbitrary shadow values are introduced
 - no decorative gradients are introduced
 - no custom form styling system is introduced
-- semantic colors are used consistently
+- semantic tones use the approved tone mapping
+- unsupported badge tones such as `info` or `critical` are not used
 - status is not communicated by color alone
 - evidence-sensitive status includes readable context when needed
-- source strength remains readable when it affects trust
-- partial visibility, partially connected assets and non-connected assets are labelled in text
-- Health versus Intelligence distinction is not communicated by styling alone
-- expected outcomes are not styled as proven value
-- technical outcomes and internal proof are not styled as customer-ready proof without validation
-- confidence language does not replace source evidence
 - package components are used before manual styling
 - business patterns are used before manual section rebuilding
 - manual token styling is not used to recreate existing components or patterns
@@ -696,6 +674,5 @@ sober, reusable and governed by the design system.
 
 Tokens should support meaning, hierarchy and trust.
 
-They should not be used to create decorative complexity, hide uncertainty,
-replace the approved component vocabulary or make weak evidence look stronger
-than it is.
+They should not be used to create decorative complexity, replace the approved
+component vocabulary or make weak evidence look stronger than it is.
