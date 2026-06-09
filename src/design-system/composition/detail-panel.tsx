@@ -48,22 +48,22 @@ export const DetailPanelHeader = forwardRef<
       <header
         ref={ref}
         className={[
-          "flex items-start justify-between gap-4 border-b border-(--ec-color-border-soft)",
-          "bg-(--ec-color-surface-soft) px-5 py-4",
+          "flex items-start justify-between gap-5 border-b border-(--ec-color-border-soft)",
+          "bg-(--ec-color-surface-soft) px-6 py-5",
           className,
         ].join(" ")}
         {...props}
       >
-        <div className="min-w-0 space-y-1.5">
-          <h2 className="text-sm font-semibold text-(--ec-color-text-primary)">
+        <div className="min-w-0 space-y-2">
+          <h2 className="text-[length:var(--ec-title-section-size)] font-semibold leading-[var(--ec-title-section-line-height)] tracking-(--ec-letter-spacing-tight) text-(--ec-color-text-primary)">
             {title}
           </h2>
           {description && (
-            <p className="text-sm leading-6 text-(--ec-color-text-secondary)">
+            <p className="max-w-prose text-[length:var(--ec-text-body-size)] leading-[var(--ec-text-body-line-height)] text-(--ec-color-text-secondary)">
               {description}
             </p>
           )}
-          {meta && <div className="pt-1">{meta}</div>}
+          {meta && <div className="pt-1.5">{meta}</div>}
         </div>
         {actions && <div className="shrink-0">{actions}</div>}
       </header>
@@ -76,7 +76,7 @@ export const DetailPanelBody = forwardRef<
   DetailPanelBodyProps
 >(({ children, className = "", ...props }, ref) => {
   return (
-    <div ref={ref} className={["space-y-5 p-5", className].join(" ")} {...props}>
+    <div ref={ref} className={["space-y-6 p-6", className].join(" ")} {...props}>
       {children}
     </div>
   );
@@ -91,7 +91,7 @@ export const DetailPanelFooter = forwardRef<
       ref={ref}
       className={[
         "border-t border-(--ec-color-border-soft) bg-(--ec-color-surface-soft)",
-        "px-5 py-4",
+        "px-6 py-4",
         className,
       ].join(" ")}
       {...props}
