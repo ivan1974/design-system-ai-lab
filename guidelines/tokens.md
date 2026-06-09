@@ -12,6 +12,7 @@ Use `tokens.md` to define:
 - the official token namespace
 - compatibility aliases
 - color usage rules
+- Tag / Pill / Badge roles
 - status tone mapping
 - radius, spacing and shadow rules
 - acceptable utility usage
@@ -50,7 +51,8 @@ Do not invent new visual values.
 Do not create a new color palette, spacing scale, radius system, shadow system or
 local theme unless the designer explicitly asks for a design system extension.
 
-Prefer package components and business patterns before manual token usage.
+Prefer package components, composition components and business patterns before
+manual token usage.
 
 Tokens should support:
 
@@ -62,8 +64,8 @@ Tokens should support:
 - sober B2B visual style
 - trust-sensitive distinctions when relevant
 
-Tokens should not be used to create decorative complexity or make weak evidence
-look stronger than it is.
+Tokens should not be used to create decorative complexity, card saturation or
+make weak evidence look stronger than it is.
 
 ---
 
@@ -189,13 +191,15 @@ Use `--ec-color-surface-muted` for secondary areas or subtle contrast.
 Recommended page wrapper:
 
 ```tsx
-<main className="min-h-screen bg-(--ec-color-background) p-8">
+<main className="min-h-screen bg-(--ec-color-background)">
   ...
 </main>
 ```
 
-Prefer `Card`, `StatusSummary` and business patterns before manually creating
-surface containers.
+Prefer `WorkspaceShell`, `DetailPanel`, `SectionBlock`, `Card` and business
+patterns before manually creating surface containers.
+
+Do not use surface tokens to create one card per item.
 
 ---
 
@@ -234,8 +238,8 @@ Do not create custom border colors.
 
 Do not use colored borders for decoration.
 
-Use status components such as `Badge`, `AlertCard` and business patterns when a
-status needs to be communicated.
+Use status components such as `StatusPill`, `SemanticTag`, `SourceStrengthPill`,
+`AlertCard` and business patterns when a status needs to be communicated.
 
 ---
 
@@ -274,17 +278,11 @@ Use:
 Prefer semantic components instead of manual semantic color styling:
 
 ```tsx
-<Badge tone="warning">Connectivity partial</Badge>
+<StatusPill tone="warning">Review needed</StatusPill>
 ```
 
 ```tsx
-<AlertCard
-  severity="critical"
-  title="Critical equipment no longer monitored"
-  equipment="Main HVAC control unit"
-  description="The customer has no visibility on a critical asset."
-  recommendation="Escalate to support and notify the customer proactively."
-/>
+<SemanticTag tone="primary">EcoCare Advanced</SemanticTag>
 ```
 
 Avoid:
@@ -299,9 +297,46 @@ The label must explain the status.
 
 ---
 
+## Tag / Pill / Badge roles
+
+Use the right compact semantic component for the job.
+
+| Component | Role | Use for | Do not use for |
+| --- | --- | --- | --- |
+| `SemanticTag` | Category or qualifier | plan, scope, asset type, segment, domain, source category | status, priority, validation state |
+| `StatusPill` | State or readiness | review needed, customer-ready, blocked, validated, critical | category labels or decorative chips |
+| `PriorityPill` | Priority | high, medium, low priority | readiness, source strength |
+| `SourceStrengthPill` | Evidence strength | strong, partial, internal, customer-ready, unknown | priority or generic tags |
+| `Badge` | Legacy/simple metadata | compact metadata inside older/simple components | primary v2 workspace status vocabulary |
+
+Preferred examples:
+
+```tsx
+<SemanticTag tone="primary">EcoCare Advanced</SemanticTag>
+```
+
+```tsx
+<StatusPill tone="warning">Review needed</StatusPill>
+```
+
+```tsx
+<PriorityPill priority="high" />
+```
+
+```tsx
+<SourceStrengthPill strength="partial" />
+```
+
+Do not create custom chips, tags or pills with raw spans and manual colors.
+
+Do not make tags, pills or badges interactive unless the package component is
+explicitly designed for interaction.
+
+---
+
 ## Status tone mapping
 
-Use this mapping when generating status labels or badges.
+Use this mapping when generating status labels, tags, pills or badges.
 
 | State | Preferred tone |
 | --- | --- |
@@ -311,6 +346,7 @@ Use this mapping when generating status labels or badges.
 | Connected | `success` |
 | Healthy | `success` |
 | Completed | `success` |
+| Validated | `success` |
 | Customer-ready proof | `success` |
 | Informational metadata | `neutral` |
 | Renewal in 90 days | `neutral` |
@@ -330,7 +366,7 @@ Use this mapping when generating status labels or badges.
 | Renewal at risk | `danger` |
 | Overdue | `danger` |
 
-Allowed `Badge` tones are:
+Allowed tones are:
 
 ```txt
 neutral
@@ -351,7 +387,7 @@ default
 secondary
 ```
 
-Use `neutral` for informational badges instead of `info`.
+Use `neutral` for informational labels instead of `info`.
 
 Use `danger` for critical risk instead of `critical`.
 
@@ -369,7 +405,7 @@ Use:
 
 Guidance:
 
-- `--ec-radius-sm` for compact controls
+- `--ec-radius-sm` for compact controls and rows
 - `--ec-radius-md` for cards and grouped content
 - `--ec-radius-lg` for larger surfaces such as dialogs
 
@@ -466,9 +502,9 @@ Prefer package components because they already apply the right tokens.
 Preferred:
 
 ```tsx
-<Card title="Customer status">
-  ...
-</Card>
+<WorkspaceShell>
+  <MasterDetailLayout list={...} detail={...} />
+</WorkspaceShell>
 ```
 
 Less preferred:
@@ -479,17 +515,12 @@ Less preferred:
 </section>
 ```
 
-Prefer business patterns even more when the section intent matches an available
-pattern.
+Prefer business patterns when the section intent matches an available pattern.
 
 Preferred:
 
 ```tsx
-<CustomerStatusCard
-  customerName="Greenfield Industries"
-  plan="Advanced service plan"
-  coverage="68% connected"
-/>
+<ConnectivityCoverageCard mode="section" coverageRate="68%" />
 ```
 
 Manual token classes should not recreate existing components, decision
@@ -580,11 +611,13 @@ Do not use token-like classes or styles to create:
 - glow effects
 - arbitrary shadow systems
 - arbitrary radius systems
+- custom chip systems
 - custom badge systems
 - custom button systems
 - custom form systems
 - a new color palette
 - a new visual identity
+- card saturation
 
 Do not override tokens to make a screen more decorative.
 
@@ -597,31 +630,31 @@ Use tokens and components together to communicate state.
 Good:
 
 ```tsx
-<Badge tone="danger">Critical risk</Badge>
+<StatusPill tone="danger">Critical risk</StatusPill>
 ```
 
 Good:
 
 ```tsx
-<Badge tone="warning">Source strength: partial</Badge>
+<SourceStrengthPill strength="partial" />
 ```
 
 Good:
 
 ```tsx
-<Badge tone="warning">Expected outcome, not proven</Badge>
+<StatusPill tone="warning">Expected outcome, not proven</StatusPill>
 ```
 
 Good:
 
 ```tsx
 <ConnectivityCoverageCard
+  mode="section"
   coverageRate="68%"
   connectedAssets="17 assets"
   disconnectedAssets="8 assets"
   monitoringStatus="Partial monitoring coverage"
   lastUpdate="18 hours ago"
-  badges={[{ label: "Connectivity partial", tone: "warning" }]}
 />
 ```
 
@@ -654,12 +687,14 @@ After generation, verify:
 - no arbitrary shadow values are introduced
 - no decorative gradients are introduced
 - no custom form styling system is introduced
+- no custom tag, pill or badge system is introduced
 - semantic tones use the approved tone mapping
-- unsupported badge tones such as `info` or `critical` are not used
+- unsupported tones such as `info` or `critical` are not used
 - status is not communicated by color alone
 - evidence-sensitive status includes readable context when needed
 - package components are used before manual styling
 - business patterns are used before manual section rebuilding
+- workspace components are used before card stacks when review is needed
 - manual token styling is not used to recreate existing components or patterns
 - the visual result remains sober, B2B and readable
 
