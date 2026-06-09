@@ -14,16 +14,16 @@ const variantClasses: Record<ButtonVariant, string> = {
   primary:
     "bg-(--ec-color-primary) text-(--ec-color-primary-foreground) hover:bg-(--ec-color-primary-hover)",
   secondary:
-    "bg-(--ec-color-surface) text-(--ec-color-text-primary) border border-(--ec-color-border) hover:bg-(--ec-color-surface-muted)",
+    "border border-(--ec-color-border) bg-(--ec-color-surface) text-(--ec-color-text-primary) hover:bg-(--ec-color-surface-muted)",
   ghost:
     "bg-transparent text-(--ec-color-text-secondary) hover:bg-(--ec-color-surface-muted)",
   danger: "bg-(--ec-color-danger) text-white hover:opacity-90",
 };
 
 const sizeClasses: Record<ButtonSize, string> = {
-  sm: "h-8 px-3 text-sm",
-  md: "h-10 px-4 text-sm",
-  lg: "h-12 px-5 text-base",
+  sm: "h-9 px-3.5 text-sm",
+  md: "h-11 px-5 text-sm",
+  lg: "h-12 px-6 text-base",
 };
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
