@@ -17,7 +17,23 @@
   "files": [
     "dist",
     "README.md",
-    "guidelines"
+    "guidelines/Guidelines.md",
+    "guidelines/setup.md",
+    "guidelines/styles.md",
+    "guidelines/tokens.md",
+    "guidelines/components",
+    "guidelines/decision",
+    "guidelines/domain-models",
+    "guidelines/examples/golden",
+    "guidelines/forms",
+    "guidelines/handoff",
+    "guidelines/knowledge",
+    "guidelines/patterns",
+    "guidelines/principles",
+    "guidelines/prompts",
+    "guidelines/repair-prompts",
+    "guidelines/review",
+    "guidelines/screen-architecture"
   ],
   "sideEffects": [
     "*.css"
