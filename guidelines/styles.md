@@ -11,7 +11,7 @@ low-level styling rules.
 Use `styles.md` to define:
 
 - visual personality
-- layout principles
+- decision workspace layout principles
 - typography rules
 - density rules
 - card usage rules
@@ -63,6 +63,62 @@ Style should support understanding, trust and action.
 
 Style should not create decoration, hide uncertainty, make weak evidence look
 stronger or replace approved package components and business patterns.
+
+---
+
+## Decision workspace style
+
+Make should not create a long scrolling page made of equal cards by default.
+
+When the user must compare, review, inspect or act, prefer a workspace structure:
+
+```txt
+WorkspaceShell
+→ FilterBar
+→ MasterDetailLayout
+→ DetailPanel / DetailPanelTabs / StickyActionBar
+→ SectionStack / SectionBlock
+→ rows and compact primitives
+```
+
+Good visual structure:
+
+```txt
+context and scope
+→ compact signals
+→ list or queue
+→ selected item detail
+→ evidence and validation
+→ owned next action
+```
+
+Avoid visual card saturation:
+
+```txt
+Card
+Card
+Card
+Card
+Card
+Card
+```
+
+Card saturation happens when every metric, fact, action, proof point or signal is
+rendered as a separate surface.
+
+Use rows and compact primitives instead:
+
+```txt
+KeyValueRow
+CompactMetric
+SignalRow
+EvidenceRow
+ActionRow
+DocumentRow
+TimelineItem
+```
+
+Use `Card` only when the content is a highlighted object with one clear purpose.
 
 ---
 
@@ -126,24 +182,15 @@ actionability.
 
 Use layout to clarify the user decision.
 
-The default reading order should be:
+For v2 Make output, the default decision-oriented order is:
 
 ```txt
-Context
+Scope and context
 → decision signals
-→ risks or blockers
+→ list or selected item detail when review is needed
+→ risks, blockers or readiness gaps
 → recommendations when relevant
 → owned actions
-```
-
-For common service decision screens, this often becomes:
-
-```txt
-PageHeader
-→ Customer or service context
-→ metrics
-→ risks
-→ actions
 ```
 
 Use simple layout utilities for structure:
@@ -151,8 +198,6 @@ Use simple layout utilities for structure:
 ```txt
 min-h-screen
 mx-auto
-max-w-5xl
-max-w-6xl
 max-w-7xl
 p-4
 p-6
@@ -227,11 +272,21 @@ Generated screens should remain dense enough for B2B operational work.
 
 Prefer focused density:
 
-- 2 to 4 key metrics
+- 2 to 4 key signals or metrics
 - 2 to 5 priority risks or blockers
 - 2 to 5 owned actions
 - one main action per main screen section
 - one clear decision per generated screen
+
+Use compact density:
+
+```txt
+MetricStrip for secondary signals
+KeyValueList for facts
+SignalRow for repeated observations
+EvidenceRow for source context
+ActionRow for follow-through
+```
 
 Avoid:
 
@@ -265,21 +320,31 @@ Prefer business patterns when they match the section intent:
 <CustomerReviewReadinessCard />
 ```
 
-Use decision components for metrics, risks, recommendations and actions:
+Use workspace and compact components before generic `Card` when the user must
+review a list, inspect a detail panel or act on repeated items:
 
 ```tsx
-<MetricGrid />
-<MetricCard />
-<PriorityList />
-<AlertCard />
-<ActionList />
-<ActionCard />
-<RecommendationCard />
-<StatusSummary />
+<WorkspaceShell />
+<MasterDetailLayout />
+<DetailPanel />
+<SectionBlock />
+<KeyValueList />
+<MetricStrip />
+<ActionRow />
+<EvidenceRow />
+<SignalRow />
 ```
 
-Use generic `Card` only when no more specific business pattern or decision
-component fits.
+Use decision cards for highlighted items only:
+
+```tsx
+<AlertCard />
+<ActionCard />
+<RecommendationCard />
+```
+
+Use generic `Card` only when no more specific business pattern, decision
+component, compact primitive or workspace component fits.
 
 Do not rebuild known business sections with raw `Card`, `div`, `dt` or `dd`
 markup when a dedicated pattern exists.
@@ -353,18 +418,6 @@ Preferred:
 </Field>
 ```
 
-Also valid:
-
-```tsx
-<Field label="Priority" htmlFor="priority">
-  <Select id="priority" defaultValue="high">
-    <option value="high">High</option>
-    <option value="medium">Medium</option>
-    <option value="low">Low</option>
-  </Select>
-</Field>
-```
-
 Avoid:
 
 ```tsx
@@ -387,33 +440,30 @@ alone.
 
 Use:
 
-- `Badge` for concise status, tone or metadata
-- `AlertCard` for risks that need explanation and recommendation
-- `StatusSummary` for structured metadata
+- `SemanticTag` for category, scope, plan, asset type or business qualifier
+- `StatusPill` for state, readiness, validation or risk status
+- `PriorityPill` for priority
+- `SourceStrengthPill` for evidence/source strength
+- `Badge` only for older/simple compact metadata inside supported components
+- `AlertCard` for highlighted risks that need explanation and recommendation
 - business patterns for known business status sections
 
 Good:
 
 ```tsx
-<Badge tone="warning">Connectivity partial</Badge>
+<SemanticTag tone="primary">EcoCare Advanced</SemanticTag>
 ```
 
 Good:
 
 ```tsx
-<Badge tone="warning">Expected outcome, not proven</Badge>
+<StatusPill tone="warning">Review needed</StatusPill>
 ```
 
 Good:
 
 ```tsx
-<AlertCard
-  severity="critical"
-  title="Critical equipment no longer monitored"
-  equipment="Main switchboard"
-  description="The customer may lose visibility on key assets."
-  recommendation="Plan a connectivity review with the customer and support team."
-/>
+<SourceStrengthPill strength="partial" />
 ```
 
 Avoid:
@@ -455,21 +505,21 @@ Use structured components and patterns instead of visual tricks.
 Good:
 
 ```tsx
-<ConnectivityCoverageCard
-  coverageRate="68%"
-  connectedAssets="17 assets"
-  disconnectedAssets="8 assets"
-  monitoringStatus="Partial monitoring coverage"
-  lastUpdate="18 hours ago"
-  badges={[{ label: "Connectivity partial", tone: "warning" }]}
+<EvidenceRow
+  label="Monitoring signal"
+  source="Monitoring platform"
+  sourceScope="Connected asset only"
+  sourceStrength="partial"
+  freshness="18 hours"
+  validationStatus="Expert review needed"
 />
 ```
 
 Avoid:
 
 ```tsx
-<Card title="Connectivity">
-  <p className="text-(--ec-color-warning)">Warning</p>
+<Card title="Evidence">
+  <p className="text-(--ec-color-warning)">Weak source</p>
 </Card>
 ```
 
@@ -503,11 +553,12 @@ If tabular information is needed, keep it small and decision-oriented.
 
 For this Make kit, prefer:
 
-- `StatusSummary`
-- `MetricCard`
-- `AlertCard`
-- `ActionCard`
-- `ValueProofCard`
+- `MasterDetailLayout`
+- `SignalRow`
+- `EvidenceRow`
+- `ActionRow`
+- `KeyValueList`
+- `MetricStrip`
 - business patterns
 
 ---
@@ -561,6 +612,8 @@ Do not generate:
 - arbitrary radius values
 - decorative charts
 - generic dashboard cards
+- card-saturated layouts
+- one card per fact, signal, action or proof point
 - custom card systems
 - custom button systems
 - custom badge systems
@@ -601,9 +654,12 @@ After generation, verify:
 - no glassmorphism, glow effect or blurred surface was introduced
 - no arbitrary radius or shadow values were introduced
 - no generic dashboard card system was created
+- no card-saturated layout was created
 - no custom button, badge, card, modal or form system was created
 - business patterns are used before manual section styling
-- decision components are used for metrics, risks and actions
+- workspace components are used when list/detail review is needed
+- compact primitives and rows are used for repeated facts, signals and actions
+- decision components are used for metrics, risks, recommendations and actions
 - status is not communicated by color alone
 - evidence, freshness and validation context remain readable when needed
 - source strength remains readable when it affects trust
