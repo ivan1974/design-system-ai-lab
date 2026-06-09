@@ -13,6 +13,7 @@ import {
   KeyValueRow,
   MasterDetailLayout,
   MetricStrip,
+  PageHeading,
   SectionBlock,
   SectionStack,
   SemanticTag,
@@ -35,16 +36,12 @@ export default function App() {
     <main className="min-h-screen bg-(--ec-color-background)">
       <WorkspaceShell
         header={
-          <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
-            <div>
-              <p className="text-sm font-medium text-(--ec-color-primary)">Installed base explorer</p>
-              <h1 className="mt-1 text-2xl font-semibold text-(--ec-color-text-primary)">Explore assets with source context</h1>
-              <p className="mt-2 max-w-3xl text-sm text-(--ec-color-text-secondary)">
-                Review asset identity, monitoring scope, evidence and next action in a master-detail workspace.
-              </p>
-            </div>
-            <Button size="sm">Create asset action</Button>
-          </div>
+          <PageHeading
+            eyebrow="Installed base explorer"
+            title="Explore assets with source context"
+            description="Review asset identity, monitoring scope, evidence and next action in a master-detail workspace."
+            actions={<Button size="sm">Create asset action</Button>}
+          />
         }
         controls={
           <FilterBar
