@@ -5,10 +5,6 @@ import {
   Button,
   CompactMetric,
   ConnectivityCoverageCard,
-  DetailPanel,
-  DetailPanelBody,
-  DetailPanelFooter,
-  DetailPanelHeader,
   DetailPanelTabs,
   FilterBar,
   KeyValueList,
@@ -22,6 +18,7 @@ import {
   SemanticTag,
   StatusPill,
   StickyActionBar,
+  WorkspaceDetailPanel,
   WorkspaceShell,
 } from "design-system-ai-lab";
 
@@ -61,6 +58,8 @@ export default function App() {
       >
         <MasterDetailLayout
           detailWidth="lg"
+          detailOpen
+          detailMode="inline"
           listLabel="Monitoring list"
           detailLabel="Monitoring detail"
           list={
@@ -104,12 +103,20 @@ export default function App() {
             </SectionStack>
           }
           detail={
-            <DetailPanel>
-              <DetailPanelHeader
-                title="Main switchboard"
-                description="Selected asset detail. Visibility limits appear before interpretation."
-                meta={<StatusPill tone="warning">Review needed</StatusPill>}
-              />
+            <WorkspaceDetailPanel
+              open
+              mode="inline"
+              title="Main switchboard"
+              description="Selected asset detail. Visibility limits appear before interpretation."
+              meta={<StatusPill tone="warning">Review needed</StatusPill>}
+              footer={
+                <StickyActionBar
+                  context="Next action: review monitoring scope before the next customer touchpoint."
+                  secondaryActions={<Button variant="secondary" size="sm">Add note</Button>}
+                  primaryAction={<Button size="sm">Plan review</Button>}
+                />
+              }
+            >
               <DetailPanelTabs
                 tabs={[
                   { id: "overview", label: "Overview", active: true },
@@ -118,46 +125,37 @@ export default function App() {
                   { id: "actions", label: "Actions", count: 2 },
                 ]}
               />
-              <DetailPanelBody>
-                <SectionStack>
-                  <ConnectivityCoverageCard
-                    mode="section"
-                    coverageRate="68%"
-                    connectedAssets="17 assets"
-                    disconnectedAssets="8 assets"
-                    monitoringStatus="Partial monitoring coverage"
-                    affectedScope="Main site"
-                    lastUpdate="18 hours ago"
+              <SectionStack>
+                <ConnectivityCoverageCard
+                  mode="section"
+                  coverageRate="68%"
+                  connectedAssets="17 assets"
+                  disconnectedAssets="8 assets"
+                  monitoringStatus="Partial monitoring coverage"
+                  affectedScope="Main site"
+                  lastUpdate="18 hours ago"
+                  sourceScope="Monitoring platform and known installed base"
+                  sourceStrength="partial"
+                  coverageBasis="Known Schneider monitored assets only"
+                  validationStatus="Review before customer communication"
+                />
+
+                <SectionBlock title="Priority review">
+                  <AlertCard
+                    severity="warning"
+                    title="Monitoring scope needs review"
+                    scope="Main site"
+                    description="Some known assets are not visible in live monitoring."
+                    recommendation="Review coverage with the customer and support team."
+                    evidenceSummary="Known installed base and connected assets do not fully match."
                     sourceScope="Monitoring platform and known installed base"
                     sourceStrength="partial"
-                    coverageBasis="Known Schneider monitored assets only"
+                    freshness="18 hours ago"
                     validationStatus="Review before customer communication"
                   />
-
-                  <SectionBlock title="Priority review">
-                    <AlertCard
-                      severity="warning"
-                      title="Monitoring scope needs review"
-                      scope="Main site"
-                      description="Some known assets are not visible in live monitoring."
-                      recommendation="Review coverage with the customer and support team."
-                      evidenceSummary="Known installed base and connected assets do not fully match."
-                      sourceScope="Monitoring platform and known installed base"
-                      sourceStrength="partial"
-                      freshness="18 hours ago"
-                      validationStatus="Review before customer communication"
-                    />
-                  </SectionBlock>
-                </SectionStack>
-              </DetailPanelBody>
-              <DetailPanelFooter>
-                <StickyActionBar
-                  context="Next action: review monitoring scope before the next customer touchpoint."
-                  secondaryActions={<Button variant="secondary" size="sm">Add note</Button>}
-                  primaryAction={<Button size="sm">Plan review</Button>}
-                />
-              </DetailPanelFooter>
-            </DetailPanel>
+                </SectionBlock>
+              </SectionStack>
+            </WorkspaceDetailPanel>
           }
         />
 
