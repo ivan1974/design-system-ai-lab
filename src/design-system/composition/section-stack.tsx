@@ -1,6 +1,8 @@
 import { forwardRef } from "react";
 import type { HTMLAttributes, ReactNode } from "react";
 
+import { Heading, Text } from "../components/typography";
+
 export type SectionStackProps = HTMLAttributes<HTMLDivElement> & {
   children: ReactNode;
   gap?: "sm" | "md" | "lg";
@@ -31,17 +33,9 @@ export const SectionBlock = forwardRef<HTMLElement, SectionBlockProps>(
       <section ref={ref} className={["space-y-4", className].join(" ")} {...props}>
         {(title || description || actions) && (
           <header className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
-            <div className="min-w-0 space-y-1.5">
-              {title && (
-                <h3 className="text-[length:var(--ec-title-subsection-size)] font-semibold leading-[var(--ec-title-subsection-line-height)] tracking-(--ec-letter-spacing-normal) text-(--ec-color-text-primary)">
-                  {title}
-                </h3>
-              )}
-              {description && (
-                <p className="max-w-prose text-[length:var(--ec-text-body-size)] leading-[var(--ec-text-body-line-height)] text-(--ec-color-text-secondary)">
-                  {description}
-                </p>
-              )}
+            <div className="min-w-0 space-y-2">
+              {title && <Heading level={3} size="subsection">{title}</Heading>}
+              {description && <Text className="max-w-prose">{description}</Text>}
             </div>
             {actions && <div className="shrink-0">{actions}</div>}
           </header>
