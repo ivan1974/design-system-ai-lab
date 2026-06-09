@@ -1,5 +1,5 @@
 import { forwardRef } from "react";
-import type { HTMLAttributes, ReactNode } from "react";
+import type { HTMLAttributes, ReactNode, Ref } from "react";
 
 import {
   PanelBody,
@@ -76,7 +76,7 @@ export const WorkspaceDetailPanel = forwardRef<HTMLElement, WorkspaceDetailPanel
     if (mode === "overlay") {
       return (
         <SlideOverPanel
-          ref={ref as React.Ref<HTMLDivElement>}
+          ref={ref as Ref<HTMLDivElement>}
           open={open}
           onOpenChange={onOpenChange}
           size={size}
