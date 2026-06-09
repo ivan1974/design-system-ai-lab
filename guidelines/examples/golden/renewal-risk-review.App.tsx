@@ -11,6 +11,7 @@ import {
   KeyValueList,
   KeyValueRow,
   MasterDetailLayout,
+  PageHeading,
   RecommendationCard,
   RecommendationReviewPanel,
   RenewalRiskSummary,
@@ -30,16 +31,12 @@ export default function App() {
     <main className="min-h-screen bg-(--ec-color-background)">
       <WorkspaceShell
         header={
-          <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
-            <div>
-              <p className="text-sm font-medium text-(--ec-color-primary)">Renewal risk review</p>
-              <h1 className="mt-1 text-2xl font-semibold text-(--ec-color-text-primary)">Close proof gaps before renewal</h1>
-              <p className="mt-2 max-w-3xl text-sm text-(--ec-color-text-secondary)">
-                Review renewal exposure, customer-ready proof, recommendation readiness and mitigation actions.
-              </p>
-            </div>
-            <Button size="sm">Create mitigation action</Button>
-          </div>
+          <PageHeading
+            eyebrow="Renewal risk review"
+            title="Close proof gaps before renewal"
+            description="Review renewal exposure, customer-ready proof, recommendation readiness and mitigation actions."
+            actions={<Button size="sm">Create mitigation action</Button>}
+          />
         }
         controls={
           <FilterBar
