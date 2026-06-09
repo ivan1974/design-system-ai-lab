@@ -26,8 +26,9 @@ export const DetailPanel = forwardRef<HTMLElement, DetailPanelProps>(
       <section
         ref={ref}
         className={[
-          "overflow-hidden rounded-(--ec-radius-md) border border-(--ec-color-border)",
-          "bg-(--ec-color-surface) shadow-(--ec-shadow-card)",
+          "overflow-hidden rounded-(--ec-radius-lg) border border-(--ec-color-border-soft)",
+          "bg-(--ec-color-surface-raised) shadow-(--ec-shadow-panel)",
+          "backdrop-blur-[2px]",
           className,
         ].join(" ")}
         {...props}
@@ -47,18 +48,18 @@ export const DetailPanelHeader = forwardRef<
       <header
         ref={ref}
         className={[
-          "flex items-start justify-between gap-4 border-b border-(--ec-color-border)",
-          "px-4 py-4",
+          "flex items-start justify-between gap-4 border-b border-(--ec-color-border-soft)",
+          "bg-(--ec-color-surface-soft) px-5 py-4",
           className,
         ].join(" ")}
         {...props}
       >
-        <div className="min-w-0 space-y-1">
+        <div className="min-w-0 space-y-1.5">
           <h2 className="text-sm font-semibold text-(--ec-color-text-primary)">
             {title}
           </h2>
           {description && (
-            <p className="text-sm text-(--ec-color-text-secondary)">
+            <p className="text-sm leading-6 text-(--ec-color-text-secondary)">
               {description}
             </p>
           )}
@@ -75,7 +76,7 @@ export const DetailPanelBody = forwardRef<
   DetailPanelBodyProps
 >(({ children, className = "", ...props }, ref) => {
   return (
-    <div ref={ref} className={["space-y-4 p-4", className].join(" ")} {...props}>
+    <div ref={ref} className={["space-y-5 p-5", className].join(" ")} {...props}>
       {children}
     </div>
   );
@@ -89,8 +90,8 @@ export const DetailPanelFooter = forwardRef<
     <div
       ref={ref}
       className={[
-        "border-t border-(--ec-color-border) bg-(--ec-color-surface-muted)",
-        "px-4 py-3",
+        "border-t border-(--ec-color-border-soft) bg-(--ec-color-surface-soft)",
+        "px-5 py-4",
         className,
       ].join(" ")}
       {...props}
