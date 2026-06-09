@@ -1,210 +1,180 @@
+// Developer demo, not Make golden example.
+
 import {
-  ActionCard,
-  ActionList,
+  ActionRow,
   AlertCard,
   Button,
-  ConnectivityCoverageCard,
-  CreateActionDialog,
-  CustomerStatusCard,
-  MetricCard,
-  MetricGrid,
-  PageHeader,
-  PriorityList,
+  DetailPanel,
+  DetailPanelBody,
+  DetailPanelFooter,
+  DetailPanelHeader,
+  DetailPanelTabs,
+  FilterBar,
+  KeyValueList,
+  KeyValueRow,
+  MasterDetailLayout,
+  RecommendationCard,
+  RecommendationReviewPanel,
   RenewalRiskSummary,
+  SectionBlock,
+  SectionStack,
+  SemanticTag,
+  StatusPill,
+  StickyActionBar,
   ValueProofCard,
+  WorkspaceShell,
 } from "../design-system";
 
 export function RenewalRiskReview() {
   return (
-    <main className="min-h-screen bg-(--ec-color-background) p-8">
-      <div className="mx-auto max-w-7xl space-y-8">
-        <PageHeader
-          title="Renewal risk review"
-          description="Review renewal exposure, value proof gaps and mitigation actions before the customer discussion."
-          actions={
-            <CreateActionDialog
-              trigger={<Button>Create mitigation action</Button>}
-              title="Create mitigation action"
-              description="Add an action to reduce renewal risk before the customer meeting."
-              confirmLabel="Save mitigation action"
-              defaultValues={{
-                title: "Prepare customer-ready value proof summary",
-                owner: "CSM",
-                priority: "high",
-                note: "Renewal risk is increasing because value proof is incomplete and several actions are overdue.",
-              }}
-            />
+    <main className="min-h-screen bg-(--ec-color-background)">
+      <WorkspaceShell
+        header={
+          <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+            <div>
+              <p className="text-sm font-medium text-(--ec-color-primary)">Renewal risk demo</p>
+              <h1 className="mt-1 text-2xl font-semibold text-(--ec-color-text-primary)">Review renewal blockers</h1>
+              <p className="mt-2 max-w-3xl text-sm text-(--ec-color-text-secondary)">
+                Developer demo for renewal review. Golden examples remain the Make source of truth.
+              </p>
+            </div>
+            <Button size="sm">Create mitigation action</Button>
+          </div>
+        }
+        controls={
+          <FilterBar
+            title="Renewal preparation"
+            description="Focus on blockers that prevent confident customer discussion."
+            resultCount="3 blockers · renewal window: 62 days"
+            filters={
+              <>
+                <SemanticTag tone="warning">Proof incomplete</SemanticTag>
+                <SemanticTag tone="danger">Customer use blocked</SemanticTag>
+              </>
+            }
+          />
+        }
+      >
+        <MasterDetailLayout
+          detailWidth="lg"
+          list={
+            <SectionStack>
+              <RenewalRiskSummary
+                customerName="Greenfield Industries"
+                plan="Advanced service plan"
+                contract="#CR-2024-441"
+                renewalWindow="62 days"
+                renewalDate="Aug 5, 2026"
+                renewalReadiness="Medium"
+                valueProofStatus="Incomplete"
+                recommendationsReviewed="42%"
+                overdueActions="3 high-priority actions"
+                renewalRiskReason="Value proof is incomplete and mitigation actions are overdue."
+                proofReadiness="Internal proof, not customer-ready"
+                validationStatus="Proof review needed before customer use"
+                sourceContext="Closed service actions and recommendation history"
+                badges={[{ label: "Proof review needed", tone: "warning" }]}
+              />
+
+              <ValueProofCard
+                mode="section"
+                period="Last 90 days"
+                customerObjective="Make service value visible before renewal"
+                proofStatus="Customer-ready summary incomplete"
+                proofReadiness="Internal proof, not customer-ready"
+                validationStatus="Proof review needed"
+                sourceContext="Closed service actions and recommendation history"
+                expectedOutcome="Stronger renewal discussion after proof consolidation"
+                proofPoints={[
+                  { label: "Closed actions", value: "12 service actions closed; customer-ready synthesis is pending." },
+                  { label: "Remaining proof gap", value: "Resolved risks need customer-ready language." },
+                ]}
+              />
+
+              <SectionBlock title="Renewal snapshot">
+                <KeyValueList columns={2}>
+                  <KeyValueRow label="Customer" value="Greenfield Industries" />
+                  <KeyValueRow label="Readiness" value="Medium" />
+                  <KeyValueRow label="Proof" value="Internal only" />
+                  <KeyValueRow label="Actions" value="3 overdue" />
+                </KeyValueList>
+              </SectionBlock>
+            </SectionStack>
+          }
+          detail={
+            <DetailPanel>
+              <DetailPanelHeader
+                title="Customer-ready proof is incomplete"
+                description="The renewal conversation needs validated customer-facing proof."
+                meta={<StatusPill tone="warning">Proof review needed</StatusPill>}
+              />
+              <DetailPanelTabs
+                tabs={[
+                  { id: "proof", label: "Proof", active: true },
+                  { id: "recommendations", label: "Recommendations", count: 1 },
+                  { id: "actions", label: "Actions", count: 2 },
+                ]}
+              />
+              <DetailPanelBody>
+                <SectionStack>
+                  <SectionBlock title="Main blocker">
+                    <AlertCard
+                      severity="critical"
+                      title="Value proof is not customer-ready"
+                      scope="Renewal preparation"
+                      description="Internal proof exists but cannot yet support the renewal discussion."
+                      recommendation="Prepare a customer-ready value proof summary before the renewal meeting."
+                      evidenceSummary="Internal proof exists, but validation is still needed before customer use."
+                      sourceScope="Closed service actions and recommendation history"
+                      sourceStrength="partial"
+                      freshness="Last 90 days"
+                      validationStatus="Proof review needed"
+                    />
+                  </SectionBlock>
+
+                  <RecommendationReviewPanel
+                    mode="drawer"
+                    reviewScope="Renewal preparation"
+                    reviewStatus="Proof and source review needed"
+                    sourceContext="Closed service actions and recommendation history"
+                    validationStatus="Review before customer use"
+                    customerReadiness="Not customer-ready yet"
+                    proofContext="Internal proof, not customer-ready"
+                  >
+                    <RecommendationCard
+                      title="Prepare customer-ready value proof summary"
+                      recommendation="Prepare a customer-ready value proof summary before renewal."
+                      priority="high"
+                      readiness="needs_review"
+                      rationale="The renewal discussion needs customer-relevant outcomes, not internal activity only."
+                      scope="Value proof"
+                      evidenceSummary="12 service actions were closed but not synthesized for customer use."
+                      source="Service action history"
+                      sourceScope="Last 90 days"
+                      sourceStrength="partial"
+                      freshness="Last 90 days"
+                      proofStatus="Internal proof, not customer-ready"
+                      validationStatus="Proof review needed"
+                    />
+                  </RecommendationReviewPanel>
+                </SectionStack>
+              </DetailPanelBody>
+              <DetailPanelFooter>
+                <StickyActionBar
+                  context="Next action: assign proof synthesis before renewal discussion."
+                  secondaryActions={<Button variant="secondary" size="sm">Add note</Button>}
+                  primaryAction={<Button size="sm">Assign proof owner</Button>}
+                />
+              </DetailPanelFooter>
+            </DetailPanel>
           }
         />
 
-        <section className="grid gap-6 lg:grid-cols-[1.2fr_1fr]">
-          <RenewalRiskSummary
-            customerName="Greenfield Industries"
-            plan="Advanced service plan"
-            contract="#CR-2024-441"
-            renewalWindow="62 days"
-            renewalDate="Aug 5, 2026"
-            renewalReadiness="Medium"
-            valueProofStatus="Incomplete"
-            recommendationsReviewed="42%"
-            overdueActions="3 high-priority actions"
-            badges={[
-              { label: "Renewal watch", tone: "warning" },
-              { label: "Value proof incomplete", tone: "danger" },
-              { label: "Mitigation required", tone: "primary" },
-            ]}
-            extraItems={[
-              { label: "Executive sponsor", value: "Maintenance Director" },
-              { label: "Next customer review", value: "Jun 24, 2026" },
-            ]}
-          />
-
-          <CustomerStatusCard
-            customerName="Greenfield Industries"
-            plan="Advanced service plan"
-            contract="#CR-2024-441"
-            csm="Sarah Moreau"
-            renewalDate="Aug 5, 2026"
-            assetsCovered="25 assets — 3 sites"
-            coverage="68% connected"
-            badges={[
-              { label: "Active plan", tone: "primary" },
-              { label: "Connectivity partial", tone: "warning" },
-            ]}
-          />
-        </section>
-
-        <MetricGrid columns={4}>
-          <MetricCard
-            label="Renewal readiness"
-            value="Medium"
-            helper="Value proof and action ownership need consolidation"
-          />
-          <MetricCard
-            label="Recommendations reviewed"
-            value="42%"
-            helper="5 of 12 recommendations reviewed by the customer"
-          />
-          <MetricCard
-            label="Overdue actions"
-            value="3"
-            helper="High-priority actions with no owner update"
-            trend="+3 since last review"
-          />
-          <MetricCard
-            label="Connected equipment"
-            value="68%"
-            helper="17 of 25 assets monitored"
-            trend="-12% this month"
-          />
-        </MetricGrid>
-
-        <section className="grid gap-6 lg:grid-cols-2">
-          <ValueProofCard
-            period="Last 90 days"
-            customerObjective="Make service value visible before renewal"
-            proofStatus="Customer-ready summary incomplete"
-            badges={[
-              { label: "Proof gap", tone: "danger" },
-              { label: "Renewal support", tone: "warning" },
-            ]}
-            proofPoints={[
-              {
-                label: "Closed actions",
-                value: "12 service actions closed, including 3 high-priority actions.",
-              },
-              {
-                label: "Resolved connectivity issues",
-                value: "4 disconnected assets recovered across the main site.",
-              },
-              {
-                label: "Recommendations completed",
-                value: "5 recommendations completed but not yet summarized in a customer-ready format.",
-              },
-            ]}
-          />
-
-          <ConnectivityCoverageCard
-            customerName="Greenfield Industries"
-            coverageRate="68%"
-            connectedAssets="17 of 25 assets"
-            disconnectedAssets="8 assets"
-            criticalDisconnectedAssets="2 critical assets"
-            monitoringStatus="Partial connectivity"
-            affectedScope="Main site and HVAC control unit"
-            lastUpdate="18 hours ago"
-            badges={[
-              { label: "Connectivity partial", tone: "warning" },
-              { label: "Critical assets disconnected", tone: "danger" },
-            ]}
-          />
-        </section>
-
-        <section className="grid gap-6 lg:grid-cols-[1.4fr_1fr]">
-          <PriorityList
-            title="Renewal blockers"
-            description="Risks prioritized by potential impact on the renewal decision."
-          >
-            <AlertCard
-              severity="critical"
-              title="Value proof is not customer-ready"
-              equipment="Renewal preparation"
-              description="Closed actions, resolved incidents and monitoring outcomes exist, but they are not yet compiled into a clear customer-facing value summary."
-              recommendation="Prepare a concise value proof summary linking completed actions, avoided risks and recommended next steps before the next customer meeting."
-            />
-
-            <AlertCard
-              severity="warning"
-              title="Connectivity gaps weaken the service proof"
-              equipment="Monitoring coverage"
-              description="Eight assets are currently unreachable, including two critical assets. This limits the credibility of the monitoring story before renewal."
-              recommendation="Launch a connectivity recovery review and clarify which gaps require customer-side network action."
-            />
-
-            <AlertCard
-              severity="warning"
-              title="Low recommendation review rate"
-              equipment="Service recommendations"
-              description="Only 42% of recommendations have been reviewed by the customer, which may reduce the perceived usefulness of the service."
-              recommendation="Select the three most relevant recommendations and prepare a short decision-oriented summary for the customer."
-            />
-          </PriorityList>
-
-          <ActionList
-            title="Mitigation actions"
-            description="Recommended actions to reduce renewal risk before the next customer discussion."
-            actions={<Button variant="secondary">Review mitigation plan</Button>}
-          >
-            <ActionCard
-              title="Prepare customer-ready value proof summary"
-              owner="CSM"
-              dueDate="Jun 14, 2026"
-              priority="high"
-            />
-
-            <ActionCard
-              title="Plan connectivity recovery review"
-              owner="Support Team"
-              dueDate="Jun 10, 2026"
-              priority="high"
-            />
-
-            <ActionCard
-              title="Select top recommendations for the customer discussion"
-              owner="CSM"
-              dueDate="Jun 18, 2026"
-              priority="medium"
-            />
-
-            <ActionCard
-              title="Assign owners to overdue actions"
-              owner="Service Manager"
-              dueDate="This week"
-              priority="medium"
-            />
-          </ActionList>
-        </section>
-      </div>
+        <SectionBlock title="Mitigation actions">
+          <ActionRow title="Prepare customer-ready value proof summary" owner="CSM" dueDate="Before renewal meeting" priority="high" status="todo" context="Proof is internal and needs customer-ready synthesis." />
+          <ActionRow title="Review recommendation readiness" owner="Service Manager" dueDate="Next 3 business days" priority="high" status="in_progress" context="Recommendations need source and proof review." />
+        </SectionBlock>
+      </WorkspaceShell>
     </main>
   );
 }
