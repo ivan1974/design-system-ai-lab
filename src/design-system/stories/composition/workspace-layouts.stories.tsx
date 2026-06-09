@@ -29,6 +29,11 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
+const storyArgs = {
+  list: null,
+  detail: null,
+};
+
 const assetRows = [
   {
     name: "SM6 Bus Coupler",
@@ -51,6 +56,7 @@ const assetRows = [
 ];
 
 export const AssetReviewWorkspace: Story = {
+  args: storyArgs,
   render: () => (
     <WorkspaceShell
       header={
@@ -196,6 +202,7 @@ export const AssetReviewWorkspace: Story = {
 };
 
 export const EmptyDetailState: Story = {
+  args: storyArgs,
   render: () => (
     <WorkspaceShell
       header={
