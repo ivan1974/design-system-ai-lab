@@ -1,201 +1,159 @@
+// Developer demo, not Make golden example.
+
 import {
-  ActionCard,
-  ActionList,
+  ActionRow,
   AlertCard,
   Button,
+  CompactMetric,
   ConnectivityCoverageCard,
-  CreateActionDialog,
-  CustomerStatusCard,
-  MetricCard,
-  MetricGrid,
-  PageHeader,
-  PriorityList,
-  RenewalRiskSummary,
-  ValueProofCard,
+  DetailPanel,
+  DetailPanelBody,
+  DetailPanelFooter,
+  DetailPanelHeader,
+  DetailPanelTabs,
+  FilterBar,
+  KeyValueList,
+  KeyValueRow,
+  MasterDetailLayout,
+  MetricStrip,
+  SectionBlock,
+  SectionStack,
+  SemanticTag,
+  SignalRow,
+  StatusPill,
+  StickyActionBar,
+  WorkspaceShell,
 } from "../design-system";
+
+const assetRows = [
+  { name: "Main switchboard", value: "Review needed", description: "Site A · updated 18h ago" },
+  { name: "UPS group", value: "Warning signal", description: "Site A · updated 18h ago" },
+  { name: "LV switchboard", value: "Monitored", description: "Site B · updated 3h ago" },
+];
 
 export function CustomerDashboard() {
   return (
-    <main className="min-h-screen bg-(--ec-color-background) p-8">
-      <div className="mx-auto max-w-7xl space-y-8">
-        <PageHeader
-          title="Customer monitoring"
-          description="Understand customer status, identify priority risks and decide the next best actions."
-          actions={
-            <CreateActionDialog
-              trigger={<Button>Create action</Button>}
-              title="Create customer action"
-              description="Add a follow-up action with an owner, due date and priority."
-              confirmLabel="Save action"
-              defaultValues={{
-                title: "Plan connectivity review with the customer",
-                owner: "CSM",
-                priority: "high",
-                note: "Connectivity is partial and affects critical assets. The customer should be informed before the next review.",
-              }}
-            />
+    <main className="min-h-screen bg-(--ec-color-background)">
+      <WorkspaceShell
+        header={
+          <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+            <div>
+              <p className="text-sm font-medium text-(--ec-color-primary)">Customer monitoring demo</p>
+              <h1 className="mt-1 text-2xl font-semibold text-(--ec-color-text-primary)">Review customer monitoring</h1>
+              <p className="mt-2 max-w-3xl text-sm text-(--ec-color-text-secondary)">
+                Developer demo for the workspace pattern. Golden examples remain the Make source of truth.
+              </p>
+            </div>
+            <Button size="sm">Create action</Button>
+          </div>
+        }
+        controls={
+          <FilterBar
+            title="Monitoring scope"
+            description="Keep source scope visible before deciding what to do next."
+            resultCount="3 assets shown"
+            filters={
+              <>
+                <SemanticTag tone="warning">Partial coverage</SemanticTag>
+                <SemanticTag>Customer review</SemanticTag>
+              </>
+            }
+          />
+        }
+      >
+        <MasterDetailLayout
+          detailWidth="lg"
+          list={
+            <SectionStack>
+              <SectionBlock title="Customer context">
+                <KeyValueList columns={2}>
+                  <KeyValueRow label="Customer" value="Greenfield Industries" />
+                  <KeyValueRow label="Plan" value="Advanced service plan" />
+                  <KeyValueRow label="Coverage" value="17 of 25 known assets connected" />
+                  <KeyValueRow label="Next review" value="Jun 24, 2026" />
+                </KeyValueList>
+              </SectionBlock>
+
+              <SectionBlock title="Monitoring signals">
+                <MetricStrip columns={4}>
+                  <CompactMetric label="Connected" value="68%" tone="warning" />
+                  <CompactMetric label="Open alerts" value="3" tone="warning" />
+                  <CompactMetric label="Open actions" value="4" />
+                  <CompactMetric label="Freshness" value="18h" />
+                </MetricStrip>
+              </SectionBlock>
+
+              <SectionBlock title="Asset queue">
+                <div className="divide-y divide-(--ec-color-border)">
+                  {assetRows.map((asset) => (
+                    <SignalRow key={asset.name} label={asset.name} value={asset.value} description={asset.description} />
+                  ))}
+                </div>
+              </SectionBlock>
+            </SectionStack>
+          }
+          detail={
+            <DetailPanel>
+              <DetailPanelHeader
+                title="Main switchboard"
+                description="Selected asset detail. Visibility limits appear before interpretation."
+                meta={<StatusPill tone="warning">Review needed</StatusPill>}
+              />
+              <DetailPanelTabs
+                tabs={[
+                  { id: "overview", label: "Overview", active: true },
+                  { id: "coverage", label: "Coverage" },
+                  { id: "actions", label: "Actions", count: 2 },
+                ]}
+              />
+              <DetailPanelBody>
+                <SectionStack>
+                  <ConnectivityCoverageCard
+                    mode="section"
+                    coverageRate="68%"
+                    connectedAssets="17 assets"
+                    disconnectedAssets="8 assets"
+                    monitoringStatus="Partial coverage"
+                    affectedScope="Main site"
+                    lastUpdate="18 hours ago"
+                    sourceScope="Monitoring platform and known installed base"
+                    sourceStrength="partial"
+                    coverageBasis="Known Schneider monitored assets only"
+                    validationStatus="Review before customer communication"
+                  />
+
+                  <SectionBlock title="Priority review">
+                    <AlertCard
+                      severity="warning"
+                      title="Monitoring scope needs review"
+                      scope="Main site"
+                      description="Some known assets are not visible in live monitoring."
+                      recommendation="Review coverage with the customer and support team."
+                      evidenceSummary="Known installed base and connected assets do not fully match."
+                      sourceScope="Monitoring platform and known installed base"
+                      sourceStrength="partial"
+                      freshness="18 hours ago"
+                      validationStatus="Review before customer communication"
+                    />
+                  </SectionBlock>
+                </SectionStack>
+              </DetailPanelBody>
+              <DetailPanelFooter>
+                <StickyActionBar
+                  context="Next action: review monitoring scope before customer communication."
+                  secondaryActions={<Button variant="secondary" size="sm">Add note</Button>}
+                  primaryAction={<Button size="sm">Plan review</Button>}
+                />
+              </DetailPanelFooter>
+            </DetailPanel>
           }
         />
 
-        <CustomerStatusCard
-          customerName="Greenfield Industries"
-          plan="Advanced service plan"
-          contract="#CR-2024-441"
-          csm="Sarah Moreau"
-          renewalDate="Aug 5, 2026"
-          assetsCovered="25 assets — 3 sites"
-          coverage="68% connected"
-          badges={[
-            { label: "Active plan", tone: "primary" },
-            { label: "Connectivity partial", tone: "warning" },
-            { label: "Renewal in 62 days", tone: "neutral" },
-          ]}
-          extraItems={[
-            { label: "Main contact", value: "Maintenance Director" },
-            { label: "Next review", value: "Jun 24, 2026" },
-          ]}
-        />
-
-        <MetricGrid columns={4}>
-          <MetricCard
-            label="Connected equipment"
-            value="68%"
-            helper="17 of 25 assets monitored — 8 assets unreachable"
-            trend="-12% this month"
-          />
-          <MetricCard
-            label="Open critical alerts"
-            value="2"
-            helper="Both require customer communication this week"
-          />
-          <MetricCard
-            label="Overdue actions"
-            value="3"
-            helper="High-priority actions with no owner update"
-            trend="+3 since last review"
-          />
-          <MetricCard
-            label="Recommendations reviewed"
-            value="42%"
-            helper="5 of 12 recommendations reviewed by the customer"
-          />
-        </MetricGrid>
-
-        <section className="grid gap-6 lg:grid-cols-2">
-          <ConnectivityCoverageCard
-            customerName="Greenfield Industries"
-            coverageRate="68%"
-            connectedAssets="17 of 25 assets"
-            disconnectedAssets="8 assets"
-            criticalDisconnectedAssets="2 critical assets"
-            monitoringStatus="Partial connectivity"
-            affectedScope="Main site and HVAC control unit"
-            lastUpdate="18 hours ago"
-            badges={[
-              { label: "Connectivity partial", tone: "warning" },
-              { label: "Critical assets disconnected", tone: "danger" },
-            ]}
-          />
-
-          <RenewalRiskSummary
-            customerName="Greenfield Industries"
-            plan="Advanced service plan"
-            contract="#CR-2024-441"
-            renewalWindow="62 days"
-            renewalDate="Aug 5, 2026"
-            renewalReadiness="Medium"
-            valueProofStatus="Incomplete"
-            recommendationsReviewed="42%"
-            overdueActions="3 high-priority actions"
-            badges={[
-              { label: "Renewal watch", tone: "warning" },
-              { label: "Value proof incomplete", tone: "danger" },
-            ]}
-          />
-        </section>
-
-        <ValueProofCard
-          period="Last 90 days"
-          customerObjective="Improve service visibility before renewal"
-          proofStatus="Customer-ready summary incomplete"
-          badges={[
-            { label: "Renewal support", tone: "warning" },
-            { label: "Proof incomplete", tone: "danger" },
-          ]}
-          proofPoints={[
-            {
-              label: "Closed actions",
-              value: "12 service actions closed, including 3 high-priority actions.",
-            },
-            {
-              label: "Resolved connectivity issues",
-              value: "4 disconnected assets recovered across the main site.",
-            },
-            {
-              label: "Recommendations completed",
-              value: "5 recommendations completed and ready to summarize for the next customer review.",
-            },
-          ]}
-        />
-
-        <section className="grid gap-6 lg:grid-cols-[1.4fr_1fr]">
-          <PriorityList
-            title="Priority alerts"
-            description="Risks requiring customer or service team action, sorted by severity."
-          >
-            <AlertCard
-              severity="critical"
-              title="Critical equipment no longer monitored"
-              equipment="Main HVAC control unit — Site A"
-              description="The main HVAC control unit lost connectivity 18 hours ago. The customer has no visibility on temperature and pressure anomalies for their primary site."
-              recommendation="Escalate to the support team today and schedule a technical review within 48 hours. Notify the customer proactively before they detect the gap."
-            />
-
-            <AlertCard
-              severity="warning"
-              title="Renewal value proof not ready"
-              equipment="Renewal preparation — Contract #CR-2024-441"
-              description="The contract renews in 62 days. The customer has not received a service summary, and resolved incidents are not yet compiled into a customer-ready view."
-              recommendation="Prepare a value summary showing closed alerts, avoided downtime and completed actions before the next customer meeting."
-            />
-
-            <AlertCard
-              severity="warning"
-              title="Three high-priority actions are overdue"
-              equipment="Customer action plan"
-              description="Three actions flagged as high priority have passed their due date with no owner update. This increases customer trust risk ahead of the next review."
-              recommendation="Assign clear owners to each overdue action, set revised due dates and communicate the updated plan to the customer this week."
-            />
-          </PriorityList>
-
-          <ActionList
-            title="Recommended actions"
-            description="Next steps to reduce customer risk and prepare the next discussion."
-            actions={<Button variant="secondary">Review plan</Button>}
-          >
-            <ActionCard
-              title="Plan connectivity review with the customer"
-              owner="CSM"
-              dueDate="Jun 6, 2026"
-              priority="high"
-            />
-
-            <ActionCard
-              title="Prepare customer-ready value proof summary"
-              owner="CSM"
-              dueDate="Jun 14, 2026"
-              priority="high"
-            />
-
-            <ActionCard
-              title="Assign owners to overdue actions"
-              owner="Service Manager"
-              dueDate="This week"
-              priority="medium"
-            />
-          </ActionList>
-        </section>
-      </div>
+        <SectionBlock title="Assigned next actions">
+          <ActionRow title="Plan monitoring scope review" owner="CSM" dueDate="This week" priority="high" status="todo" context="Review what is and is not visible before customer communication." />
+          <ActionRow title="Confirm asset connection status" owner="Remote Support" dueDate="Next 3 business days" priority="high" status="in_progress" context="Confirm source scope before making recommendations." />
+        </SectionBlock>
+      </WorkspaceShell>
     </main>
   );
 }
