@@ -34,6 +34,7 @@ Use it to define:
 
 - the non-negotiable generation contract
 - the required package usage
+- the decision workspace principle
 - the screen intent router
 - the approved component vocabulary
 - the transversal principles that always apply
@@ -68,21 +69,24 @@ is accepted.
 8. Use decision components for metrics, risks, recommendations and actions.
 9. Use form components for every generated form field.
 10. Generate one clear decision-oriented screen, not a generic dashboard.
-11. Show visible facts before AI interpretation.
-12. Never invent evidence, sources, asset facts, telemetry, citations or value proof.
-13. Every `AlertCard` must include a recommendation.
-14. Every `ActionCard` must include owner, due date and priority.
-15. Expected outcomes must not be presented as proven value.
-16. Critical customer, contract, service, renewal, asset or value-proof decisions must keep human validation visible.
+11. Prefer a decision workspace over a long stack of cards when the user must compare, review or act.
+12. Show visible facts before AI interpretation.
+13. Never invent evidence, sources, asset facts, telemetry, citations or value proof.
+14. Every `AlertCard` must include a recommendation.
+15. Every `ActionCard` or `ActionRow` must include owner, due date and priority.
+16. Expected outcomes must not be presented as proven value.
+17. Critical customer, contract, service, renewal, asset or value-proof decisions must keep human validation visible.
 
 Use this package import pattern:
 
 ```tsx
 import {
-  CustomerStatusCard,
-  MetricGrid,
-  PageHeader,
-  PriorityList,
+  WorkspaceShell,
+  FilterBar,
+  MasterDetailLayout,
+  DetailPanel,
+  SectionBlock,
+  ActionRow,
 } from "design-system-ai-lab";
 
 import "design-system-ai-lab/styles.css";
@@ -125,11 +129,13 @@ Generate product interfaces from a governed system:
 - user needs and design implications
 - package components
 - form components
+- composition components
+- compact primitives
 - decision components
 - business patterns
 - CSS styles
 - design tokens
-- composition rules
+- screen architecture rules
 - prompt constraints
 - acceptance criteria
 
@@ -140,6 +146,56 @@ inform generated screens.
 
 The generated output should be a useful first draft, not a final production
 screen.
+
+---
+
+## Decision workspace principle
+
+The design system is not a card stack generator.
+
+When the user needs to compare items, inspect details, review evidence or assign
+work, Make should generate a decision workspace.
+
+Prefer this structure:
+
+```txt
+WorkspaceShell
+→ FilterBar
+→ MasterDetailLayout when list/detail review is needed
+→ DetailPanel / DetailPanelTabs / StickyActionBar for selected item review
+→ SectionStack / SectionBlock for dense readable grouping
+→ KeyValueList / MetricStrip / rows for facts, signals, evidence and actions
+```
+
+Use cards only when the content is a highlighted object with one purpose.
+
+Do not make every fact, signal, action or proof point into a separate card.
+
+Use rows for dense, repeated information:
+
+```txt
+ActionRow
+EvidenceRow
+SignalRow
+DocumentRow
+TimelineItem
+```
+
+Use compact primitives for secondary facts and signals:
+
+```txt
+KeyValueList
+KeyValueRow
+CompactMetric
+MetricStrip
+SemanticTag
+StatusPill
+PriorityPill
+SourceStrengthPill
+```
+
+Use business patterns in `mode="section"`, `mode="compact"` or `mode="drawer"`
+when they are part of a larger workspace.
 
 ---
 
@@ -227,9 +283,12 @@ Import components and patterns from the package root:
 
 ```tsx
 import {
+  WorkspaceShell,
+  FilterBar,
+  MasterDetailLayout,
+  DetailPanel,
   CustomerStatusCard,
-  MetricGrid,
-  PageHeader,
+  ActionRow,
 } from "design-system-ai-lab";
 ```
 
@@ -257,6 +316,7 @@ More details:
 
 ```txt
 handoff/design-system-package.md
+setup.md
 ```
 
 ---
@@ -267,11 +327,12 @@ Figma Make should compose screens in this order:
 
 1. Mandatory principles.
 2. Relevant knowledge-layer guidance when the screen relates to documented user needs or asset intelligence.
-3. Business patterns when they match the screen intent.
-4. Decision components for screen structure.
-5. Generic components for reusable UI blocks.
-6. Form components for dialogs and input flows.
-7. Custom markup only when no existing component or pattern fits.
+3. Screen architecture and workspace structure.
+4. Business patterns when they match the screen intent.
+5. Decision and compact components for screen structure.
+6. Generic components for reusable UI blocks.
+7. Form components for dialogs and input flows.
+8. Custom markup only when no existing component or pattern fits.
 
 This order is important.
 
@@ -284,9 +345,10 @@ inaccessible, noisy, wasteful or AI-first without reason.
 Composition details:
 
 ```txt
-composition/overview.md
-composition/decision-layout.md
-composition/screen-patterns.md
+screen-architecture/README.md
+screen-architecture/screen-types.md
+screen-architecture/navigation-models.md
+screen-architecture/panel-structures.md
 ```
 
 ---
@@ -316,10 +378,14 @@ Service risk overview → ServiceRiskSummary
 Recommendation review → RecommendationReviewPanel
 Customer review readiness → CustomerReviewReadinessCard
 Action creation → CreateActionDialog
-Metrics → MetricGrid with MetricCard items
+Primary metrics → MetricGrid with MetricCard items
+Compact signals → MetricStrip with CompactMetric items
 Risks and blockers → PriorityList with AlertCard items
-Assigned internal actions → ActionList with ActionCard items
-Generic structured metadata → StatusSummary
+Highlighted assigned action → ActionCard
+Dense action list → ActionRow items
+Evidence list → EvidenceRow items
+Signal list → SignalRow items
+Generic structured metadata → KeyValueList or StatusSummary
 ```
 
 Do not rebuild customer context, renewal context, value proof, risk summaries,
@@ -333,13 +399,16 @@ priority service risks and next actions.
 
 Use by default:
 
-- `PageHeader`
-- `CustomerStatusCard`
-- `MetricGrid` with 2 to 4 `MetricCard` items
+- `WorkspaceShell`
+- `FilterBar`
+- `MasterDetailLayout` when there is an asset, customer or risk list to inspect
+- `DetailPanel`, `DetailPanelTabs` and `StickyActionBar` when a selected item needs review
+- `CustomerStatusCard` or `KeyValueList` for customer context
+- `MetricStrip` with `CompactMetric` for secondary monitoring signals
 - `ConnectivityCoverageCard` when monitoring coverage matters
 - `ServiceRiskSummary` when a monitoring or service gap needs synthesis
-- `PriorityList` with 2 to 5 `AlertCard` items
-- `ActionList` with 2 to 5 `ActionCard` items
+- `AlertCard` for highlighted risks
+- `ActionRow` for dense follow-up actions
 - `CreateActionDialog` when action creation is part of the flow
 
 Do not use by default:
@@ -357,14 +426,16 @@ Use when the user needs to prepare or mitigate a renewal risk.
 
 Use by default:
 
-- `PageHeader`
+- `WorkspaceShell`
+- `FilterBar`
+- `MasterDetailLayout` when blockers need detail review
+- `DetailPanel`, `DetailPanelTabs` and `StickyActionBar` for selected blockers
 - `RenewalRiskSummary`
 - `CustomerReviewReadinessCard` when customer discussion readiness matters
 - `ValueProofCard` when service outcomes or proof gaps matter
-- `MetricGrid` with readiness, adoption or proof metrics
-- `PriorityList` with renewal blockers
 - `RecommendationReviewPanel` when recommendations need review
-- `ActionList` with mitigation actions
+- `AlertCard` for highlighted renewal blockers
+- `ActionRow` for mitigation actions
 
 Do not use by default:
 
@@ -378,12 +449,16 @@ recommendations.
 
 Use by default:
 
-- `PageHeader`
+- `WorkspaceShell`
+- `FilterBar`
+- `MasterDetailLayout` when reviewing recommendations or assets
+- `DetailPanel`, `DetailPanelTabs` and `StickyActionBar` for selected recommendation review
 - `CustomerStatusCard` when customer context matters
 - `AssetIntelligenceSummary`
 - `ServiceRiskSummary` when partial asset visibility creates service risk
 - `RecommendationReviewPanel` with `RecommendationCard` items
-- `ActionList` with validation or follow-up actions
+- `EvidenceRow` for source verification
+- `ActionRow` for validation or follow-up actions
 
 Do not use by default:
 
@@ -397,14 +472,36 @@ service meeting.
 
 Use by default:
 
-- `PageHeader`
-- `CustomerStatusCard`
+- `WorkspaceShell`
+- `FilterBar`
+- `MasterDetailLayout` when proof gaps or blockers need detail review
+- `DetailPanel`, `DetailPanelTabs` and `StickyActionBar` for selected blockers
+- `CustomerStatusCard` or `KeyValueList`
 - `CustomerReviewReadinessCard`
 - `ValueProofCard` when proof readiness or outcomes matter
 - `ServiceRiskSummary` when service risk affects the review
 - `RecommendationReviewPanel` when recommendations need review
-- `PriorityList` with blockers
-- `ActionList` with preparation actions
+- `AlertCard` for highlighted blockers
+- `ActionRow` for preparation actions
+
+### Installed base exploration
+
+Use when the user needs to explore assets, compare source context, inspect an asset
+and decide what needs review next.
+
+Use by default:
+
+- `WorkspaceShell`
+- `FilterBar`
+- `MasterDetailLayout`
+- `DetailPanel` and `DetailPanelTabs`
+- `KeyValueList` for identity and source scope
+- `MetricStrip` for compact Health signals
+- `ComponentHierarchy` when hierarchy matters
+- `EvidenceRow`, `Timeline`, `DocumentRow` when detail evidence matters
+- `ActionRow` for next actions
+
+---
 
 ## Approved vocabulary
 
@@ -418,8 +515,13 @@ Generic UI components:
 - `Dialog`
 - `DialogClose`
 - `DialogFooter`
+- `DocumentRow`
+- `KeyValueList`
+- `KeyValueRow`
 - `MetricCard`
 - `PageHeader`
+- `Timeline`
+- `TimelineItem`
 
 Use these components for foundational UI and simple compositions.
 
@@ -439,20 +541,46 @@ Use these components for generated forms and dialogs.
 
 Do not generate raw inline-styled form controls.
 
-### Decision components
+### Composition components
 
-Decision-oriented composition components:
+Workspace structure components:
+
+- `WorkspaceShell`
+- `FilterBar`
+- `MasterDetailLayout`
+- `DetailPanel`
+- `DetailPanelHeader`
+- `DetailPanelBody`
+- `DetailPanelFooter`
+- `DetailPanelTabs`
+- `StickyActionBar`
+- `SectionStack`
+- `SectionBlock`
+
+Use these to avoid long scrolling card stacks.
+
+### Compact and decision components
+
+Decision-oriented and compact components:
 
 - `ActionCard`
 - `ActionList`
+- `ActionRow`
 - `AlertCard`
+- `CompactMetric`
 - `MetricGrid`
+- `MetricStrip`
 - `PriorityList`
+- `PriorityPill`
 - `RecommendationCard`
 - `SectionHeader`
+- `SemanticTag`
+- `SignalRow`
+- `SourceStrengthPill`
+- `StatusPill`
 - `StatusSummary`
 
-Use these components to structure screens around context, metrics, risks,
+Use these components to structure screens around context, metrics, signals, risks,
 recommendations and next actions.
 
 ### Business patterns
@@ -541,8 +669,8 @@ Prefer:
 
 ```txt
 Clear context
-→ a few useful metrics
-→ prioritized risks
+→ useful decision signals
+→ prioritized risks or blockers
 → owned next actions
 ```
 
@@ -655,7 +783,7 @@ Show facts before interpretation.
 
 Use structured components and business patterns to make evidence visible:
 
-- `CustomerStatusCard` for customer facts
+- `CustomerStatusCard` or `KeyValueList` for customer facts
 - `ConnectivityCoverageCard` for monitoring coverage and freshness
 - `RenewalRiskSummary` for renewal context and readiness
 - `CustomerReviewReadinessCard` for customer discussion readiness
@@ -663,9 +791,10 @@ Use structured components and business patterns to make evidence visible:
 - `AssetIntelligenceSummary` for asset context, source limits, Health signals and Intelligence interpretation
 - `ServiceRiskSummary` for service risk overview
 - `RecommendationReviewPanel` and `RecommendationCard` for recommendation review
-- `MetricGrid` and `MetricCard` for measurable signals
-- `PriorityList` and `AlertCard` for risks and recommendations
-- `ActionList` and `ActionCard` for owned next steps
+- `MetricStrip` and `CompactMetric` for secondary signals
+- `MetricGrid` and `MetricCard` for primary KPIs
+- `AlertCard` for highlighted risks and recommendations
+- `EvidenceRow`, `SignalRow` and `ActionRow` for dense workspaces
 
 Important facts should include source, source strength, freshness or validation
 context when it affects trust.
@@ -727,33 +856,6 @@ The official token namespace is:
 --ec-*
 ```
 
-Examples:
-
-```txt
---ec-color-background
---ec-color-surface
---ec-color-text-primary
---ec-color-border
---ec-color-primary
---ec-radius-sm
---ec-shadow-card
-```
-
-Compatibility aliases may be available for generated code:
-
-```txt
---background
---foreground
---border
---input-background
---radius-sm
---radius-md
-```
-
-These aliases help Figma Make and shadcn-like output.
-
-They do not replace the official `--ec-*` token system.
-
 Refer to:
 
 ```txt
@@ -765,19 +867,26 @@ styles.md
 
 ## Component usage rules
 
+### Workspace components
+
+Use `WorkspaceShell` for decision screens that need filters, detail review or
+persistent next actions.
+
+Use `FilterBar` to show active scope and filters.
+
+Use `MasterDetailLayout` when the user needs to inspect an item from a list.
+
+Use `DetailPanel`, `DetailPanelTabs` and `StickyActionBar` for selected-item review.
+
+Use `SectionStack` and `SectionBlock` to group dense sections without turning
+each section into a separate card.
+
 ### PageHeader
 
-Use `PageHeader` at the top of the main screen.
+Use `PageHeader` for simple standalone pages.
 
-It should clarify:
-
-- the screen objective
-- the user task
-- the main action when relevant
-
-Use one `PageHeader` per main screen.
-
-Do not use `PageHeader` repeatedly as a section title.
+For v2 workspace screens, prefer a `WorkspaceShell` header so filters and detail
+review can sit in the same workspace structure.
 
 ### Button
 
@@ -791,31 +900,36 @@ Use `Button` directly as a `Dialog` trigger.
 
 Do not create a local `ForwardedButton` wrapper.
 
-### Badge
+### Badge, SemanticTag and StatusPill
 
-Use `Badge` for short status, tone or metadata.
+Use `Badge` for compact metadata inside older/simple components.
 
-Do not use badges as buttons.
+Use `SemanticTag` for categories, scope labels and business qualifiers.
+
+Use `StatusPill` for state, readiness, validation or risk status.
+
+Do not use tags, pills or badges as buttons.
 
 Do not rely on color alone to communicate status.
 
 ### Card
 
-Use `Card` to group related information.
+Use `Card` sparingly to group a highlighted object with one clear purpose.
 
-Each card should have one clear purpose.
+Do not use `Card` as the default layout primitive for every section.
 
-Prefer business patterns when an existing pattern matches the section intent.
+Prefer workspace components, rows and compact primitives when a screen requires
+review, comparison or action.
 
-### MetricCard and MetricGrid
+### MetricCard, CompactMetric, MetricGrid and MetricStrip
 
-Use `MetricCard` only for decision-relevant metrics.
+Use `MetricCard` only for primary decision KPIs.
 
-Metrics should include context or helper text.
+Use `CompactMetric` for secondary signals inside a workspace or detail panel.
 
-Avoid vanity metrics.
+Use `MetricGrid` for a small group of primary metrics.
 
-Wrap multiple metric cards with `MetricGrid`.
+Use `MetricStrip` for compact signal groups.
 
 ### Dialog and CreateActionDialog
 
@@ -864,18 +978,27 @@ Rules:
 
 ## Decision component usage rules
 
-Use `MetricGrid` to arrange decision-relevant metrics.
+Use `MetricGrid` to arrange primary decision KPIs.
 
-Use `PriorityList` to group alerts, risks or blockers.
+Use `MetricStrip` to arrange compact signals.
 
-Use `ActionList` to group assigned internal actions.
+Use `PriorityList` to group highlighted alerts, risks or blockers.
 
-Use `RecommendationCard` for customer-facing or decision recommendations.
+Use `ActionList` and `ActionCard` for highlighted assigned work.
 
-Use `StatusSummary` for structured context and label/value metadata when no
-specific business pattern fits.
+Use `ActionRow` for dense follow-up actions in workspaces.
 
-Use `SectionHeader` for section titles and section-level actions.
+Use `EvidenceRow` for source, evidence and validation context.
+
+Use `SignalRow` for repeated observed signals.
+
+Use `RecommendationCard` for recommendation rationale, evidence, priority and
+readiness.
+
+Use `StatusSummary` only for simple structured context when no specific business
+pattern or compact primitive fits.
+
+Use `SectionHeader` for simple section titles and section-level actions.
 
 Every `AlertCard` must include:
 
@@ -888,14 +1011,16 @@ Every `AlertCard` must include:
 Alert recommendations should be supported by the alert description or by visible
 context shown earlier on the screen.
 
-Every `ActionCard` must include:
+Every `ActionCard` and `ActionRow` must include:
 
 - title
 - owner
 - due date
 - priority
 
-`ActionCard` is for assigned internal work.
+`ActionCard` is for highlighted assigned internal work.
+
+`ActionRow` is for dense action lists.
 
 `RecommendationCard` is for recommendation rationale, evidence, priority and
 readiness.
@@ -938,6 +1063,16 @@ discussion, service review or customer meeting.
 Use `CreateActionDialog` for creating follow-up actions, mitigation actions,
 assigned ownership and customer-facing next steps.
 
+When patterns are used inside a workspace, prefer:
+
+```txt
+mode="section"
+mode="compact"
+mode="drawer"
+```
+
+when the component supports those modes.
+
 ---
 
 ## Asset intelligence usage rules
@@ -978,372 +1113,3 @@ Do not use GenAI to invent asset hierarchy, connectivity status, telemetry,
 lifecycle status, data source, source strength, expected outcomes or proven value.
 
 ---
-
-## Preferred screen structures
-
-Use `Screen intent router` first.
-
-The structures below are defaults, not mandatory templates.
-
-Figma Make should adapt them to the requested user decision and avoid adding
-patterns that do not support that decision.
-
-Detailed screen composition guidance lives in:
-
-```txt
-composition/overview.md
-composition/decision-layout.md
-composition/screen-patterns.md
-prompts/customer-monitoring.md
-prompts/renewal-risk-review.md
-```
-
-## AI-assisted output rules
-
-When generating AI-assisted screens:
-
-- show visible structured facts before AI interpretation
-- use BI, APIs or source systems for asset hierarchy, connectivity, telemetry and source scope
-- show source strength when it affects trust
-- separate raw Health data from Intelligence interpretation
-- distinguish facts, signals, recommendations and actions
-- use guided AI actions instead of prompt-first flows for frequent workflows
-- link AI outputs to visible or auditable evidence
-- show uncertainty when data may be incomplete, outdated or inferred
-- do not use confidence language as a substitute for source evidence
-- keep expected outcomes, technical outcomes, internal proof and customer-ready proof distinguishable
-- keep human validation for critical decisions
-- avoid automatic AI generation on every page load
-- avoid sending excessive context to the model by default
-- avoid AI text that simply repeats visible structured data
-- avoid fake citations, fake evidence, invented sources, invented asset facts or invented value outcomes
-
-Preferred pattern:
-
-```txt
-BI-first structured view
-→ source scope and evidence strength
-→ guided AI action
-→ evidenced AI output
-→ expected outcome or proof status
-→ user review
-→ action creation or communication draft
-```
-
----
-
-## Required output quality
-
-Generated code should be:
-
-- React
-- TypeScript-friendly
-- component-based
-- accessible by design
-- sober by design
-- AI-disciplined when AI is used
-- evidence-aware when recommendations or risks are shown
-- informed by the knowledge layer when the screen relates to known user needs
-- easy to review
-- easy to refine
-- aligned with the package public API
-
-Generated code should avoid:
-
-- internal package imports
-- local component wrappers
-- custom design system components
-- duplicated token definitions
-- inline-styled form fields
-- unnecessary state
-- unnecessary abstraction
-- large unstructured tables
-- generic dashboard patterns
-- AI-first interfaces without clear user value
-- GenAI used for basic data retrieval
-- recommendations without visible or auditable evidence
-- fake sources, fake citations or invented proof
-- embedded asset components modeled as top-level assets without need
-- confidence language used as a substitute for source evidence
-- technical outcomes or internal proof shown as customer-ready proof without validation
-- non-connected assets shown as live-monitored
-- expected outcomes shown as proven value
-- false certainty when data may be incomplete, outdated, partial or asset scope is limited
-
----
-
-## Acceptance criteria
-
-### Blocking acceptance criteria
-
-The generated screen should be rejected or revised if any of these checks fail:
-
-- `App.tsx` does not render a complete visible screen.
-- components are not imported from `design-system-ai-lab`.
-- `design-system-ai-lab/styles.css` is not imported.
-- internal package paths are used.
-- local design system components are created.
-- raw inline-styled form controls are generated.
-- an existing business pattern is manually rebuilt with raw markup.
-- the screen is a generic dashboard instead of a decision-oriented screen.
-- alerts do not include recommendations.
-- actions do not include owner, due date and priority.
-- important recommendations are not supported by visible or auditable evidence.
-- evidence, sources, citations, asset facts, telemetry or value proof are invented.
-- expected outcomes are presented as proven value.
-- critical decisions do not include human validation.
-
-### Full review criteria
-
-Before considering a generated screen acceptable, verify:
-
-- the screen imports components from `design-system-ai-lab`
-- the screen imports `design-system-ai-lab/styles.css`
-- the screen uses approved components and patterns
-- the screen follows accessibility principles
-- the screen follows eco-design principles
-- AI usage follows AI usage principles when AI is present
-- the screen follows evidence and trust principles
-- the screen reflects relevant knowledge-layer user needs when applicable
-- the screen applies asset intelligence guidance when installed base, connectivity, asset health or recommendations are involved
-- asset scope, connectivity status and source scope are visible when they affect trust
-- source strength is visible when it affects trust
-- raw Health data is separated from Intelligence interpretation when both are present
-- the screen does not treat open research questions as fully validated facts
-- the screen uses form components for form fields
-- form controls have visible labels
-- `htmlFor` and `id` are connected when possible
-- the screen avoids internal package imports
-- the screen avoids local component wrappers
-- the screen avoids local design-system folders
-- the screen avoids inline-styled raw form controls
-- the screen has one clear user goal
-- the primary action is obvious
-- metrics support a decision
-- metric count is limited and useful
-- every alert includes a recommendation
-- every action includes owner, due date and priority
-- risks and actions are prioritized
-- duplicated content is avoided
-- the visual style remains sober and B2B
-- GenAI is not used for simple retrieval, filtering, counts, dates, owners or statuses
-- AI recommendations are linked to evidence when AI is used
-- important recommendations are supported by visible or auditable evidence
-- uncertainty is visible when data may be incomplete, outdated or inferred
-- partial asset visibility is visible when scope is limited
-- non-connected assets are not presented as live-monitored
-- expected outcomes are not presented as proven value
-- technical outcomes and internal proof are not presented as customer-ready proof without validation
-- confidence language does not replace source evidence
-- no fake evidence, fake citations or invented sources are present
-- human validation is present for critical decisions
-- the screen can be explained in terms of user decision-making
-
-Detailed review files:
-
-```txt
-review/acceptance-checklist.md
-review/anti-patterns.md
-```
-
----
-
-## Repair instruction
-
-Use this instruction when Make drifts away from the package, recreates components,
-creates a generic dashboard or ignores the generation contract.
-
-If generated code recreates components or creates a local package, revise it
-using this instruction:
-
-```txt
-Revise the project.
-
-Do not create or use packages/design-system-ai-lab.
-Use the published npm package design-system-ai-lab directly.
-Import components from design-system-ai-lab.
-Import styles from design-system-ai-lab/styles.css.
-Remove custom components that duplicate the design system package.
-Use business patterns when they match the section intent.
-Use form components instead of inline-styled raw inputs.
-Follow accessibility, eco-design, AI usage, evidence and trust principles, and relevant knowledge-layer guidance.
-Use BI-first, AI-assisted logic when AI is relevant.
-The result must render a complete visible screen in App.tsx.
-```
-
----
-
-## Recommended first prompt
-
-Use this prompt for the first Make test:
-
-```txt
-Create a complete visible desktop customer monitoring screen in App.tsx.
-
-Use the npm package design-system-ai-lab.
-
-Import components from design-system-ai-lab.
-Import styles from design-system-ai-lab/styles.css.
-
-Do not create a local package.
-Do not recreate the design system components.
-Do not leave App.tsx empty.
-
-Follow these principles:
-- accessibility principles
-- eco-design principles
-- AI usage principles
-- evidence and trust principles
-- knowledge-layer guidance, including asset intelligence when asset scope or connectivity matters
-
-User role:
-Service team member or customer success user.
-
-User goal:
-Help the user understand customer status, identify priority risks and decide the next best actions.
-
-Screen structure:
-1. PageHeader with title, description and CreateActionDialog as primary action
-2. CustomerStatusCard with customer, plan, contract, owner, renewal date and coverage
-3. MetricGrid with three decision-relevant metrics
-4. ConnectivityCoverageCard for monitoring coverage
-5. ServiceRiskSummary when the monitoring gap affects customer communication or service follow-up
-6. PriorityList with AlertCard items sorted by severity
-7. ActionList with ActionCard items for recommended next steps
-
-Content requirements:
-- Every alert must include a recommendation
-- Every important recommendation must be supported by visible facts
-- Every action must include owner, due date and priority
-- Metrics must include helper text explaining why they matter
-- Show freshness or validation context when data may be outdated or uncertain
-- Show asset scope, connectivity status and source scope when they affect trust
-- Show source strength when it affects trust
-- Keep expected outcomes, technical outcomes, internal proof and customer-ready proof distinguishable
-- Do not present non-connected assets as live-monitored
-- Do not present expected outcomes as proven value
-- Do not duplicate customer context across sections
-
-AI usage constraints:
-- Do not use GenAI to retrieve basic customer facts
-- Do not use GenAI to retrieve asset hierarchy, connectivity, telemetry, lifecycle status, source scope or source strength
-- Use AI only for synthesis, explanation, prioritization, recommendation, proof gap explanation, grounded action-plan drafting or reformulation
-- Show visible facts before any AI-assisted interpretation
-- Use AI only after visible structured facts are shown
-- Do not invent proof points, value outcomes, evidence, sources, citations, asset facts or telemetry
-- Keep human validation visible for critical customer, contract, service, renewal, asset intelligence, modernization and value proof decisions
-
-Visual constraints:
-- B2B
-- sober
-- readable
-- no gradients
-- no glassmorphism
-- no decorative charts
-- no generic SaaS dashboard
-
-Generate the complete visible screen.
-```
-
-More prompts:
-
-```txt
-prompts/template.md
-prompts/customer-monitoring.md
-prompts/renewal-risk-review.md
-```
-
----
-
-## Related guideline files
-
-Use the additional guideline files for more detail:
-
-```txt
-setup.md
-tokens.md
-styles.md
-knowledge/ux-insights.md
-knowledge/user-needs.md
-knowledge/design-implications.md
-knowledge/tested-patterns.md
-knowledge/open-questions.md
-knowledge/asset-intelligence.md
-principles/accessibility.md
-principles/eco-design.md
-principles/ai-usage.md
-principles/evidence-and-trust.md
-components/button.md
-components/badge.md
-components/card.md
-components/dialog.md
-components/metric-card.md
-components/page-header.md
-forms/field.md
-forms/input.md
-forms/label.md
-forms/select.md
-forms/textarea.md
-decision/action-card.md
-decision/action-list.md
-decision/alert-card.md
-decision/metric-grid.md
-decision/priority-list.md
-decision/recommendation-card.md
-decision/section-header.md
-decision/status-summary.md
-patterns/asset-intelligence-summary.md
-patterns/connectivity-coverage-card.md
-patterns/create-action-dialog.md
-patterns/customer-review-readiness-card.md
-patterns/customer-status-card.md
-patterns/recommendation-review-panel.md
-patterns/renewal-risk-summary.md
-patterns/service-risk-summary.md
-patterns/value-proof-card.md
-composition/overview.md
-composition/decision-layout.md
-composition/screen-patterns.md
-prompts/overview.md
-prompts/template.md
-prompts/customer-monitoring.md
-prompts/renewal-risk-review.md
-review/acceptance-checklist.md
-review/anti-patterns.md
-handoff/design-system-package.md
-handoff/demo-flow.md
-```
-
----
-
-## Final principle
-
-Figma Make should not generate from imagination.
-
-It should generate from a governed system:
-
-- package components
-- form components
-- decision components
-- business patterns
-- accessibility principles
-- eco-design principles
-- AI usage principles
-- evidence and trust principles
-- research-informed knowledge
-- user needs and design implications
-- asset intelligence domain knowledge when relevant
-- CSS styles
-- token rules
-- component rules
-- screen patterns
-- prompt constraints
-- acceptance criteria
-
-The result should be accessible, sober, useful, evidence-aware,
-research-informed and reviewable.
-
-If a generated screen is visually consistent but inaccessible, noisy,
-AI-expensive, unsupported by evidence, disconnected from the user decision or
-misleading about asset scope, connectivity or value proof, it should not be
-accepted.
