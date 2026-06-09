@@ -11,6 +11,15 @@
       "vite/client"
     ],
     "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "design-system-ai-lab": [
+        "./src/design-system/index.ts"
+      ],
+      "design-system-ai-lab/styles.css": [
+        "./src/design-system/styles.css"
+      ]
+    },
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
