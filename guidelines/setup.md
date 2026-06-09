@@ -87,13 +87,25 @@ Generated screens must import components from the package root:
 
 ```tsx
 import {
-  CreateActionDialog,
-  CustomerStatusCard,
-  MetricGrid,
-  PageHeader,
-  PriorityList,
+  WorkspaceShell,
+  FilterBar,
+  MasterDetailLayout,
+  DetailPanel,
+  DetailPanelHeader,
+  DetailPanelBody,
+  DetailPanelTabs,
+  StickyActionBar,
+  SectionBlock,
+  SectionStack,
+  KeyValueList,
+  KeyValueRow,
+  MetricStrip,
+  CompactMetric,
+  ActionRow,
 } from "design-system-ai-lab";
 ```
+
+Import only what the screen needs.
 
 Generated screens must import styles once:
 
@@ -173,61 +185,65 @@ next action.
 
 ## Minimal valid App.tsx setup
 
-A minimal valid generated screen should follow this structure:
+A minimal valid generated screen should follow the workspace v2 structure:
 
 ```tsx
 import {
-  CreateActionDialog,
-  CustomerStatusCard,
-  MetricCard,
-  MetricGrid,
-  PageHeader,
+  WorkspaceShell,
+  FilterBar,
+  MasterDetailLayout,
+  DetailPanel,
+  DetailPanelBody,
+  DetailPanelHeader,
+  SectionBlock,
+  KeyValueList,
+  KeyValueRow,
+  SignalRow,
+  StatusPill,
 } from "design-system-ai-lab";
 
 import "design-system-ai-lab/styles.css";
 
+const rows = [
+  { name: "Main switchboard", value: "Review needed", description: "Updated 18h ago" },
+  { name: "UPS group", value: "Warning signal", description: "Updated 18h ago" },
+];
+
 export default function App() {
   return (
-    <main className="min-h-screen bg-(--ec-color-background) p-8">
-      <div className="mx-auto max-w-7xl space-y-8">
-        <PageHeader
-          title="Customer monitoring"
-          description="Understand customer status, trusted signals and next actions."
-          actions={<CreateActionDialog />}
+    <main className="min-h-screen bg-(--ec-color-background)">
+      <WorkspaceShell
+        header={
+          <div>
+            <p className="text-sm font-medium text-(--ec-color-primary)">Customer monitoring</p>
+            <h1 className="mt-1 text-2xl font-semibold text-(--ec-color-text-primary)">Review what needs attention next</h1>
+          </div>
+        }
+        controls={<FilterBar title="Scope" resultCount="2 items shown" />}
+      >
+        <MasterDetailLayout
+          list={
+            <SectionBlock title="Items">
+              {rows.map((row) => (
+                <SignalRow key={row.name} label={row.name} value={row.value} description={row.description} />
+              ))}
+            </SectionBlock>
+          }
+          detail={
+            <DetailPanel>
+              <DetailPanelHeader title="Main switchboard" meta={<StatusPill tone="warning">Review needed</StatusPill>} />
+              <DetailPanelBody>
+                <SectionBlock title="Facts">
+                  <KeyValueList columns={2}>
+                    <KeyValueRow label="Source scope" value="Known installed base and connected assets" />
+                    <KeyValueRow label="Validation" value="Review before customer use" />
+                  </KeyValueList>
+                </SectionBlock>
+              </DetailPanelBody>
+            </DetailPanel>
+          }
         />
-
-        <CustomerStatusCard
-          customerName="Greenfield Industries"
-          plan="Advanced service plan"
-          contract="#CR-2024-441"
-          csm="Sarah Moreau"
-          renewalDate="Aug 5, 2026"
-          assetsCovered="25 assets — 3 sites"
-          coverage="68% connected"
-          badges={[
-            { label: "Active plan", tone: "primary" },
-            { label: "Connectivity partial", tone: "warning" },
-          ]}
-        />
-
-        <MetricGrid columns={3}>
-          <MetricCard
-            label="Connected equipment"
-            value="68%"
-            helper="17 of 25 known assets monitored."
-          />
-          <MetricCard
-            label="Open critical alerts"
-            value="2"
-            helper="Both require review before customer communication."
-          />
-          <MetricCard
-            label="Overdue actions"
-            value="3"
-            helper="High-priority actions with no owner update."
-          />
-        </MetricGrid>
-      </div>
+      </WorkspaceShell>
     </main>
   );
 }
@@ -240,9 +256,10 @@ This setup is valid because it:
 - renders a visible screen in `App.tsx`
 - uses package components directly
 - avoids local wrappers and local design system files
-- keeps layout classes limited to page structure
+- avoids card saturation
+- uses workspace structure for list/detail review
 
-For full screen composition, use `Guidelines.md` and the relevant prompt file.
+For full screen composition, use `Guidelines.md`, `screen-architecture/` and the relevant prompt file.
 
 ---
 
@@ -258,8 +275,13 @@ The generated project may import the following from `design-system-ai-lab`.
 - `Dialog`
 - `DialogClose`
 - `DialogFooter`
+- `DocumentRow`
+- `KeyValueList`
+- `KeyValueRow`
 - `MetricCard`
 - `PageHeader`
+- `Timeline`
+- `TimelineItem`
 
 ### Forms
 
@@ -269,15 +291,37 @@ The generated project may import the following from `design-system-ai-lab`.
 - `Select`
 - `Textarea`
 
-### Decision components
+### Composition
+
+- `WorkspaceShell`
+- `FilterBar`
+- `MasterDetailLayout`
+- `DetailPanel`
+- `DetailPanelHeader`
+- `DetailPanelBody`
+- `DetailPanelFooter`
+- `DetailPanelTabs`
+- `StickyActionBar`
+- `SectionStack`
+- `SectionBlock`
+
+### Compact and decision components
 
 - `ActionCard`
 - `ActionList`
+- `ActionRow`
 - `AlertCard`
+- `CompactMetric`
 - `MetricGrid`
+- `MetricStrip`
 - `PriorityList`
+- `PriorityPill`
 - `RecommendationCard`
 - `SectionHeader`
+- `SemanticTag`
+- `SignalRow`
+- `SourceStrengthPill`
+- `StatusPill`
 - `StatusSummary`
 
 ### Business patterns
@@ -297,6 +341,8 @@ prompt explicitly requests a custom element and no existing component fits.
 
 Use business patterns before low-level components when a pattern fits the screen
 intent.
+
+Use workspace and compact components before creating long stacks of generic cards.
 
 ---
 
@@ -369,11 +415,21 @@ Field
 Input
 Select
 Textarea
+WorkspaceShell
+FilterBar
+MasterDetailLayout
+DetailPanel
+SectionBlock
+KeyValueList
+MetricStrip
+SemanticTag
+StatusPill
 CustomerStatusCard
 ConnectivityCoverageCard
 RenewalRiskSummary
 ValueProofCard
 ActionCard
+ActionRow
 AlertCard
 ```
 
@@ -413,7 +469,7 @@ Rules:
 - do not rely only on placeholders
 - do not create raw `input`, `select` or `textarea` elements when package components fit
 - do not use disabled form fields for display-only context
-- use `StatusSummary` or business patterns for display-only data
+- use display components, compact primitives or business patterns for display-only data
 
 ---
 
@@ -485,7 +541,9 @@ Do not create packages/design-system-ai-lab.
 Do not recreate design system components locally.
 Import components from design-system-ai-lab.
 Import styles from design-system-ai-lab/styles.css.
+Use workspace components for list/detail review.
 Use business patterns when they match the section intent.
+Use compact primitives instead of card stacks for repeated facts, signals and actions.
 Use form components instead of inline-styled raw inputs.
 Update App.tsx so it renders a complete visible screen using imports from design-system-ai-lab.
 ```
@@ -507,6 +565,8 @@ After generation, verify:
 - `App.tsx` renders a complete visible screen
 - the generated screen uses approved components and patterns
 - business patterns are used when they match the section intent
+- workspace components are used when list/detail review is needed
+- compact rows and primitives are used for repeated information
 - form controls have visible labels
 - `htmlFor` and `id` are connected when possible
 - utility classes are used for layout, not for recreating component identity
