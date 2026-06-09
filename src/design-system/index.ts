@@ -40,6 +40,44 @@ export type { SelectProps } from "./forms/select";
 export { Textarea } from "./forms/textarea";
 export type { TextareaProps } from "./forms/textarea";
 
+// Composition
+export { WorkspaceShell } from "./composition/workspace-shell";
+export type { WorkspaceShellProps } from "./composition/workspace-shell";
+
+export { MasterDetailLayout } from "./composition/master-detail-layout";
+export type { MasterDetailLayoutProps } from "./composition/master-detail-layout";
+
+export {
+  DetailPanel,
+  DetailPanelBody,
+  DetailPanelFooter,
+  DetailPanelHeader,
+} from "./composition/detail-panel";
+export type {
+  DetailPanelBodyProps,
+  DetailPanelFooterProps,
+  DetailPanelHeaderProps,
+  DetailPanelProps,
+} from "./composition/detail-panel";
+
+export { DetailPanelTabs } from "./composition/detail-panel-tabs";
+export type {
+  DetailPanelTab,
+  DetailPanelTabsProps,
+} from "./composition/detail-panel-tabs";
+
+export { StickyActionBar } from "./composition/sticky-action-bar";
+export type { StickyActionBarProps } from "./composition/sticky-action-bar";
+
+export { FilterBar } from "./composition/filter-bar";
+export type { FilterBarProps } from "./composition/filter-bar";
+
+export { SectionBlock, SectionStack } from "./composition/section-stack";
+export type {
+  SectionBlockProps,
+  SectionStackProps,
+} from "./composition/section-stack";
+
 // Decision
 export { ActionCard } from "./decision/action-card";
 export type {
