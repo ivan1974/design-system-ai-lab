@@ -1,6 +1,7 @@
 import {
   ActionRow,
   AlertCard,
+  AssetQueueRow,
   Button,
   CompactMetric,
   ConnectivityCoverageCard,
@@ -12,13 +13,13 @@ import {
   FilterBar,
   KeyValueList,
   KeyValueRow,
+  ListContainer,
   MasterDetailLayout,
   MetricStrip,
   PageHeading,
   SectionBlock,
   SectionStack,
   SemanticTag,
-  SignalRow,
   StatusPill,
   StickyActionBar,
   WorkspaceShell,
@@ -27,9 +28,9 @@ import {
 import "design-system-ai-lab/styles.css";
 
 const assetRows = [
-  { name: "Main switchboard", state: "Review needed", detail: "Main site · updated 18h ago" },
-  { name: "UPS group", state: "Warning signal", detail: "Main site · updated 18h ago" },
-  { name: "LV switchboard", state: "Monitored", detail: "Plant site · updated 3h ago" },
+  { name: "Main switchboard", state: "Review needed", detail: "Main site · updated 18h ago", tone: "warning" as const, selected: true },
+  { name: "UPS group", state: "Warning signal", detail: "Main site · updated 18h ago", tone: "warning" as const },
+  { name: "LV switchboard", state: "Monitored", detail: "Plant site · updated 3h ago", tone: "success" as const },
 ];
 
 export default function App() {
@@ -83,11 +84,22 @@ export default function App() {
               </SectionBlock>
 
               <SectionBlock title="Asset queue">
-                <div className="divide-y divide-(--ec-color-border)">
+                <ListContainer>
                   {assetRows.map((asset) => (
-                    <SignalRow key={asset.name} label={asset.name} value={asset.state} description={asset.detail} />
+                    <AssetQueueRow
+                      key={asset.name}
+                      assetName={asset.name}
+                      site={asset.detail}
+                      description="Review monitoring scope and source freshness before customer use."
+                      statusLabel={asset.state}
+                      statusTone={asset.tone}
+                      priority={asset.state === "Monitored" ? undefined : "high"}
+                      sourceStrength={asset.state === "Monitored" ? "strong" : "partial"}
+                      freshness="18h"
+                      selected={asset.selected}
+                    />
                   ))}
-                </div>
+                </ListContainer>
               </SectionBlock>
             </SectionStack>
           }
