@@ -1,22 +1,53 @@
 # Design System AI Lab
 
-Design System AI Lab is a React / TypeScript design system package built to
-show how a coded design system can become a controlled generation
-infrastructure for AI-assisted interface production.
+Design System AI Lab is a React / TypeScript design system package for AI-assisted interface generation.
 
-The project demonstrates how designers can move from manually producing every
-screen to defining a reusable system that AI tools can compose with.
+It demonstrates how a coded design system can become a controlled generation framework for tools such as Figma Make.
 
-The goal is not to replace design judgment.
+The goal is not to let AI invent interfaces from scratch.
 
-The goal is to reduce repetitive screen production so designers can focus on:
+The goal is to help AI compose useful first drafts from a governed system of:
 
-- user understanding
-- journey structure
-- UX quality
-- interaction logic
-- design system governance
-- generated screen review
+- components
+- composition primitives
+- decision components
+- business patterns
+- design tokens
+- screen architecture rules
+- Make-ready prompts
+- acceptance and repair checklists
+- golden examples
+
+The designer remains responsible for UX judgment, hierarchy, validation and final quality.
+
+---
+
+## What is new in v0.3.0
+
+Version `0.3.0` introduces the **decision workspace v2** standard.
+
+The project is no longer oriented around generating long dashboard pages or stacks of generic cards.
+
+The new standard teaches Make to generate structured decision workspaces:
+
+```txt
+WorkspaceShell
+→ FilterBar
+→ MasterDetailLayout when list/detail review is needed
+→ DetailPanel / DetailPanelTabs / StickyActionBar for selected item review
+→ SectionStack / SectionBlock for dense grouping
+→ KeyValueList / MetricStrip / rows for repeated facts, signals, evidence and actions
+```
+
+The core principle is:
+
+```txt
+The design system is not a card stack generator.
+```
+
+Use cards only for highlighted decision objects.
+
+Use compact primitives and rows for repeated operational information.
 
 ---
 
@@ -28,9 +59,10 @@ This project demonstrates the full chain:
 Design foundations
 → React component package
 → Storybook documentation
-→ AI usage rules
-→ Make kit guidelines
-→ Figma Make-ready generation
+→ screen architecture rules
+→ Make-ready guidelines
+→ golden examples
+→ controlled AI-assisted screen generation
 ```
 
 It includes:
@@ -39,13 +71,15 @@ It includes:
 - CSS design tokens
 - compatibility aliases for Figma Make / shadcn-like generators
 - Radix UI primitives for accessible interactions
-- Tailwind CSS utilities
 - Storybook documentation
 - form components for generated dialogs
-- decision-oriented composition components
-- business patterns ready for AI-assisted screen generation
-- AI prompt guidelines
-- Figma Make / Make kit preparation documents
+- composition components for decision workspaces
+- compact primitives for dense B2B screens
+- decision components for risks, recommendations, signals and actions
+- business patterns for service / customer monitoring use cases
+- Make-ready guidelines and prompts
+- repair prompts for common generation failures
+- golden examples rendered in Storybook
 - a package build consumable by another React app or Make file
 
 ---
@@ -54,31 +88,21 @@ It includes:
 
 A design system is not only a visual library.
 
-It can become a **generation framework** for AI-assisted product interface
-creation.
+It can become a **generation framework** for AI-assisted product interface creation.
 
 In this model:
 
 - the designer defines the system
 - the design system defines the vocabulary
 - component contracts define usage rules
+- screen architecture rules define layout choices
 - prompts define the screen objective and constraints
 - AI tools compose first drafts
 - designers review, improve and validate the result
 
 The AI should not generate from imagination.
 
-It should generate from a governed system:
-
-- foundations
-- components
-- forms
-- decision components
-- business patterns
-- tokens
-- usage rules
-- prompt constraints
-- acceptance criteria
+It should generate from a governed system.
 
 ---
 
@@ -99,74 +123,51 @@ It should generate from a governed system:
 ```txt
 src/
   design-system/
-    ai/
-      component-contracts.md
-      demo-narrative.md
-      demo-script.md
-      design-system-instructions.md
-      figma-make-setup.md
-      make-kit-guidelines.md
-      package-usage.md
-      prompt-library.md
-
     components/
-      badge.tsx
-      button.tsx
-      card.tsx
-      dialog.tsx
-      metric-card.tsx
-      page-header.tsx
-
+    composition/
     decision/
-      action-card.tsx
-      action-list.tsx
-      alert-card.tsx
-      metric-grid.tsx
-      priority-list.tsx
-      section-header.tsx
-      status-summary.tsx
-
     forms/
-      field.tsx
-      input.tsx
-      label.tsx
-      select.tsx
-      textarea.tsx
-
     patterns/
-      connectivity-coverage-card.tsx
-      create-action-dialog.tsx
-      customer-status-card.tsx
-      renewal-risk-summary.tsx
-      value-proof-card.tsx
-
     stories/
-      ai/
-      applications/
-      components/
-      decision/
-      forms/
-      foundations/
-      patterns/
-
     tokens/
-      tokens.css
-
     index.ts
-    style-entry.ts
     styles.css
 
   demo/
-  App.tsx
-  index.css
-  main.tsx
+
+guidelines/
+  Guidelines.md
+  setup.md
+  styles.md
+  tokens.md
+  screen-architecture/
+  prompts/
+  repair-prompts/
+  review/
+  examples/golden/
+  domain-models/
+  knowledge/
+```
+
+Important distinction:
+
+```txt
+src/design-system/
+= package source code
+
+guidelines/
+= Make-ready governance, prompts, screen architecture and golden examples
+
+src/design-system/stories/
+= Storybook documentation and visual review surface
+
+guidelines/examples/golden/
+= source of truth for Make-ready screen examples
 ```
 
 ---
 
 ## Design system layers
-
-The design system is organized into five main layers.
 
 ### Foundations
 
@@ -198,19 +199,6 @@ Examples:
 --ec-shadow-card
 ```
 
-The package also provides compatibility aliases for Figma Make and
-shadcn-like generators:
-
-```txt
---background → var(--ec-color-background)
---foreground → var(--ec-color-text-primary)
---border → var(--ec-color-border)
---radius-sm → var(--ec-radius-sm)
-```
-
-The aliases make generated code more tolerant without replacing the official
-`--ec-*` token system.
-
 ### Components
 
 Generic UI components:
@@ -221,12 +209,17 @@ Generic UI components:
 - `Dialog`
 - `DialogClose`
 - `DialogFooter`
+- `DocumentRow`
+- `KeyValueList`
+- `KeyValueRow`
 - `MetricCard`
 - `PageHeader`
+- `Timeline`
+- `TimelineItem`
 
 ### Forms
 
-Form primitives for generated dialogs and input flows:
+Form primitives:
 
 - `Field`
 - `Input`
@@ -234,67 +227,84 @@ Form primitives for generated dialogs and input flows:
 - `Select`
 - `Textarea`
 
-These components help Figma Make avoid raw inline-styled form controls.
+### Composition
 
-### Decision components
+Workspace and layout components:
 
-Composition components for decision-oriented screens:
+- `WorkspaceShell`
+- `FilterBar`
+- `MasterDetailLayout`
+- `DetailPanel`
+- `DetailPanelHeader`
+- `DetailPanelBody`
+- `DetailPanelFooter`
+- `DetailPanelTabs`
+- `StickyActionBar`
+- `SectionStack`
+- `SectionBlock`
+
+### Decision and compact components
+
+Decision-oriented components and dense primitives:
 
 - `ActionCard`
 - `ActionList`
+- `ActionRow`
 - `AlertCard`
+- `CompactMetric`
+- `EvidenceRow`
 - `MetricGrid`
+- `MetricStrip`
 - `PriorityList`
+- `PriorityPill`
+- `RecommendationCard`
 - `SectionHeader`
+- `SemanticTag`
+- `SignalRow`
+- `SourceStrengthPill`
+- `StatusPill`
 - `StatusSummary`
-
-These components guide generated screens toward clear customer context,
-priorities, metrics and next actions.
 
 ### Business patterns
 
 Higher-level patterns ready for AI-assisted screen composition:
 
+- `AssetIntelligenceSummary`
 - `ConnectivityCoverageCard`
 - `CreateActionDialog`
+- `CustomerReviewReadinessCard`
 - `CustomerStatusCard`
+- `RecommendationReviewPanel`
 - `RenewalRiskSummary`
+- `ServiceRiskSummary`
 - `ValueProofCard`
 
-These patterns are intentionally more opinionated. They help Figma Make compose
-complete screens without rebuilding every section from primitive components.
+These patterns are intentionally opinionated. They help Figma Make compose useful screens without rebuilding every business section from primitive components.
 
 ---
 
 ## Package public API
 
-Components should be imported from the package root:
+Import components from the package root:
 
 ```tsx
 import {
-  ActionCard,
-  ActionList,
-  AlertCard,
-  Badge,
-  Button,
-  Card,
+  WorkspaceShell,
+  FilterBar,
+  MasterDetailLayout,
+  DetailPanel,
+  SectionBlock,
+  KeyValueList,
+  KeyValueRow,
+  MetricStrip,
+  CompactMetric,
+  ActionRow,
   ConnectivityCoverageCard,
-  CreateActionDialog,
-  CustomerStatusCard,
-  Dialog,
-  Field,
-  Input,
-  MetricCard,
-  MetricGrid,
-  PageHeader,
-  PriorityList,
-  RenewalRiskSummary,
-  StatusSummary,
-  ValueProofCard,
+  ServiceRiskSummary,
 } from "design-system-ai-lab";
 ```
 
-Styles should be imported once near the root of the consuming app:
+Import styles once near the root of the consuming app:
 
 ```tsx
 import "design-system-ai-lab/styles.css";
@@ -320,90 +330,120 @@ import { Button } from "design-system-ai-lab/dist/components/button";
 
 ```tsx
 import {
-  ActionCard,
-  ActionList,
-  AlertCard,
+  ActionRow,
   Button,
-  CreateActionDialog,
-  CustomerStatusCard,
-  MetricCard,
-  MetricGrid,
-  PageHeader,
-  PriorityList,
+  ConnectivityCoverageCard,
+  DetailPanel,
+  DetailPanelBody,
+  DetailPanelHeader,
+  DetailPanelTabs,
+  FilterBar,
+  KeyValueList,
+  KeyValueRow,
+  MasterDetailLayout,
+  MetricStrip,
+  CompactMetric,
+  SectionBlock,
+  SectionStack,
+  SemanticTag,
+  SignalRow,
+  StatusPill,
+  StickyActionBar,
+  WorkspaceShell,
 } from "design-system-ai-lab";
 
 import "design-system-ai-lab/styles.css";
 
+const assets = [
+  { name: "Main switchboard", value: "Review needed", description: "Updated 18h ago" },
+  { name: "UPS group", value: "Warning signal", description: "Updated 18h ago" },
+];
+
 export default function App() {
   return (
-    <main className="min-h-screen bg-(--ec-color-background) p-8">
-      <div className="mx-auto max-w-6xl space-y-8">
-        <PageHeader
-          title="Customer monitoring"
-          description="Understand customer status, risks and next actions."
-          actions={<CreateActionDialog />}
+    <main className="min-h-screen bg-(--ec-color-background)">
+      <WorkspaceShell
+        header={
+          <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+            <div>
+              <p className="text-sm font-medium text-(--ec-color-primary)">Customer monitoring</p>
+              <h1 className="mt-1 text-2xl font-semibold text-(--ec-color-text-primary)">Review what needs attention next</h1>
+            </div>
+            <Button size="sm">Create action</Button>
+          </div>
+        }
+        controls={
+          <FilterBar
+            title="Monitoring scope"
+            resultCount="2 assets shown"
+            filters={<SemanticTag tone="warning">Partial coverage</SemanticTag>}
+          />
+        }
+      >
+        <MasterDetailLayout
+          detailWidth="lg"
+          list={
+            <SectionBlock title="Asset queue">
+              <div className="divide-y divide-(--ec-color-border)">
+                {assets.map((asset) => (
+                  <SignalRow key={asset.name} label={asset.name} value={asset.value} description={asset.description} />
+                ))}
+              </div>
+            </SectionBlock>
+          }
+          detail={
+            <DetailPanel>
+              <DetailPanelHeader
+                title="Main switchboard"
+                description="Selected asset detail. Facts and source limits appear before interpretation."
+                meta={<StatusPill tone="warning">Review needed</StatusPill>}
+              />
+              <DetailPanelTabs
+                tabs={[
+                  { id: "overview", label: "Overview", active: true },
+                  { id: "coverage", label: "Coverage" },
+                  { id: "actions", label: "Actions", count: 2 },
+                ]}
+              />
+              <DetailPanelBody>
+                <SectionStack>
+                  <SectionBlock title="Identity and scope">
+                    <KeyValueList columns={2}>
+                      <KeyValueRow label="Source scope" value="Known installed base and connected assets" />
+                      <KeyValueRow label="Validation" value="Review before customer use" />
+                    </KeyValueList>
+                  </SectionBlock>
+
+                  <SectionBlock title="Signals">
+                    <MetricStrip columns={2}>
+                      <CompactMetric label="Connected" value="68%" tone="warning" />
+                      <CompactMetric label="Freshness" value="18h" />
+                    </MetricStrip>
+                  </SectionBlock>
+
+                  <ConnectivityCoverageCard
+                    mode="section"
+                    coverageRate="68%"
+                    connectedAssets="17 assets"
+                    disconnectedAssets="8 assets"
+                    monitoringStatus="Partial monitoring coverage"
+                    sourceScope="Monitoring platform and known installed base"
+                    sourceStrength="partial"
+                  />
+                </SectionStack>
+              </DetailPanelBody>
+              <StickyActionBar
+                context="Next action: validate source scope before customer communication."
+                primaryAction={<Button size="sm">Assign validation</Button>}
+              />
+            </DetailPanel>
+          }
         />
 
-        <CustomerStatusCard
-          customerName="Greenfield Industries"
-          plan="Advanced service plan"
-          contract="#CR-2024-441"
-          csm="Sarah Moreau"
-          renewalDate="Aug 5, 2026"
-          assetsCovered="25 assets — 3 sites"
-          coverage="68% connected"
-          badges={[
-            { label: "Active plan", tone: "primary" },
-            { label: "Connectivity partial", tone: "warning" },
-            { label: "Renewal in 62 days", tone: "neutral" },
-          ]}
-        />
-
-        <MetricGrid>
-          <MetricCard
-            label="Connected equipment"
-            value="68%"
-            helper="17 of 25 assets monitored"
-            trend="-12%"
-          />
-          <MetricCard
-            label="Open critical alerts"
-            value="2"
-            helper="Customer communication required"
-          />
-          <MetricCard
-            label="Overdue actions"
-            value="3"
-            helper="Ownership must be clarified"
-          />
-        </MetricGrid>
-
-        <PriorityList
-          title="Priority alerts"
-          description="Risks requiring customer or service team action."
-        >
-          <AlertCard
-            severity="critical"
-            title="Critical equipment no longer monitored"
-            equipment="Main HVAC control unit"
-            description="The customer has no visibility on a critical asset."
-            recommendation="Escalate to support and notify the customer proactively."
-          />
-        </PriorityList>
-
-        <ActionList
-          title="Recommended actions"
-          description="Next steps to reduce customer risk."
-          actions={<Button variant="secondary">Review plan</Button>}
-        >
-          <ActionCard
-            title="Plan connectivity review with the customer"
-            owner="CSM"
-            dueDate="This week"
-            priority="high"
-          />
-        </ActionList>
-      </div>
+        <SectionBlock title="Open actions">
+          <ActionRow title="Validate asset interpretation" owner="Service Expert" dueDate="Next 3 business days" priority="high" status="todo" />
+        </SectionBlock>
+      </WorkspaceShell>
     </main>
   );
 }
@@ -420,9 +460,11 @@ The intended model is:
 ```txt
 React design system package
 + CSS styles
++ screen architecture rules
 + component contracts
 + prompt rules
 + acceptance criteria
++ golden examples
 = controlled AI-assisted screen generation
 ```
 
@@ -433,20 +475,23 @@ It should generate from:
 - the component package
 - the approved component vocabulary
 - the design tokens
+- the screen architecture rules
 - the usage rules
 - the business patterns
 - the designer’s prompt
+- the relevant golden example
 
 Recommended Make behavior:
 
+- use workspace components when review or comparison is needed
 - use business patterns first when available
-- use decision components for screen structure
-- use form components inside dialogs
-- use `Button` directly as a `Dialog` trigger
+- use compact primitives and rows for repeated facts, signals, evidence and actions
+- use decision cards only for highlighted objects
 - import styles from `design-system-ai-lab/styles.css`
 - avoid local component wrappers
 - avoid inline-styled raw form fields
 - avoid creating a local `packages/design-system-ai-lab` folder
+- avoid card saturation
 
 ---
 
@@ -458,19 +503,7 @@ Run Storybook with:
 npm run storybook
 ```
 
-Storybook is the main demo and documentation surface.
-
-It documents:
-
-- foundations
-- components
-- forms
-- decision components
-- business patterns
-- application screens
-- AI usage guides
-- Figma Make setup
-- Make kit guidelines
+Storybook is the main visual review and documentation surface.
 
 Recommended navigation:
 
@@ -478,11 +511,20 @@ Recommended navigation:
 Design System / Foundations
 Design System / Components
 Design System / Forms
+Design System / Composition
 Design System / Decision
 Design System / Patterns
-Design System / Applications
-Design System / AI
+Design System / Golden Examples
+Design System / Make Kit Guidelines
 ```
+
+The most important section for judging Make output quality is:
+
+```txt
+Design System / Golden Examples
+```
+
+It renders the Make-ready golden examples with the real local design system.
 
 Build Storybook with:
 
@@ -492,86 +534,78 @@ npm run build-storybook
 
 ---
 
-## Demo screens
+## Golden examples
 
-The project includes application-level demo screens composed from the design
-system.
+Golden examples live in:
 
-### Customer monitoring
+```txt
+guidelines/examples/golden/
+```
 
-A customer monitoring screen for service or customer success teams.
+They are the source of truth for Make-ready screen examples.
 
-It helps the user:
+Current golden examples:
 
-- understand the customer situation
-- identify priority risks
-- review service indicators
-- decide the next best actions
-- create a follow-up action
+```txt
+customer-monitoring.App.tsx
+renewal-risk-review.App.tsx
+asset-recommendation-review.App.tsx
+qbr-readiness.App.tsx
+installed-base-explorer.App.tsx
+```
 
-### Renewal risk review
+They are also rendered in Storybook under:
 
-A renewal preparation screen showing how the same design system can compose a
-different business interface.
+```txt
+Design System / Golden Examples
+```
 
-It helps the user:
+Use them to review:
 
-- review renewal risk
-- understand value proof gaps
-- identify adoption and connectivity blockers
-- prepare mitigation actions
-- structure renewal discussion points
+- workspace structure
+- visual density
+- card saturation risk
+- detail panel usage
+- evidence hierarchy
+- actionability
+- source and validation visibility
 
 ---
 
-## AI documentation
+## Make-ready guidelines
 
-The project includes AI-oriented documents under:
+Make-ready guidance lives in:
 
 ```txt
-src/design-system/ai/
+guidelines/
 ```
 
-### `component-contracts.md`
+Start with:
 
-Defines how each component and pattern should be used.
+```txt
+guidelines/Guidelines.md
+guidelines/setup.md
+guidelines/styles.md
+guidelines/tokens.md
+guidelines/screen-architecture/README.md
+guidelines/prompts/workspace-v2.md
+```
 
-Examples:
+Use repair prompts when Make drifts:
 
-- `AlertCard` must include a recommendation.
-- `ActionCard` must include owner, due date and priority.
-- `MetricCard` should only be used for decision-relevant metrics.
-- `CreateActionDialog` should be used for action creation flows.
-- `CustomerStatusCard` should be used before rebuilding customer context.
+```txt
+guidelines/repair-prompts/card-saturation.md
+guidelines/repair-prompts/weak-layout.md
+guidelines/repair-prompts/missing-detail-panel.md
+```
 
-### `prompt-library.md`
+Use review checklists to accept or reject output:
 
-Contains reusable prompts for generating screens with the design system.
-
-Examples:
-
-- customer monitoring screen
-- renewal risk review
-- connectivity coverage review
-- service value proof summary
-- alert triage workflow
-- executive service summary
-
-### `demo-narrative.md`
-
-Provides a spoken narrative for explaining the demo.
-
-### `figma-make-setup.md`
-
-Explains the intended workflow for using the design system with Figma Make.
-
-### `make-kit-guidelines.md`
-
-Defines operational guidelines for Make kit usage.
-
-### `package-usage.md`
-
-Explains how to consume the built design system package.
+```txt
+guidelines/review/blocking-checklist.md
+guidelines/review/quality-checklist.md
+guidelines/review/workspace-v2-checklist.md
+```
 
 ---
 
@@ -589,8 +623,6 @@ npm install
 npm run dev
 ```
 
-This starts the Vite app.
-
 ---
 
 ## Build the app
@@ -599,7 +631,21 @@ This starts the Vite app.
 npm run build
 ```
 
-This builds the Vite application.
+---
+
+## Run Storybook
+
+```bash
+npm run storybook
+```
+
+---
+
+## Build Storybook
+
+```bash
+npm run build-storybook
+```
 
 ---
 
@@ -610,42 +656,6 @@ npm run build:ds
 ```
 
 This builds the reusable design system package into `dist/`.
-
-Expected output:
-
-```txt
-dist/
-  index.js
-  index.d.ts
-  styles.css
-  components/
-    badge.d.ts
-    button.d.ts
-    card.d.ts
-    dialog.d.ts
-    metric-card.d.ts
-    page-header.d.ts
-  decision/
-    action-card.d.ts
-    action-list.d.ts
-    alert-card.d.ts
-    metric-grid.d.ts
-    priority-list.d.ts
-    section-header.d.ts
-    status-summary.d.ts
-  forms/
-    field.d.ts
-    input.d.ts
-    label.d.ts
-    select.d.ts
-    textarea.d.ts
-  patterns/
-    connectivity-coverage-card.d.ts
-    create-action-dialog.d.ts
-    customer-status-card.d.ts
-    renewal-risk-summary.d.ts
-    value-proof-card.d.ts
-```
 
 The package exposes:
 
@@ -669,20 +679,6 @@ Then check the package contents:
 npm pack --dry-run
 ```
 
-Expected package contents include:
-
-```txt
-README.md
-package.json
-dist/index.js
-dist/index.d.ts
-dist/styles.css
-dist/components/*.d.ts
-dist/decision/*.d.ts
-dist/forms/*.d.ts
-dist/patterns/*.d.ts
-```
-
 Create the local tarball:
 
 ```bash
@@ -692,13 +688,13 @@ npm pack
 Install it in another local React app:
 
 ```bash
-npm install ../design-system-ai-lab/design-system-ai-lab-0.2.0.tgz
+npm install ../design-system-ai-lab/design-system-ai-lab-0.3.0.tgz
 ```
 
 Then import from the package root:
 
 ```tsx
-import { Button, CustomerStatusCard } from "design-system-ai-lab";
+import { Button, WorkspaceShell } from "design-system-ai-lab";
 import "design-system-ai-lab/styles.css";
 ```
 
@@ -732,21 +728,22 @@ It should be presented as:
 
 The key point is:
 
-> The designer does not disappear from the production process. The designer
-> moves upstream: from producing every screen manually to designing the system
-> that makes generated screens coherent.
+> The designer does not disappear from the production process. The designer moves
+> upstream: from producing every screen manually to designing the system that
+> makes generated screens coherent.
 
 ---
 
 ## Current status
 
-This project is still a demo project, but it now covers the core workflow:
+This project is still a design system lab, but it now covers the core workflow:
 
 ```txt
 coded design system
 → documented Storybook
 → reusable package
 → Make-ready guidelines
+→ golden examples
 → AI-assisted screen composition
 ```
 
@@ -755,32 +752,5 @@ Current limitations:
 - there is no formal visual regression setup yet
 - accessibility is supported by component choices but not fully audited
 - Figma Make integration still requires Make kit configuration and validation
-- business patterns are intentionally focused on service / customer monitoring
-  examples
-
-These limitations are acceptable for the purpose of the demo.
-
----
-
-## Recommended next steps
-
-1. Keep Storybook as the main demo surface.
-2. Publish the package as version `0.2.0`.
-3. Update the Make kit dependency to `design-system-ai-lab@0.2.0`.
-4. Add the updated guidelines to the Make kit.
-5. Test Figma Make generation with the reference prompts.
-6. Review generated output against the acceptance checklist.
-7. Iterate on missing patterns where Make still improvises.
-
----
-
-## Final principle
-
-This project treats the design system as an executable product asset.
-
-It is not only a UI library.
-
-It is a controlled language for interface generation.
-
-The stronger the design system rules are, the more useful AI-assisted interface
-production becomes.
+- business patterns are intentionally focused on service / customer monitoring examples
+- golden examples are reference outputs, not production screens
