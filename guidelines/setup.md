@@ -89,6 +89,11 @@ Generated screens must import components from the package root:
 import {
   WorkspaceShell,
   PageHeading,
+  Breadcrumbs,
+  HeaderTabs,
+  Tabs,
+  SegmentedControl,
+  SecondaryNavigation,
   FilterBar,
   MasterDetailLayout,
   DetailPanel,
@@ -227,6 +232,10 @@ local workspace primitives
 local surface wrappers
 local toolbar wrappers
 local list containers
+local navigation components
+local tabs
+local segmented controls
+local breadcrumbs
 local CustomerRow
 local AssetRow
 local RiskRow
@@ -305,6 +314,40 @@ Avoid:
 
 ---
 
+## Navigation primitive rule
+
+Use navigation primitives before creating local tabs, nav bars or breadcrumb wrappers.
+
+Use:
+
+```txt
+Tabs
+HeaderTabs
+SegmentedControl
+SecondaryNavigation
+Breadcrumbs
+```
+
+Use `Tabs` for local content switching.
+
+Use `HeaderTabs` for major workspace views below a page or section heading.
+
+Use `SegmentedControl` for compact filters or mode switches.
+
+Use `SecondaryNavigation` for secondary workspace navigation.
+
+Use `Breadcrumbs` for location context.
+
+Avoid:
+
+```tsx
+<div className="flex gap-2 border-b">
+  <button className="border-b-2 border-green-500">Overview</button>
+</div>
+```
+
+---
+
 ## Queue row rule
 
 Use queue rows before creating styled customer, asset, risk or recommendation list items.
@@ -351,6 +394,8 @@ A minimal valid generated screen should follow the workspace v2 structure:
 import {
   WorkspaceShell,
   PageHeading,
+  Breadcrumbs,
+  Tabs,
   FilterBar,
   MasterDetailLayout,
   DetailPanel,
@@ -376,10 +421,13 @@ export default function App() {
     <main className="min-h-screen bg-(--ec-color-background)">
       <WorkspaceShell
         header={
-          <PageHeading
-            eyebrow="Customer monitoring"
-            title="Review what needs attention next"
-          />
+          <div className="space-y-5">
+            <Breadcrumbs items={[{ id: "customers", label: "Customers" }, { id: "monitoring", label: "Monitoring", current: true }]} />
+            <PageHeading
+              eyebrow="Customer monitoring"
+              title="Review what needs attention next"
+            />
+          </div>
         }
         controls={<FilterBar title="Scope" resultCount="2 items shown" />}
       >
@@ -403,6 +451,7 @@ export default function App() {
           detail={
             <DetailPanel>
               <DetailPanelHeader title="Main switchboard" meta={<StatusPill tone="warning">Review needed</StatusPill>} />
+              <Tabs tabs={[{ id: "overview", label: "Overview" }, { id: "actions", label: "Actions", count: 2 }]} defaultValue="overview" />
               <DetailPanelBody>
                 <SectionBlock title="Facts">
                   <KeyValueList columns={2}>
@@ -431,6 +480,7 @@ This setup is valid because it:
 - avoids card saturation
 - uses workspace structure for list/detail review
 - uses queue rows for repeated review objects
+- uses approved navigation primitives for tabs and breadcrumbs
 
 For full screen composition, use `Guidelines.md`, `screen-architecture/` and the relevant prompt file.
 
@@ -443,6 +493,7 @@ The generated project may import the following from `design-system-ai-lab`.
 ### Components
 
 - `Badge`
+- `Breadcrumbs`
 - `Button`
 - `Card`
 - `Dialog`
@@ -450,6 +501,7 @@ The generated project may import the following from `design-system-ai-lab`.
 - `DialogFooter`
 - `Divider`
 - `DocumentRow`
+- `HeaderTabs`
 - `Heading`
 - `KeyValueList`
 - `KeyValueRow`
@@ -457,8 +509,11 @@ The generated project may import the following from `design-system-ai-lab`.
 - `MetricCard`
 - `PageHeader`
 - `PageHeading`
+- `SecondaryNavigation`
 - `SectionHeading`
+- `SegmentedControl`
 - `Surface`
+- `Tabs`
 - `Text`
 - `Timeline`
 - `TimelineItem`
@@ -531,7 +586,7 @@ intent.
 
 Use queue rows before local row wrappers for customer, asset, risk and recommendation lists.
 
-Use workspace, surface and compact components before creating long stacks of generic cards.
+Use workspace, surface, navigation and compact components before creating long stacks of generic cards.
 
 ---
 
