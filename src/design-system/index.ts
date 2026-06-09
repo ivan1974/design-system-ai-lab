@@ -8,6 +8,12 @@ export type { ButtonProps } from "./components/button";
 export { Card } from "./components/card";
 export type { CardProps } from "./components/card";
 
+export { CompactMetric } from "./components/compact-metric";
+export type {
+  CompactMetricProps,
+  CompactMetricTone,
+} from "./components/compact-metric";
+
 export { Dialog, DialogClose, DialogFooter } from "./components/dialog";
 export type {
   DialogCloseProps,
@@ -15,14 +21,29 @@ export type {
   DialogProps,
 } from "./components/dialog";
 
+export { DocumentRow } from "./components/document-row";
+export type { DocumentRowProps } from "./components/document-row";
+
+export { KeyValueList, KeyValueRow } from "./components/key-value-list";
+export type {
+  KeyValueListProps,
+  KeyValueRowProps,
+} from "./components/key-value-list";
+
 export { MetricCard } from "./components/metric-card";
 export type {
   MetricCardProps,
   MetricTrendTone,
 } from "./components/metric-card";
 
+export { MetricStrip } from "./components/metric-strip";
+export type { MetricStripProps } from "./components/metric-strip";
+
 export { PageHeader } from "./components/page-header";
 export type { PageHeaderProps } from "./components/page-header";
+
+export { Timeline, TimelineItem } from "./components/timeline";
+export type { TimelineItemProps, TimelineProps } from "./components/timeline";
 
 // Forms
 export { Field } from "./forms/field";
@@ -89,11 +110,17 @@ export type {
 export { ActionList } from "./decision/action-list";
 export type { ActionListProps } from "./decision/action-list";
 
+export { ActionRow } from "./decision/action-row";
+export type { ActionRowProps } from "./decision/action-row";
+
 export { AlertCard } from "./decision/alert-card";
 export type {
   AlertCardProps,
   AlertSeverity,
 } from "./decision/alert-card";
+
+export { EvidenceRow } from "./decision/evidence-row";
+export type { EvidenceRowProps } from "./decision/evidence-row";
 
 export { MetricGrid } from "./decision/metric-grid";
 export type {
@@ -104,6 +131,9 @@ export type {
 export { PriorityList } from "./decision/priority-list";
 export type { PriorityListProps } from "./decision/priority-list";
 
+export { PriorityPill } from "./decision/priority-pill";
+export type { PriorityPillProps } from "./decision/priority-pill";
+
 export { RecommendationCard } from "./decision/recommendation-card";
 export type {
   RecommendationCardProps,
@@ -113,6 +143,24 @@ export type {
 
 export { SectionHeader } from "./decision/section-header";
 export type { SectionHeaderProps } from "./decision/section-header";
+
+export { SemanticTag } from "./decision/semantic-tag";
+export type {
+  SemanticTagProps,
+  SemanticTagTone,
+} from "./decision/semantic-tag";
+
+export { SignalRow } from "./decision/observed-signal-row";
+export type { SignalRowProps } from "./decision/observed-signal-row";
+
+export { SourceStrengthPill } from "./decision/source-strength-pill";
+export type {
+  SourceStrength,
+  SourceStrengthPillProps,
+} from "./decision/source-strength-pill";
+
+export { StatusPill } from "./decision/status-pill";
+export type { StatusPillProps, StatusPillTone } from "./decision/status-pill";
 
 export { StatusSummary } from "./decision/status-summary";
 export type {
@@ -129,6 +177,15 @@ export type {
   AssetIntelligenceReadiness,
   AssetIntelligenceSummaryProps,
 } from "./patterns/asset-intelligence-summary";
+
+export {
+  ComponentHierarchy,
+  ComponentHierarchyItem,
+} from "./patterns/component-hierarchy";
+export type {
+  ComponentHierarchyItemProps,
+  ComponentHierarchyProps,
+} from "./patterns/component-hierarchy";
 
 export {
   ConnectivityCoverageCard,
