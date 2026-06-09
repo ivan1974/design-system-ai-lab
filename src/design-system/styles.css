@@ -9,7 +9,7 @@
   --card: var(--ec-color-surface);
   --card-foreground: var(--ec-color-text-primary);
 
-  --popover: var(--ec-color-surface);
+  --popover: var(--ec-color-surface-raised);
   --popover-foreground: var(--ec-color-text-primary);
 
   --primary: var(--ec-color-primary);
@@ -21,7 +21,7 @@
   --muted: var(--ec-color-surface-muted);
   --muted-foreground: var(--ec-color-text-muted);
 
-  --accent: var(--ec-color-surface-muted);
+  --accent: var(--ec-color-primary-soft);
   --accent-foreground: var(--ec-color-text-primary);
 
   --destructive: var(--ec-color-danger);
@@ -35,8 +35,17 @@
   --radius-sm: var(--ec-radius-sm);
   --radius-md: var(--ec-radius-md);
   --radius-lg: var(--ec-radius-lg);
+  --radius-xl: var(--ec-radius-xl);
+  --radius: var(--ec-radius-md);
 
   --text-primary: var(--ec-color-text-primary);
   --text-secondary: var(--ec-color-text-secondary);
   --text-muted: var(--ec-color-text-muted);
+
+  --surface-raised: var(--ec-color-surface-raised);
+  --surface-soft: var(--ec-color-surface-soft);
+  --row-hover: var(--ec-color-row-hover);
+  --row-selected: var(--ec-color-row-selected);
+  --shadow-card: var(--ec-shadow-card);
+  --shadow-panel: var(--ec-shadow-panel);
 }
