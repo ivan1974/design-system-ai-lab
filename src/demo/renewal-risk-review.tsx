@@ -13,6 +13,7 @@ import {
   KeyValueList,
   KeyValueRow,
   MasterDetailLayout,
+  PageHeading,
   RecommendationCard,
   RecommendationReviewPanel,
   RenewalRiskSummary,
@@ -30,16 +31,12 @@ export function RenewalRiskReview() {
     <main className="min-h-screen bg-(--ec-color-background)">
       <WorkspaceShell
         header={
-          <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
-            <div>
-              <p className="text-sm font-medium text-(--ec-color-primary)">Renewal risk demo</p>
-              <h1 className="mt-1 text-2xl font-semibold text-(--ec-color-text-primary)">Review renewal blockers</h1>
-              <p className="mt-2 max-w-3xl text-sm text-(--ec-color-text-secondary)">
-                Developer demo for renewal review. Golden examples remain the Make source of truth.
-              </p>
-            </div>
-            <Button size="sm">Create mitigation action</Button>
-          </div>
+          <PageHeading
+            eyebrow="Renewal risk demo"
+            title="Review renewal blockers"
+            description="Developer demo for renewal review. Golden examples remain the Make source of truth."
+            actions={<Button size="sm">Create mitigation action</Button>}
+          />
         }
         controls={
           <FilterBar
