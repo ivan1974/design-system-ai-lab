@@ -7,11 +7,13 @@ import {
   DetailPanelBody,
   DetailPanelHeader,
   FilterBar,
+  Heading,
   MasterDetailLayout,
   SectionBlock,
   SectionStack,
   SignalRow,
   StatusPill,
+  Text,
   WorkspaceShell,
 } from "../../index";
 
@@ -57,14 +59,12 @@ function VisualFoundationPreview() {
   return (
     <WorkspaceShell
       header={
-        <div>
-          <p className="text-sm font-medium text-(--ec-color-primary)">v0.4 visual foundation</p>
-          <h1 className="mt-1 text-2xl font-semibold tracking-[-0.02em] text-(--ec-color-text-primary)">
-            Modern operational workspace surfaces
-          </h1>
-          <p className="mt-2 max-w-2xl text-sm leading-6 text-(--ec-color-text-secondary)">
+        <div className="space-y-2">
+          <Text variant="caption" className="font-medium text-(--ec-color-primary)">v0.4 visual foundation</Text>
+          <Heading level={1} size="page">Modern operational workspace surfaces</Heading>
+          <Text className="max-w-2xl">
             Soft workspace background, raised controls, subtle selected rows and a focused detail panel.
-          </p>
+          </Text>
         </div>
       }
       controls={
@@ -109,9 +109,9 @@ function VisualFoundationPreview() {
             <DetailPanelBody>
               <SectionStack gap="md">
                 <SectionBlock title="Visual intent">
-                  <p className="text-sm leading-6 text-(--ec-color-text-secondary)">
+                  <Text>
                     The panel should feel elevated and focused without heavy glassmorphism. The green primary color is reserved for confidence, action and selected states.
-                  </p>
+                  </Text>
                 </SectionBlock>
                 <SectionBlock title="Next action">
                   <Button>Review selected customer</Button>
