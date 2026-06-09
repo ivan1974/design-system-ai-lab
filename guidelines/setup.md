@@ -88,6 +88,7 @@ Generated screens must import components from the package root:
 ```tsx
 import {
   WorkspaceShell,
+  PageHeading,
   FilterBar,
   MasterDetailLayout,
   DetailPanel,
@@ -102,6 +103,11 @@ import {
   Well,
   Divider,
   Toolbar,
+  CustomerQueueRow,
+  AssetQueueRow,
+  RiskQueueRow,
+  RecommendationQueueRow,
+  ReviewQueueRow,
   KeyValueList,
   KeyValueRow,
   MetricStrip,
@@ -221,6 +227,11 @@ local workspace primitives
 local surface wrappers
 local toolbar wrappers
 local list containers
+local CustomerRow
+local AssetRow
+local RiskRow
+local RecommendationRow
+local QueueItem
 ```
 
 Small local render helpers are acceptable only if they:
@@ -294,6 +305,44 @@ Avoid:
 
 ---
 
+## Queue row rule
+
+Use queue rows before creating styled customer, asset, risk or recommendation list items.
+
+Use:
+
+```txt
+CustomerQueueRow
+AssetQueueRow
+RiskQueueRow
+RecommendationQueueRow
+ReviewQueueRow
+```
+
+Use `CustomerQueueRow` for customer queues.
+
+Use `AssetQueueRow` for asset queues.
+
+Use `RiskQueueRow` for operational or service risk queues.
+
+Use `RecommendationQueueRow` for recommendation review queues.
+
+Use `ReviewQueueRow` when no specific business row fits.
+
+Place queue rows inside `ListContainer`.
+
+Avoid:
+
+```tsx
+<div className="flex items-center justify-between rounded-lg border bg-white p-4 hover:bg-gray-50">
+  ...
+</div>
+```
+
+Avoid wrapping `SignalRow` in local selected-state wrappers for customer, asset, risk or recommendation queues.
+
+---
+
 ## Minimal valid App.tsx setup
 
 A minimal valid generated screen should follow the workspace v2 structure:
@@ -301,15 +350,17 @@ A minimal valid generated screen should follow the workspace v2 structure:
 ```tsx
 import {
   WorkspaceShell,
+  PageHeading,
   FilterBar,
   MasterDetailLayout,
   DetailPanel,
   DetailPanelBody,
   DetailPanelHeader,
   SectionBlock,
+  ListContainer,
+  AssetQueueRow,
   KeyValueList,
   KeyValueRow,
-  SignalRow,
   StatusPill,
 } from "design-system-ai-lab";
 
@@ -325,19 +376,28 @@ export default function App() {
     <main className="min-h-screen bg-(--ec-color-background)">
       <WorkspaceShell
         header={
-          <div>
-            <p className="text-sm font-medium text-(--ec-color-primary)">Customer monitoring</p>
-            <h1 className="mt-1 text-2xl font-semibold text-(--ec-color-text-primary)">Review what needs attention next</h1>
-          </div>
+          <PageHeading
+            eyebrow="Customer monitoring"
+            title="Review what needs attention next"
+          />
         }
         controls={<FilterBar title="Scope" resultCount="2 items shown" />}
       >
         <MasterDetailLayout
           list={
-            <SectionBlock title="Items">
-              {rows.map((row) => (
-                <SignalRow key={row.name} label={row.name} value={row.value} description={row.description} />
-              ))}
+            <SectionBlock title="Assets">
+              <ListContainer>
+                {rows.map((row) => (
+                  <AssetQueueRow
+                    key={row.name}
+                    assetName={row.name}
+                    description={row.description}
+                    statusLabel={row.value}
+                    statusTone="warning"
+                    sourceStrength="partial"
+                  />
+                ))}
+              </ListContainer>
             </SectionBlock>
           }
           detail={
@@ -370,6 +430,7 @@ This setup is valid because it:
 - avoids local wrappers and local design system files
 - avoids card saturation
 - uses workspace structure for list/detail review
+- uses queue rows for repeated review objects
 
 For full screen composition, use `Guidelines.md`, `screen-architecture/` and the relevant prompt file.
 
@@ -438,6 +499,7 @@ The generated project may import the following from `design-system-ai-lab`.
 - `PriorityList`
 - `PriorityPill`
 - `RecommendationCard`
+- `ReviewQueueRow`
 - `SectionHeader`
 - `SemanticTag`
 - `SignalRow`
@@ -448,12 +510,16 @@ The generated project may import the following from `design-system-ai-lab`.
 ### Business patterns
 
 - `AssetIntelligenceSummary`
+- `AssetQueueRow`
 - `ConnectivityCoverageCard`
 - `CreateActionDialog`
+- `CustomerQueueRow`
 - `CustomerReviewReadinessCard`
 - `CustomerStatusCard`
+- `RecommendationQueueRow`
 - `RecommendationReviewPanel`
 - `RenewalRiskSummary`
+- `RiskQueueRow`
 - `ServiceRiskSummary`
 - `ValueProofCard`
 
@@ -462,6 +528,8 @@ prompt explicitly requests a custom element and no existing component fits.
 
 Use business patterns before low-level components when a pattern fits the screen
 intent.
+
+Use queue rows before local row wrappers for customer, asset, risk and recommendation lists.
 
 Use workspace, surface and compact components before creating long stacks of generic cards.
 
