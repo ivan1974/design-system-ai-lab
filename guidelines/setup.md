@@ -163,6 +163,75 @@ Local recreated components are not part of the design system contract.
 
 ---
 
+## Prop value rule
+
+Generated code must use documented prop values only.
+
+Do not invent values for props such as:
+
+```txt
+variant
+tone
+severity
+priority
+strength
+mode
+size
+status
+```
+
+Use values documented in the component contracts, Storybook stories or package TypeScript declarations.
+
+If a prop value is uncertain, choose a documented value or simplify the component usage.
+
+Examples of risky values that must be checked before use:
+
+```txt
+variant="outline"
+strength="medium"
+strength="high"
+tone="muted"
+mode="panel"
+priority="urgent"
+```
+
+---
+
+## Local helper rule
+
+Do not create local visual components or local design-system wrappers.
+
+Not allowed:
+
+```txt
+local Button
+local Card
+local Badge
+local Dialog
+local Pill
+local Tag
+local Metric
+local form components
+local workspace primitives
+```
+
+Small local render helpers are acceptable only if they:
+
+- compose approved `design-system-ai-lab` components
+- do not define their own visual identity
+- do not create new tokens, variants, states or styles
+- do not duplicate a package component
+
+Acceptable examples:
+
+```txt
+small data mapping helpers
+small tab content helpers
+small functions that choose which approved pattern to render
+```
+
+---
+
 ## App.tsx output requirement
 
 Figma Make must render a complete visible screen in `App.tsx`.
@@ -255,6 +324,7 @@ This setup is valid because it:
 - imports package styles once
 - renders a visible screen in `App.tsx`
 - uses package components directly
+- uses documented prop values
 - avoids local wrappers and local design system files
 - avoids card saturation
 - uses workspace structure for list/detail review
@@ -424,6 +494,7 @@ KeyValueList
 MetricStrip
 SemanticTag
 StatusPill
+SourceStrengthPill
 CustomerStatusCard
 ConnectivityCoverageCard
 RenewalRiskSummary
@@ -541,6 +612,10 @@ Do not create packages/design-system-ai-lab.
 Do not recreate design system components locally.
 Import components from design-system-ai-lab.
 Import styles from design-system-ai-lab/styles.css.
+Use documented prop values only.
+Do not invent variant, tone, severity, priority, strength or mode values.
+Do not create local visual components or wrappers.
+Small local render helpers are acceptable only if they compose approved package components.
 Use workspace components for list/detail review.
 Use business patterns when they match the section intent.
 Use compact primitives instead of card stacks for repeated facts, signals and actions.
@@ -558,10 +633,12 @@ After generation, verify:
 - components are imported from `design-system-ai-lab`
 - styles are imported from `design-system-ai-lab/styles.css`
 - no internal package paths are used
+- all design-system component props use documented values only
 - no local `packages/design-system-ai-lab` folder was created
 - no local replacement components were created
-- no local wrapper duplicates package components
+- no local visual wrapper duplicates package components
 - no inline-styled raw form fields were created
+- small local helpers only compose package components and do not create visual identity
 - `App.tsx` renders a complete visible screen
 - the generated screen uses approved components and patterns
 - business patterns are used when they match the section intent
