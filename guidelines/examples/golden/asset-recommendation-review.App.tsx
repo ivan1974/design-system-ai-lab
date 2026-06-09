@@ -1,216 +1,241 @@
 import {
-  ActionCard,
-  ActionList,
+  ActionRow,
   AssetIntelligenceSummary,
-  CreateActionDialog,
-  CustomerStatusCard,
-  PageHeader,
+  Button,
+  DetailPanel,
+  DetailPanelBody,
+  DetailPanelFooter,
+  DetailPanelHeader,
+  DetailPanelTabs,
+  EvidenceRow,
+  FilterBar,
+  KeyValueList,
+  KeyValueRow,
+  MasterDetailLayout,
   RecommendationCard,
   RecommendationReviewPanel,
+  SectionBlock,
+  SectionStack,
+  SemanticTag,
   ServiceRiskSummary,
+  StatusPill,
+  StickyActionBar,
+  WorkspaceShell,
 } from "design-system-ai-lab";
 
 import "design-system-ai-lab/styles.css";
 
+const recommendations = [
+  {
+    title: "Review UPS battery replacement plan",
+    priority: "high" as const,
+    readiness: "needs_review" as const,
+    scope: "Connected UPS assets",
+    evidence: "2 connected UPS assets show recurring battery health warnings.",
+  },
+  {
+    title: "Recover connectivity for critical assets",
+    priority: "high" as const,
+    readiness: "internal" as const,
+    scope: "Backup power system",
+    evidence: "3 of 8 known backup power assets are not connected.",
+  },
+  {
+    title: "Prepare customer-ready wording",
+    priority: "medium" as const,
+    readiness: "needs_review" as const,
+    scope: "Customer communication",
+    evidence: "Source strength is partial and needs expert validation.",
+  },
+];
+
 export default function App() {
   return (
-    <main className="min-h-screen bg-(--ec-color-background) p-8">
-      <div className="mx-auto max-w-7xl space-y-8">
-        <PageHeader
-          title="Asset recommendation review"
-          description="Review asset signals, source limits and recommendation readiness before customer communication."
-          actions={
-            <CreateActionDialog
-              title="Create validation action"
-              description="Assign expert validation or follow-up work before customer communication."
-              confirmLabel="Save validation action"
-              showContextFields
-              defaultValues={{
-                title: "Validate asset recommendation with service expert",
-                owner: "Service Manager",
-                dueDate: "2026-06-12",
-                priority: "high",
-                context:
-                  "Expert validation is needed before the recommendation is used with the customer.",
-                assetContext: "Backup power system · Main production site",
-                sourceContext:
-                  "Monitoring platform, known installed base and service history · Source strength: partial",
-                validationStatus: "Expert review needed before customer use",
-              }}
-            />
+    <main className="min-h-screen bg-(--ec-color-background)">
+      <WorkspaceShell
+        header={
+          <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+            <div>
+              <p className="text-sm font-medium text-(--ec-color-primary)">Asset recommendation review</p>
+              <h1 className="mt-1 text-2xl font-semibold text-(--ec-color-text-primary)">Validate recommendations before customer use</h1>
+              <p className="mt-2 max-w-3xl text-sm text-(--ec-color-text-secondary)">
+                Review asset facts, source scope, recommendation readiness and follow-through before communicating with the customer.
+              </p>
+            </div>
+            <Button size="sm">Create validation action</Button>
+          </div>
+        }
+        controls={
+          <FilterBar
+            title="Recommendation queue"
+            description="Filter by readiness, priority and source scope."
+            resultCount="3 recommendations · source scope: connected assets and known installed base"
+            filters={
+              <>
+                <SemanticTag tone="warning">Expert review needed</SemanticTag>
+                <SemanticTag>Backup power system</SemanticTag>
+                <SemanticTag tone="primary">EcoCare Advanced</SemanticTag>
+              </>
+            }
+          />
+        }
+      >
+        <MasterDetailLayout
+          detailWidth="lg"
+          listLabel="Recommendation list"
+          detailLabel="Recommendation detail"
+          list={
+            <SectionStack>
+              <SectionBlock title="Customer and asset context">
+                <KeyValueList columns={2}>
+                  <KeyValueRow label="Customer" value="Northstar Manufacturing" />
+                  <KeyValueRow label="Plan" value="Advanced service plan" />
+                  <KeyValueRow label="Asset scope" value="8 known backup power assets · 5 connected" />
+                  <KeyValueRow label="Validation" value="Expert review needed before customer communication" />
+                </KeyValueList>
+              </SectionBlock>
+
+              <AssetIntelligenceSummary
+                mode="section"
+                assetScope="Backup power system · 8 known assets · 5 connected · 3 non-connected"
+                assetContext="Main production site"
+                lifecycleContext="Battery and connectivity review may affect maintenance planning and budget discussion."
+                healthSignals="2 connected UPS assets show recurring battery health warnings."
+                intelligenceInterpretation="Battery replacement planning may reduce service risk, but expert validation is required."
+                sourceContext="Monitoring platform, known installed base and service history"
+                sourceScope="Known installed base and connected monitored assets only"
+                sourceStrength="partial"
+                freshness="Monitoring update 18 hours ago"
+                validationStatus="Expert review needed before customer use"
+                readiness="needs_review"
+              />
+
+              <ServiceRiskSummary
+                mode="section"
+                riskLevel="warning"
+                riskSummary="Recommendations may be useful, but source visibility is partial and customer communication is not ready."
+                affectedScope="Backup power system at main production site"
+                customerImpact="Could affect maintenance planning and budget discussion."
+                serviceImpact="Premature communication could overstate monitoring coverage."
+                sourceContext="Monitoring platform, known installed base and service history"
+                sourceStrength="partial"
+                freshness="18 hours ago"
+                validationStatus="Expert review needed"
+                recommendedReview="Validate source scope, connected status and rationale."
+              />
+            </SectionStack>
+          }
+          detail={
+            <DetailPanel>
+              <DetailPanelHeader
+                title="Review UPS battery replacement plan"
+                description="Facts and source limits appear before interpretation or customer-ready wording."
+                meta={
+                  <div className="flex flex-wrap gap-2">
+                    <StatusPill tone="warning">Needs review</StatusPill>
+                    <StatusPill tone="danger">High priority</StatusPill>
+                  </div>
+                }
+              />
+              <DetailPanelTabs
+                tabs={[
+                  { id: "summary", label: "Summary", active: true },
+                  { id: "evidence", label: "Evidence", count: 2 },
+                  { id: "actions", label: "Actions", count: 2 },
+                ]}
+              />
+              <DetailPanelBody>
+                <SectionStack>
+                  <RecommendationReviewPanel
+                    mode="drawer"
+                    reviewScope="Backup power system recommendation set"
+                    reviewStatus="Expert validation needed"
+                    sourceContext="Monitoring platform, known installed base and service history"
+                    validationStatus="Review before customer use"
+                    customerReadiness="Not customer-ready yet"
+                    proofContext="Source strength is partial"
+                    badges={[{ label: "Not customer-ready", tone: "danger" }]}
+                  >
+                    {recommendations.map((item) => (
+                      <RecommendationCard
+                        key={item.title}
+                        title={item.title}
+                        recommendation={item.title}
+                        priority={item.priority}
+                        readiness={item.readiness}
+                        rationale="Recommendation requires source and expert validation before customer communication."
+                        scope={item.scope}
+                        evidenceSummary={item.evidence}
+                        source="Monitoring platform and service history"
+                        sourceScope="Connected assets and known installed base"
+                        sourceStrength="partial"
+                        freshness="18 hours ago"
+                        validationStatus="Expert review needed"
+                      />
+                    ))}
+                  </RecommendationReviewPanel>
+
+                  <SectionBlock title="Evidence to verify">
+                    <EvidenceRow
+                      label="Battery warning trend"
+                      description="Recurring battery health warnings on two connected UPS assets."
+                      source="Monitoring platform"
+                      sourceScope="Connected UPS assets only"
+                      sourceStrength="partial"
+                      freshness="18 hours ago"
+                      validationStatus="Expert validation needed"
+                    />
+                    <EvidenceRow
+                      label="Connectivity gap"
+                      description="Three known backup power assets are not connected and cannot be treated as live-monitored."
+                      source="Known installed base and monitoring platform"
+                      sourceScope="Known installed base compared with connected monitored assets"
+                      sourceStrength="partial"
+                      validationStatus="Internal action before customer use"
+                    />
+                  </SectionBlock>
+                </SectionStack>
+              </DetailPanelBody>
+              <DetailPanelFooter>
+                <StickyActionBar
+                  context="Customer communication is blocked until expert validation is complete."
+                  secondaryActions={<Button variant="secondary" size="sm">Add note</Button>}
+                  primaryAction={<Button size="sm">Assign validation</Button>}
+                />
+              </DetailPanelFooter>
+            </DetailPanel>
           }
         />
 
-        <CustomerStatusCard
-          customerName="Northstar Manufacturing"
-          plan="Advanced service plan"
-          contract="#NS-2024-118"
-          csm="Sarah Moreau, CSM"
-          assetsCovered="25 known assets across 3 sites"
-          coverage="5 of 8 backup power assets connected"
-          customerObjective="Improve service visibility before renewal"
-          sourceContext="Schneider monitored assets and known installed base"
-          validationStatus="Expert review needed before customer communication"
-          badges={[
-            { label: "Active plan", tone: "primary" },
-            { label: "Source strength: partial", tone: "warning" },
-            { label: "Review needed", tone: "warning" },
-          ]}
-        />
-
-        <AssetIntelligenceSummary
-          assetScope="Backup power system · 8 known assets · 5 connected · 3 non-connected"
-          assetContext="Main production site"
-          lifecycleContext="Battery and connectivity review may affect maintenance planning and budget discussion."
-          healthSignals="2 connected UPS assets show recurring battery health warnings; 1 switchboard has incomplete telemetry."
-          intelligenceInterpretation="Battery replacement planning and connectivity recovery may reduce service risk before the next customer review."
-          sourceContext="Monitoring platform, known installed base and service history"
-          sourceScope="Known installed base and connected monitored assets only"
-          sourceStrength="Partial"
-          freshness="Monitoring update 18 hours ago; installed base updated last month"
-          validationStatus="Expert review needed before customer communication"
-          readiness="needs_review"
-          badges={[
-            { label: "Partial visibility", tone: "warning" },
-            { label: "Health signal", tone: "neutral" },
-            { label: "Intelligence interpretation", tone: "neutral" },
-            { label: "Expert review needed", tone: "warning" },
-          ]}
-        />
-
-        <ServiceRiskSummary
-          riskLevel="warning"
-          riskSummary="Asset recommendations may be useful, but visibility is partial and expert review is needed before customer communication."
-          affectedScope="Backup power system at main production site"
-          customerImpact="Recommendations could affect maintenance planning and budget discussion."
-          serviceImpact="Premature communication could overstate monitoring coverage or recommendation certainty."
-          sourceContext="Monitoring platform, known installed base and service history"
-          sourceStrength="Partial"
-          freshness="Monitoring update 18 hours ago"
-          validationStatus="Expert review needed before customer communication"
-          recommendedReview="Validate source scope, connected asset status and recommendation rationale before customer communication."
-          badges={[
-            { label: "Review needed", tone: "warning" },
-            { label: "Partial visibility", tone: "warning" },
-            { label: "Not customer-ready", tone: "danger" },
-          ]}
-        />
-
-        <RecommendationReviewPanel
-          reviewScope="Backup power system recommendation set"
-          reviewStatus="Expert validation needed"
-          sourceContext="Monitoring platform, known installed base and service history"
-          validationStatus="Review before customer use"
-          customerReadiness="Not customer-ready yet"
-          proofContext="Source strength is partial; expert validation required"
-          badges={[
-            { label: "Expert validation needed", tone: "warning" },
-            { label: "Not customer-ready", tone: "danger" },
-          ]}
-        >
-          <RecommendationCard
-            title="Review UPS battery replacement plan"
-            recommendation="Review the UPS battery replacement plan with a service expert before customer communication."
-            priority="high"
-            readiness="needs_review"
-            rationale="Recurring battery health warnings suggest a maintenance planning discussion may be needed, but expert validation is required first."
-            scope="Connected UPS assets"
-            assetContext="2 connected UPS assets with recurring battery health warnings"
-            evidenceSummary="2 connected UPS assets show recurring battery health warnings."
-            source="Monitoring platform"
-            sourceScope="Connected UPS assets only"
-            sourceStrength="Partial"
-            freshness="18 hours ago"
-            interpretation="Health signal suggests maintenance planning review; it is not source-system truth."
-            validationStatus="Expert review needed before customer communication"
-          />
-
-          <RecommendationCard
-            title="Recover connectivity for non-connected critical assets"
-            recommendation="Recover connectivity before treating the full backup power system as monitored."
-            priority="high"
-            readiness="internal"
-            rationale="Non-connected assets cannot be presented as live-monitored and reduce trust in recommendation coverage."
-            scope="Backup power system"
-            assetContext="3 known assets are not connected"
-            evidenceSummary="3 of 8 known backup power assets are not connected."
-            source="Known installed base and monitoring platform"
-            sourceScope="Known installed base compared with connected monitored assets"
-            sourceStrength="Partial"
-            freshness="Monitoring update 18 hours ago"
-            validationStatus="Internal action before customer use"
-          />
-
-          <RecommendationCard
-            title="Prepare customer communication after validation"
-            recommendation="Prepare customer-ready wording only after source scope and recommendation rationale are validated."
-            priority="medium"
-            readiness="needs_review"
-            rationale="Recommendation confidence depends on partial asset visibility and expert validation."
-            scope="Customer communication"
-            evidenceSummary="Source strength is partial and 3 assets are non-connected."
-            source="Monitoring platform and service history"
-            sourceScope="Known installed base and connected monitored assets only"
-            sourceStrength="Partial"
-            freshness="Monitoring update 18 hours ago"
-            validationStatus="Review before customer use"
-          />
-        </RecommendationReviewPanel>
-
-        <ActionList
-          title="Validation actions"
-          description="Actions keep expert validation, connectivity recovery and customer communication ownership visible."
-        >
-          <ActionCard
+        <SectionBlock title="Follow-through actions">
+          <ActionRow
             title="Validate asset recommendation with service expert"
             owner="Service Manager"
             dueDate="Next 3 business days"
             priority="high"
             status="todo"
             context="Expert validation is needed before customer communication."
-            assetContext="Backup power system · Main production site"
-            sourceContext="Monitoring platform, known installed base and service history · Source strength: partial"
-            validationStatus="Expert review needed before customer use"
+            action={<Button size="sm">Open</Button>}
           />
-
-          <ActionCard
+          <ActionRow
             title="Confirm connectivity status for non-connected assets"
             owner="Remote Support Specialist"
             dueDate="This week"
             priority="high"
             status="in_progress"
             context="Non-connected assets cannot be treated as live-monitored."
-            assetContext="3 non-connected backup power assets"
-            sourceContext="Monitoring platform and known installed base"
-            validationStatus="Connectivity review needed"
           />
-
-          <ActionCard
-            title="Prepare customer-ready recommendation summary"
-            owner="CSM"
-            dueDate="Before customer review"
-            priority="medium"
-            status="todo"
-            context="Translate validated recommendation into customer-ready language after expert review."
-            sourceContext="Validated asset recommendation and service expert review"
-            validationStatus="Blocked until expert validation is complete"
-          />
-        </ActionList>
+        </SectionBlock>
 
         {/*
           Why this is compliant:
-          - Complete visible App.tsx screen using only root imports from design-system-ai-lab.
-          - Uses AssetIntelligenceSummary before asset recommendations, then ServiceRiskSummary, RecommendationReviewPanel and ActionList.
-          - Follows the asset recommendation review intent router: customer context → source facts → Health signals → Intelligence interpretation → risk → recommendation review → validation actions.
-          - Separates source-system facts, Health signals and Intelligence interpretation.
-          - Does not present non-connected assets as live-monitored or partial visibility as complete asset knowledge.
-          - Keeps source scope, source strength, freshness and expert validation visible where trust matters.
-          - Every RecommendationCard includes recommendation, priority, readiness, rationale, scope and evidence.
-          - Every ActionCard includes owner, due date and priority.
-          - Uses approved Badge tones only: neutral, primary, warning and danger.
-          - Avoids local wrappers, internal imports, inventory-table drift, generic dashboard cards, decorative charts, gradients and glassmorphism.
+          - Uses workspace layout, master-detail, detail panel tabs and sticky actions.
+          - Uses refactored dense patterns with mode="section" and mode="drawer".
+          - Presents facts and source scope before interpretation and recommendation.
+          - Keeps partial visibility, freshness and expert validation visible.
+          - Uses rows for dense follow-through instead of creating a card for every item.
         */}
-      </div>
+      </WorkspaceShell>
     </main>
   );
 }
