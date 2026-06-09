@@ -3,6 +3,7 @@
 import {
   ActionRow,
   AlertCard,
+  AssetQueueRow,
   Button,
   CompactMetric,
   ConnectivityCoverageCard,
@@ -14,21 +15,22 @@ import {
   FilterBar,
   KeyValueList,
   KeyValueRow,
+  ListContainer,
   MasterDetailLayout,
   MetricStrip,
+  PageHeading,
   SectionBlock,
   SectionStack,
   SemanticTag,
-  SignalRow,
   StatusPill,
   StickyActionBar,
   WorkspaceShell,
 } from "../design-system";
 
 const assetRows = [
-  { name: "Main switchboard", value: "Review needed", description: "Site A · updated 18h ago" },
-  { name: "UPS group", value: "Warning signal", description: "Site A · updated 18h ago" },
-  { name: "LV switchboard", value: "Monitored", description: "Site B · updated 3h ago" },
+  { name: "Main switchboard", value: "Review needed", description: "Site A · updated 18h ago", tone: "warning" as const, selected: true },
+  { name: "UPS group", value: "Warning signal", description: "Site A · updated 18h ago", tone: "warning" as const },
+  { name: "LV switchboard", value: "Monitored", description: "Site B · updated 3h ago", tone: "success" as const },
 ];
 
 export function CustomerDashboard() {
@@ -36,16 +38,12 @@ export function CustomerDashboard() {
     <main className="min-h-screen bg-(--ec-color-background)">
       <WorkspaceShell
         header={
-          <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
-            <div>
-              <p className="text-sm font-medium text-(--ec-color-primary)">Customer monitoring demo</p>
-              <h1 className="mt-1 text-2xl font-semibold text-(--ec-color-text-primary)">Review customer monitoring</h1>
-              <p className="mt-2 max-w-3xl text-sm text-(--ec-color-text-secondary)">
-                Developer demo for the workspace pattern. Golden examples remain the Make source of truth.
-              </p>
-            </div>
-            <Button size="sm">Create action</Button>
-          </div>
+          <PageHeading
+            eyebrow="Customer monitoring demo"
+            title="Review customer monitoring"
+            description="Developer demo for the workspace pattern. Golden examples remain the Make source of truth."
+            actions={<Button size="sm">Create action</Button>}
+          />
         }
         controls={
           <FilterBar
@@ -84,11 +82,22 @@ export function CustomerDashboard() {
               </SectionBlock>
 
               <SectionBlock title="Asset queue">
-                <div className="divide-y divide-(--ec-color-border)">
+                <ListContainer>
                   {assetRows.map((asset) => (
-                    <SignalRow key={asset.name} label={asset.name} value={asset.value} description={asset.description} />
+                    <AssetQueueRow
+                      key={asset.name}
+                      assetName={asset.name}
+                      site={asset.description}
+                      description="Review monitoring scope and source freshness before customer use."
+                      statusLabel={asset.value}
+                      statusTone={asset.tone}
+                      priority={asset.value === "Monitored" ? undefined : "high"}
+                      sourceStrength={asset.value === "Monitored" ? "strong" : "partial"}
+                      freshness="18h"
+                      selected={asset.selected}
+                    />
                   ))}
-                </div>
+                </ListContainer>
               </SectionBlock>
             </SectionStack>
           }
