@@ -5,9 +5,8 @@ import { Button, PanelBody, PanelFooter, PanelHeader, SlideOverPanel, Text } fro
 
 const meta = {
   title: "Design System/Components/SlideOverPanel",
-  component: SlideOverPanel,
   parameters: { layout: "fullscreen" },
-} satisfies Meta<typeof SlideOverPanel>;
+} satisfies Meta;
 
 export default meta;
 
