@@ -45,6 +45,9 @@ export type { PageHeaderProps } from "./components/page-header";
 export { Timeline, TimelineItem } from "./components/timeline";
 export type { TimelineItemProps, TimelineProps } from "./components/timeline";
 
+export { Heading, Text } from "./components/typography";
+export type { HeadingProps, TextProps } from "./components/typography";
+
 // Forms
 export { Field } from "./forms/field";
 export type { FieldProps } from "./forms/field";
