@@ -4,9 +4,8 @@ import { Button, PanelFooter, Text } from "../../index";
 
 const meta = {
   title: "Design System/Components/PanelFooter",
-  component: PanelFooter,
   parameters: { layout: "padded" },
-} satisfies Meta<typeof PanelFooter>;
+} satisfies Meta;
 
 export default meta;
 
