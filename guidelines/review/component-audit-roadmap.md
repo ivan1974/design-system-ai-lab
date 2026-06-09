@@ -30,10 +30,75 @@ owned follow-through
 
 ---
 
+## Sprint 1 status
+
+Sprint 1 completes the first architecture audit.
+
+Current public API coverage:
+
+```txt
+Base components
+- Badge
+- Button
+- Card
+- Dialog
+- DialogClose
+- DialogFooter
+- MetricCard
+- PageHeader
+
+Forms
+- Field
+- Input
+- Label
+- Select
+- Textarea
+
+Decision components
+- ActionCard
+- ActionList
+- AlertCard
+- MetricGrid
+- PriorityList
+- RecommendationCard
+- SectionHeader
+- StatusSummary
+
+Business patterns
+- AssetIntelligenceSummary
+- ConnectivityCoverageCard
+- CustomerReviewReadinessCard
+- CreateActionDialog
+- CustomerStatusCard
+- RecommendationReviewPanel
+- RenewalRiskSummary
+- ServiceRiskSummary
+- ValueProofCard
+```
+
+Current structural gap:
+
+```txt
+No public composition layout is currently exposed for workspace generation.
+```
+
+This means the design system already has strong components for content, status,
+risks, recommendations and actions, but it lacks the layout grammar needed to
+organize them into dense, navigable operational workspaces.
+
+Sprint 1 conclusion:
+
+```txt
+The next implementation priority is not another business card.
+The next implementation priority is workspace structure.
+```
+
+---
+
 ## Why this evolution is needed
 
 The current design system is strong on principles, tokens, business semantics,
-evidence discipline and Make governance.
+evidence discipline and Figma Make governance.
 
 However, many decision and pattern components still encourage generated screens
 like this:
@@ -58,8 +123,8 @@ customer review preparation
 service action follow-up
 ```
 
-The uploaded installed-base prototype shows useful interaction patterns that the
-current design system does not yet support well:
+The installed-base prototype shows useful interaction patterns that the current
+design system does not yet support well:
 
 ```txt
 asset list + detail panel
@@ -192,24 +257,28 @@ Use this matrix while reviewing each component.
 
 ---
 
-## Initial audit map
+## Sprint 1 audit map
 
 ### Keep
 
 These components remain useful and should mostly keep their current role.
 
-| Item | Type | Rationale | Priority |
-| --- | --- | --- | --- |
-| Button | Base | Still needed for actions, but hierarchy must remain sober. | P3 |
-| Dialog | Base | Useful for action creation and confirmation flows. | P2 |
-| Field | Form | Needed to avoid raw form controls. | P3 |
-| Input | Form | Needed for structured forms. | P3 |
-| Label | Form | Needed for accessibility. | P3 |
-| Select | Form | Needed for controlled choices. | P3 |
-| Textarea | Form | Needed for notes and rationale. | P3 |
-| MetricGrid | Decision | Useful for small metric groups, but should not be the only layout option. | P2 |
-| PriorityList | Decision | Useful for blockers and risks. | P2 |
-| ActionList | Decision | Useful when actions are presented as cards. | P2 |
+| Item | Type | Current role | Why keep | Priority |
+| --- | --- | --- | --- | --- |
+| Button | Base | Action trigger. | Required for every workflow; keep hierarchy sober. | P3 |
+| Dialog | Base | Modal container. | Still useful for confirmations and action creation. | P2 |
+| DialogClose | Base | Modal close action. | Keep with Dialog. | P3 |
+| DialogFooter | Base | Modal footer actions. | Keep with Dialog and CreateActionDialog. | P3 |
+| Field | Form | Field structure. | Essential to avoid raw form controls. | P3 |
+| Input | Form | Short text entry. | Essential to avoid raw input markup. | P3 |
+| Label | Form | Accessible field label. | Essential for accessibility. | P3 |
+| Select | Form | Controlled choice. | Essential for scoped choices. | P3 |
+| Textarea | Form | Long text entry. | Essential for rationale and notes. | P3 |
+| PageHeader | Base | Page context and primary actions. | Keep as workspace entry point, not as a dashboard title only. | P2 |
+| MetricGrid | Decision | Small metric grouping. | Useful for 2–4 primary metrics; should not be used for dense telemetry. | P2 |
+| PriorityList | Decision | Ordered blockers or risks. | Useful for prioritization, especially before actions. | P2 |
+| ActionList | Decision | Group of major actions. | Keep for card-based action summaries; add ActionRow later for dense lists. | P2 |
+| CreateActionDialog | Pattern | Structured action creation. | Strong guardrail against raw forms and unowned actions. | P2 |
 
 ---
 
@@ -220,14 +289,14 @@ workspace-compatible.
 
 | Item | Type | Current issue | Recommended evolution | Priority |
 | --- | --- | --- | --- | --- |
-| Card | Base | Overused as generic container. | Clarify when to use cards for emphasis, not as default layout primitive. | P0 |
-| Badge | Base | Carries too many meanings. | Split stable attributes and dynamic status into SemanticTag / StatusPill. | P0 |
-| MetricCard | Decision | Too large for dense telemetry or secondary signals. | Keep for primary KPIs; add CompactMetric / MetricStrip for dense signals. | P0 |
-| AlertCard | Decision | Useful but often card-heavy. | Keep for priority risks; add AlertRow or RiskRow later if needed. | P1 |
-| ActionCard | Decision | Useful but not always appropriate for dense action lists. | Keep for major actions; add ActionRow for compact workflows. | P1 |
-| RecommendationCard | Decision | Useful but can become too large in review flows. | Add compact row variant or RecommendationRow. | P1 |
-| StatusSummary | Decision | Can hide partial visibility behind one status. | Add visible scope, source strength and uncertainty patterns. | P1 |
-| SectionHeader | Decision | Useful but too weak for workspace sections. | Align with SectionStack and panel sections. | P2 |
+| Card | Base | Overused as generic container. | Clarify that cards are for emphasis or containment, not the default layout primitive. | P0 |
+| Badge | Base | Carries too many meanings: status, attribute, priority, evidence. | Split semantics into SemanticTag, StatusPill, PriorityPill and SourceStrengthPill. | P0 |
+| MetricCard | Base / Decision | Too large for dense telemetry or secondary signals. | Keep for primary KPIs; create CompactMetric and MetricStrip for dense signals. | P0 |
+| AlertCard | Decision | Useful but heavy for repeated risks. | Keep for high-priority risks; consider RiskRow / AlertRow after compact components exist. | P1 |
+| ActionCard | Decision | Good for major actions but too large for operational action queues. | Keep for important actions; create ActionRow for dense workflows. | P1 |
+| RecommendationCard | Decision | Useful but too card-heavy in recommendation review flows. | Add compact row mode or RecommendationRow. | P1 |
+| StatusSummary | Decision | Can hide partial visibility behind a single overall status. | Require source scope, source strength and uncertainty cues when trust matters. | P1 |
+| SectionHeader | Decision | Useful label, but weak as a workspace section primitive. | Align with SectionStack and panel section semantics. | P2 |
 
 ---
 
@@ -238,11 +307,11 @@ single large cards.
 
 | Item | Current issue | Proposed split | Priority |
 | --- | --- | --- | --- |
-| CustomerStatusCard | Too card-centric for drawer and compact context. | CustomerContextBar, CustomerStatusSummary, CustomerScopeFacts. | P1 |
-| ConnectivityCoverageCard | Useful but should support compact coverage review. | CoverageSummary, ConnectivityBreakdown, MonitoringScopeNotice. | P1 |
-| RenewalRiskSummary | Strong concept but locked into summary card behavior. | RenewalContextSummary, RenewalBlockerList, ProofGapSummary. | P2 |
-| ValueProofCard | Needs clearer proof taxonomy. | ValueProofSummary, ProofPointList, ProofGapNotice, ExpectedOutcomeNotice. | P1 |
-| CustomerReviewReadinessCard | Useful but should fit drawer/QBR workspace. | ReviewReadinessSummary, ReadinessChecklist, ReviewBlockerList. | P2 |
+| CustomerStatusCard | Too card-centric for drawer and compact customer context. | CustomerContextBar, CustomerStatusSummary, CustomerScopeFacts. | P1 |
+| ConnectivityCoverageCard | Useful but should support compact coverage review. | CoverageSummary, ConnectivityBreakdown, MonitoringScopeNotice, DisconnectedCriticalAssets. | P1 |
+| RenewalRiskSummary | Strong concept but locked into summary card behavior. | RenewalContextSummary, RenewalBlockerList, ProofGapSummary, MitigationSummary. | P2 |
+| ValueProofCard | Needs clearer proof taxonomy and less card weight. | ValueProofSummary, ProofPointList, ProofGapNotice, ExpectedOutcomeNotice. | P1 |
+| CustomerReviewReadinessCard | Useful but should fit drawer and QBR workspace flows. | ReviewReadinessSummary, ReadinessChecklist, ReviewBlockerList. | P2 |
 | AssetIntelligenceSummary | Needs hierarchy, signals and interpretation separation. | AssetScopeHeader, HealthSignalGroup, IntelligenceInterpretationBlock, SourceQualityBlock, ValidationNotice. | P0 |
 | ServiceRiskSummary | Useful but too summary-heavy. | RiskSummaryBlock, AffectedScopeBlock, ServiceImpactBlock, ValidationNotice. | P1 |
 | RecommendationReviewPanel | Important but should support compact review. | RecommendationSetHeader, RecommendationList, RecommendationRow, EvidenceSummary, ValidationStatus. | P0 |
@@ -255,59 +324,59 @@ These are the missing components needed to support decision workspace generation
 
 #### Composition layouts
 
-| Item | Role | Priority |
-| --- | --- | --- |
-| WorkspaceShell | Page-level shell for dense operational screens. | P1 |
-| MasterDetailLayout | Main list/table plus detail area. | P0 |
-| DetailPanel | Right-side detail container. | P0 |
-| DetailPanelHeader | Contextual header for selected item. | P0 |
-| DetailPanelTabs | Tabs for overview, health, intelligence, history, documents. | P0 |
-| DetailPanelBody | Scrollable content area. | P0 |
-| DetailPanelFooter | Sticky action area. | P0 |
-| StickyActionBar | Persistent contextual actions. | P0 |
-| FilterBar | Quick filters above a list or table. | P1 |
-| FilterPanel | Extended filter panel. | P1 |
-| SectionStack | Vertical stack of sections without card saturation. | P0 |
-| TwoColumnLayout | Detail page with primary and secondary columns. | P1 |
+| Item | Role | Why needed | Priority |
+| --- | --- | --- | --- |
+| WorkspaceShell | Page-level shell for dense operational screens. | Creates a consistent workspace frame around headers, filters, lists and detail areas. | P1 |
+| MasterDetailLayout | Main list/table plus detail area. | Core missing layout for exploration and drill-down. | P0 |
+| DetailPanel | Right-side detail container. | Enables detail review without leaving the workspace. | P0 |
+| DetailPanelHeader | Contextual header for selected item. | Keeps identity, status and close actions consistent. | P0 |
+| DetailPanelTabs | Tabs for overview, health, intelligence, history and documents. | Creates progressive disclosure inside detail views. | P0 |
+| DetailPanelBody | Scrollable content area. | Prevents whole-page scrolling and supports dense panels. | P0 |
+| DetailPanelFooter | Sticky action area. | Keeps follow-through visible. | P0 |
+| StickyActionBar | Persistent contextual actions. | Supports action continuity without marketing-style CTAs. | P0 |
+| FilterBar | Quick filters above a list or table. | Supports exploration and reduces dashboard drift. | P1 |
+| FilterPanel | Extended filter panel. | Supports advanced filtering without cluttering the page. | P1 |
+| SectionStack | Vertical stack of sections without card saturation. | Main replacement for Card / Card / Card generation. | P0 |
+| TwoColumnLayout | Detail page with primary and secondary columns. | Useful for QBR, renewal and review pages. | P1 |
 
 #### Compact components
 
-| Item | Role | Priority |
-| --- | --- | --- |
-| KeyValueList | Compact fact display. | P0 |
-| KeyValueRow | Single fact row. | P0 |
-| CompactMetric | Small metric for dense telemetry or secondary signals. | P0 |
-| MetricStrip | Horizontal or grid group of compact metrics. | P0 |
-| SemanticTag | Stable attribute: asset family, offer, DPP, cohort. | P0 |
-| StatusPill | Dynamic status: critical, live, non-connected, review needed. | P0 |
-| PriorityPill | Action or recommendation priority. | P1 |
-| SourceStrengthPill | Source quality or evidence strength. | P1 |
-| EvidenceRow | Compact evidence item. | P1 |
-| SignalRow | Compact observed signal. | P1 |
-| ActionRow | Compact owned action. | P1 |
-| DocumentRow | Downloadable or linked document row. | P1 |
-| Timeline | History container. | P1 |
-| TimelineItem | Maintenance, alert, install or service event. | P1 |
-| ComponentHierarchy | Asset-to-component hierarchy. | P0 |
-| ComponentHierarchyItem | One row in a component hierarchy. | P0 |
+| Item | Role | Why needed | Priority |
+| --- | --- | --- | --- |
+| KeyValueList | Compact fact display. | Replaces small cards used only to show facts. | P0 |
+| KeyValueRow | Single fact row. | Enables dense identity, coverage, source and passport sections. | P0 |
+| CompactMetric | Small metric for telemetry or secondary signals. | Avoids using MetricCard for every operational signal. | P0 |
+| MetricStrip | Horizontal or grid group of compact metrics. | Supports dense monitoring and health views. | P0 |
+| SemanticTag | Stable attribute: family, offer, DPP, cohort. | Prevents Badge semantic overload. | P0 |
+| StatusPill | Dynamic state: critical, live, non-connected, review needed. | Separates state from stable attributes. | P0 |
+| PriorityPill | Action or recommendation priority. | Makes priority consistent without arbitrary badge labels. | P1 |
+| SourceStrengthPill | Source quality or evidence strength. | Makes trust state visible and standardized. | P1 |
+| EvidenceRow | Compact evidence item. | Shows proof or source cue without card saturation. | P1 |
+| SignalRow | Compact observed signal. | Supports facts-before-interpretation. | P1 |
+| ActionRow | Compact owned action. | Enables action queues and sticky panels without ActionCard overload. | P1 |
+| DocumentRow | Downloadable or linked document row. | Supports documents without custom markup. | P1 |
+| Timeline | History container. | Supports maintenance, alert and proof history. | P1 |
+| TimelineItem | One maintenance, alert, install or service event. | Standardizes historical event display. | P1 |
+| ComponentHierarchy | Asset-to-component hierarchy. | Critical for asset intelligence and root cause drill-down. | P0 |
+| ComponentHierarchyItem | One row in a component hierarchy. | Enables expandable or nested component review. | P0 |
 
 #### Business workspace patterns
 
-| Item | Role | Priority |
-| --- | --- | --- |
-| InstalledBaseExplorer | Workspace example/pattern for asset list + detail. | P1 |
-| AssetDetailPanel | Detail panel pattern for selected asset. | P0 |
-| AssetHealthOverview | Health section using compact metrics and source cues. | P0 |
-| PeerBenchmarkPanel | Explainable benchmark section with source and validation cues. | P1 |
-| ServiceHistoryTimeline | Maintenance and alert history pattern. | P1 |
-| DocumentList | Document grouping pattern. | P2 |
-| RecommendationSet | Compact recommendation review pattern. | P1 |
+| Item | Role | Why needed | Priority |
+| --- | --- | --- | --- |
+| InstalledBaseExplorer | Workspace example/pattern for asset list + detail. | Teaches Make a complete asset workspace structure. | P1 |
+| AssetDetailPanel | Detail panel pattern for selected asset. | First high-value business workspace pattern. | P0 |
+| AssetHealthOverview | Health section using compact metrics and source cues. | Refactors Health signals out of large summary cards. | P0 |
+| PeerBenchmarkPanel | Explainable benchmark section with source and validation cues. | Supports benchmark insights without false certainty. | P1 |
+| ServiceHistoryTimeline | Maintenance and alert history pattern. | Turns history into a reusable pattern. | P1 |
+| DocumentList | Document grouping pattern. | Useful but less urgent than layout and health. | P2 |
+| RecommendationSet | Compact recommendation review pattern. | Reduces RecommendationReviewPanel card saturation. | P1 |
 
 ---
 
 ### Deprecate or discourage
 
-These should not necessarily be removed, but should be discouraged in Make
+These should not necessarily be removed, but should be discouraged in Figma Make
 generation unless explicitly needed.
 
 | Item / Usage | Reason | Replacement |
@@ -315,8 +384,149 @@ generation unless explicitly needed.
 | Generic full-width card stack | Encourages dashboard-like screens. | MasterDetailLayout, SectionStack, TwoColumnLayout. |
 | Card used for every fact | Creates card saturation. | KeyValueList, EvidenceRow, SignalRow. |
 | MetricCard for every signal | Makes dense telemetry too heavy. | CompactMetric, MetricStrip. |
-| Badge used for every semantic role | Mixes stable attributes, status and priority. | SemanticTag, StatusPill, PriorityPill. |
+| Badge used for every semantic role | Mixes stable attributes, dynamic status and priority. | SemanticTag, StatusPill, PriorityPill. |
 | Large business pattern for every drawer section | Makes drawers too heavy. | Compact sections and pattern subcomponents. |
+| One-column layout for review-heavy flows | Prevents comparison and drill-down. | WorkspaceShell, MasterDetailLayout, DetailPanel. |
+| Decorative chart or benchmark block without evidence scope | Creates false confidence. | Visualization selection rules, PeerBenchmarkPanel with source context. |
+
+---
+
+## Sprint 1 architecture target
+
+The target architecture is layered.
+
+```txt
+1. Foundations
+   tokens, colors, typography, spacing, accessibility
+
+2. Base components
+   Button, Card, Dialog, PageHeader, forms
+
+3. Compact primitives
+   KeyValueList, CompactMetric, SemanticTag, StatusPill, EvidenceRow, Timeline
+
+4. Composition layouts
+   WorkspaceShell, MasterDetailLayout, DetailPanel, SectionStack, StickyActionBar
+
+5. Decision components
+   MetricCard, AlertCard, ActionCard, RecommendationCard, PriorityList, StatusSummary
+
+6. Business patterns
+   AssetIntelligenceSummary, RecommendationReviewPanel, ValueProofCard, CustomerStatusCard
+
+7. Workspace patterns
+   AssetDetailPanel, InstalledBaseExplorer, RecommendationSet, ServiceHistoryTimeline
+
+8. Figma Make governance
+   prompts, golden examples, checklists, repair prompts, generation tests
+```
+
+Important dependency:
+
+```txt
+Compact primitives + composition layouts must come before major pattern refactors.
+```
+
+Why:
+
+```txt
+If patterns are refactored before compact primitives exist, they will keep recreating local rows, pills and metric strips internally.
+If layouts are not available first, Make will continue generating one-column card stacks even with improved patterns.
+```
+
+---
+
+## Sprint 1 recommended build sequence
+
+```txt
+1. Create composition directory and exports.
+2. Build MasterDetailLayout.
+3. Build DetailPanel family.
+4. Build StickyActionBar.
+5. Build SectionStack.
+6. Build KeyValueList.
+7. Build SemanticTag and StatusPill.
+8. Build CompactMetric and MetricStrip.
+9. Build ComponentHierarchy.
+10. Build Timeline.
+11. Refactor AssetIntelligenceSummary and RecommendationReviewPanel.
+12. Update golden examples and Make guidance.
+```
+
+---
+
+## Sprint 1 success criteria
+
+Sprint 1 is complete when the team has a clear implementation map showing:
+
+```txt
+what stays as-is
+what must be refactored
+what must be split
+what must be created
+what must be discouraged in Make generation
+which components block the decision workspace transition
+which components can wait
+```
+
+Sprint 1 should also make one strategic decision clear:
+
+```txt
+Do not start with more business patterns.
+Start with workspace layout and compact primitives.
+```
+
+---
+
+# Phase A2 — Information architecture, domain model and visualization rules
+
+## Objective
+
+Add the missing architecture layer between principles and components.
+
+Before building too many new components, define:
+
+```txt
+which screen types the design system should produce
+which domain objects it represents
+how information is progressively disclosed
+which navigation models are allowed
+when to use visualization
+when not to use visualization
+```
+
+## Expected files
+
+```txt
+guidelines/ia/screen-types.md
+guidelines/ia/navigation-models.md
+guidelines/ia/panel-structures.md
+guidelines/ia/tab-architectures.md
+guidelines/ia/progressive-disclosure.md
+
+guidelines/domain-models/customer.md
+guidelines/domain-models/site.md
+guidelines/domain-models/asset.md
+guidelines/domain-models/component.md
+guidelines/domain-models/recommendation.md
+guidelines/domain-models/action.md
+guidelines/domain-models/evidence.md
+guidelines/domain-models/source.md
+guidelines/domain-models/proof.md
+
+guidelines/visualization/selection-rules.md
+guidelines/visualization/benchmarking.md
+guidelines/visualization/timelines.md
+guidelines/visualization/topology-and-sld.md
+```
+
+## Acceptance criteria
+
+```txt
+The design system can explain what type of screen to generate before selecting components.
+The design system can explain domain relationships before inventing content.
+The design system can select visual formats based on comparison, trend, hierarchy, distribution, causality or follow-through.
+```
 
 ---
 
@@ -348,9 +558,12 @@ action-footer workspaces.
 src/design-system/composition/master-detail-layout.tsx
 src/design-system/composition/detail-panel.tsx
 src/design-system/composition/detail-panel-tabs.tsx
+src/design-system/composition/detail-panel-body.tsx
+src/design-system/composition/detail-panel-footer.tsx
 src/design-system/composition/sticky-action-bar.tsx
 src/design-system/composition/section-stack.tsx
 src/design-system/composition/filter-bar.tsx
+src/design-system/composition/filter-panel.tsx
 src/design-system/composition/two-column-layout.tsx
 ```
 
@@ -511,7 +724,7 @@ actions connected to risks or recommendations
 
 ---
 
-# Phase F — Update Make guidelines
+# Phase F — Update Figma Make guidelines
 
 ## Objective
 
@@ -594,16 +807,35 @@ repair-prompts/missing-detail-panel.md
 ## Sprint 1 — Audit and target architecture
 
 ```txt
-1. Refocus component-audit-roadmap.md on decision workspace evolution.
-2. Audit current components and classify Keep / Refactor / Split / Create.
-3. Confirm build order for composition and compact components.
-4. Identify first screen to rebuild as workspace.
+1. Audit components / decision / patterns / composition.
+2. Identify card-centric components and patterns.
+3. Identify needs from the prototype.
+4. Define target decision workspace architecture.
+5. Update this component-audit-roadmap.md.
 ```
 
 Deliverable:
 
 ```txt
-component-audit-roadmap.md becomes the implementation map for the next design-system evolution.
+A clear implementation map for what to keep, refactor, split, create and discourage.
+```
+
+## Sprint 1.5 — Information architecture and domain model
+
+```txt
+1. Create screen-types.md.
+2. Create navigation-models.md.
+3. Create panel-structures.md.
+4. Create tab-architectures.md.
+5. Create progressive-disclosure.md.
+6. Create first domain models.
+7. Create visualization selection rules.
+```
+
+Deliverable:
+
+```txt
+The design system can choose the right screen architecture before choosing components.
 ```
 
 ## Sprint 2 — Workspace layouts
@@ -653,7 +885,7 @@ Deliverable:
 The first decision workspace is available and teachable to Make.
 ```
 
-## Sprint 5 — Make kit v2
+## Sprint 5 — Figma Make kit v2
 
 ```txt
 1. Update Guidelines.md with decision workspace principle.
@@ -671,38 +903,7 @@ Figma Make can generate decision workspaces, not only card-based dashboards.
 
 ---
 
-# Real build priority
-
-Start with this order:
-
-```txt
-1. MasterDetailLayout
-2. DetailPanel + tabs + sticky footer
-3. SectionStack
-4. KeyValueList
-5. SemanticTag / StatusPill
-6. CompactMetric / MetricStrip
-7. ComponentHierarchy
-8. Timeline
-9. AssetIntelligenceSummary refactor
-10. RecommendationReviewPanel refactor
-11. Asset recommendation golden v2
-12. Guidelines Make v2
-```
-
-This order reflects the real UX need shown by the prototype:
-
-```txt
-exploration first
-drill-down second
-dense facts third
-business patterns fourth
-Make documentation last
-```
-
----
-
-## Final principle
+# Final principle
 
 The next design-system evolution should not add more large business cards.
 
