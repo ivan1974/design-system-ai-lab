@@ -4,9 +4,8 @@ import { PanelBody, SectionBlock, Text } from "../../index";
 
 const meta = {
   title: "Design System/Components/PanelBody",
-  component: PanelBody,
   parameters: { layout: "padded" },
-} satisfies Meta<typeof PanelBody>;
+} satisfies Meta;
 
 export default meta;
 
