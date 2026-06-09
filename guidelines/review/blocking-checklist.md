@@ -43,11 +43,12 @@ Review the generated output in this order:
 1. App.tsx output
 2. package usage
 3. component usage
-4. form usage
-5. business pattern usage
-6. alert and action completeness
-7. evidence and trust integrity
-8. proof and value integrity
+4. workspace structure
+5. form usage
+6. business pattern usage
+7. alert and action completeness
+8. evidence and trust integrity
+9. proof and value integrity
 ```
 
 A screen can be visually imperfect and still pass this checklist.
@@ -89,7 +90,7 @@ App.tsx is empty, returns null, renders only a placeholder, or stops after setup
 Correct:
 
 ```tsx
-import { PageHeader, CustomerStatusCard } from "design-system-ai-lab";
+import { WorkspaceShell, MasterDetailLayout } from "design-system-ai-lab";
 import "design-system-ai-lab/styles.css";
 ```
 
@@ -104,7 +105,7 @@ import { Card } from "./components/ui/card";
 
 ### 3. No local design system components
 
-- [ ] No local `Button`, `Card`, `Badge`, `Dialog`, `MetricCard`, `AlertCard`, `ActionCard` or `PageHeader` replacement was created.
+- [ ] No local `Button`, `Card`, `Badge`, `Dialog`, `MetricCard`, `AlertCard`, `ActionCard`, `WorkspaceShell`, `MasterDetailLayout`, `DetailPanel` or `PageHeader` replacement was created.
 - [ ] No local wrappers were created for package components.
 - [ ] No shadcn-like, Radix-based, MUI or unrelated component system was introduced.
 - [ ] Package components are used directly.
@@ -122,7 +123,19 @@ ForwardedButton
 
 ---
 
-### 4. No raw form fields
+### 4. Workspace structure is used when needed
+
+- [ ] A review/comparison task uses workspace structure instead of a long card stack.
+- [ ] `WorkspaceShell` is used for a decision workspace when the screen has scope, filters or multiple review areas.
+- [ ] `MasterDetailLayout` is used when the user must inspect an item from a list.
+- [ ] `DetailPanel` is used when a selected item needs evidence, tabs or actions.
+- [ ] Repeated facts, signals, evidence and actions are not each rendered as separate generic cards.
+
+Reject if the prompt asks for review, comparison or item inspection and the output is only a long sequence of equal cards.
+
+---
+
+### 5. No raw form fields
 
 - [ ] `CreateActionDialog` is used for standard action creation flows.
 - [ ] Forms use package form components when form fields are needed.
@@ -135,7 +148,7 @@ Reject if Make uses raw form controls instead of the package form system.
 
 ---
 
-### 5. Business patterns are used when available
+### 6. Business patterns are used when available
 
 - [ ] Business patterns are used when they match the section intent.
 - [ ] `CustomerStatusCard` is used for customer context when relevant.
@@ -152,9 +165,8 @@ Reject if a known business section is rebuilt manually while an approved pattern
 
 ---
 
-### 6. Alerts are actionable
+### 7. Alerts are actionable
 
-- [ ] `PriorityList` is used to group priority risks, blockers or alerts when relevant.
 - [ ] `AlertCard` is used for important risks or blockers.
 - [ ] Every `AlertCard` has a severity.
 - [ ] Every `AlertCard` has a meaningful title.
@@ -166,10 +178,12 @@ Reject if an alert explains a problem but gives no recommendation.
 
 ---
 
-### 7. Actions are accountable
+### 8. Actions are accountable
 
-- [ ] `ActionList` is used to group assigned actions when relevant.
-- [ ] `ActionCard` is used for each assigned action.
+- [ ] `ActionRow` or `ActionCard` is used for assigned actions when relevant.
+- [ ] Every `ActionRow` has an owner.
+- [ ] Every `ActionRow` has a due date.
+- [ ] Every `ActionRow` has a priority.
 - [ ] Every `ActionCard` has an owner.
 - [ ] Every `ActionCard` has a due date.
 - [ ] Every `ActionCard` has a priority.
@@ -179,7 +193,7 @@ Reject if actions are missing owner, due date or priority.
 
 ---
 
-### 8. Evidence is not invented
+### 9. Evidence is not invented
 
 - [ ] No invented source is presented as real.
 - [ ] No invented evidence is presented as real.
@@ -194,7 +208,7 @@ Reject if the screen creates false evidence or makes unsupported claims look val
 
 ---
 
-### 9. Proof and value are not overstated
+### 10. Proof and value are not overstated
 
 - [ ] Expected outcomes are not presented as proven value.
 - [ ] Internal proof is not presented as customer-ready proof without validation.
@@ -206,7 +220,7 @@ Reject if the screen makes weak, internal or expected proof look customer-ready.
 
 ---
 
-### 10. Asset and AI safety are respected when relevant
+### 11. Asset and AI safety are respected when relevant
 
 - [ ] Non-connected assets are not presented as live-monitored.
 - [ ] Partial visibility is not presented as complete asset knowledge.
@@ -223,7 +237,7 @@ Reject if the screen hides partial visibility, overstates AI, or removes human v
 ## Blocking repair instruction
 
 When a blocking item fails, use the relevant repair prompt from the matching prompt
-file.
+file or repair prompt folder.
 
 Typical repair files or sections:
 
@@ -232,6 +246,10 @@ prompts/customer-monitoring.md
 prompts/renewal-risk-review.md
 prompts/asset-recommendation-review.md
 prompts/qbr-readiness.md
+prompts/workspace-v2.md
+repair-prompts/card-saturation.md
+repair-prompts/weak-layout.md
+repair-prompts/missing-detail-panel.md
 review/anti-patterns.md
 ```
 
