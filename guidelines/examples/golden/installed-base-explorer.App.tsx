@@ -1,5 +1,6 @@
 import {
   ActionRow,
+  AssetQueueRow,
   Button,
   CompactMetric,
   DetailPanel,
@@ -11,13 +12,13 @@ import {
   FilterBar,
   KeyValueList,
   KeyValueRow,
+  ListContainer,
   MasterDetailLayout,
   MetricStrip,
   PageHeading,
   SectionBlock,
   SectionStack,
   SemanticTag,
-  SignalRow,
   StatusPill,
   StickyActionBar,
   WorkspaceShell,
@@ -26,9 +27,9 @@ import {
 import "design-system-ai-lab/styles.css";
 
 const assets = [
-  { name: "SM6 Bus Coupler", value: "Review needed", description: "Lyon DC" },
-  { name: "Galaxy VX UPS", value: "Warning signal", description: "Lyon DC" },
-  { name: "LV Switchboard A2", value: "Monitored", description: "Grenoble Plant" },
+  { name: "SM6 Bus Coupler", value: "Review needed", description: "Lyon DC", tone: "warning" as const, selected: true },
+  { name: "Galaxy VX UPS", value: "Warning signal", description: "Lyon DC", tone: "warning" as const },
+  { name: "LV Switchboard A2", value: "Monitored", description: "Grenoble Plant", tone: "success" as const },
 ];
 
 export default function App() {
@@ -61,11 +62,23 @@ export default function App() {
           detailWidth="lg"
           list={
             <SectionBlock title="Assets">
-              <div className="divide-y divide-(--ec-color-border)">
+              <ListContainer>
                 {assets.map((asset) => (
-                  <SignalRow key={asset.name} label={asset.name} value={asset.value} description={asset.description} />
+                  <AssetQueueRow
+                    key={asset.name}
+                    assetName={asset.name}
+                    site={asset.description}
+                    description="Review identity, monitoring scope and source context before customer use."
+                    statusLabel={asset.value}
+                    statusTone={asset.tone}
+                    priority={asset.value === "Monitored" ? undefined : "high"}
+                    sourceStrength={asset.value === "Monitored" ? "strong" : "partial"}
+                    health={asset.value === "Monitored" ? "Healthy" : "Warning"}
+                    freshness="18h"
+                    selected={asset.selected}
+                  />
                 ))}
-              </div>
+              </ListContainer>
             </SectionBlock>
           }
           detail={
