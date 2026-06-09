@@ -11,6 +11,7 @@ import {
   KeyValueList,
   KeyValueRow,
   MasterDetailLayout,
+  PageHeading,
   RecommendationCard,
   RecommendationReviewPanel,
   SectionBlock,
@@ -30,16 +31,12 @@ export default function App() {
     <main className="min-h-screen bg-(--ec-color-background)">
       <WorkspaceShell
         header={
-          <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
-            <div>
-              <p className="text-sm font-medium text-(--ec-color-primary)">QBR readiness</p>
-              <h1 className="mt-1 text-2xl font-semibold text-(--ec-color-text-primary)">Check if the review is customer-ready</h1>
-              <p className="mt-2 max-w-3xl text-sm text-(--ec-color-text-secondary)">
-                Confirm proof, recommendations, risks and preparation actions before the customer review.
-              </p>
-            </div>
-            <Button size="sm">Create QBR action</Button>
-          </div>
+          <PageHeading
+            eyebrow="QBR readiness"
+            title="Check if the review is customer-ready"
+            description="Confirm proof, recommendations, risks and preparation actions before the customer review."
+            actions={<Button size="sm">Create QBR action</Button>}
+          />
         }
         controls={
           <FilterBar
