@@ -33,13 +33,13 @@ export const WorkspaceShell = forwardRef<HTMLElement, WorkspaceShellProps>(
       <main
         ref={ref}
         className={[
-          "min-h-screen bg-(--ec-color-workspace) px-4 py-5 md:px-8 md:py-8",
+          "min-h-screen bg-(--ec-color-workspace) px-5 py-8 md:px-10 md:py-12",
           className,
         ].join(" ")}
         {...props}
       >
-        <div className={["mx-auto space-y-5 md:space-y-6", maxWidthClassName].join(" ")}>
-          {header && <div className="px-1">{header}</div>}
+        <div className={["mx-auto space-y-8 md:space-y-10", maxWidthClassName].join(" ")}>
+          {header && <div>{header}</div>}
           {controls && <div>{controls}</div>}
           <div>{children}</div>
           {footer && <div>{footer}</div>}
