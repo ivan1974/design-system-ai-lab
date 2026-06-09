@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 import type { HTMLAttributes, ReactNode } from "react";
-import { Badge } from "../components/badge";
+import { StatusPill } from "./status-pill";
 
 export type AlertSeverity = "critical" | "warning" | "info";
 
@@ -54,6 +54,13 @@ export const AlertCard = forwardRef<HTMLElement, AlertCardProps>(
     ref,
   ) => {
     const displayedScope = scope ?? equipment;
+    const metadata = [
+      source && `Source: ${source}`,
+      sourceScope && `Scope: ${sourceScope}`,
+      sourceStrength && `Strength: ${sourceStrength}`,
+      freshness && `Freshness: ${freshness}`,
+      validationStatus && `Validation: ${validationStatus}`,
+    ].filter(Boolean);
 
     return (
       <article
@@ -65,83 +72,31 @@ export const AlertCard = forwardRef<HTMLElement, AlertCardProps>(
         ].join(" ")}
         {...props}
       >
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-          <div className="min-w-0">
-            <div className="mb-2 flex flex-wrap items-center gap-2">
-              <Badge tone={severityTone[severity]}>
-                {severityLabel[severity]}
-              </Badge>
-
-              {displayedScope && (
-                <span className="text-xs text-(--ec-color-text-muted)">
-                  {displayedScope}
-                </span>
-              )}
+        <div className="space-y-4">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+            <div className="min-w-0 space-y-2">
+              <div className="flex flex-wrap items-center gap-2">
+                <StatusPill tone={severityTone[severity]}>{severityLabel[severity]}</StatusPill>
+                {displayedScope && <span className="text-xs text-(--ec-color-text-muted)">{displayedScope}</span>}
+              </div>
+              <h3 className="text-sm font-semibold text-(--ec-color-text-primary)">{title}</h3>
+              <p className="text-sm text-(--ec-color-text-secondary)">{description}</p>
             </div>
-
-            <h3 className="text-sm font-semibold text-(--ec-color-text-primary)">
-              {title}
-            </h3>
-
-            <p className="mt-1 text-sm text-(--ec-color-text-secondary)">
-              {description}
-            </p>
-
-            {evidenceSummary && (
-              <p className="mt-3 text-xs text-(--ec-color-text-muted)">
-                Evidence: {evidenceSummary}
-              </p>
-            )}
-
-            <p className="mt-3 text-sm font-medium text-(--ec-color-text-primary)">
-              Recommendation: {recommendation}
-            </p>
-
-            {(source ||
-              sourceScope ||
-              sourceStrength ||
-              freshness ||
-              validationStatus) && (
-                <dl className="mt-3 space-y-1 text-xs text-(--ec-color-text-muted)">
-                  {source && (
-                    <div>
-                      <dt className="sr-only">Source</dt>
-                      <dd>Source: {source}</dd>
-                    </div>
-                  )}
-
-                  {sourceScope && (
-                    <div>
-                      <dt className="sr-only">Source scope</dt>
-                      <dd>Scope: {sourceScope}</dd>
-                    </div>
-                  )}
-
-                  {sourceStrength && (
-                    <div>
-                      <dt className="sr-only">Source strength</dt>
-                      <dd>Source strength: {sourceStrength}</dd>
-                    </div>
-                  )}
-
-                  {freshness && (
-                    <div>
-                      <dt className="sr-only">Freshness</dt>
-                      <dd>Freshness: {freshness}</dd>
-                    </div>
-                  )}
-
-                  {validationStatus && (
-                    <div>
-                      <dt className="sr-only">Validation status</dt>
-                      <dd>Validation: {validationStatus}</dd>
-                    </div>
-                  )}
-                </dl>
-              )}
+            {action && <div className="shrink-0">{action}</div>}
           </div>
 
-          {action && <div className="shrink-0">{action}</div>}
+          {(evidenceSummary || metadata.length > 0) && (
+            <div className="border-t border-(--ec-color-border) pt-3">
+              <p className="text-xs font-medium text-(--ec-color-text-muted)">Evidence and source</p>
+              {evidenceSummary && <p className="mt-1 text-sm text-(--ec-color-text-secondary)">{evidenceSummary}</p>}
+              {metadata.length > 0 && <p className="mt-2 text-xs text-(--ec-color-text-muted)">{metadata.join(" · ")}</p>}
+            </div>
+          )}
+
+          <div className="rounded-(--ec-radius-sm) bg-(--ec-color-surface-muted) px-3 py-2">
+            <p className="text-xs font-medium text-(--ec-color-text-muted)">Recommendation</p>
+            <p className="mt-1 text-sm font-medium text-(--ec-color-text-primary)">{recommendation}</p>
+          </div>
         </div>
       </article>
     );
