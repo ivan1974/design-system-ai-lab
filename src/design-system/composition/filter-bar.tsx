@@ -1,6 +1,8 @@
 import { forwardRef } from "react";
 import type { HTMLAttributes, ReactNode } from "react";
 
+import { Heading, Text } from "../components/typography";
+
 export type FilterBarProps = HTMLAttributes<HTMLDivElement> & {
   title?: string;
   description?: string;
@@ -27,21 +29,9 @@ export const FilterBar = forwardRef<HTMLDivElement, FilterBarProps>(
         {(title || description || resultCount || actions) && (
           <div className="mb-5 flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
             <div className="min-w-0 space-y-2">
-              {title && (
-                <h2 className="text-[length:var(--ec-title-section-size)] font-semibold leading-[var(--ec-title-section-line-height)] tracking-(--ec-letter-spacing-tight) text-(--ec-color-text-primary)">
-                  {title}
-                </h2>
-              )}
-              {description && (
-                <p className="max-w-prose text-[length:var(--ec-text-body-size)] leading-[var(--ec-text-body-line-height)] text-(--ec-color-text-secondary)">
-                  {description}
-                </p>
-              )}
-              {resultCount && (
-                <p className="text-[length:var(--ec-text-caption-size)] font-medium leading-[var(--ec-text-caption-line-height)] text-(--ec-color-text-muted)">
-                  {resultCount}
-                </p>
-              )}
+              {title && <Heading level={2} size="section">{title}</Heading>}
+              {description && <Text className="max-w-prose">{description}</Text>}
+              {resultCount && <Text variant="caption" className="font-medium">{resultCount}</Text>}
             </div>
             {actions && <div className="shrink-0">{actions}</div>}
           </div>
