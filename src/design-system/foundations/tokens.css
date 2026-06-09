@@ -35,6 +35,44 @@
   --ec-color-danger: #c92f2f;
   --ec-color-danger-soft: rgba(201, 47, 47, 0.1);
 
+  --ec-font-size-1: 0.75rem;
+  --ec-font-size-2: 0.875rem;
+  --ec-font-size-3: 1rem;
+  --ec-font-size-4: 1.125rem;
+  --ec-font-size-5: 1.25rem;
+  --ec-font-size-6: 1.5rem;
+  --ec-font-size-7: 1.75rem;
+  --ec-font-size-8: 2.25rem;
+
+  --ec-line-height-1: 1rem;
+  --ec-line-height-2: 1.25rem;
+  --ec-line-height-3: 1.5rem;
+  --ec-line-height-4: 1.625rem;
+  --ec-line-height-5: 1.75rem;
+  --ec-line-height-6: 2rem;
+  --ec-line-height-7: 2.25rem;
+  --ec-line-height-8: 2.75rem;
+
+  --ec-letter-spacing-tight: -0.02em;
+  --ec-letter-spacing-normal: 0em;
+  --ec-letter-spacing-wide: 0.01em;
+
+  --ec-font-weight-regular: 400;
+  --ec-font-weight-medium: 500;
+  --ec-font-weight-semibold: 600;
+  --ec-font-weight-bold: 700;
+
+  --ec-title-page-size: var(--ec-font-size-7);
+  --ec-title-page-line-height: var(--ec-line-height-7);
+  --ec-title-section-size: var(--ec-font-size-4);
+  --ec-title-section-line-height: var(--ec-line-height-4);
+  --ec-title-subsection-size: var(--ec-font-size-3);
+  --ec-title-subsection-line-height: var(--ec-line-height-3);
+  --ec-text-body-size: var(--ec-font-size-2);
+  --ec-text-body-line-height: var(--ec-line-height-2);
+  --ec-text-caption-size: var(--ec-font-size-1);
+  --ec-text-caption-line-height: var(--ec-line-height-1);
+
   --ec-radius-sm: 8px;
   --ec-radius-md: 14px;
   --ec-radius-lg: 22px;
@@ -65,4 +103,8 @@ body {
   font-family:
     Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", sans-serif;
+  font-size: var(--ec-font-size-3);
+  line-height: var(--ec-line-height-3);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
