@@ -6,6 +6,7 @@ import {
   Button,
   ListContainer,
   MasterDetailLayout,
+  PageHeading,
   SectionBlock,
   SectionStack,
   StatusPill,
@@ -16,9 +17,8 @@ import {
 
 const meta = {
   title: "Design System/Composition/WorkspaceDetailPanel",
-  component: WorkspaceDetailPanel,
   parameters: { layout: "fullscreen" },
-} satisfies Meta<typeof WorkspaceDetailPanel>;
+} satisfies Meta;
 
 export default meta;
 
@@ -58,10 +58,10 @@ function WorkspaceDetailPanelPreview() {
     <WorkspaceShell
       header={
         <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-          <div>
-            <Text variant="caption" className="font-medium uppercase tracking-[0.08em] text-(--ec-color-primary)">Interactive panel</Text>
-            <h1 className="mt-2 text-[length:var(--ec-title-page-size)] font-semibold leading-[var(--ec-title-page-line-height)] tracking-(--ec-letter-spacing-tight)">Workspace detail panel</h1>
-          </div>
+          <PageHeading
+            eyebrow="Interactive panel"
+            title="Workspace detail panel"
+          />
           <div className="flex gap-2">
             <Button variant="secondary" onClick={() => setMode(mode === "inline" ? "overlay" : "inline")}>{mode === "inline" ? "Use overlay" : "Use inline"}</Button>
             <Button onClick={() => setOpen(!open)}>{open ? "Close panel" : "Open panel"}</Button>
