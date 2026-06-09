@@ -1,7 +1,7 @@
 {
   "name": "design-system-ai-lab",
   "private": false,
-  "version": "0.2.0",
+  "version": "0.3.0",
   "type": "module",
   "description": "A promptable React design system lab for AI-assisted interface generation.",
   "main": "./dist/index.js",
