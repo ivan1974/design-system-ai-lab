@@ -38,7 +38,8 @@
     "guidelines/prompts",
     "guidelines/repair-prompts",
     "guidelines/review",
-    "guidelines/screen-architecture"
+    "guidelines/screen-architecture",
+    "guidelines/templates"
   ],
   "sideEffects": ["*.css"],
   "scripts": {
