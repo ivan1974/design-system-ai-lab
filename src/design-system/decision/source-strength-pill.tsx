@@ -15,6 +15,10 @@ const strengthClasses: Record<SourceStrength, string> = {
   "single-source": "bg-blue-50 text-(--ec-color-primary)",
   "multi-source": "bg-green-50 text-(--ec-color-success)",
   validated: "bg-green-50 text-(--ec-color-success)",
+  strong: "bg-green-50 text-(--ec-color-success)",
+  needs_review: "bg-amber-50 text-(--ec-color-warning)",
+  internal: "bg-(--ec-color-surface-muted) text-(--ec-color-text-secondary)",
+  customer_ready: "bg-blue-50 text-(--ec-color-primary)",
 };
 
 export const SourceStrengthPill = forwardRef<HTMLSpanElement, SourceStrengthPillProps>(
