@@ -49,6 +49,35 @@ make-minimal-contract.md
 
 ---
 
+## GenAI-ready guideline standard
+
+Component and pattern guidelines should follow:
+
+```txt
+guidelines/templates/component-guideline-template.md
+```
+
+A guideline is not ready for generative AI if it does not tell Make:
+
+```txt
+Use this component when...
+Do not use this component when...
+Prefer this component over...
+Never generate...
+Required props...
+Controlled values...
+Common generation failures...
+Repair prompt...
+```
+
+For `v0.5.1`, the priority GenAI-ready guideline set is tested by:
+
+```txt
+tests/generation-rules/guideline-structure.test.ts
+```
+
+---
+
 ## Required package
 
 ```tsx
