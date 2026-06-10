@@ -1,6 +1,12 @@
 export type ActionPriority = "low" | "medium" | "high" | "critical";
 
-export type ActionStatus = "todo" | "in-progress" | "blocked" | "done";
+export type ActionStatus =
+  | "todo"
+  | "in-progress"
+  | "blocked"
+  | "done"
+  /** @deprecated Use "in-progress". */
+  | "in_progress";
 
 export type ActionOwnership = {
   owner: string;
@@ -18,6 +24,7 @@ export const actionPriorityLabels: Record<ActionPriority, string> = {
 export const actionStatusLabels: Record<ActionStatus, string> = {
   todo: "To do",
   "in-progress": "In progress",
+  in_progress: "In progress",
   blocked: "Blocked",
   done: "Done",
 };
