@@ -6,6 +6,18 @@ Generate an installed base explorer workspace.
 
 The user must compare known installed base, connected assets, source scope and next action without overstating coverage.
 
+## Benchmark status
+
+This is a fixed benchmark case, not reusable prompt guidance.
+
+Reusable generation guidance lives in:
+
+```txt
+guidelines/prompts/*
+```
+
+Do not rewrite benchmark facts unless the scoring objective changes.
+
 ## Prompt for Figma Make
 
 Create a React `App.tsx` screen for a service team exploring a customer's installed base.
@@ -29,6 +41,7 @@ Use business patterns when relevant:
 - `AssetIntelligenceSummary`
 - `ConnectivityCoverageCard`
 - `ServiceRiskSummary`
+- `ComponentHierarchy`
 
 Show known assets, connected assets and unknowns separately.
 
