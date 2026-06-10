@@ -1,11 +1,16 @@
 import { forwardRef } from "react";
 import type { HTMLAttributes } from "react";
 import { KeyValueList, KeyValueRow } from "../components/key-value-list";
+import type { ActionPriority, ActionStatus } from "../types/action";
+import { actionStatusLabels } from "../types/action";
+import type { ProofReadiness } from "../types/evidence";
+import { proofReadinessLabels } from "../types/evidence";
+import type { ValidationStatus } from "../types/trust";
+import { validationStatusLabels } from "../types/trust";
 import { PriorityPill } from "./priority-pill";
 import { StatusPill } from "./status-pill";
 
-export type ActionPriority = "high" | "medium" | "low";
-export type ActionStatus = "todo" | "in_progress" | "blocked" | "done";
+export type { ActionPriority, ActionStatus } from "../types/action";
 
 export type ActionCardProps = HTMLAttributes<HTMLElement> & {
   title: string;
@@ -16,22 +21,17 @@ export type ActionCardProps = HTMLAttributes<HTMLElement> & {
   context?: string;
   assetContext?: string;
   sourceContext?: string;
-  validationStatus?: string;
-  proofContext?: string;
+  validationStatus?: ValidationStatus;
+  validationStatusLabel?: string;
+  proofReadiness?: ProofReadiness;
+  proofReadinessLabel?: string;
 };
 
 const statusTone: Record<ActionStatus, "neutral" | "primary" | "warning" | "success"> = {
   todo: "neutral",
-  in_progress: "primary",
+  "in-progress": "primary",
   blocked: "warning",
   done: "success",
-};
-
-const statusLabel: Record<ActionStatus, string> = {
-  todo: "To do",
-  in_progress: "In progress",
-  blocked: "Blocked",
-  done: "Done",
 };
 
 export const ActionCard = forwardRef<HTMLElement, ActionCardProps>(
@@ -46,7 +46,9 @@ export const ActionCard = forwardRef<HTMLElement, ActionCardProps>(
       assetContext,
       sourceContext,
       validationStatus,
-      proofContext,
+      validationStatusLabel,
+      proofReadiness,
+      proofReadinessLabel,
       className = "",
       ...props
     },
@@ -67,7 +69,7 @@ export const ActionCard = forwardRef<HTMLElement, ActionCardProps>(
             <div className="min-w-0 space-y-2">
               <div className="flex flex-wrap gap-2">
                 <PriorityPill priority={priority} />
-                {status && <StatusPill tone={statusTone[status]}>{statusLabel[status]}</StatusPill>}
+                {status && <StatusPill tone={statusTone[status]}>{actionStatusLabels[status]}</StatusPill>}
               </div>
               <h3 className="text-sm font-semibold text-(--ec-color-text-primary)">{title}</h3>
               {context && <p className="text-sm text-(--ec-color-text-secondary)">{context}</p>}
@@ -79,8 +81,8 @@ export const ActionCard = forwardRef<HTMLElement, ActionCardProps>(
             <KeyValueRow label="Due" value={dueDate} />
             {assetContext && <KeyValueRow label="Asset context" value={assetContext} />}
             {sourceContext && <KeyValueRow label="Source context" value={sourceContext} />}
-            {validationStatus && <KeyValueRow label="Validation" value={validationStatus} />}
-            {proofContext && <KeyValueRow label="Proof" value={proofContext} />}
+            {validationStatus && <KeyValueRow label="Validation" value={validationStatusLabel ?? validationStatusLabels[validationStatus]} />}
+            {proofReadiness && <KeyValueRow label="Proof" value={proofReadinessLabel ?? proofReadinessLabels[proofReadiness]} />}
           </KeyValueList>
         </div>
       </article>
