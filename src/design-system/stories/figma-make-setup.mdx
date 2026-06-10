@@ -2,7 +2,7 @@ import { Meta } from "@storybook/addon-docs/blocks";
 
 <Meta title="Design System/Figma Make Setup" />
 
-# Figma Make Setup — v0.3.0
+# Figma Make Setup — v0.4.0
 
 This Storybook page is a short setup checklist.
 
@@ -27,9 +27,15 @@ Generated screens should import components from the package root:
 ```tsx
 import {
   WorkspaceShell,
+  PageHeading,
+  SectionHeading,
   FilterBar,
   MasterDetailLayout,
-  DetailPanel,
+  WorkspaceDetailPanel,
+  ListContainer,
+  AssetQueueRow,
+  Tabs,
+  StatusPill,
   ActionRow,
 } from "design-system-ai-lab";
 ```
@@ -39,6 +45,8 @@ Generated screens should import styles once:
 ```tsx
 import "design-system-ai-lab/styles.css";
 ```
+
+Do not import from internal package paths.
 
 ---
 
@@ -52,6 +60,9 @@ src/components/ui/
 local Button wrappers
 local Card wrappers
 local Badge wrappers
+local Tabs wrappers
+local Drawer or SidePanel wrappers
+local QueueRow wrappers
 local design-system copies
 ```
 
@@ -72,24 +83,43 @@ Read and follow:
 ```txt
 guidelines/Guidelines.md
 guidelines/setup.md
+guidelines/visual-brand.md
+guidelines/workspace-visual-v4.md
 guidelines/tokens.md
 guidelines/styles.md
-guidelines/screen-architecture/README.md
 guidelines/prompts/workspace-v2.md
+guidelines/review/blocking-checklist.md
+guidelines/review/workspace-v2-checklist.md
 ```
 
 ---
 
-## Workspace setup expectation
+## v0.4.0 workspace setup expectation
 
-The expected v0.3.0 structure is:
+The expected v0.4.0 structure is:
 
 ```txt
 WorkspaceShell
-→ FilterBar
+→ PageHeading
+→ FilterBar, SecondaryNavigation or SegmentedControl for scope
 → MasterDetailLayout when list/detail review is needed
-→ DetailPanel / DetailPanelTabs / StickyActionBar for selected item review
-→ rows and compact primitives for repeated information
+→ ListContainer with QueueRows for repeated review objects
+→ WorkspaceDetailPanel for selected item detail
+→ Tabs inside detail when needed
+→ StickyActionBar or ActionRow for follow-through
+```
+
+Use business patterns when the section intent matches:
+
+```txt
+CustomerStatusCard
+CustomerReviewReadinessCard
+ConnectivityCoverageCard
+AssetIntelligenceSummary
+RenewalRiskSummary
+ValueProofCard
+ServiceRiskSummary
+RecommendationReviewPanel
 ```
 
 Do not generate a generic dashboard or a long stack of cards.
@@ -104,14 +134,17 @@ Use:
 guidelines/review/blocking-checklist.md
 guidelines/review/quality-checklist.md
 guidelines/review/workspace-v2-checklist.md
+guidelines/review/v0.4-component-coverage.md
 ```
 
 Use repair prompts when needed:
 
 ```txt
-guidelines/repair-prompts/card-saturation.md
-guidelines/repair-prompts/weak-layout.md
-guidelines/repair-prompts/missing-detail-panel.md
+guidelines/repair-prompts/weak-typography-hierarchy.md
+guidelines/repair-prompts/overdecorated-surface.md
+guidelines/repair-prompts/poor-row-density.md
+guidelines/repair-prompts/missing-list-container.md
+guidelines/repair-prompts/invalid-props-or-local-visual-components.md
 ```
 
 ---
@@ -122,9 +155,11 @@ Use:
 
 ```txt
 Design System / Golden Examples
+Design System / Components
+Design System / Composition
 ```
 
-to visually evaluate the screen standard.
+to visually evaluate whether generated screens follow the v0.4.0 standard.
 
 The golden examples are the best reference before publishing or using the kit with Make.
 
