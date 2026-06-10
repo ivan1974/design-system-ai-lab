@@ -64,7 +64,7 @@ Key changes:
 - `guidelines/make-minimal-contract.md` is the first Make reading target.
 - golden examples are tested as compliance fixtures.
 - `benchmarks/figma-make/` defines benchmark cases and scoring.
-- `guidelines/review/repair-routing.md` maps failures to repair prompts.
+- `guidelines/evaluation/review/repair-routing.md` maps failures to repair prompts.
 - free-text statuses are deprecated for trust, proof, validation and action-critical fields.
 
 Migration details live in:
@@ -112,7 +112,7 @@ Card → emphasis container, not the default repeated-object layout
 Current audit:
 
 ```txt
-docs/audit/v0.5.1-guidelines-alignment-audit.md
+docs/archive/v0.5.1-hardening/v0.5.1-guidelines-alignment-audit.md
 ```
 
 ---
@@ -182,8 +182,8 @@ Use this order when giving context to Figma Make:
 guidelines/make-minimal-contract.md
 guidelines/Guidelines.md
 guidelines/setup.md
-guidelines/screen-architecture/README.md
-guidelines/review/blocking-checklist.md
+guidelines/reference/screen-architecture/README.md
+guidelines/evaluation/review/blocking-checklist.md
 ```
 
 Use contracts for automated checks and future tooling:

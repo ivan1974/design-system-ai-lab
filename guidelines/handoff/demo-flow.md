@@ -272,11 +272,11 @@ as a simulation.
 
 ```txt
 README.md
-guidelines/principles/
+guidelines/source/principles/
 guidelines/composition/
 guidelines/prompts/customer-monitoring.md
 guidelines/prompts/renewal-risk-review.md
-guidelines/review/acceptance-checklist.md
+guidelines/evaluation/review/acceptance-checklist.md
 guidelines/handoff/demo-flow.md
 ```
 
@@ -300,7 +300,7 @@ guidelines/prompts/overview.md
 guidelines/prompts/template.md
 guidelines/prompts/customer-monitoring.md
 guidelines/prompts/renewal-risk-review.md
-guidelines/review/acceptance-checklist.md
+guidelines/evaluation/review/acceptance-checklist.md
 guidelines/composition/
 ```
 
@@ -541,16 +541,16 @@ Important rules include:
 Open:
 
 ```txt
-guidelines/principles/ai-usage.md
-guidelines/principles/evidence-and-trust.md
+guidelines/source/principles/ai-usage.md
+guidelines/source/principles/evidence-and-trust.md
 ```
 
 Optionally show:
 
 ```txt
-guidelines/patterns/asset-intelligence-summary.md
-guidelines/patterns/value-proof-card.md
-guidelines/patterns/recommendation-review-panel.md
+guidelines/reference/patterns/asset-intelligence-summary.md
+guidelines/reference/patterns/value-proof-card.md
+guidelines/reference/patterns/recommendation-review-panel.md
 ```
 
 #### Key message — Principles and trust rules
@@ -756,7 +756,7 @@ It must be reviewed against explicit criteria.
 Open:
 
 ```txt
-guidelines/review/acceptance-checklist.md
+guidelines/evaluation/review/acceptance-checklist.md
 ```
 
 Review the generated or simulated screen against:

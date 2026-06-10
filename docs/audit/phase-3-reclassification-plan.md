@@ -45,9 +45,9 @@ guidelines/evaluation/benchmarks/
 
 | Current path | Target path | Status |
 |---|---|---|
-| `guidelines/knowledge/` | `guidelines/source/knowledge/` | Planned |
-| `guidelines/principles/` | `guidelines/source/principles/` | Planned |
-| `guidelines/domain-models/` | `guidelines/source/domain-models/` | Planned |
+| `guidelines/source/knowledge/` | `guidelines/source/knowledge/` | Planned |
+| `guidelines/source/principles/` | `guidelines/source/principles/` | Planned |
+| `guidelines/source/domain-models/` | `guidelines/source/domain-models/` | Planned |
 | `guidelines/visual-brand.md` | `guidelines/source/visual-brand/visual-brand-v0.4.md` | Done |
 
 ---
@@ -56,11 +56,11 @@ guidelines/evaluation/benchmarks/
 
 | Current path | Target path | Status |
 |---|---|---|
-| `guidelines/components/` | `guidelines/reference/components/` | Planned |
-| `guidelines/decision/` | `guidelines/reference/decision/` | Planned |
-| `guidelines/forms/` | `guidelines/reference/forms/` | Planned |
-| `guidelines/patterns/` | `guidelines/reference/patterns/` | Planned |
-| `guidelines/screen-architecture/` | `guidelines/reference/screen-architecture/` | Planned |
+| `guidelines/reference/components/` | `guidelines/reference/components/` | Planned |
+| `guidelines/reference/decision/` | `guidelines/reference/decision/` | Planned |
+| `guidelines/reference/forms/` | `guidelines/reference/forms/` | Planned |
+| `guidelines/reference/patterns/` | `guidelines/reference/patterns/` | Planned |
+| `guidelines/reference/screen-architecture/` | `guidelines/reference/screen-architecture/` | Planned |
 
 ---
 
@@ -68,8 +68,8 @@ guidelines/evaluation/benchmarks/
 
 | Current path | Target path | Status |
 |---|---|---|
-| `guidelines/review/` | `guidelines/evaluation/review/` | Planned |
-| `guidelines/repair-prompts/` | `guidelines/evaluation/repair/` | Planned |
+| `guidelines/evaluation/review/` | `guidelines/evaluation/review/` | Planned |
+| `guidelines/evaluation/repair/` | `guidelines/evaluation/repair/` | Planned |
 | `benchmarks/figma-make/` | `guidelines/evaluation/benchmarks/` as lightweight mirror only | Planned |
 
 ---
@@ -78,7 +78,7 @@ guidelines/evaluation/benchmarks/
 
 | Current path | Target path | Status |
 |---|---|---|
-| `docs/audit/v0.5.1-*` | `docs/archive/v0.5.1-hardening/` | Planned |
+| `docs/archive/v0.5.1-hardening/v0.5.1-*` | `docs/archive/v0.5.1-hardening/` | Planned |
 
 ---
 
@@ -91,6 +91,6 @@ No root visual-brand.md exists.
 No default read path points to knowledge/, principles/ or domain-models/.
 No active runtime file points to old screen-architecture/ path.
 No active runtime file points to review/ or repair-prompts/ old paths.
-No active contract references docs/audit/v0.5.1-* as source guidance.
+No active contract references docs/archive/v0.5.1-hardening/v0.5.1-* as source guidance.
 README and package files are updated in later phases.
 ```

@@ -5,12 +5,12 @@
   "sourceGuidelines": [
     "guidelines/Guidelines.md",
     "guidelines/setup.md",
-    "guidelines/domain-models/evidence.md",
-    "guidelines/domain-models/proof.md",
-    "guidelines/domain-models/source.md",
-    "guidelines/domain-models/recommendation.md",
-    "guidelines/review/blocking-checklist.md",
-    "guidelines/review/quality-checklist.md"
+    "guidelines/source/domain-models/evidence.md",
+    "guidelines/source/domain-models/proof.md",
+    "guidelines/source/domain-models/source.md",
+    "guidelines/source/domain-models/recommendation.md",
+    "guidelines/evaluation/review/blocking-checklist.md",
+    "guidelines/evaluation/review/quality-checklist.md"
   ],
   "forbiddenClaims": [
     "invented source presented as real",

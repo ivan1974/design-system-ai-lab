@@ -13,7 +13,7 @@ It aligns guidelines, contracts, prompts, examples, review checklists, repair pr
 - GenAI-ready component guideline template in `guidelines/templates/component-guideline-template.md`.
 - Expanded guidelines for priority components, screen architecture, forms, decision components and business patterns.
 - Reusable installed base prompt in `guidelines/prompts/installed-base-explorer.md`.
-- Repair router in `guidelines/repair-prompts/repair-router.md`.
+- Repair router in `guidelines/evaluation/repair/repair-router.md`.
 - v0.5.1 review loop across blocking, workspace and quality checklists.
 - Documentation drift tests for contracts, exports, guidelines, prompts and repair routes.
 - Migration note in `guidelines/migration/v0.5.0-to-v0.5.1.md`.
@@ -68,8 +68,8 @@ It adds machine-readable rules, stricter critical props, tested golden examples,
 - Generation rule tests for package imports, local design-system recreation, workspace structure, rows and density, evidence and trust, actionability and golden example coverage.
 - Figma Make benchmark cases in `benchmarks/figma-make/cases/`.
 - Figma Make scoring model in `benchmarks/figma-make/scoring/`.
-- Review loop documentation in `guidelines/review/review-loop.md`.
-- Repair routing matrix in `guidelines/review/repair-routing.md`.
+- Review loop documentation in `guidelines/evaluation/review/review-loop.md`.
+- Repair routing matrix in `guidelines/evaluation/review/repair-routing.md`.
 - New repair prompts for unsupported evidence, weak action ownership, expected outcomes presented as proven value, AI confidence used as source strength, partial visibility overstated and missing human validation.
 - Make Minimal Contract in `guidelines/make-minimal-contract.md`.
 - Migration guide in `guidelines/migration/v0.4-to-v0.5.md`.

@@ -54,13 +54,13 @@ governed product system.
 The package should be used with the guidelines in this repository:
 
 ```txt
-guidelines/principles/
+guidelines/source/principles/
 guidelines/composition/
 guidelines/prompts/
-guidelines/review/
-guidelines/components/
-guidelines/decision/
-guidelines/patterns/
+guidelines/evaluation/review/
+guidelines/reference/components/
+guidelines/reference/decision/
+guidelines/reference/patterns/
 ```
 
 Together, the package and guidelines provide:

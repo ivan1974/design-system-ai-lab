@@ -5,8 +5,7 @@
   "sourceGuidelines": [
     "guidelines/make-minimal-contract.md",
     "guidelines/setup.md",
-    "guidelines/Guidelines.md",
-    "docs/audit/v0.5.1-guidelines-alignment-audit.md"
+    "guidelines/Guidelines.md"
   ],
   "approvedImports": {
     "components": [

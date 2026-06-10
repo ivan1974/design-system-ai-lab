@@ -8,10 +8,10 @@ A guideline is not valid for `v0.5.1` if a generative AI cannot use it to choose
 
 This template applies to:
 
-- `guidelines/components/`
-- `guidelines/decision/`
-- `guidelines/patterns/`
-- `guidelines/forms/`
+- `guidelines/reference/components/`
+- `guidelines/reference/decision/`
+- `guidelines/reference/patterns/`
+- `guidelines/reference/forms/`
 
 Domain model files may use a lighter variant, but they must still define controlled vocabulary and generation boundaries when a model influences generated UI.
 
@@ -136,7 +136,7 @@ Link to a repair prompt when one exists.
 Use:
 
 ```txt
-guidelines/repair-prompts/name.md
+guidelines/evaluation/repair/name.md
 ```
 
 If no repair prompt exists yet, write:

@@ -5,8 +5,8 @@
   "sourceGuidelines": [
     "guidelines/setup.md",
     "guidelines/Guidelines.md",
-    "guidelines/review/workspace-v2-checklist.md",
-    "guidelines/review/blocking-checklist.md"
+    "guidelines/evaluation/review/workspace-v2-checklist.md",
+    "guidelines/evaluation/review/blocking-checklist.md"
   ],
   "intents": {
     "customerMonitoring": {

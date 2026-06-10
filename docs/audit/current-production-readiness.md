@@ -455,7 +455,7 @@ deprecated prop values are blocked for GenAI.
 preferred components have story coverage.
 benchmarks include context drift and information overload.
 repair-router is short.
-docs/audit/v0.5.1-* are archived.
+docs/archive/v0.5.1-hardening/v0.5.1-* are archived.
 No audit file is referenced as an active source guideline in contracts.
 ```
 

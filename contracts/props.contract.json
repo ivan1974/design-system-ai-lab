@@ -5,112 +5,383 @@
   "sourceGuidelines": [
     "guidelines/make-minimal-contract.md",
     "guidelines/setup.md",
-    "guidelines/domain-models",
-    "guidelines/components",
-    "guidelines/decision",
-    "guidelines/patterns",
-    "docs/audit/v0.5.1-guidelines-alignment-audit.md"
+    "guidelines/source/domain-models",
+    "guidelines/reference/components",
+    "guidelines/reference/decision",
+    "guidelines/reference/patterns"
   ],
   "components": {
     "Button": {
-      "variant": ["primary", "secondary", "ghost", "danger"],
-      "size": ["sm", "md", "lg"]
+      "variant": [
+        "primary",
+        "secondary",
+        "ghost",
+        "danger"
+      ],
+      "size": [
+        "sm",
+        "md",
+        "lg"
+      ]
     },
     "MasterDetailLayout": {
-      "detailMode": ["inline", "overlay"],
-      "detailWidth": ["sm", "md", "lg"]
+      "detailMode": [
+        "inline",
+        "overlay"
+      ],
+      "detailWidth": [
+        "sm",
+        "md",
+        "lg"
+      ]
     },
     "RecommendationReviewPanel": {
-      "mode": ["card", "section", "drawer"],
-      "validationStatus": ["not-reviewed", "internal-review-needed", "internally-validated", "customer-ready", "blocked"],
-      "customerReadiness": ["internal", "needs-review", "customer-ready", "needs_review", "customer_ready"],
-      "proofReadiness": ["not-available", "expected-only", "internal-proof", "customer-ready-proof"],
-      "humanValidation": ["not-required", "recommended", "required"]
+      "mode": [
+        "card",
+        "section",
+        "drawer"
+      ],
+      "validationStatus": [
+        "not-reviewed",
+        "internal-review-needed",
+        "internally-validated",
+        "customer-ready",
+        "blocked"
+      ],
+      "customerReadiness": [
+        "internal",
+        "needs-review",
+        "customer-ready",
+        "needs_review",
+        "customer_ready"
+      ],
+      "proofReadiness": [
+        "not-available",
+        "expected-only",
+        "internal-proof",
+        "customer-ready-proof"
+      ],
+      "humanValidation": [
+        "not-required",
+        "recommended",
+        "required"
+      ]
     },
     "WorkspaceDetailPanel": {
-      "mode": ["inline", "overlay", "section"]
+      "mode": [
+        "inline",
+        "overlay",
+        "section"
+      ]
     },
     "StatusPill": {
-      "tone": ["neutral", "success", "warning", "danger", "info"]
+      "tone": [
+        "neutral",
+        "success",
+        "warning",
+        "danger",
+        "info"
+      ]
     },
     "PriorityPill": {
-      "priority": ["low", "medium", "high", "critical"]
+      "priority": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ]
     },
     "SourceStrengthPill": {
-      "strength": ["unknown", "partial", "single-source", "multi-source", "validated"]
+      "strength": [
+        "unknown",
+        "partial",
+        "single-source",
+        "multi-source",
+        "validated"
+      ]
     },
     "SemanticTag": {
-      "tone": ["neutral", "info", "success", "warning", "danger"]
+      "tone": [
+        "neutral",
+        "info",
+        "success",
+        "warning",
+        "danger"
+      ]
     },
     "ActionRow": {
-      "priority": ["low", "medium", "high", "critical"],
-      "status": ["todo", "in-progress", "blocked", "done", "in_progress"]
+      "priority": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "status": [
+        "todo",
+        "in-progress",
+        "blocked",
+        "done",
+        "in_progress"
+      ]
     },
     "ActionCard": {
-      "priority": ["low", "medium", "high", "critical"],
-      "status": ["todo", "in-progress", "blocked", "done", "in_progress"]
+      "priority": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "status": [
+        "todo",
+        "in-progress",
+        "blocked",
+        "done",
+        "in_progress"
+      ]
     },
     "AlertCard": {
-      "severity": ["critical", "warning", "info"],
-      "sourceStrength": ["unknown", "partial", "single-source", "multi-source", "validated"],
-      "validationStatus": ["not-reviewed", "internal-review-needed", "internally-validated", "customer-ready", "blocked"]
+      "severity": [
+        "critical",
+        "warning",
+        "info"
+      ],
+      "sourceStrength": [
+        "unknown",
+        "partial",
+        "single-source",
+        "multi-source",
+        "validated"
+      ],
+      "validationStatus": [
+        "not-reviewed",
+        "internal-review-needed",
+        "internally-validated",
+        "customer-ready",
+        "blocked"
+      ]
     },
     "RecommendationCard": {
-      "priority": ["low", "medium", "high", "critical"],
-      "readiness": ["internal", "needs-review", "customer-ready", "needs_review", "customer_ready"],
-      "proofReadiness": ["not-available", "expected-only", "internal-proof", "customer-ready-proof"],
-      "sourceStrength": ["unknown", "partial", "single-source", "multi-source", "validated"],
-      "validationStatus": ["not-reviewed", "internal-review-needed", "internally-validated", "customer-ready", "blocked"]
+      "priority": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "readiness": [
+        "internal",
+        "needs-review",
+        "customer-ready",
+        "needs_review",
+        "customer_ready"
+      ],
+      "proofReadiness": [
+        "not-available",
+        "expected-only",
+        "internal-proof",
+        "customer-ready-proof"
+      ],
+      "sourceStrength": [
+        "unknown",
+        "partial",
+        "single-source",
+        "multi-source",
+        "validated"
+      ],
+      "validationStatus": [
+        "not-reviewed",
+        "internal-review-needed",
+        "internally-validated",
+        "customer-ready",
+        "blocked"
+      ]
     },
     "Tabs": {
-      "variant": ["underline", "contained"],
-      "size": ["sm", "md"]
+      "variant": [
+        "underline",
+        "contained"
+      ],
+      "size": [
+        "sm",
+        "md"
+      ]
     },
     "Surface": {
-      "variant": ["plain", "bordered", "muted", "selected"],
-      "padding": ["none", "sm", "md", "lg"]
+      "variant": [
+        "plain",
+        "bordered",
+        "muted",
+        "selected"
+      ],
+      "padding": [
+        "none",
+        "sm",
+        "md",
+        "lg"
+      ]
     },
     "Well": {
-      "tone": ["neutral", "primary", "warning", "danger", "success"],
-      "padding": ["sm", "md", "lg"]
+      "tone": [
+        "neutral",
+        "primary",
+        "warning",
+        "danger",
+        "success"
+      ],
+      "padding": [
+        "sm",
+        "md",
+        "lg"
+      ]
     },
     "ListContainer": {
-      "spacing": ["compact", "comfortable", "spacious"]
+      "spacing": [
+        "compact",
+        "comfortable",
+        "spacious"
+      ]
     },
     "ReviewQueueRow": {
-      "density": ["comfortable", "spacious"],
-      "priority": ["low", "medium", "high", "critical"],
-      "sourceStrength": ["unknown", "partial", "single-source", "multi-source", "validated"]
+      "density": [
+        "comfortable",
+        "spacious"
+      ],
+      "priority": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "sourceStrength": [
+        "unknown",
+        "partial",
+        "single-source",
+        "multi-source",
+        "validated"
+      ]
     },
     "ConnectivityCoverageCard": {
-      "mode": ["card", "section", "compact"],
-      "sourceStrength": ["unknown", "partial", "single-source", "multi-source", "validated"],
-      "validationStatus": ["not-reviewed", "internal-review-needed", "internally-validated", "customer-ready", "blocked"]
+      "mode": [
+        "card",
+        "section",
+        "compact"
+      ],
+      "sourceStrength": [
+        "unknown",
+        "partial",
+        "single-source",
+        "multi-source",
+        "validated"
+      ],
+      "validationStatus": [
+        "not-reviewed",
+        "internal-review-needed",
+        "internally-validated",
+        "customer-ready",
+        "blocked"
+      ]
     },
     "CustomerStatusCard": {
-      "mode": ["card", "section", "compact"]
+      "mode": [
+        "card",
+        "section",
+        "compact"
+      ]
     },
     "AssetIntelligenceSummary": {
-      "mode": ["card", "section", "compact"],
-      "readiness": ["internal", "needs-review", "customer-ready", "needs_review", "customer_ready"],
-      "sourceStrength": ["unknown", "partial", "single-source", "multi-source", "validated"],
-      "validationStatus": ["not-reviewed", "internal-review-needed", "internally-validated", "customer-ready", "blocked"]
+      "mode": [
+        "card",
+        "section",
+        "compact"
+      ],
+      "readiness": [
+        "internal",
+        "needs-review",
+        "customer-ready",
+        "needs_review",
+        "customer_ready"
+      ],
+      "sourceStrength": [
+        "unknown",
+        "partial",
+        "single-source",
+        "multi-source",
+        "validated"
+      ],
+      "validationStatus": [
+        "not-reviewed",
+        "internal-review-needed",
+        "internally-validated",
+        "customer-ready",
+        "blocked"
+      ]
     },
     "RenewalRiskSummary": {
-      "renewalReadiness": ["internal", "needs-review", "customer-ready", "needs_review", "customer_ready"],
-      "proofReadiness": ["not-available", "expected-only", "internal-proof", "customer-ready-proof"],
-      "validationStatus": ["not-reviewed", "internal-review-needed", "internally-validated", "customer-ready", "blocked"]
+      "renewalReadiness": [
+        "internal",
+        "needs-review",
+        "customer-ready",
+        "needs_review",
+        "customer_ready"
+      ],
+      "proofReadiness": [
+        "not-available",
+        "expected-only",
+        "internal-proof",
+        "customer-ready-proof"
+      ],
+      "validationStatus": [
+        "not-reviewed",
+        "internal-review-needed",
+        "internally-validated",
+        "customer-ready",
+        "blocked"
+      ]
     },
     "ServiceRiskSummary": {
-      "mode": ["card", "section", "compact"],
-      "riskLevel": ["critical", "warning", "info"],
-      "sourceStrength": ["unknown", "partial", "single-source", "multi-source", "validated"],
-      "validationStatus": ["not-reviewed", "internal-review-needed", "internally-validated", "customer-ready", "blocked"]
+      "mode": [
+        "card",
+        "section",
+        "compact"
+      ],
+      "riskLevel": [
+        "critical",
+        "warning",
+        "info"
+      ],
+      "sourceStrength": [
+        "unknown",
+        "partial",
+        "single-source",
+        "multi-source",
+        "validated"
+      ],
+      "validationStatus": [
+        "not-reviewed",
+        "internal-review-needed",
+        "internally-validated",
+        "customer-ready",
+        "blocked"
+      ]
     },
     "ValueProofCard": {
-      "mode": ["card", "section", "compact"],
-      "proofReadiness": ["not-available", "expected-only", "internal-proof", "customer-ready-proof"],
-      "validationStatus": ["not-reviewed", "internal-review-needed", "internally-validated", "customer-ready", "blocked"]
+      "mode": [
+        "card",
+        "section",
+        "compact"
+      ],
+      "proofReadiness": [
+        "not-available",
+        "expected-only",
+        "internal-proof",
+        "customer-ready-proof"
+      ],
+      "validationStatus": [
+        "not-reviewed",
+        "internal-review-needed",
+        "internally-validated",
+        "customer-ready",
+        "blocked"
+      ]
     }
   },
   "generationPreference": {

@@ -5,7 +5,7 @@
   "sourceGuidelines": [
     "guidelines/Guidelines.md",
     "guidelines/setup.md",
-    "guidelines/review/blocking-checklist.md"
+    "guidelines/evaluation/review/blocking-checklist.md"
   ],
   "packageName": "design-system-ai-lab",
   "requiredStyleImport": "design-system-ai-lab/styles.css",
