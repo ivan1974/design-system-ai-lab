@@ -40,7 +40,13 @@ Include evidence, validation and action sections when they affect the decision.
 
 ## Controlled values
 
-Follow `contracts/props.contract.json#WorkspaceDetailPanel` when controlled values are used.
+Follow `contracts/props.contract.json#WorkspaceDetailPanel`.
+
+```txt
+mode: inline, overlay, section
+```
+
+Do not invent `mode` values.
 
 ## GenAI generation rules
 
