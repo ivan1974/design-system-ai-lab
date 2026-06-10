@@ -50,13 +50,13 @@ Domain model alignment
 
 ## Section contract
 
-### Purpose
+### Purpose section
 
 Explain the role of the component in one or two sentences.
 
 The purpose must say what decision, task or perception the component supports.
 
-### Use this component when
+### Use section
 
 List the conditions that make this component the right choice.
 
@@ -68,7 +68,7 @@ Use this component when the user must compare...
 Use this component when evidence must remain visible...
 ```
 
-### Do not use this component when
+### Do not use section
 
 List conditions that should make the AI choose something else.
 
@@ -79,7 +79,7 @@ Do not use this component when...
 Do not use this component for...
 ```
 
-### Prefer this component over
+### Preference section
 
 Name competing components or patterns.
 
@@ -89,7 +89,7 @@ Example:
 Prefer ActionRow over ActionCard for dense repeated action lists.
 ```
 
-### Never generate
+### Never generate section
 
 List hard blockers.
 
@@ -99,25 +99,25 @@ Example:
 Never generate this component without owner, due date and priority.
 ```
 
-### Required props
+### Required props section
 
 List the props that are mandatory or generation-critical.
 
 Do not list every React prop.
 
-### Controlled values
+### Controlled values section
 
 List only values accepted by TypeScript and `contracts/props.contract.json`.
 
 Do not invent future values.
 
-### GenAI generation rules
+### GenAI generation rules section
 
 Explain how Make or another generative AI should compose the component.
 
 Rules should be imperative and testable.
 
-### Common generation failures
+### Common generation failures section
 
 List predictable mistakes.
 
@@ -129,7 +129,7 @@ Why it fails: ...
 Fix: ...
 ```
 
-### Repair prompt
+### Repair prompt section
 
 Link to a repair prompt when one exists.
 
@@ -145,7 +145,7 @@ If no repair prompt exists yet, write:
 No dedicated repair prompt yet. Use review/repair-routing.md.
 ```
 
-### Related stories
+### Related stories section
 
 List Storybook proof.
 
@@ -156,7 +156,7 @@ src/design-system/stories/file.stories.tsx
 Story title: ...
 ```
 
-### Related contracts
+### Related contracts section
 
 List machine-readable contracts that must match this guideline.
 
