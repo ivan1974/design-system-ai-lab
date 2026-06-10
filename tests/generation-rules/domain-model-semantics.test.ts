@@ -23,7 +23,7 @@ type DomainModelContract = {
     rule: string;
     blockedConfusions: string[];
   }>;
-  forbiddenPhrases: string[];
+  forbiddenClaims: string[];
   requiredFilesToScan: string[];
 };
 
@@ -80,7 +80,7 @@ describe("generation rules: domain model semantics", () => {
     const requiredPhrases = [
       "an action is an owned next step",
       "a recommendation is not proven value",
-      "is not proof by itself",
+      "evidence is not interpretation, ai confidence or proof by itself",
       "expected outcome is not proven value",
       "do not use ai confidence as source strength",
       "customer readiness is not validation status",
@@ -92,14 +92,14 @@ describe("generation rules: domain model semantics", () => {
     }
   });
 
-  it("does not include forbidden semantic confusions in prompts, golden examples or benchmark cases", () => {
+  it("does not include forbidden semantic claims in prompts, golden examples or benchmark cases", () => {
     const files = contract.requiredFilesToScan.flatMap(listScannedFiles);
 
     for (const file of files) {
       const content = read(file).toLowerCase();
-      for (const forbiddenPhrase of contract.forbiddenPhrases) {
-        expect(content, `${file} contains forbidden phrase: ${forbiddenPhrase}`).not.toContain(
-          forbiddenPhrase.toLowerCase(),
+      for (const forbiddenClaim of contract.forbiddenClaims) {
+        expect(content, `${file} contains forbidden semantic claim: ${forbiddenClaim}`).not.toContain(
+          forbiddenClaim.toLowerCase(),
         );
       }
     }
