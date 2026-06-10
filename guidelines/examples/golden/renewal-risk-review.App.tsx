@@ -3,13 +3,12 @@ import {
   AlertCard,
   Button,
   FilterBar,
-  KeyValueList,
-  KeyValueRow,
   ListContainer,
   MasterDetailLayout,
   PageHeading,
   RecommendationCard,
   RecommendationReviewPanel,
+  RenewalRiskSummary,
   RiskQueueRow,
   SectionBlock,
   SectionHeading,
@@ -29,7 +28,7 @@ const blockers = [
   {
     title: "Customer-ready proof is incomplete",
     scope: "Renewal preparation",
-    description: "Internal activity exists but has not been translated into validated customer proof.",
+    description: "Internal activity has not been translated into validated customer proof.",
     label: "Proof gap",
     tone: "warning" as const,
     selected: true,
@@ -44,7 +43,7 @@ const blockers = [
   {
     title: "Recommendations need source review",
     scope: "Recommendation readiness",
-    description: "Recommendations cannot be used until source scope and proof status are reviewed.",
+    description: "Recommendations require source and proof review before customer use.",
     label: "Review needed",
     tone: "warning" as const,
   },
@@ -85,14 +84,23 @@ export default function App() {
           detailLabel="Selected blocker detail"
           list={
             <SectionStack gap="lg">
-              <SectionBlock title="Renewal snapshot">
-                <KeyValueList columns={2}>
-                  <KeyValueRow label="Customer" value="Northstar Manufacturing" />
-                  <KeyValueRow label="Readiness" value="Medium" />
-                  <KeyValueRow label="Proof" value="Internal only" />
-                  <KeyValueRow label="Actions" value="4 overdue" />
-                </KeyValueList>
-              </SectionBlock>
+              <RenewalRiskSummary
+                customerName="Northstar Manufacturing"
+                plan="Advanced service plan"
+                contract="#NS-2024-118"
+                renewalDate="Sep 15, 2026"
+                renewalWindow="90 days"
+                renewalReadiness="Medium"
+                valueProofStatus="Incomplete"
+                recommendationsReviewed="5 of 12"
+                overdueActions="4 mitigation actions"
+                renewalRiskReason="Customer-ready proof and mitigation ownership are not complete."
+                customerObjective="Improve service visibility before renewal"
+                proofReadiness="Internal proof, not customer-ready"
+                validationStatus="Proof review needed before customer use"
+                sourceContext="Closed service actions and recommendation history from the last 90 days"
+                badges={[{ label: "Proof review needed", tone: "warning" }]}
+              />
 
               <SectionHeading
                 title="Renewal blocker queue"
@@ -166,8 +174,8 @@ export default function App() {
                     title="Renewal value proof is not customer-ready"
                     scope="Renewal preparation"
                     description="Internal proof exists but cannot yet support the renewal discussion."
-                    recommendation="Prepare a customer-ready value proof summary before the renewal meeting."
-                    evidenceSummary="Internal proof exists, but validation is still needed before customer use."
+                    recommendation="Prepare a validated customer-ready value proof summary before the renewal meeting."
+                    evidenceSummary="Closed actions are available, but the customer-ready narrative is still missing."
                     sourceScope="Closed service actions and recommendation history"
                     sourceStrength="partial"
                     freshness="Last 90 days"
@@ -185,8 +193,8 @@ export default function App() {
                   proofContext="Internal proof, not customer-ready"
                 >
                   <RecommendationCard
-                    title="Prepare customer-ready value proof summary"
-                    recommendation="Prepare a customer-ready value proof summary before the renewal meeting."
+                    title="Prepare value proof summary"
+                    recommendation="Create a customer-ready proof summary that connects closed actions to outcomes."
                     priority="high"
                     readiness="needs_review"
                     rationale="The renewal discussion needs evidence of customer-relevant outcomes."
@@ -213,11 +221,10 @@ export default function App() {
 
         {/*
           v0.4 reference:
-          - PageHeading and SectionHeading establish hierarchy.
+          - RenewalRiskSummary handles renewal context instead of a generic snapshot.
           - RiskQueueRow inside ListContainer replaces generic risk cards as the list layer.
-          - WorkspaceDetailPanel replaces static detail panel.
-          - Tabs provide package-controlled panel navigation.
-          - White-first styling is provided by package tokens and components.
+          - RecommendationReviewPanel and RecommendationCard handle selected proof follow-through.
+          - WorkspaceDetailPanel and Tabs provide package-controlled detail navigation.
         */}
       </WorkspaceShell>
     </main>
