@@ -41,7 +41,7 @@ const reusablePromptRequiredSnippets = [
 
 const reusablePromptRequiredPatterns = [
   /Do not generate (a )?generic dashboard/,
-  /Do not create (a )?card (stack|saturation)/,
+  /Do not (create|generate)( a)? (card stack|card stacks|card saturation|long stack of equal cards)/,
 ];
 
 const forbiddenPromptSnippets = [
