@@ -5,8 +5,12 @@ import { KeyValueList, KeyValueRow } from "../components/key-value-list";
 import { SectionBlock, SectionStack } from "../composition/section-stack";
 import { StatusPill } from "../decision/status-pill";
 import type { StatusSummaryBadge, StatusSummaryItem } from "../decision/status-summary";
+import type { RiskLevel } from "../types/decision";
+import { riskLevelLabels } from "../types/decision";
+import type { SourceStrength, ValidationStatus } from "../types/trust";
+import { sourceStrengthLabels, validationStatusLabels } from "../types/trust";
 
-export type ServiceRiskLevel = "critical" | "warning" | "info";
+export type ServiceRiskLevel = RiskLevel;
 export type ServiceRiskSummaryMode = "card" | "section" | "compact";
 
 export type ServiceRiskSummaryProps = Omit<
@@ -19,21 +23,17 @@ export type ServiceRiskSummaryProps = Omit<
   customerImpact?: string;
   serviceImpact?: string;
   sourceContext?: string;
-  sourceStrength?: string;
+  sourceStrength?: SourceStrength;
+  sourceStrengthLabel?: string;
   freshness?: string;
-  validationStatus?: string;
+  validationStatus?: ValidationStatus;
+  validationStatusLabel?: string;
   recommendedReview?: string;
   badges?: StatusSummaryBadge[];
   extraItems?: StatusSummaryItem[];
   title?: string;
   description?: string;
   mode?: ServiceRiskSummaryMode;
-};
-
-const riskLevelLabel: Record<ServiceRiskLevel, string> = {
-  critical: "Critical",
-  warning: "Warning",
-  info: "Information",
 };
 
 const riskTone: Record<ServiceRiskLevel, "danger" | "warning" | "primary"> = {
@@ -55,8 +55,10 @@ export const ServiceRiskSummary = forwardRef<
       serviceImpact,
       sourceContext,
       sourceStrength,
+      sourceStrengthLabel,
       freshness,
       validationStatus,
+      validationStatusLabel,
       recommendedReview,
       badges = [],
       extraItems = [],
@@ -71,7 +73,7 @@ export const ServiceRiskSummary = forwardRef<
     const content = (
       <SectionStack gap="sm">
         <div className="flex flex-wrap gap-2">
-          <StatusPill tone={riskTone[riskLevel]}>{riskLevelLabel[riskLevel]}</StatusPill>
+          <StatusPill tone={riskTone[riskLevel]}>{riskLevelLabels[riskLevel]}</StatusPill>
           {badges.map((badge) => (
             <StatusPill key={badge.label} tone={badge.tone ?? "neutral"}>{badge.label}</StatusPill>
           ))}
@@ -87,9 +89,9 @@ export const ServiceRiskSummary = forwardRef<
             {customerImpact && <KeyValueRow label="Customer impact" value={customerImpact} />}
             {serviceImpact && <KeyValueRow label="Service impact" value={serviceImpact} />}
             {sourceContext && <KeyValueRow label="Source context" value={sourceContext} />}
-            {sourceStrength && <KeyValueRow label="Source strength" value={sourceStrength} />}
+            {sourceStrength && <KeyValueRow label="Source strength" value={sourceStrengthLabel ?? sourceStrengthLabels[sourceStrength]} />}
             {freshness && <KeyValueRow label="Freshness" value={freshness} />}
-            {validationStatus && <KeyValueRow label="Validation" value={validationStatus} />}
+            {validationStatus && <KeyValueRow label="Validation" value={validationStatusLabel ?? validationStatusLabels[validationStatus]} />}
             {recommendedReview && <KeyValueRow label="Recommended review" value={recommendedReview} />}
             {extraItems.map((item) => (
               <KeyValueRow key={item.label} label={item.label} value={item.value} />
