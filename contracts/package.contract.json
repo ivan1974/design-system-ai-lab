@@ -1,0 +1,37 @@
+{
+  "$schema": "./schema/generation-contract.schema.json",
+  "name": "package",
+  "version": "0.5.0",
+  "sourceGuidelines": [
+    "guidelines/Guidelines.md",
+    "guidelines/setup.md",
+    "guidelines/review/blocking-checklist.md"
+  ],
+  "packageName": "design-system-ai-lab",
+  "requiredStyleImport": "design-system-ai-lab/styles.css",
+  "allowedImports": [
+    "design-system-ai-lab"
+  ],
+  "forbiddenImports": [
+    "design-system-ai-lab/dist",
+    "design-system-ai-lab/src",
+    "./components/ui",
+    "packages/design-system-ai-lab",
+    "src/design-system",
+    "src/components/ui",
+    "components/ui"
+  ],
+  "forbiddenLocalFolders": [
+    "packages/design-system-ai-lab",
+    "src/design-system",
+    "src/components/ui",
+    "components/ui"
+  ],
+  "requiredAppFile": "App.tsx",
+  "requiredExport": "default",
+  "notes": [
+    "Generated screens must use the public package root only.",
+    "Generated screens must import the public stylesheet once.",
+    "Generated screens must not recreate a local design system."
+  ]
+}
