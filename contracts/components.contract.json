@@ -1,0 +1,142 @@
+{
+  "$schema": "./schema/generation-contract.schema.json",
+  "name": "components",
+  "version": "0.5.0",
+  "sourceGuidelines": [
+    "guidelines/setup.md",
+    "guidelines/Guidelines.md"
+  ],
+  "approvedImports": {
+    "components": [
+      "Badge",
+      "Breadcrumbs",
+      "Button",
+      "Card",
+      "Dialog",
+      "DialogClose",
+      "DialogFooter",
+      "Divider",
+      "DocumentRow",
+      "HeaderTabs",
+      "Heading",
+      "KeyValueList",
+      "KeyValueRow",
+      "ListContainer",
+      "MetricCard",
+      "PageHeader",
+      "PageHeading",
+      "PanelHeader",
+      "PanelBody",
+      "PanelFooter",
+      "PanelClose",
+      "SecondaryNavigation",
+      "SectionHeading",
+      "SegmentedControl",
+      "SlideOverPanel",
+      "Surface",
+      "Tabs",
+      "Text",
+      "Timeline",
+      "TimelineItem",
+      "Toolbar",
+      "Well"
+    ],
+    "forms": [
+      "Field",
+      "Input",
+      "Label",
+      "Select",
+      "Textarea"
+    ],
+    "composition": [
+      "WorkspaceShell",
+      "FilterBar",
+      "MasterDetailLayout",
+      "WorkspaceDetailPanel",
+      "DetailPanel",
+      "DetailPanelHeader",
+      "DetailPanelBody",
+      "DetailPanelFooter",
+      "DetailPanelTabs",
+      "StickyActionBar",
+      "SectionStack",
+      "SectionBlock"
+    ],
+    "decision": [
+      "ActionCard",
+      "ActionList",
+      "ActionRow",
+      "AlertCard",
+      "EvidenceRow",
+      "MetricGrid",
+      "MetricStrip",
+      "PriorityList",
+      "PriorityPill",
+      "RecommendationCard",
+      "ReviewQueueRow",
+      "SectionHeader",
+      "SemanticTag",
+      "SignalRow",
+      "SourceStrengthPill",
+      "StatusPill",
+      "StatusSummary"
+    ],
+    "businessPatterns": [
+      "AssetIntelligenceSummary",
+      "AssetQueueRow",
+      "ConnectivityCoverageCard",
+      "CreateActionDialog",
+      "CustomerQueueRow",
+      "CustomerReviewReadinessCard",
+      "CustomerStatusCard",
+      "RecommendationQueueRow",
+      "RecommendationReviewPanel",
+      "RenewalRiskSummary",
+      "RiskQueueRow",
+      "ServiceRiskSummary",
+      "ValueProofCard"
+    ]
+  },
+  "preferredForNewGeneration": [
+    "WorkspaceShell",
+    "PageHeading",
+    "FilterBar",
+    "MasterDetailLayout",
+    "WorkspaceDetailPanel",
+    "ListContainer",
+    "SectionStack",
+    "SectionBlock",
+    "ActionRow",
+    "EvidenceRow"
+  ],
+  "legacyOrUseWithCare": [
+    {
+      "component": "PageHeader",
+      "reason": "Use PageHeading for page intent in new decision workspaces."
+    },
+    {
+      "component": "DetailPanel",
+      "reason": "Use WorkspaceDetailPanel for new interactive selected-item detail panels."
+    },
+    {
+      "component": "Card",
+      "reason": "Use cards for emphasis, not as the default repeated-object layout primitive."
+    }
+  ],
+  "forbiddenLocalComponents": [
+    "Button",
+    "Card",
+    "Badge",
+    "Pill",
+    "Tag",
+    "Metric",
+    "Tabs",
+    "Drawer",
+    "SidePanel",
+    "QueueItem",
+    "CustomerRow",
+    "AssetRow",
+    "RiskRow",
+    "RecommendationRow"
+  ]
+}
