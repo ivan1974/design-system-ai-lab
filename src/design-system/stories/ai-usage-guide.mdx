@@ -2,7 +2,7 @@ import { Meta } from "@storybook/addon-docs/blocks";
 
 <Meta title="Design System/AI Usage Guide" />
 
-# AI Usage Guide — v0.3.0
+# AI Usage Guide — v0.4.0
 
 This Storybook page is a short orientation guide.
 
@@ -13,22 +13,26 @@ guidelines/Guidelines.md
 guidelines/principles/ai-usage.md
 guidelines/principles/evidence-and-trust.md
 guidelines/prompts/workspace-v2.md
+guidelines/review/blocking-checklist.md
 ```
 
 ---
 
 ## Core message
 
-The AI should not generate from imagination.
+AI should compose inside the design system.
 
-It should compose first drafts from:
+It should not generate from imagination or create a competing visual system.
+
+A useful AI-generated screen should combine:
 
 - the package vocabulary
-- the design tokens
-- the screen architecture rules
-- the business patterns
-- the prompt constraints
+- the v0.4.0 workspace structure
+- the white-first visual system
+- the approved decision components
+- the approved business patterns
 - the evidence and trust rules
+- the repair prompts
 - the golden examples
 
 ---
@@ -39,7 +43,7 @@ Use this model:
 
 ```txt
 BI shows what is happening.
-GenAI helps explain what it means and what to do next.
+GenAI helps explain what it may mean and what to do next.
 Workflow helps users execute.
 Human validation protects critical decisions.
 ```
@@ -63,8 +67,7 @@ Use AI only for:
 synthesis
 explanation
 prioritization
-recommendation
-drafting
+recommendation drafting
 reformulation
 proof gap explanation
 customer-ready wording after evidence is visible
@@ -72,18 +75,47 @@ customer-ready wording after evidence is visible
 
 ---
 
+## v0.4.0 workspace expectation
+
+AI-generated screens should follow the v0.4.0 decision workspace standard:
+
+```txt
+PageHeading
+→ FilterBar or SecondaryNavigation
+→ MasterDetailLayout
+→ ListContainer with QueueRows
+→ WorkspaceDetailPanel
+→ Tabs when detail has multiple review questions
+→ EvidenceRow, RecommendationReviewPanel, RecommendationCard and ActionRow when relevant
+```
+
+Use business patterns before generic cards when the section intent matches:
+
+```txt
+CustomerStatusCard
+CustomerReviewReadinessCard
+ConnectivityCoverageCard
+AssetIntelligenceSummary
+RenewalRiskSummary
+ValueProofCard
+ServiceRiskSummary
+RecommendationReviewPanel
+```
+
+---
+
 ## Trust rules
 
-Generated screens should show:
+Generated screens should make this sequence visible:
 
 ```txt
 facts
 → source scope
 → source strength
 → signals
-→ recommendations
-→ actions
+→ interpretation or recommendation
 → validation status
+→ action
 ```
 
 Do not claim:
@@ -93,26 +125,7 @@ Do not claim:
 - proven value without evidence
 - customer-ready proof without validation
 - complete asset visibility when visibility is partial
-
----
-
-## Workspace v2 link
-
-For v0.3.0, AI-generated screens should follow the decision workspace standard:
-
-```txt
-WorkspaceShell
-→ FilterBar
-→ MasterDetailLayout
-→ DetailPanel
-→ evidence and actions
-```
-
-See:
-
-```txt
-guidelines/prompts/workspace-v2.md
-```
+- non-connected assets as live-monitored assets
 
 ---
 
@@ -126,12 +139,28 @@ Design System / Golden Examples
 
 to judge whether generated screens preserve:
 
-- evidence hierarchy
+- PageHeading and SectionHeading hierarchy
+- white-first visual style
+- row density with ListContainer and QueueRows
+- WorkspaceDetailPanel for selected detail
 - source visibility
 - human validation
 - actionable follow-up
-- workspace structure
 - low card saturation
+
+---
+
+## Repair prompts
+
+When Make output drifts, use the repair prompts:
+
+```txt
+guidelines/repair-prompts/weak-typography-hierarchy.md
+guidelines/repair-prompts/overdecorated-surface.md
+guidelines/repair-prompts/poor-row-density.md
+guidelines/repair-prompts/missing-list-container.md
+guidelines/repair-prompts/invalid-props-or-local-visual-components.md
+```
 
 ---
 
@@ -139,4 +168,4 @@ to judge whether generated screens preserve:
 
 AI can accelerate first draft production.
 
-It does not replace design judgment.
+It does not replace design judgment, source validation or the governed design system vocabulary.
