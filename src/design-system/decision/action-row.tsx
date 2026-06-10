@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 import type { HTMLAttributes, ReactNode } from "react";
-import type { ActionPriority, ActionStatus } from "./action-card";
+import type { ActionPriority, ActionStatus } from "../types/action";
 
 export type ActionRowProps = HTMLAttributes<HTMLDivElement> & {
   title: string;
