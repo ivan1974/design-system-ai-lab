@@ -112,7 +112,7 @@ export const CriticalDecisionWorkspace: Story = {
             title="Northwind Manufacturing"
             description="Selected account detail, evidence, recommendation and follow-through actions."
             meta={<StatusPill tone="warning">Needs validation</StatusPill>}
-            footer={<ActionRow title="Schedule validation review" owner="CSM" dueDate="2026-06-18" priority="critical" status="open" />}
+            footer={<ActionRow title="Schedule validation review" owner="CSM" dueDate="2026-06-18" priority="critical" status="todo" />}
           >
             <div className="space-y-6">
               <RenewalRiskSummary
@@ -234,7 +234,7 @@ export const CriticalDecisionWorkspace: Story = {
                     owner="CSM"
                     dueDate="2026-06-18"
                     priority="critical"
-                    status="open"
+                    status="todo"
                     context="Required before customer-facing QBR use."
                     action={<Button size="sm">Open task</Button>}
                   />
@@ -243,7 +243,7 @@ export const CriticalDecisionWorkspace: Story = {
                     owner="Service sales"
                     dueDate="2026-06-24"
                     priority="high"
-                    status="planned"
+                    status="in-progress"
                     context="Use only internal-proof items until validation is complete."
                   />
                 </ListContainer>
