@@ -1,101 +1,76 @@
 # RenewalRiskSummary Guidelines
 
+Status: allowed
+
 ## Purpose
 
 `RenewalRiskSummary` shows renewal context, readiness, risk signals, proof gaps and mitigation context.
 
-It helps Make create renewal review screens that separate timing, proof, recommendation review and action needs.
+Use it to clarify what may block renewal and what must happen next.
 
 ## Use this component when
 
-- Renewal timing affects customer or business decision-making.
-- Value proof, recommendation review or overdue actions create renewal risk.
-- The user needs account-level renewal context before inspecting detail.
-- Proof readiness or validation status affects customer-facing renewal discussion.
+- Renewal risk is part of the decision.
+- Proof gaps, service risks or customer readiness affect renewal.
+- The user needs mitigation context before a customer meeting.
 
 ## Do not use this component when
 
 - The screen is not renewal-related.
-- The content is only a recommendation; use `RecommendationCard`.
-- The content is only value proof; use `ValueProofCard`.
-- The content is an action list; use `ActionRow` inside `ListContainer`.
+- There is no evidence or readiness context.
+- A simple status pill or metric is enough.
 
 ## Prefer this component over
 
-- generic `Card` for renewal context
-- metric-only renewal summaries
-- local renewal risk widgets
+- Generic risk cards.
+- Standalone metric cards for renewal readiness.
+- Local renewal dashboards.
 
 ## Never generate
 
-- renewal readiness without proof or validation context when trust matters
-- customer-ready renewal claims based only on internal proof
-- invented renewal windows, contracts or customer objectives
+- Invented renewal risk.
+- Expected outcome as proven renewal value.
+- Customer-ready proof without validation.
 
 ## Required props
 
-```txt
-customerName
-renewalWindow or renewalDate when known
-renewalReadiness when readiness matters
-valueProofStatus when value proof affects risk
-recommendationsReviewed when recommendation review affects risk
-overdueActions when action backlog affects risk
-proofReadiness when proof maturity matters
-validationStatus when review state matters
-sourceContext when source basis matters
-```
+Show renewal context, risk level, readiness, proof status and mitigation context when available.
 
 ## Controlled values
 
-```txt
-renewalReadiness: internal | needs-review | customer-ready | needs_review | customer_ready
-proofReadiness: not-available | expected-only | internal-proof | customer-ready-proof
-validationStatus: not-reviewed | internal-review-needed | internally-validated | customer-ready | blocked
-```
+Follow `contracts/props.contract.json#RenewalRiskSummary`.
 
-Use hyphenated readiness values in new documentation. Underscore values are deprecated aliases.
+Use canonical risk, proof readiness, validation and customer readiness values.
 
 ## GenAI generation rules
 
-1. Use this pattern before renewal recommendations or actions.
-2. Keep proof readiness visible when value proof affects renewal risk.
-3. Show overdue actions when they are part of the risk.
-4. Do not imply customer readiness unless validation and proof support it.
-5. Use `RecommendationReviewPanel` for recommendation comparison after the summary.
+- Distinguish renewal risk from proof readiness.
+- Show the main blocker first.
+- Keep evidence and validation visible.
+- Add owned mitigation action when follow-through is required.
 
 ## Common generation failures
 
-Failure: Make creates a renewal dashboard with metrics only.
-Why it fails: The user cannot see readiness, proof gaps or mitigation context.
-Fix: Use `RenewalRiskSummary` and then detail patterns.
-
-Failure: Make claims renewal is ready while proof is internal-only.
-Why it fails: Readiness is overstated.
-Fix: Use `needs-review` and show proof readiness.
+- Generic renewal dashboard.
+- Risk without source context.
+- Proof gap hidden in prose.
+- Action missing owner, due date or priority.
 
 ## Repair prompt
 
-Use:
+Use `guidelines/evaluation/repair/missing-evidence.md` when risk evidence is missing.
 
-```txt
-guidelines/evaluation/repair/expected-outcomes-as-proven-value.md
-guidelines/evaluation/repair/missing-human-validation.md
-guidelines/evaluation/repair/too-many-sections.md
-```
+Use `guidelines/evaluation/repair/actions-without-ownership.md` when mitigation action is unowned.
 
 ## Related stories
 
-```txt
-src/design-system/stories/v0.5.1-critical-generation.stories.tsx
-Story title: Design System / v0.5.1 / Critical Generation Coverage
-```
+Story coverage is tracked in the story coverage contract.
 
 ## Related contracts
 
 ```txt
-contracts/components.contract.json
-contracts/props.contract.json
+contracts/component-registry.contract.json#RenewalRiskSummary
+contracts/props.contract.json#RenewalRiskSummary
+contracts/domain-model.contract.json
 contracts/evidence-and-trust.contract.json
-contracts/business-patterns.contract.json
 ```
