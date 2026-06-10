@@ -1,28 +1,20 @@
 import { forwardRef } from "react";
 import type { HTMLAttributes } from "react";
+import type { SourceStrength } from "../types/trust";
+import { sourceStrengthLabels } from "../types/trust";
 
-export type SourceStrength = "strong" | "partial" | "needs_review" | "internal" | "customer_ready" | "unknown";
+export type { SourceStrength } from "../types/trust";
 
 export type SourceStrengthPillProps = HTMLAttributes<HTMLSpanElement> & {
   strength: SourceStrength;
 };
 
-const strengthLabels: Record<SourceStrength, string> = {
-  strong: "Source: strong",
-  partial: "Source: partial",
-  needs_review: "Source: needs review",
-  internal: "Internal proof",
-  customer_ready: "Customer-ready",
-  unknown: "Source: unknown",
-};
-
 const strengthClasses: Record<SourceStrength, string> = {
-  strong: "bg-green-50 text-(--ec-color-success)",
-  partial: "bg-amber-50 text-(--ec-color-warning)",
-  needs_review: "bg-amber-50 text-(--ec-color-warning)",
-  internal: "bg-(--ec-color-surface-muted) text-(--ec-color-text-secondary)",
-  customer_ready: "bg-blue-50 text-(--ec-color-primary)",
   unknown: "bg-(--ec-color-surface-muted) text-(--ec-color-text-secondary)",
+  partial: "bg-amber-50 text-(--ec-color-warning)",
+  "single-source": "bg-blue-50 text-(--ec-color-primary)",
+  "multi-source": "bg-green-50 text-(--ec-color-success)",
+  validated: "bg-green-50 text-(--ec-color-success)",
 };
 
 export const SourceStrengthPill = forwardRef<HTMLSpanElement, SourceStrengthPillProps>(
@@ -37,7 +29,7 @@ export const SourceStrengthPill = forwardRef<HTMLSpanElement, SourceStrengthPill
         ].join(" ")}
         {...props}
       >
-        {strengthLabels[strength]}
+        {sourceStrengthLabels[strength]}
       </span>
     );
   },
