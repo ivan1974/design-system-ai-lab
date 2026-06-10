@@ -40,7 +40,13 @@ Show proof point, proof readiness, source context and validation status when rel
 
 Follow `contracts/props.contract.json#ValueProofCard`.
 
-Use canonical `proofReadiness`, `sourceStrength`, `validationStatus` and `customerReadiness` values.
+The `mode` values are `card`, `section` and `compact`.
+
+The `proofReadiness` values are `not-available`, `expected-only`, `internal-proof` and `customer-ready-proof`.
+
+The `validationStatus` values are `not-reviewed`, `internal-review-needed`, `internally-validated`, `customer-ready` and `blocked`.
+
+Do not invent controlled values.
 
 ## GenAI generation rules
 
