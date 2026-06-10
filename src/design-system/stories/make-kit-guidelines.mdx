@@ -2,7 +2,7 @@ import { Meta } from "@storybook/addon-docs/blocks";
 
 <Meta title="Design System/Make Kit Guidelines" />
 
-# Make Kit Guidelines — v0.3.0
+# Make Kit Guidelines — v0.4.0
 
 This Storybook page is a short visual entry point for the Make kit.
 
@@ -24,15 +24,16 @@ The design system is not a card stack generator.
 
 Figma Make should generate decision workspaces, not generic dashboards.
 
-Preferred structure:
+Preferred v0.4.0 structure:
 
 ```txt
-WorkspaceShell
-→ FilterBar
-→ MasterDetailLayout when list/detail review is needed
-→ DetailPanel / DetailPanelTabs / StickyActionBar for selected-item review
-→ SectionStack / SectionBlock for dense grouping
-→ rows and compact primitives for repeated information
+PageHeading
+→ FilterBar or SecondaryNavigation
+→ MasterDetailLayout
+→ ListContainer with QueueRows
+→ WorkspaceDetailPanel
+→ Tabs when detail has multiple review questions
+→ EvidenceRow, RecommendationReviewPanel, RecommendationCard and ActionRow when relevant
 ```
 
 ---
@@ -44,10 +45,17 @@ Generated screens must import from the package root:
 ```tsx
 import {
   WorkspaceShell,
+  PageHeading,
+  SectionHeading,
   FilterBar,
   MasterDetailLayout,
-  DetailPanel,
-  ActionRow,
+  WorkspaceDetailPanel,
+  ListContainer,
+  AssetQueueRow,
+  RiskQueueRow,
+  RecommendationQueueRow,
+  Tabs,
+  Button,
 } from "design-system-ai-lab";
 ```
 
@@ -65,6 +73,76 @@ Do not recreate package components locally.
 
 ---
 
+## v0.4.0 component families
+
+Use the component family that matches the screen intent.
+
+### Typography
+
+```txt
+PageHeading
+SectionHeading
+Heading
+Text
+```
+
+### Surfaces
+
+```txt
+Surface
+ListContainer
+Well
+Divider
+Toolbar
+```
+
+### Queue rows
+
+```txt
+CustomerQueueRow
+AssetQueueRow
+RiskQueueRow
+RecommendationQueueRow
+ReviewQueueRow
+```
+
+### Interactive detail
+
+```txt
+MasterDetailLayout
+WorkspaceDetailPanel
+SlideOverPanel
+PanelHeader
+PanelBody
+PanelFooter
+PanelClose
+```
+
+### Navigation
+
+```txt
+Tabs
+HeaderTabs
+SegmentedControl
+SecondaryNavigation
+Breadcrumbs
+```
+
+### Business patterns
+
+```txt
+CustomerStatusCard
+CustomerReviewReadinessCard
+ConnectivityCoverageCard
+AssetIntelligenceSummary
+RenewalRiskSummary
+ValueProofCard
+ServiceRiskSummary
+RecommendationReviewPanel
+```
+
+---
+
 ## Current Make kit files
 
 Start with:
@@ -72,9 +150,10 @@ Start with:
 ```txt
 guidelines/Guidelines.md
 guidelines/setup.md
+guidelines/visual-brand.md
+guidelines/workspace-visual-v4.md
 guidelines/tokens.md
 guidelines/styles.md
-guidelines/screen-architecture/README.md
 guidelines/prompts/workspace-v2.md
 ```
 
@@ -90,9 +169,11 @@ guidelines/prompts/qbr-readiness.md
 Use repair prompts from:
 
 ```txt
-guidelines/repair-prompts/card-saturation.md
-guidelines/repair-prompts/weak-layout.md
-guidelines/repair-prompts/missing-detail-panel.md
+guidelines/repair-prompts/weak-typography-hierarchy.md
+guidelines/repair-prompts/overdecorated-surface.md
+guidelines/repair-prompts/poor-row-density.md
+guidelines/repair-prompts/missing-list-container.md
+guidelines/repair-prompts/invalid-props-or-local-visual-components.md
 ```
 
 Use review checklists from:
@@ -101,13 +182,14 @@ Use review checklists from:
 guidelines/review/blocking-checklist.md
 guidelines/review/quality-checklist.md
 guidelines/review/workspace-v2-checklist.md
+guidelines/review/v0.4-component-coverage.md
 ```
 
 ---
 
 ## What to inspect in Storybook
 
-The most important section for v0.3.0 is:
+The most important section for v0.4.0 is:
 
 ```txt
 Design System / Golden Examples
@@ -116,9 +198,10 @@ Design System / Golden Examples
 Use it to judge whether Make output should look more like:
 
 ```txt
-workspace
+white-first workspace
 list/detail review
-detail panel
+queue rows
+interactive detail panel
 evidence hierarchy
 actionable follow-up
 ```
@@ -129,6 +212,7 @@ and less like:
 generic dashboard
 card stack
 decorative analytics page
+local component system
 ```
 
 ---
@@ -139,16 +223,28 @@ Storybook renders the Make-ready golden examples:
 
 ```txt
 Customer Monitoring
-Renewal Risk Review
-Asset Recommendation Review
-Customer Review Readiness
 Installed Base Explorer
+Asset Recommendation Review
+Renewal Risk Review
+Customer Review Readiness / QBR Readiness
 ```
 
 The source files live in:
 
 ```txt
 guidelines/examples/golden/
+```
+
+Each v0.4.0 golden should demonstrate:
+
+```txt
+PageHeading
+SectionHeading
+ListContainer
+QueueRow
+WorkspaceDetailPanel
+white-first visual style
+business patterns when relevant
 ```
 
 ---
@@ -160,7 +256,7 @@ Do not claim that Figma Make replaces designers.
 Correct claim:
 
 > AI becomes more useful when the design system provides the vocabulary, rules,
-> structure and repair prompts for generation.
+> structure, golden examples and repair prompts for generation.
 
 ---
 
