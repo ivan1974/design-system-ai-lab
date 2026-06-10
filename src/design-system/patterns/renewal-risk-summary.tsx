@@ -5,6 +5,10 @@ import type {
   StatusSummaryBadge,
   StatusSummaryItem,
 } from "../decision/status-summary";
+import type { ProofReadiness } from "../types/evidence";
+import { proofReadinessLabels } from "../types/evidence";
+import type { CustomerReadiness, ValidationStatus } from "../types/trust";
+import { customerReadinessLabels, validationStatusLabels } from "../types/trust";
 
 export type RenewalRiskSummaryProps = Omit<
   HTMLAttributes<HTMLElement>,
@@ -15,14 +19,17 @@ export type RenewalRiskSummaryProps = Omit<
   renewalWindow?: string;
   plan?: string;
   contract?: string;
-  renewalReadiness?: string;
+  renewalReadiness?: CustomerReadiness;
+  renewalReadinessLabel?: string;
   valueProofStatus?: string;
   recommendationsReviewed?: string;
   overdueActions?: string;
   renewalRiskReason?: string;
   customerObjective?: string;
-  proofReadiness?: string;
-  validationStatus?: string;
+  proofReadiness?: ProofReadiness;
+  proofReadinessLabel?: string;
+  validationStatus?: ValidationStatus;
+  validationStatusLabel?: string;
   sourceContext?: string;
   badges?: StatusSummaryBadge[];
   extraItems?: StatusSummaryItem[];
@@ -42,13 +49,16 @@ export const RenewalRiskSummary = forwardRef<
       plan,
       contract,
       renewalReadiness,
+      renewalReadinessLabel,
       valueProofStatus,
       recommendationsReviewed,
       overdueActions,
       renewalRiskReason,
       customerObjective,
       proofReadiness,
+      proofReadinessLabel,
       validationStatus,
+      validationStatusLabel,
       sourceContext,
       badges = [],
       extraItems = [],
@@ -67,7 +77,7 @@ export const RenewalRiskSummary = forwardRef<
       ...(plan ? [{ label: "Plan", value: plan }] : []),
       ...(contract ? [{ label: "Contract", value: contract }] : []),
       ...(renewalReadiness
-        ? [{ label: "Renewal readiness", value: renewalReadiness }]
+        ? [{ label: "Renewal readiness", value: renewalReadinessLabel ?? customerReadinessLabels[renewalReadiness] }]
         : []),
       ...(valueProofStatus
         ? [{ label: "Value proof status", value: valueProofStatus }]
@@ -90,10 +100,10 @@ export const RenewalRiskSummary = forwardRef<
         ? [{ label: "Customer objective", value: customerObjective }]
         : []),
       ...(proofReadiness
-        ? [{ label: "Proof readiness", value: proofReadiness }]
+        ? [{ label: "Proof readiness", value: proofReadinessLabel ?? proofReadinessLabels[proofReadiness] }]
         : []),
       ...(validationStatus
-        ? [{ label: "Validation status", value: validationStatus }]
+        ? [{ label: "Validation status", value: validationStatusLabel ?? validationStatusLabels[validationStatus] }]
         : []),
       ...(sourceContext
         ? [{ label: "Source context", value: sourceContext }]
