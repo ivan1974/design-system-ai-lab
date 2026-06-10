@@ -11,7 +11,7 @@
 ## Automated checks
 
 ```txt
-GENERATED_APP_PATH=benchmarks/figma-make/outputs/<output-file>.tsx npm run test:generation
+GENERATED_APP_PATH=benchmarks/figma-make/outputs/output-file.tsx npm run test:generation
 ```
 
 - Test result: Pass / Fail
@@ -19,15 +19,47 @@ GENERATED_APP_PATH=benchmarks/figma-make/outputs/<output-file>.tsx npm run test:
 
 ## Score
 
-| Dimension | Points | Score | Notes |
-| --- | ---: | ---: | --- |
-| Package contract | 20 |  |  |
-| Workspace architecture | 20 |  |  |
-| Component and pattern usage | 15 |  |  |
-| Evidence and trust | 20 |  |  |
-| Actionability | 15 |  |  |
-| Visual sobriety and accessibility | 10 |  |  |
-| Total | 100 |  |  |
+Package contract:
+
+- Maximum: 20
+- Score:
+- Notes:
+
+Workspace architecture:
+
+- Maximum: 20
+- Score:
+- Notes:
+
+Component and pattern usage:
+
+- Maximum: 15
+- Score:
+- Notes:
+
+Evidence and trust:
+
+- Maximum: 20
+- Score:
+- Notes:
+
+Actionability:
+
+- Maximum: 15
+- Score:
+- Notes:
+
+Visual sobriety and accessibility:
+
+- Maximum: 10
+- Score:
+- Notes:
+
+Total:
+
+- Maximum: 100
+- Score:
+- Notes:
 
 ## Status
 
@@ -42,9 +74,9 @@ Choose one:
 
 List only concrete fixes.
 
-- 
-- 
-- 
+- Repair note 1:
+- Repair note 2:
+- Repair note 3:
 
 ## Decision
 
