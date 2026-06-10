@@ -1,4 +1,4 @@
-# Setup Guidelines v0.5
+# Setup Guidelines v0.5.1
 
 ## Purpose
 
@@ -86,6 +86,7 @@ import {
   CustomerReviewReadinessCard,
   ConnectivityCoverageCard,
   AssetIntelligenceSummary,
+  ComponentHierarchy,
   RenewalRiskSummary,
   ValueProofCard,
   ServiceRiskSummary,
@@ -147,6 +148,33 @@ The package should continue to expose only:
 ```
 
 This keeps Make focused on the public API and prevents reliance on implementation details.
+
+---
+
+## Preferred generation vocabulary
+
+For new generated decision workspaces, prefer:
+
+```txt
+PageHeading over PageHeader
+WorkspaceDetailPanel over DetailPanel for selected-item detail
+MetricStrip with CompactMetric for compact signal groups
+ComponentHierarchy for asset hierarchy
+ListContainer with approved row components for repeated objects
+SectionStack and SectionBlock for dense grouped sections
+ActionRow or StickyActionBar for follow-through
+```
+
+Use with care:
+
+```txt
+PageHeader → legacy page header, not the default for new decision workspaces
+DetailPanel → lower-level primitive, not the default selected-item detail panel
+ComponentHierarchyItem → use only inside ComponentHierarchy
+Card → emphasis container, not the default repeated-object layout
+```
+
+If a preferred component matches the user decision, do not fall back to a lower-level or legacy component.
 
 ---
 
@@ -215,6 +243,11 @@ mode
 size
 status
 readiness
+riskLevel
+proofReadiness
+validationStatus
+sourceStrength
+density
 ```
 
 If uncertain, simplify the component usage or choose a documented value.
@@ -266,7 +299,7 @@ WorkspaceShell
 PageHeading
 FilterBar or SecondaryNavigation
 MasterDetailLayout
-ListContainer with QueueRows
+ListContainer with approved queue rows
 WorkspaceDetailPanel
 Tabs where detail has multiple views
 StickyActionBar or ActionRow for follow-through
@@ -279,6 +312,7 @@ CustomerStatusCard
 CustomerReviewReadinessCard
 ConnectivityCoverageCard
 AssetIntelligenceSummary
+ComponentHierarchy
 RenewalRiskSummary
 ValueProofCard
 ServiceRiskSummary
@@ -355,6 +389,7 @@ Badge
 Breadcrumbs
 Button
 Card
+CompactMetric
 Dialog
 DialogClose
 DialogFooter
@@ -366,6 +401,7 @@ KeyValueList
 KeyValueRow
 ListContainer
 MetricCard
+MetricStrip
 PageHeader
 PageHeading
 PanelHeader
@@ -384,6 +420,8 @@ TimelineItem
 Toolbar
 Well
 ```
+
+`PageHeader` is available for legacy screens. Use `PageHeading` for new Make-generated decision workspaces.
 
 ### Forms
 
@@ -412,7 +450,9 @@ SectionStack
 SectionBlock
 ```
 
-Use `WorkspaceDetailPanel` for new interactive detail panels. Keep `DetailPanel` for legacy/static examples only.
+Use `WorkspaceDetailPanel` for new interactive selected-item detail panels.
+
+Keep `DetailPanel` for lower-level composition or legacy/static examples only.
 
 ### Decision components
 
@@ -423,7 +463,6 @@ ActionRow
 AlertCard
 EvidenceRow
 MetricGrid
-MetricStrip
 PriorityList
 PriorityPill
 RecommendationCard
@@ -441,6 +480,8 @@ StatusSummary
 ```txt
 AssetIntelligenceSummary
 AssetQueueRow
+ComponentHierarchy
+ComponentHierarchyItem
 ConnectivityCoverageCard
 CreateActionDialog
 CustomerQueueRow
@@ -454,6 +495,8 @@ ServiceRiskSummary
 ValueProofCard
 ```
 
+Use `ComponentHierarchyItem` only inside `ComponentHierarchy`.
+
 ---
 
 ## Setup validation checklist
@@ -466,12 +509,14 @@ A generated screen passes setup if:
 - it does not recreate package components locally
 - it uses `PageHeading` for page intent
 - it uses `SectionHeading` or `SectionBlock` for section hierarchy
-- repeated review objects use queue rows
+- repeated review objects use approved queue rows
 - queue rows are inside `ListContainer`
 - interactive selected detail uses `WorkspaceDetailPanel`
 - navigation uses `Tabs`, `HeaderTabs`, `SegmentedControl`, `SecondaryNavigation` or `Breadcrumbs`
+- compact signal groups use `MetricStrip` with `CompactMetric`
+- asset hierarchy uses `ComponentHierarchy`
 - business patterns are used before generic cards when they fit
-- all prop values are documented
+- all controlled prop values are documented
 
 ---
 
