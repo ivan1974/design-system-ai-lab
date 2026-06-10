@@ -6,6 +6,18 @@ Generate a customer monitoring decision workspace.
 
 The user must understand which customer or asset needs attention next, why, what evidence exists and what action to take.
 
+## Benchmark status
+
+This is a fixed benchmark case, not reusable prompt guidance.
+
+Reusable guidance lives in:
+
+```txt
+guidelines/prompts/customer-monitoring.md
+```
+
+Do not rewrite benchmark facts unless the scoring objective changes.
+
 ## Prompt for Figma Make
 
 Create a React `App.tsx` screen for a B2B service team monitoring customer sites and connected assets.
