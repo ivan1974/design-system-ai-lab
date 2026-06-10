@@ -17,7 +17,7 @@ If no component fits, simplify the screen instead of creating a local design sys
 ## Preferred selection table
 
 | Need | Prefer |
-|---|---|
+| --- | --- |
 | App shell | `WorkspaceShell` |
 | Page intent | `PageHeading` |
 | Scope and filters | `FilterBar` |
@@ -44,7 +44,7 @@ If no component fits, simplify the screen instead of creating a local design sys
 ## Business pattern selection
 
 | Intent | Prefer |
-|---|---|
+| --- | --- |
 | Customer context | `CustomerStatusCard` |
 | Customer review readiness | `CustomerReviewReadinessCard` |
 | Connectivity coverage | `ConnectivityCoverageCard` |
@@ -67,7 +67,7 @@ If no component fits, simplify the screen instead of creating a local design sys
 Use only with a specific reason:
 
 | Component | Prefer instead | Reason |
-|---|---|---|
+| --- | --- | --- |
 | `PageHeader` | `PageHeading` | Legacy page header |
 | `DetailPanel` | `WorkspaceDetailPanel` | Lower-level primitive |
 | `ComponentHierarchyItem` | `ComponentHierarchy` | Internal item |

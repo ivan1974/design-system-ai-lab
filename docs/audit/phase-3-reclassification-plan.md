@@ -14,7 +14,7 @@ docs/archive/
 ## Result
 
 | Area | Status |
-|---|---|
+| --- | --- |
 | Source material moved under `guidelines/source/` | Done |
 | Reference material moved under `guidelines/reference/` | Done |
 | Review and repair material moved under `guidelines/evaluation/` | Done |

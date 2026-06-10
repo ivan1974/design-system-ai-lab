@@ -246,7 +246,7 @@ It should state:
 v0.6.0 must create or promote these runtime files:
 
 | File | Role |
-|---|---|
+| --- | --- |
 | `runtime/generation-contract.md` | Minimal blocking generation contract |
 | `runtime/generation-flow.md` | Default reasoning flow for generated screens |
 | `runtime/component-selection.md` | Short component and pattern selection table |

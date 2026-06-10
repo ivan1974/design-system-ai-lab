@@ -13,7 +13,7 @@ It does not expand the component library.
 ## Severity scale
 
 | Severity | Meaning |
-|---|---|
+| --- | --- |
 | P0 | Blocks v0.6.0 release |
 | P1 | Required before v0.6.0 release candidate |
 | P2 | Should be completed if low risk |
@@ -24,7 +24,7 @@ It does not expand the component library.
 ## Status scale
 
 | Status | Meaning |
-|---|---|
+| --- | --- |
 | Open | Not started |
 | In progress | Work started |
 | Ready for review | Implemented, awaiting review |
@@ -36,7 +36,7 @@ It does not expand the component library.
 ## Gap register
 
 | ID | Severity | Area | Gap | Target decision | Status |
-|---|---|---|---|---|---|
+| --- | --- | --- | --- | --- | --- |
 | G-001 | P0 | Release scope | v0.6.0 scope must be frozen to prevent component/pattern expansion | Freeze new components, patterns, prompt families and deep UX refactors | Closed |
 | G-002 | P0 | Make entry point | `Guidelines.md` is too broad for a mandatory GenAI entry point | Rewrite as a short router, not full documentation | Closed |
 | G-003 | P0 | Setup | `setup.md` mixes package setup with generation guidance | Reduce to package setup, imports, styles and forbidden local design system rules | Closed |

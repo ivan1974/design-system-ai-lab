@@ -119,7 +119,7 @@ WorkspaceShell
 Use one primary decision per screen.
 
 | User intent | Prefer |
-|---|---|
+| --- | --- |
 | Customer monitoring | `CustomerStatusCard`, `ConnectivityCoverageCard`, `ServiceRiskSummary`, `AlertCard`, `ActionRow` |
 | Renewal risk review | `RenewalRiskSummary`, `CustomerReviewReadinessCard`, `ValueProofCard`, `RecommendationReviewPanel`, `RiskQueueRow` |
 | Asset recommendation review | `AssetIntelligenceSummary`, `ServiceRiskSummary`, `RecommendationReviewPanel`, `RecommendationQueueRow`, `EvidenceRow` |
