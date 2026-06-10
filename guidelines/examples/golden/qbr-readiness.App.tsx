@@ -90,12 +90,12 @@ export default function App() {
                 reviewType="Quarterly Business Review"
                 reviewDate="Jun 24, 2026"
                 customerObjective="Make service value visible before renewal discussion."
-                reviewReadiness="Needs review"
-                proofReadiness="Internal proof, not customer-ready"
-                recommendationReadiness="Source review needed"
+                reviewReadiness="needs-review"
+                proofReadiness="internal-proof"
+                recommendationReadiness="needs-review"
                 riskStatus="Three readiness blockers"
                 actionReadiness="Ownership incomplete"
-                validationStatus="Review before customer use"
+                validationStatus="internal-review-needed"
                 sourceContext="Closed actions, monitoring signals and recommendation history"
                 badges={[{ label: "Not customer-ready", tone: "warning" }]}
               />
@@ -127,8 +127,8 @@ export default function App() {
                 period="Last 90 days"
                 customerObjective="Improve service visibility before renewal"
                 proofStatus="Customer-ready summary incomplete"
-                proofReadiness="Internal proof, not customer-ready"
-                validationStatus="Proof review needed"
+                proofReadiness="internal-proof"
+                validationStatus="internal-review-needed"
                 sourceContext="Closed service actions, resolved risks and recommendation history"
                 expectedOutcome="Stronger customer discussion after proof consolidation"
                 badges={[{ label: "Internal proof", tone: "warning" }]}
@@ -145,11 +145,11 @@ export default function App() {
                 riskSummary="The QBR is not customer-ready because proof and recommendation readiness need review."
                 affectedScope="QBR preparation and renewal discussion"
                 customerImpact="The customer may not clearly see service value delivered during the period."
-                serviceImpact="The Account owner may need to explain open risks without validated proof points."
+                serviceImpact="The account owner may need to explain open risks without validated proof points."
                 sourceContext="Closed actions, monitoring signals and recommendation history"
                 sourceStrength="partial"
                 freshness="Last 90 days"
-                validationStatus="Review before customer use"
+                validationStatus="internal-review-needed"
                 recommendedReview="Close proof gaps and review recommendations before the QBR."
               />
             </SectionStack>
@@ -191,7 +191,7 @@ export default function App() {
                     sourceScope="Closed service actions and recommendation history"
                     sourceStrength="partial"
                     freshness="Last 90 days"
-                    validationStatus="Proof review needed before customer use"
+                    validationStatus="internal-review-needed"
                   />
                 </SectionBlock>
 
@@ -200,15 +200,15 @@ export default function App() {
                   reviewScope="QBR preparation"
                   reviewStatus="Proof and source review needed"
                   sourceContext="Closed service actions and recommendation history"
-                  validationStatus="Review before customer use"
-                  customerReadiness="Not customer-ready yet"
-                  proofContext="Internal proof, not customer-ready"
+                  validationStatus="internal-review-needed"
+                  customerReadiness="needs-review"
+                  proofReadiness="internal-proof"
                 >
                   <RecommendationCard
                     title="Prepare value proof summary"
                     recommendation="Create a customer-ready proof summary that links closed actions to business outcomes."
                     priority="high"
-                    readiness="needs_review"
+                    readiness="needs-review"
                     rationale="The QBR needs customer-relevant proof rather than internal activity reporting."
                     scope="Value proof"
                     evidenceSummary="12 service actions were closed but not synthesized for customer use."
@@ -217,7 +217,7 @@ export default function App() {
                     sourceStrength="partial"
                     freshness="Last 90 days"
                     proofStatus="Internal proof, not customer-ready"
-                    validationStatus="Proof review needed"
+                    validationStatus="internal-review-needed"
                   />
                 </RecommendationReviewPanel>
               </SectionStack>
@@ -227,16 +227,17 @@ export default function App() {
 
         <SectionBlock title="Preparation actions">
           <ActionRow title="Prepare customer-ready value proof summary" owner="Account owner" dueDate="Before QBR" priority="high" status="todo" context="Internal proof needs customer-ready synthesis." />
-          <ActionRow title="Review recommendation readiness with service team" owner="Service Manager" dueDate="Next 3 business days" priority="high" status="in_progress" context="Recommendations need source and proof review." />
+          <ActionRow title="Review recommendation readiness with service team" owner="Service Manager" dueDate="Next 3 business days" priority="high" status="in-progress" context="Recommendations need source and proof review." />
           <ActionRow title="Confirm QBR preparation action owners" owner="Account owner" dueDate="This week" priority="medium" status="todo" context="Open preparation actions need ownership before the meeting." />
         </SectionBlock>
 
         {/*
-          v0.4 reference:
+          v0.5.1 reference:
           - CustomerReviewReadinessCard handles QBR readiness context.
           - RiskQueueRow inside ListContainer replaces generic blocker rows.
           - RecommendationReviewPanel and RecommendationCard handle proof follow-through.
           - WorkspaceDetailPanel and Tabs provide package-controlled detail navigation.
+          - Readiness and validation values use canonical contract values.
         */}
       </WorkspaceShell>
     </main>
