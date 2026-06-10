@@ -129,6 +129,7 @@ export function CreateActionDialog({
               updateValue("priority", event.target.value as ActionPriority)
             }
           >
+            <option value="critical">Critical</option>
             <option value="high">High</option>
             <option value="medium">Medium</option>
             <option value="low">Low</option>
@@ -191,7 +192,7 @@ export function CreateActionDialog({
             >
               <Textarea
                 id="action-source-context"
-                placeholder="CompanyName monitored assets only · Source strength: partial"
+                placeholder="Monitored assets only · Source strength: partial"
                 value={values.sourceContext}
                 onChange={(event) =>
                   updateValue("sourceContext", event.target.value)
