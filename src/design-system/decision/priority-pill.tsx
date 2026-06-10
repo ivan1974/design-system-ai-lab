@@ -1,12 +1,14 @@
 import { forwardRef } from "react";
 import type { HTMLAttributes } from "react";
-import type { ActionPriority } from "./action-card";
+import type { ActionPriority } from "../types/action";
+import { actionPriorityLabels } from "../types/action";
 
 export type PriorityPillProps = HTMLAttributes<HTMLSpanElement> & {
   priority: ActionPriority;
 };
 
 const priorityClasses: Record<ActionPriority, string> = {
+  critical: "bg-red-50 text-(--ec-color-danger)",
   high: "bg-red-50 text-(--ec-color-danger)",
   medium: "bg-amber-50 text-(--ec-color-warning)",
   low: "bg-(--ec-color-surface-muted) text-(--ec-color-text-secondary)",
@@ -24,7 +26,7 @@ export const PriorityPill = forwardRef<HTMLSpanElement, PriorityPillProps>(
         ].join(" ")}
         {...props}
       >
-        {priority} priority
+        {actionPriorityLabels[priority]}
       </span>
     );
   },
