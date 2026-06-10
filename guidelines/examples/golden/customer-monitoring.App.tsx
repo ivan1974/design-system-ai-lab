@@ -82,7 +82,8 @@ export default function App() {
                 coverage="68% connected"
                 customerObjective="Understand what needs attention before the next service review."
                 sourceContext="Connected monitoring data and known installed base"
-                validationStatus="Review before customer communication"
+                validationStatus="internal-review-needed"
+                proofReadiness="expected-only"
                 badges={[{ label: "Partial coverage", tone: "warning" }]}
               />
 
@@ -109,7 +110,7 @@ export default function App() {
                     statusLabel={asset.state}
                     statusTone={asset.tone}
                     priority={asset.state === "Monitored" ? undefined : "high"}
-                    sourceStrength={asset.state === "Monitored" ? "strong" : "partial"}
+                    sourceStrength={asset.state === "Monitored" ? "validated" : "partial"}
                     freshness="18h"
                     selected={asset.selected}
                   />
@@ -153,8 +154,8 @@ export default function App() {
                   lastUpdate="18 hours ago"
                   sourceScope="Monitoring platform and known installed base"
                   sourceStrength="partial"
-                  coverageBasis="Known CompanyName monitored assets only"
-                  validationStatus="Review before customer communication"
+                  coverageBasis="Known monitored assets only"
+                  validationStatus="internal-review-needed"
                 />
 
                 <SectionBlock title="Priority review">
@@ -168,7 +169,7 @@ export default function App() {
                     sourceScope="Monitoring platform and known installed base"
                     sourceStrength="partial"
                     freshness="18 hours"
-                    validationStatus="Review before customer communication"
+                    validationStatus="internal-review-needed"
                   />
                 </SectionBlock>
               </SectionStack>
@@ -178,16 +179,16 @@ export default function App() {
 
         <SectionBlock title="Assigned next actions">
           <ActionRow title="Review monitoring scope" owner="Account owner" dueDate="This week" priority="high" status="todo" context="Clarify what is visible before customer communication." />
-          <ActionRow title="Confirm asset connection status" owner="Remote Support" dueDate="Next 3 business days" priority="high" status="in_progress" context="Validate connected status before recommendations are shared." />
+          <ActionRow title="Confirm asset connection status" owner="Remote Support" dueDate="Next 3 business days" priority="high" status="in-progress" context="Validate connected status before recommendations are shared." />
         </SectionBlock>
 
         {/*
-          v0.4 reference:
+          v0.5.1 reference:
           - CustomerStatusCard handles customer context instead of a local fact block.
-          - PageHeading and SectionHeading establish hierarchy.
+          - ConnectivityCoverageCard handles coverage and visibility limits.
           - AssetQueueRow inside ListContainer replaces generic rows.
-          - WorkspaceDetailPanel replaces static detail panel.
-          - White-first styling is provided by package tokens and components.
+          - WorkspaceDetailPanel provides package-controlled detail review.
+          - Trust values use canonical sourceStrength and validationStatus values.
         */}
       </WorkspaceShell>
     </main>
