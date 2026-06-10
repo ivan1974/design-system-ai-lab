@@ -23,11 +23,11 @@ describe("generation rules: required imports", () => {
     );
   });
 
-  it.each(targets)("$path renders a PageHeader", (target) => {
+  it.each(targets)("$path renders a PageHeading", (target) => {
     expectRequiredPattern(
       target,
-      /<PageHeader\b/,
-      "Expected the generated screen to render PageHeader.",
+      /<PageHeading\b/,
+      "Expected the generated screen to render PageHeading.",
     );
   });
 });
