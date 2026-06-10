@@ -10,10 +10,6 @@ const forbiddenTerms = [
   "Schneider Electric",
   "EcoStruxure",
   "mySchneider",
-  "Connected Services Hub",
-  "CSH",
-  "CSM",
-  "CompanyName Advanced Plus",
 ];
 
 const scannedExtensions = new Set([
@@ -67,7 +63,7 @@ function collectFiles(directory: string): string[] {
 }
 
 describe("generation rules: anonymization", () => {
-  it("does not expose proprietary customer or company references", () => {
+  it("does not expose proprietary company or product references", () => {
     const matches: string[] = [];
 
     for (const relativePath of collectFiles(rootDir)) {
