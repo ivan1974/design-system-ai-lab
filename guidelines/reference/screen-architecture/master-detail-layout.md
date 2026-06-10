@@ -38,9 +38,14 @@ Provide list content and detail content that clearly correspond to the selected 
 
 ## Controlled values
 
-Use public props only.
+Follow `contracts/props.contract.json#MasterDetailLayout`.
 
-Follow `contracts/props.contract.json#MasterDetailLayout` when controlled layout values are present.
+```txt
+detailMode: inline, overlay
+detailWidth: sm, md, lg
+```
+
+Do not invent `detailMode` or `detailWidth` values.
 
 ## GenAI generation rules
 
