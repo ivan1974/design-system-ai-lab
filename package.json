@@ -42,13 +42,14 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "lint:md": "markdownlint \"figma-make-guidelines/**/*.md\" \"figma-make-guidelines/*.md\"",
+    "lint:md": "npx --yes markdownlint-cli2 \"README.md\" \"guidelines/**/*.md\" \"docs/**/*.md\"",
     "test": "vitest run --config vitest.generation.config.ts",
     "test:generation": "vitest run --config vitest.generation.config.ts",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "build:ds": "vite build --config vite.lib.config.ts && tsc -p tsconfig.lib.json && rm -f dist/styles.js",
+    "check": "npm run lint && npm run lint:md && npm run test && npm run build:ds",
     "prepublishOnly": "npm run build:ds"
   },
   "keywords": [
