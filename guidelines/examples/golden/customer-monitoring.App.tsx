@@ -6,9 +6,8 @@ import {
   Button,
   CompactMetric,
   ConnectivityCoverageCard,
+  CustomerStatusCard,
   FilterBar,
-  KeyValueList,
-  KeyValueRow,
   ListContainer,
   MasterDetailLayout,
   MetricStrip,
@@ -48,7 +47,7 @@ export default function App() {
             <PageHeading
               eyebrow="Customer monitoring"
               title="Review what needs attention next"
-              description="Keep customer context, monitoring scope, source limits and next actions visible in one workspace."
+              description="Keep customer context, monitoring coverage, source limits and next actions visible in one workspace."
               actions={<Button size="sm">Create follow-up action</Button>}
             />
           </div>
@@ -56,8 +55,8 @@ export default function App() {
         controls={
           <FilterBar
             title="Monitoring scope"
-            description="Show only facts with visible source scope and freshness."
-            resultCount="3 assets shown · source scope: connected assets and known installed base"
+            description="Show facts with source scope, freshness and validation context."
+            resultCount="3 assets shown · connected assets and known installed base"
             filters={
               <>
                 <SemanticTag tone="warning">Partial coverage</SemanticTag>
@@ -75,14 +74,17 @@ export default function App() {
           detailLabel="Monitoring detail"
           list={
             <SectionStack gap="lg">
-              <SectionBlock title="Customer context">
-                <KeyValueList columns={2}>
-                  <KeyValueRow label="Customer" value="Northstar Manufacturing" />
-                  <KeyValueRow label="Plan" value="Advanced service plan" />
-                  <KeyValueRow label="Coverage" value="17 of 25 known assets connected" />
-                  <KeyValueRow label="Next review" value="Before customer touchpoint" />
-                </KeyValueList>
-              </SectionBlock>
+              <CustomerStatusCard
+                mode="section"
+                customerName="Northstar Manufacturing"
+                plan="Advanced service plan"
+                assetsCovered="17 of 25 known assets connected"
+                coverage="68% connected"
+                customerObjective="Understand what needs attention before the next service review."
+                sourceContext="Connected monitoring data and known installed base"
+                validationStatus="Review before customer communication"
+                badges={[{ label: "Partial coverage", tone: "warning" }]}
+              />
 
               <SectionBlock title="Monitoring signals">
                 <MetricStrip columns={4}>
@@ -103,7 +105,7 @@ export default function App() {
                     key={asset.name}
                     assetName={asset.name}
                     site={asset.detail}
-                    description="Review monitoring scope and source freshness before customer use."
+                    description="Check coverage and freshness before using this asset in the customer discussion."
                     statusLabel={asset.state}
                     statusTone={asset.tone}
                     priority={asset.state === "Monitored" ? undefined : "high"}
@@ -124,7 +126,7 @@ export default function App() {
               meta={<StatusPill tone="warning">Review needed</StatusPill>}
               footer={
                 <StickyActionBar
-                  context="Next action: review monitoring scope before the next customer touchpoint."
+                  context="Next action: confirm coverage before the next customer touchpoint."
                   secondaryActions={<Button variant="secondary" size="sm">Add note</Button>}
                   primaryAction={<Button size="sm">Plan review</Button>}
                 />
@@ -161,11 +163,11 @@ export default function App() {
                     title="Monitoring scope needs review"
                     scope="Main site"
                     description="Some known assets are not visible in live monitoring."
-                    recommendation="Review coverage with the customer and support team."
+                    recommendation="Confirm the coverage gap with the customer and support team."
                     evidenceSummary="Known installed base and connected assets do not fully match."
                     sourceScope="Monitoring platform and known installed base"
                     sourceStrength="partial"
-                    freshness="18 hours ago"
+                    freshness="18 hours"
                     validationStatus="Review before customer communication"
                   />
                 </SectionBlock>
@@ -175,16 +177,16 @@ export default function App() {
         />
 
         <SectionBlock title="Assigned next actions">
-          <ActionRow title="Plan monitoring scope review" owner="CSM" dueDate="This week" priority="high" status="todo" context="Review what is and is not visible before customer communication." />
-          <ActionRow title="Confirm asset connection status" owner="Remote Support" dueDate="Next 3 business days" priority="high" status="in_progress" context="Confirm source scope before making recommendations." />
+          <ActionRow title="Review monitoring scope" owner="CSM" dueDate="This week" priority="high" status="todo" context="Clarify what is visible before customer communication." />
+          <ActionRow title="Confirm asset connection status" owner="Remote Support" dueDate="Next 3 business days" priority="high" status="in_progress" context="Validate connected status before recommendations are shared." />
         </SectionBlock>
 
         {/*
           v0.4 reference:
+          - CustomerStatusCard handles customer context instead of a local fact block.
           - PageHeading and SectionHeading establish hierarchy.
           - AssetQueueRow inside ListContainer replaces generic rows.
           - WorkspaceDetailPanel replaces static detail panel.
-          - Tabs provide package-controlled panel navigation.
           - White-first styling is provided by package tokens and components.
         */}
       </WorkspaceShell>
