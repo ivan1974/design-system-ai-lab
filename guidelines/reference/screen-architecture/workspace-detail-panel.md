@@ -1,91 +1,74 @@
 # WorkspaceDetailPanel Guidelines
 
+Status: preferred
+
 ## Purpose
 
-`WorkspaceDetailPanel` shows detail for the selected item in a decision workspace.
+`WorkspaceDetailPanel` shows decision detail for the selected item in a workspace.
 
-It is the preferred detail panel for new Make-generated list/detail screens.
+Use it to reveal evidence, validation, explanation and owned follow-through without overloading the first level.
 
 ## Use this component when
 
-- A selected row needs evidence, recommendation, proof or actions.
-- The screen uses `MasterDetailLayout`.
-- The user must inspect detail without losing the review queue context.
+- A selected customer, asset, recommendation, risk or proof item needs detail.
+- Evidence or action context should be secondary but available.
+- `DetailPanel` would otherwise be used in a new generated workspace.
 
 ## Do not use this component when
 
-- The screen has no selected item.
-- The detail is a simple static section and does not need panel affordances.
-- A full business pattern already provides the needed detail.
+- There is no selected object.
+- The screen is a single-form workflow.
+- The detail duplicates the row without adding decision value.
 
 ## Prefer this component over
 
-- `DetailPanel` for new selected-item detail
-- local side panels
-- local drawers
-- generic `Card` containers used as detail panels
+- `DetailPanel` for new GenAI workspace output.
+- Local slide-over or side-panel wrappers.
+- Card stacks used as a pseudo-detail area.
 
 ## Never generate
 
-- `WorkspaceDetailPanel` without a clear `title`
-- selected-item detail that hides evidence or actions outside the panel
-- a local close button or panel header replacement
+- Empty detail panels.
+- Detail panels without clear selected context.
+- Evidence hidden when trust affects the decision.
 
 ## Required props
 
-```txt
-title
-children
-mode when choosing inline or overlay
-meta when status or trust context matters
-footer when follow-through actions belong to the selected item
-```
+Show selected item title or context.
+
+Include evidence, validation and action sections when they affect the decision.
 
 ## Controlled values
 
-```txt
-mode: inline | overlay
-size: md | lg | xl
-```
+Follow `contracts/props.contract.json#WorkspaceDetailPanel` when controlled values are used.
 
 ## GenAI generation rules
 
-1. Put `WorkspaceDetailPanel` inside `MasterDetailLayout.detail`.
-2. Use `mode="inline"` for persistent side-by-side review.
-3. Use `mode="overlay"` only when space or workflow requires a drawer-like detail.
-4. Use `meta` for selected status, validation or readiness.
-5. Use `footer` for selected-item actions, not unrelated page actions.
+- Keep summary first.
+- Move supporting evidence into the panel when possible.
+- Keep owner, due date and priority visible for actions.
+- Do not use this panel to hide the only primary action.
 
 ## Common generation failures
 
-Failure: Make uses `DetailPanel` for new selected-item review.
-Why it fails: `DetailPanel` is lower-level and use-with-care.
-Fix: Use `WorkspaceDetailPanel`.
-
-Failure: The detail panel has no selected-item title.
-Why it fails: Users cannot tell what the detail belongs to.
-Fix: Add a concrete selected-item `title`.
+- Missing selected context.
+- Using local panel components.
+- Showing all evidence at first level.
+- Hiding validation status for customer-sensitive content.
 
 ## Repair prompt
 
-Use:
-
-```txt
-guidelines/evaluation/repair/missing-detail-panel.md
-guidelines/evaluation/repair/weak-layout.md
-```
+Use `guidelines/evaluation/repair/missing-detail-panel.md` when selected detail is missing or weak.
 
 ## Related stories
 
-```txt
-src/design-system/stories/v0.5.1-critical-generation.stories.tsx
-Story title: Design System / v0.5.1 / Critical Generation Coverage
-```
+Story coverage is tracked in the story coverage contract.
 
 ## Related contracts
 
 ```txt
-contracts/components.contract.json
-contracts/props.contract.json
-contracts/screen-architecture.contract.json
+contracts/component-registry.contract.json#WorkspaceDetailPanel
+contracts/props.contract.json#WorkspaceDetailPanel
+contracts/domain-model.contract.json
+contracts/evidence-and-trust.contract.json
 ```
