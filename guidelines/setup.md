@@ -12,6 +12,28 @@ Do not duplicate these setup rules in a separate documentation folder.
 
 ---
 
+## Machine-readable contracts
+
+The human-readable rules in this file are mirrored by machine-readable contracts in `contracts/`.
+
+Use the contracts for tests, automated checks and future tooling.
+
+Do not treat the contracts as a second source of truth. They are the testable form of the active guidelines.
+
+Current contracts:
+
+```txt
+contracts/package.contract.json
+contracts/components.contract.json
+contracts/props.contract.json
+contracts/screen-architecture.contract.json
+contracts/business-patterns.contract.json
+contracts/evidence-and-trust.contract.json
+contracts/generation-blockers.contract.json
+```
+
+---
+
 ## Required package
 
 Use the published npm package:
