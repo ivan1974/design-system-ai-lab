@@ -40,7 +40,7 @@ Do not treat quality polish as a blocker unless it breaks package contract, trus
 ## Repair routing table
 
 | Failure category | Severity | Use first | Use also when needed |
-|---|---:|---|---|
+| --- | ---: | --- | --- |
 | Package import contract broken | blocker | `invalid-props-or-local-visual-components.md` | `no-local-components.md` |
 | Local design system or local visual wrappers | blocker | `invalid-props-or-local-visual-components.md` | `no-local-components.md` |
 | Raw or unsafe form controls | blocker | `raw-form-controls.md` | `no-inline-styled-inputs.md` |
