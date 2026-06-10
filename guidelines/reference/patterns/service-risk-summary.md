@@ -40,7 +40,15 @@ Show risk context, severity or priority, evidence and next action when actionabl
 
 Follow `contracts/props.contract.json#ServiceRiskSummary`.
 
-Use canonical risk level, priority, validation and source strength values.
+The `mode` values are `card`, `section` and `compact`.
+
+The `riskLevel` values are `critical`, `warning` and `info`.
+
+The `sourceStrength` values are `unknown`, `partial`, `single-source`, `multi-source` and `validated`.
+
+The `validationStatus` values are `not-reviewed`, `internal-review-needed`, `internally-validated`, `customer-ready` and `blocked`.
+
+Do not invent controlled values.
 
 ## GenAI generation rules
 
