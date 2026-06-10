@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "name": "visual-rules",
+  "version": "0.6.0",
+  "status": "active-runtime-contract",
+  "sourceGuidelines": [
+    "guidelines/runtime/visual-rules.md",
+    "guidelines/styles.md",
+    "guidelines/tokens.md",
+    "guidelines/source/visual-brand/visual-brand-v0.4.md"
+  ],
+  "coreDirection": [
+    "white-first",
+    "sober",
+    "structured",
+    "B2B",
+    "operational",
+    "trust-aware",
+    "action-oriented"
+  ],
+  "forbiddenVisualPatterns": [
+    "glassmorphism",
+    "decorative-gradients",
+    "heavy-shadows",
+    "glow-effects",
+    "card-saturated-layout",
+    "custom-visual-system",
+    "custom-button-system",
+    "custom-badge-system",
+    "custom-tab-system",
+    "custom-row-system",
+    "colored-cards-for-every-status",
+    "local-brand-wrapper"
+  ],
+  "forbiddenLocalWrapperNames": [
+    "PremiumCard",
+    "BrandPanel",
+    "GlassSurface",
+    "StatusChip",
+    "CustomTabs",
+    "MetricTile",
+    "LocalCard"
+  ],
+  "colorRules": {
+    "primaryGreen": {
+      "allowedUses": [
+        "primary-actions",
+        "selected-states",
+        "active-navigation",
+        "positive-status-when-appropriate",
+        "validated-information-when-evidence-supports-it"
+      ],
+      "forbiddenUses": [
+        "decoration",
+        "making-weak-evidence-look-stronger",
+        "implying-certainty-with-partial-evidence"
+      ]
+    }
+  },
+  "trustVisibilityRules": [
+    "source-scope-readable-when-relevant",
+    "source-strength-readable-when-relevant",
+    "freshness-readable-when-relevant",
+    "validation-status-readable-when-relevant",
+    "proof-readiness-readable-when-relevant",
+    "human-validation-readable-when-relevant"
+  ],
+  "informationDensityRules": [
+    "do-not-make-every-fact-signal-proof-point-and-action-visually-equal",
+    "show-decision-critical-summary-first",
+    "move-supporting-evidence-to-secondary-level-when-possible"
+  ],
+  "repairIfDetected": [
+    "visual-treatment-overstates-evidence-strength",
+    "expected-outcome-styled-as-proven-value",
+    "internal-proof-styled-as-customer-ready-without-validation",
+    "uncertainty-hidden-through-low-contrast-or-visual-treatment",
+    "local-visual-system-created"
+  ]
+}
