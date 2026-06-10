@@ -1,92 +1,75 @@
 # MasterDetailLayout Guidelines
 
+Status: preferred
+
 ## Purpose
 
 `MasterDetailLayout` organizes a review queue and the selected item detail.
 
-It is the default structure when a generated screen must help the user compare items, inspect evidence and decide what to do next.
+Use it when the user must compare repeated objects and inspect one item without losing context.
 
 ## Use this component when
 
-- The screen has a list of customers, assets, recommendations, risks or actions.
-- Selecting an item should reveal richer detail.
-- The user needs side-by-side context and decision detail.
+- A screen has a list of customers, assets, recommendations, risks or actions.
+- Selecting an item should reveal supporting detail.
+- The decision depends on both queue context and selected detail.
 
 ## Do not use this component when
 
-- There is no repeated object or selected item.
-- The screen is a simple summary page with no list/detail relationship.
-- A single business pattern fully answers the user need.
+- There is only one object to review.
+- A simple stack of sections is clearer.
+- The detail panel would repeat the same information as the list.
 
 ## Prefer this component over
 
-- two-column custom layouts
-- repeated cards with hidden detail
-- local drawers or side panels
+- Card grids for operational review queues.
+- Custom split-pane layouts.
+- Multiple disconnected lists and panels.
 
 ## Never generate
 
-- a list/detail screen without a visible list label and detail label when context is ambiguous
-- an inline detail that duplicates every row as a card
-- a custom master-detail layout outside the package
+- A detail panel with no selected item.
+- Multiple competing detail panels.
+- Card-saturated layouts instead of rows.
 
 ## Required props
 
-```txt
-list
-detail
-detailOpen when the detail should be visible
-detailMode when choosing inline or overlay
-detailWidth when the detail width matters
-listLabel when the list needs accessible context
-detailLabel when the detail needs accessible context
-```
+Provide list content and detail content that clearly correspond to the selected item.
 
 ## Controlled values
 
-```txt
-detailMode: inline | overlay
-detailWidth: sm | md | lg
-```
+Use public props only.
+
+Follow `contracts/props.contract.json#MasterDetailLayout` when controlled layout values are present.
 
 ## GenAI generation rules
 
-1. Use `MasterDetailLayout` after `FilterBar` for queue review screens.
-2. Put `ListContainer` and approved row components in `list`.
-3. Put `WorkspaceDetailPanel` in `detail` for selected item detail.
-4. Use `inline` for desktop review workflows unless overlay is clearly needed.
-5. Keep the detail focused on the selected item; do not repeat the full list inside it.
+- Put repeated objects in the master/list area.
+- Put evidence, explanation and follow-through in the detail area.
+- Keep the selected item visually clear.
+- Do not hide primary actions under unrelated detail.
 
 ## Common generation failures
 
-Failure: Make generates a grid of independent cards instead of a list/detail workflow.
-Why it fails: The user cannot review a queue and inspect selected evidence efficiently.
-Fix: Use `MasterDetailLayout` with `ListContainer` and `WorkspaceDetailPanel`.
-
-Failure: The detail panel contains unrelated dashboard sections.
-Why it fails: The detail loses selected-item focus.
-Fix: Keep the detail scoped to the selected row.
+- Generic dashboard grids.
+- Detail content that does not match the selected row.
+- Too many equal cards.
+- No visible selected state.
 
 ## Repair prompt
 
-Use:
+Use `guidelines/evaluation/repair/weak-layout.md` for unclear master/detail structure.
 
-```txt
-guidelines/evaluation/repair/missing-detail-panel.md
-guidelines/evaluation/repair/card-saturation.md
-```
+Use `guidelines/evaluation/repair/missing-detail-panel.md` when detail is absent.
 
 ## Related stories
 
-```txt
-src/design-system/stories/v0.5.1-critical-generation.stories.tsx
-Story title: Design System / v0.5.1 / Critical Generation Coverage
-```
+Story coverage is tracked in the story coverage contract.
 
 ## Related contracts
 
 ```txt
-contracts/components.contract.json
-contracts/props.contract.json
+contracts/component-registry.contract.json#MasterDetailLayout
+contracts/props.contract.json#MasterDetailLayout
 contracts/screen-architecture.contract.json
 ```
