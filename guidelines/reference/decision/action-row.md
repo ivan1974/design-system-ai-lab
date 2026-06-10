@@ -42,7 +42,11 @@ Show status only with controlled values.
 
 Follow `contracts/props.contract.json#ActionRow`.
 
-Use canonical status values only.
+The `priority` values are `low`, `medium`, `high` and `critical`.
+
+The `status` values are `todo`, `in-progress`, `blocked`, `done` and `in_progress`.
+
+Use `in-progress` in new GenAI output. Do not generate deprecated `in_progress`.
 
 ## GenAI generation rules
 
