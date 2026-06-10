@@ -17,16 +17,16 @@ Use:
 ## Run protocol
 
 1. Pick one benchmark case from `cases/`.
-2. Give the case prompt to Figma Make with access to the package guidance.
-3. Save generated `App.tsx` in `outputs/` using the same case number.
-4. Run generation tests against the output:
+1. Give the case prompt to Figma Make with access to the package guidance.
+1. Save generated `App.tsx` in `outputs/` using the same case number.
+1. Run generation tests against the output:
 
 ```bash
 GENERATED_APP_PATH=benchmarks/figma-make/outputs/01-customer-monitoring.App.tsx npm run test:generation
 ```
 
-5. Score the output with `scoring/scoring-template.md`.
-6. Save the completed scorecard in `evaluations/`.
+1. Score the output with `scoring/scoring-template.md`.
+1. Save the completed scorecard in `evaluations/`.
 
 ## Benchmark cases
 
