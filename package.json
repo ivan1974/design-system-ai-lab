@@ -1,7 +1,7 @@
 {
   "name": "design-system-ai-lab",
   "private": false,
-  "version": "0.5.0",
+  "version": "0.5.1",
   "type": "module",
   "description": "A promptable React design system lab for controlled AI-assisted interface generation.",
   "main": "./dist/index.js",
@@ -41,7 +41,9 @@
     "guidelines/screen-architecture",
     "guidelines/templates"
   ],
-  "sideEffects": ["*.css"],
+  "sideEffects": [
+    "*.css"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
@@ -56,7 +58,16 @@
     "check": "npm run lint && npm run lint:md && npm run test && npm run build:ds",
     "prepublishOnly": "npm run build:ds"
   },
-  "keywords": ["design-system", "react", "figma", "figma-make", "ai", "promptable-ui", "controlled-generation", "storybook"],
+  "keywords": [
+    "design-system",
+    "react",
+    "figma",
+    "figma-make",
+    "ai",
+    "promptable-ui",
+    "controlled-generation",
+    "storybook"
+  ],
   "author": "Ivan Lenoble",
   "license": "MIT",
   "dependencies": {
