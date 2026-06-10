@@ -3,7 +3,15 @@ export type SourceStrength =
   | "partial"
   | "single-source"
   | "multi-source"
-  | "validated";
+  | "validated"
+  /** @deprecated Use "multi-source" or "validated" when source scope is explicit. */
+  | "strong"
+  /** @deprecated Use a validation or proof readiness value instead. */
+  | "needs_review"
+  /** @deprecated Use a proof readiness value instead. */
+  | "internal"
+  /** @deprecated Use "validated" for source strength and customer readiness separately. */
+  | "customer_ready";
 
 export type ValidationStatus =
   | "not-reviewed"
@@ -15,7 +23,11 @@ export type ValidationStatus =
 export type CustomerReadiness =
   | "internal"
   | "needs-review"
-  | "customer-ready";
+  | "customer-ready"
+  /** @deprecated Use "needs-review". */
+  | "needs_review"
+  /** @deprecated Use "customer-ready". */
+  | "customer_ready";
 
 export type HumanValidationRequirement =
   | "not-required"
@@ -28,6 +40,10 @@ export const sourceStrengthLabels: Record<SourceStrength, string> = {
   "single-source": "Source: single source",
   "multi-source": "Source: multi-source",
   validated: "Source: validated",
+  strong: "Source: strong",
+  needs_review: "Source: needs review",
+  internal: "Internal proof",
+  customer_ready: "Customer-ready",
 };
 
 export const validationStatusLabels: Record<ValidationStatus, string> = {
@@ -42,6 +58,8 @@ export const customerReadinessLabels: Record<CustomerReadiness, string> = {
   internal: "Internal",
   "needs-review": "Needs review",
   "customer-ready": "Customer-ready",
+  needs_review: "Needs review",
+  customer_ready: "Customer-ready",
 };
 
 export const humanValidationRequirementLabels: Record<HumanValidationRequirement, string> = {
