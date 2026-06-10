@@ -3,6 +3,7 @@
   "name": "visual-rules",
   "version": "0.6.0",
   "status": "active-runtime-contract",
+  "purpose": "Prevent GenAI visual drift in generated screens by turning visual rules into testable blockers.",
   "sourceGuidelines": [
     "guidelines/runtime/visual-rules.md",
     "guidelines/styles.md",
@@ -18,19 +19,32 @@
     "trust-aware",
     "action-oriented"
   ],
+  "requiredRuntimeRules": [
+    "white-first",
+    "borders-before-shadows",
+    "package-components-create-hierarchy",
+    "green-only-with-meaning",
+    "status-not-color-only",
+    "evidence-strength-not-overstated",
+    "uncertainty-remains-readable",
+    "no-local-visual-system"
+  ],
   "forbiddenVisualPatterns": [
     "glassmorphism",
-    "decorative-gradients",
-    "heavy-shadows",
+    "gradient-heavy-layout",
+    "shadow-heavy-card",
     "glow-effects",
     "card-saturated-layout",
+    "custom-local-brand-panel",
     "custom-visual-system",
     "custom-button-system",
     "custom-badge-system",
     "custom-tab-system",
     "custom-row-system",
     "colored-cards-for-every-status",
-    "local-brand-wrapper"
+    "green-used-as-decoration",
+    "visual-emphasis-overstates-weak-evidence",
+    "local-visual-system"
   ],
   "forbiddenLocalWrapperNames": [
     "PremiumCard",
@@ -39,7 +53,41 @@
     "StatusChip",
     "CustomTabs",
     "MetricTile",
-    "LocalCard"
+    "LocalCard",
+    "GradientPanel",
+    "HeroCard",
+    "BrandHero",
+    "GlassCard"
+  ],
+  "forbiddenGeneratedTextClaims": [
+    "use glassmorphism",
+    "add glassmorphism",
+    "use decorative gradients",
+    "add decorative gradients",
+    "make every card colorful",
+    "use green as decoration",
+    "make weak evidence look validated",
+    "hide uncertainty visually",
+    "create a local visual system",
+    "create custom brand panels"
+  ],
+  "forbiddenGeneratedCodePatterns": [
+    "backdrop-blur",
+    "blur-xl",
+    "bg-gradient-to-",
+    "from-emerald",
+    "from-green",
+    "via-emerald",
+    "via-green",
+    "drop-shadow-2xl",
+    "shadow-2xl",
+    "shadow-xl",
+    "ring-green-400/50",
+    "text-shadow",
+    "filter: blur",
+    "backdrop-filter",
+    "linear-gradient",
+    "radial-gradient"
   ],
   "colorRules": {
     "primaryGreen": {
@@ -54,6 +102,19 @@
         "decoration",
         "making-weak-evidence-look-stronger",
         "implying-certainty-with-partial-evidence"
+      ]
+    },
+    "statusColor": {
+      "requiredCompanionSignals": [
+        "label",
+        "text",
+        "icon-or-shape-when-useful",
+        "source-or-validation-context-when-trust-matters"
+      ],
+      "forbiddenUses": [
+        "color-only-status",
+        "color-only-priority",
+        "color-only-evidence-strength"
       ]
     }
   },
@@ -70,11 +131,17 @@
     "show-decision-critical-summary-first",
     "move-supporting-evidence-to-secondary-level-when-possible"
   ],
+  "filesToScanForGeneratedVisualDrift": [
+    "guidelines/examples/golden",
+    "benchmarks/figma-make/outputs"
+  ],
   "repairIfDetected": [
     "visual-treatment-overstates-evidence-strength",
     "expected-outcome-styled-as-proven-value",
     "internal-proof-styled-as-customer-ready-without-validation",
     "uncertainty-hidden-through-low-contrast-or-visual-treatment",
-    "local-visual-system-created"
+    "local-visual-system-created",
+    "decorative-gradient-or-glass-treatment-created",
+    "green-used-as-decoration"
   ]
 }
