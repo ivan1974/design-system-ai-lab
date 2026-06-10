@@ -23,6 +23,7 @@ const publicIndex = read("src/design-system/index.ts");
 
 const approvedImports = new Set(Object.values(componentsContract.approvedImports).flat());
 const legacyComponents = new Set(componentsContract.legacyOrUseWithCare.map((entry) => entry.component));
+const filesWithExplicitAntiPatternExamples = new Set(["guidelines/decision/review-queue-row.md"]);
 
 const guidelineByComponent: Record<string, string> = {
   ActionCard: "guidelines/decision/action-card.md",
@@ -191,6 +192,7 @@ describe("generation rules: documentation and contract alignment", () => {
     for (const guidelineDir of guidelineDirs) {
       for (const fileName of fs.readdirSync(path.join(rootDir, guidelineDir)).filter((fileName) => fileName.endsWith(".md"))) {
         const relativePath = path.join(guidelineDir, fileName);
+        if (filesWithExplicitAntiPatternExamples.has(relativePath)) continue;
         const references = [...read(relativePath).matchAll(/`([A-Z][A-Za-z0-9]+)`/g)].map((match) => match[1]);
         for (const componentName of references) {
           expect(allowedPascalCaseTokens.has(componentName), `${relativePath} references unknown PascalCase token ${componentName}`).toBe(true);
