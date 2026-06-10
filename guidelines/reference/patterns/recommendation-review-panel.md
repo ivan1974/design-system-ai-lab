@@ -40,7 +40,15 @@ Show recommendation summary, evidence context, validation status, proof readines
 
 Follow `contracts/props.contract.json#RecommendationReviewPanel`.
 
-Use canonical human validation, source strength, proof readiness and validation status values.
+```txt
+mode: card, section, drawer
+validationStatus: not-reviewed, internal-review-needed, internally-validated, customer-ready, blocked
+customerReadiness: internal, needs-review, customer-ready, needs_review, customer_ready
+proofReadiness: not-available, expected-only, internal-proof, customer-ready-proof
+humanValidation: not-required, recommended, required
+```
+
+Do not invent controlled values.
 
 ## GenAI generation rules
 
