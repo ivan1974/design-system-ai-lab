@@ -1,10 +1,14 @@
 # Runtime Generation Flow
 
-## Purpose
+## Status
+
+```txt
+ACTIVE RUNTIME / REASONING FLOW / FIGMA MAKE
+```
 
 This file gives Figma Make the default reasoning flow for generated screens.
 
-Use it to avoid component stacking and generic dashboards.
+Use it to avoid component stacking, generic dashboards and overloaded decision screens.
 
 ---
 
@@ -16,62 +20,102 @@ Before generating, follow this order:
 1. Identify the primary user decision.
 2. Select the main domain object.
 3. Select the screen type.
-4. Use the default workspace architecture.
-5. Use business patterns before low-level components.
+4. Select the workspace architecture.
+5. Use a business pattern first when one fits.
 6. Add decision components only where they support action.
 7. Add evidence and trust markers.
 8. Add owned next actions.
-9. Apply progressive decision disclosure.
+9. Apply progressive disclosure.
 10. Apply visual rules.
 11. Run blockers before final answer.
 ```
 
+Do not start by choosing random components.
+
 ---
 
-## Primary decision rule
+## 1. Primary user decision
 
 Generate one primary decision per screen.
 
-Good:
+Good decisions:
 
 ```txt
 Review renewal risk and decide the next owned action.
 Validate an asset recommendation before customer sharing.
-Monitor customer service risk and assign follow-through.
+Monitor service risk and assign follow-through.
+Prepare a customer review from validated proof points.
 ```
 
-Avoid:
+Bad decisions:
 
 ```txt
 Show everything about the customer.
-Create a generic dashboard.
+Create a management dashboard.
 Display all metrics, risks, proof and actions equally.
 ```
 
 ---
 
-## Workspace architecture
+## 2. Main domain object
 
-Use this default architecture for review, monitoring, renewal, recommendation and QBR screens:
+Select the main object before selecting components:
+
+```txt
+Customer
+Site
+Asset
+Recommendation
+Risk
+Evidence
+Action
+Proof
+```
+
+If the object is unclear, choose the simplest screen that supports the user decision.
+
+---
+
+## 3. Screen type
+
+Prefer one of these screen types:
+
+```txt
+monitoring workspace
+review workspace
+recommendation review
+renewal risk review
+asset intelligence review
+customer readiness review
+installed base exploration
+```
+
+Do not generate a generic dashboard unless explicitly requested.
+
+---
+
+## 4. Workspace architecture
+
+Default architecture:
 
 ```txt
 WorkspaceShell
 → PageHeading
 → FilterBar or SecondaryNavigation
-→ MasterDetailLayout
+→ MasterDetailLayout when list/detail is needed
 → ListContainer with approved rows
-→ WorkspaceDetailPanel
-→ Tabs only when useful
-→ ActionRow or StickyActionBar
+→ WorkspaceDetailPanel for selected-item detail
+→ Tabs only when detail has several views
+→ ActionRow or StickyActionBar for follow-through
 ```
 
 If list/detail is not needed, keep the screen simpler.
 
 ---
 
-## Business pattern first
+## 5. Business pattern first
 
-If a business pattern matches the intent, use it before rebuilding the section manually.
+Use business patterns before rebuilding known sections manually.
 
 Examples:
 
@@ -88,15 +132,36 @@ CustomerReviewReadinessCard
 
 ---
 
-## Final check
+## 6. Evidence and action placement
 
-Before final answer, ask:
+Place information in this order when possible:
 
 ```txt
-Is the user decision clear?
-Is the screen using package components only?
-Are facts shown before interpretation?
-Are actions owned, dated and prioritized?
-Is evidence available without overwhelming the screen?
-Are visual rules respected?
+decision context
+→ key facts or signals
+→ recommendation or risk
+→ confidence reason
+→ evidence detail
+→ owned action
+```
+
+Do not bury the next action below long evidence detail.
+
+---
+
+## Final blocker check
+
+Before final answer, verify:
+
+```txt
+one primary decision
+public package imports only
+styles imported once
+no local design system
+business pattern used when available
+facts before interpretation
+evidence not invented
+actions owned, dated and prioritized
+evidence available without overload
+visual rules respected
 ```
