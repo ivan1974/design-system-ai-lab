@@ -1,84 +1,73 @@
 # MetricStrip Guidelines
 
+Status: preferred
+
 ## Purpose
 
 `MetricStrip` groups compact, comparable signals.
 
-It is the preferred container for `CompactMetric` values when the screen needs dense context without dashboard weight.
+Use it to show a small set of decision-critical metrics without creating a dashboard grid.
 
 ## Use this component when
 
-- Several short metrics support the same decision.
-- The metrics should be scanned together.
-- The values are context signals, not full proof or recommendations.
+- The screen needs 2–5 comparable metrics.
+- Metrics summarize scope, risk, readiness, activity or proof state.
+- The user needs a quick signal before reviewing detail.
 
 ## Do not use this component when
 
-- A metric needs detailed explanation; use `MetricCard`.
-- The group becomes the main screen content.
-- The values represent proof readiness, source strength or validation status.
+- There are too many metrics.
+- Metrics are decorative.
+- A business pattern already summarizes the decision.
 
 ## Prefer this component over
 
-- rows of local KPI cards
-- repeated `MetricCard` for minor context signals
-- custom metric strips
+- `MetricGrid` for first-level runtime summaries.
+- Multiple standalone `MetricCard` components.
+- Custom KPI tiles.
 
 ## Never generate
 
-- a metric-only dashboard
-- more compact metrics than the user can scan quickly
-- proof claims as compact metrics
-- local metric group wrappers
+- Large metric dashboards.
+- Metrics without helper text or decision relevance.
+- Metrics that overstate weak evidence.
 
 ## Required props
 
-```txt
-children
-```
-
-Use `CompactMetric` children.
+Use `CompactMetric` children with clear label, value and helper context when needed.
 
 ## Controlled values
 
-No enum-like controlled values.
+No controlled values beyond child metric semantics.
+
+Use domain contract values when metric status, risk or readiness is shown.
 
 ## GenAI generation rules
 
-1. Use `MetricStrip` with `CompactMetric` children.
-2. Keep values short and comparable.
-3. Use it near context, queue rows or selected detail.
-4. Do not use it to replace `ValueProofCard` or `StatusSummary`.
+- Keep metrics few and comparable.
+- Use metrics to support the decision, not decorate the screen.
+- Explain why important metrics matter.
+- Move secondary metrics to detail if needed.
 
 ## Common generation failures
 
-Failure: Make uses a strip of metrics as the whole screen.
-Why it fails: The screen becomes a dashboard instead of a decision workspace.
-Fix: Add context, evidence, selected detail and actions.
-
-Failure: Make uses `MetricStrip` for proof maturity.
-Why it fails: Proof readiness needs explicit controlled values.
-Fix: Use `ValueProofCard`.
+- Too many metrics.
+- KPI dashboard instead of decision workspace.
+- No helper text.
+- Decorative green or status color.
 
 ## Repair prompt
 
-Use:
-
-```txt
-guidelines/evaluation/repair/too-many-metrics.md
-guidelines/evaluation/repair/generic-dashboard.md
-```
+Use `guidelines/evaluation/repair/too-many-metrics.md` when metric density is too high.
 
 ## Related stories
 
-```txt
-src/design-system/stories/components/compact-workspace-primitives.stories.tsx
-Story title: compact workspace primitives
-```
+Story coverage is tracked in the story coverage contract.
 
 ## Related contracts
 
 ```txt
-contracts/components.contract.json
-contracts/screen-architecture.contract.json
+contracts/component-registry.contract.json#MetricStrip
+contracts/visual-rules.contract.json
+contracts/domain-model.contract.json
 ```
