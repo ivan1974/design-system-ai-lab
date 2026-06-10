@@ -28,7 +28,6 @@ It lets Make generate dense, comparable rows instead of repeated cards.
 
 - a review queue outside `ListContainer`
 - row status that hides validation or source limits
-- local row components named `CustomerRow`, `RiskRow`, `AssetRow` or `RecommendationRow`
 
 ## Required props
 
