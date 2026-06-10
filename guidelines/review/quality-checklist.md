@@ -1,9 +1,8 @@
-# Quality Checklist
+# Quality Checklist v0.5.1
 
 ## Purpose
 
-Use this checklist to improve a Figma Make generation after it passes the blocking
-checklist.
+Use this checklist to improve a Figma Make generation after it passes the blocking checklist.
 
 This checklist answers:
 
@@ -14,10 +13,16 @@ How can this valid first draft become a better decision-support screen?
 Use first:
 
 ```txt
-review/blocking-checklist.md
+guidelines/review/blocking-checklist.md
 ```
 
-Then use this file for refinement.
+Then use:
+
+```txt
+guidelines/review/workspace-v2-checklist.md
+guidelines/review/quality-checklist.md
+guidelines/repair-prompts/repair-router.md
+```
 
 Quality issues do not always require rejection. They guide improvement.
 
@@ -28,13 +33,17 @@ Quality issues do not always require rejection. They guide improvement.
 Review the screen in this order:
 
 ```txt
-1. user decision
-2. screen structure
-3. metrics and density
-4. evidence hierarchy
-5. source and validation cues
-6. visual style
-7. actionability
+1. blocker status
+2. user decision
+3. screen structure
+4. component choice and business patterns
+5. metrics and density
+6. evidence hierarchy
+7. source and validation cues
+8. accessibility and forms
+9. visual style
+10. actionability
+11. closest golden example
 ```
 
 A good generated screen helps the user answer:
@@ -58,6 +67,12 @@ What should happen next?
 
 Improve if the screen displays data but does not support a decision.
 
+Repair route:
+
+```txt
+repair-prompts/weak-layout.md
+```
+
 ---
 
 ## 2. Screen structure
@@ -78,9 +93,34 @@ Context
 → owned actions
 ```
 
+Repair route:
+
+```txt
+repair-prompts/weak-layout.md
+repair-prompts/missing-detail-panel.md
+```
+
 ---
 
-## 3. Dashboard drift
+## 3. Component choice and business patterns
+
+- [ ] Business patterns are used before low-level composition when they fit.
+- [ ] Queue rows are used for repeated business objects.
+- [ ] Generic cards do not rebuild known patterns.
+- [ ] `Card` is reserved for emphasis, not repeated object layout.
+- [ ] Forms use package form components and support a clear action.
+
+Repair route:
+
+```txt
+repair-prompts/no-local-components.md
+repair-prompts/poor-row-density.md
+repair-prompts/raw-form-controls.md
+```
+
+---
+
+## 4. Dashboard drift
 
 - [ ] The screen does not look like a generic SaaS dashboard.
 - [ ] The screen is not a collection of unrelated cards.
@@ -90,9 +130,16 @@ Context
 
 Improve if the screen could fit any B2B SaaS product without changing much.
 
+Repair route:
+
+```txt
+repair-prompts/generic-dashboard.md
+repair-prompts/card-saturation.md
+```
+
 ---
 
-## 4. Metrics
+## 5. Metrics
 
 - [ ] Metrics are limited, usually 2 to 4.
 - [ ] Each metric supports the user decision.
@@ -103,9 +150,16 @@ Improve if the screen could fit any B2B SaaS product without changing much.
 
 Improve if there are too many KPIs or if metrics do not change the next decision.
 
+Repair route:
+
+```txt
+repair-prompts/too-many-metrics.md
+repair-prompts/generic-dashboard.md
+```
+
 ---
 
-## 5. Evidence hierarchy
+## 6. Evidence hierarchy
 
 - [ ] Facts appear before interpretation.
 - [ ] The screen distinguishes facts, signals, recommendations and actions.
@@ -126,9 +180,16 @@ Observed facts
 → human validation when needed
 ```
 
+Repair route:
+
+```txt
+repair-prompts/missing-evidence.md
+repair-prompts/ai-confidence-as-source-strength.md
+```
+
 ---
 
-## 6. Human validation
+## 7. Human validation
 
 - [ ] Human validation is visible for critical customer, service, renewal, proof or asset decisions.
 - [ ] Expert validation is visible when asset recommendations are not customer-ready.
@@ -137,9 +198,16 @@ Observed facts
 
 Improve if confidence language or visual emphasis replaces validation.
 
+Repair route:
+
+```txt
+repair-prompts/missing-human-validation.md
+repair-prompts/ai-confidence-as-source-strength.md
+```
+
 ---
 
-## 7. Proof and value
+## 8. Proof and value
 
 - [ ] Expected outcomes are labelled as expected outcomes.
 - [ ] Proven value is shown only when supported by proof context.
@@ -150,23 +218,37 @@ Improve if confidence language or visual emphasis replaces validation.
 
 Improve if activity, expected outcome, internal proof and customer-ready proof are confused.
 
+Repair route:
+
+```txt
+repair-prompts/expected-outcomes-as-proven-value.md
+repair-prompts/missing-evidence.md
+```
+
 ---
 
-## 8. Asset intelligence, when relevant
+## 9. Asset intelligence, when relevant
 
 - [ ] Asset scope is visible.
 - [ ] Connectivity status is visible when monitoring coverage matters.
 - [ ] Partial visibility is visible when asset knowledge is incomplete.
 - [ ] Non-connected assets are clearly labelled.
-- [ ] Source-system facts, Health signals and Intelligence interpretation are separated.
+- [ ] Source-system facts, health signals and intelligence interpretation are separated.
 - [ ] Expert validation is visible before customer communication.
 - [ ] Recommendations do not exceed available asset evidence.
 
 Improve if asset intelligence looks more complete, live or validated than it is.
 
+Repair route:
+
+```txt
+repair-prompts/partial-visibility-overstated.md
+repair-prompts/missing-evidence.md
+```
+
 ---
 
-## 9. AI usage, when relevant
+## 10. AI usage, when relevant
 
 - [ ] The screen follows BI-first, AI-assisted logic.
 - [ ] Structured facts appear as data, not chatbot answers.
@@ -177,9 +259,35 @@ Improve if asset intelligence looks more complete, live or validated than it is.
 
 Improve if AI becomes the primary interface for simple structured facts.
 
+Repair route:
+
+```txt
+repair-prompts/ai-confidence-as-source-strength.md
+repair-prompts/missing-evidence.md
+```
+
 ---
 
-## 10. Visual style
+## 11. Accessibility and form safety
+
+- [ ] Forms have a clear submit, save, review or create action.
+- [ ] Form controls use package `Field`, `Input`, `Select`, `Textarea` and `Label`.
+- [ ] Every field has a visible label.
+- [ ] Label/control relationships are explicit when used.
+- [ ] Placeholder text is not the only label.
+
+Improve if forms feel like random data capture or if labels are weak.
+
+Repair route:
+
+```txt
+repair-prompts/raw-form-controls.md
+repair-prompts/no-inline-styled-inputs.md
+```
+
+---
+
+## 12. Visual style
 
 - [ ] Visual style remains sober.
 - [ ] Visual style remains B2B.
@@ -195,9 +303,16 @@ Improve if AI becomes the primary interface for simple structured facts.
 
 Improve if the screen looks polished but generic, decorative, noisy or misleading.
 
+Repair route:
+
+```txt
+repair-prompts/overdecorated-surface.md
+repair-prompts/weak-typography-hierarchy.md
+```
+
 ---
 
-## 11. Density and scanability
+## 13. Density and scanability
 
 - [ ] The screen is dense enough for B2B operational work.
 - [ ] The screen is not overloaded.
@@ -209,22 +324,35 @@ Improve if the screen looks polished but generic, decorative, noisy or misleadin
 
 Improve if the screen is too sparse, too marketing-like or too dense.
 
+Repair route:
+
+```txt
+repair-prompts/poor-row-density.md
+repair-prompts/card-saturation.md
+```
+
 ---
 
-## 12. Actionability
+## 14. Actionability
 
 - [ ] The screen ends with clear next actions when action is expected.
 - [ ] Actions are ordered by priority.
 - [ ] Actions are connected to risks, proof gaps, recommendations or the user decision.
 - [ ] Action labels are specific.
 - [ ] Owners and due dates are useful.
-- [ ] The primary action is not competing with many secondary actions.
+- [ ] The primary action is not competing with many other primary actions.
 
 Improve if the user can understand the situation but not what to do next.
 
+Repair route:
+
+```txt
+repair-prompts/actions-without-ownership.md
+```
+
 ---
 
-## 13. Golden example comparison
+## 15. Golden example comparison
 
 Compare the generated screen with the closest golden example:
 
@@ -233,6 +361,7 @@ guidelines/examples/golden/customer-monitoring.App.tsx
 guidelines/examples/golden/renewal-risk-review.App.tsx
 guidelines/examples/golden/asset-recommendation-review.App.tsx
 guidelines/examples/golden/qbr-readiness.App.tsx
+guidelines/examples/golden/installed-base-explorer.App.tsx
 ```
 
 Check whether the generated screen preserves:
@@ -248,6 +377,14 @@ screen intent
 
 Improve if the screen drifts from the closest golden example without a clear reason.
 
+Repair route:
+
+```txt
+repair-prompts/weak-layout.md
+repair-prompts/generic-dashboard.md
+repair-prompts/card-saturation.md
+```
+
 ---
 
 ## Final principle
@@ -256,6 +393,4 @@ The blocking checklist protects correctness.
 
 The quality checklist improves usefulness.
 
-A high-quality generated screen is not just valid code.
-
-It is a sober, evidence-aware, decision-oriented first draft.
+A high-quality generated screen is not just valid code. It is a decision-support screen with visible evidence, validation and follow-through.
