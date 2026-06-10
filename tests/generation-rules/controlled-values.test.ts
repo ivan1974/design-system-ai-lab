@@ -115,15 +115,15 @@ describe("generation rules: controlled values", () => {
 
   it("domain models document canonical controlled values", () => {
     const domainModelFiles = [
-      "guidelines/domain-models/action.md",
-      "guidelines/domain-models/asset.md",
-      "guidelines/domain-models/component.md",
-      "guidelines/domain-models/customer.md",
-      "guidelines/domain-models/evidence.md",
-      "guidelines/domain-models/proof.md",
-      "guidelines/domain-models/recommendation.md",
-      "guidelines/domain-models/site.md",
-      "guidelines/domain-models/source.md",
+      "guidelines/source/domain-models/action.md",
+      "guidelines/source/domain-models/asset.md",
+      "guidelines/source/domain-models/component.md",
+      "guidelines/source/domain-models/customer.md",
+      "guidelines/source/domain-models/evidence.md",
+      "guidelines/source/domain-models/proof.md",
+      "guidelines/source/domain-models/recommendation.md",
+      "guidelines/source/domain-models/site.md",
+      "guidelines/source/domain-models/source.md",
     ];
 
     const combined = domainModelFiles.map(readText).join("\n");

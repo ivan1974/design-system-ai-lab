@@ -122,9 +122,12 @@ describe("generation rules: documentation and contract alignment", () => {
     }
   });
 
-  it("setup prop value rule mirrors the props contract global rule", () => {
+  it("setup remains focused on package setup and points to contracts", () => {
     const setup = read("guidelines/setup.md");
-    for (const propName of propsContract.globalPropRule.doNotInventValuesFor) expect(setup).toContain(propName);
+
+    expect(setup).toContain("contracts/package.contract.json");
+    expect(setup).toContain("contracts/components.contract.json");
+    expect(setup).toContain("contracts/props.contract.json");
   });
 
   it("reference guidelines do not recommend unknown PascalCase package components", () => {
