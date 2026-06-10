@@ -83,7 +83,7 @@ export default function App() {
                     statusLabel={asset.value}
                     statusTone={asset.tone}
                     priority={asset.value === "Monitored" ? undefined : "high"}
-                    sourceStrength={asset.value === "Monitored" ? "strong" : "partial"}
+                    sourceStrength={asset.value === "Monitored" ? "validated" : "partial"}
                     health={asset.value === "Monitored" ? "Healthy" : "Warning"}
                     freshness="18h"
                     selected={asset.selected}
@@ -130,8 +130,8 @@ export default function App() {
                   sourceScope="Connected asset only"
                   sourceStrength="partial"
                   freshness="18 hours"
-                  validationStatus="Expert review needed"
-                  readiness="needs_review"
+                  validationStatus="internal-review-needed"
+                  readiness="needs-review"
                 />
 
                 <SectionBlock title="Evidence">
@@ -142,7 +142,7 @@ export default function App() {
                     sourceScope="Connected asset only"
                     sourceStrength="partial"
                     freshness="18 hours"
-                    validationStatus="Expert review needed"
+                    validationStatus="internal-review-needed"
                   />
                 </SectionBlock>
               </SectionStack>
@@ -156,12 +156,11 @@ export default function App() {
         </SectionBlock>
 
         {/*
-          v0.4 reference:
+          v0.5.1 reference:
           - AssetIntelligenceSummary handles asset facts and interpretation.
-          - PageHeading and SectionHeading establish hierarchy.
           - AssetQueueRow inside ListContainer replaces generic rows.
-          - WorkspaceDetailPanel replaces static detail panel.
-          - White-first styling is provided by package tokens and components.
+          - WorkspaceDetailPanel provides package-controlled detail review.
+          - EvidenceRow keeps source, freshness and validation visible.
         */}
       </WorkspaceShell>
     </main>
