@@ -6,6 +6,10 @@ import { KeyValueList, KeyValueRow } from "../components/key-value-list";
 import { SectionBlock, SectionStack } from "../composition/section-stack";
 import { SemanticTag } from "../decision/semantic-tag";
 import { StatusPill } from "../decision/status-pill";
+import type { ProofReadiness } from "../types/evidence";
+import { proofReadinessLabels } from "../types/evidence";
+import type { ValidationStatus } from "../types/trust";
+import { validationStatusLabels } from "../types/trust";
 
 export type ValueProofPoint = {
   label: string;
@@ -28,13 +32,22 @@ export type ValueProofCardProps = Omit<
   period?: string;
   customerObjective?: string;
   proofStatus?: string;
-  proofReadiness?: string;
-  validationStatus?: string;
+  proofReadiness?: ProofReadiness;
+  proofReadinessLabel?: string;
+  validationStatus?: ValidationStatus;
+  validationStatusLabel?: string;
   sourceContext?: string;
   expectedOutcome?: string;
   badges?: ValueProofBadge[];
   proofPoints: ValueProofPoint[];
   mode?: ValueProofCardMode;
+};
+
+const proofReadinessTone: Record<ProofReadiness, "neutral" | "warning" | "success"> = {
+  "not-available": "neutral",
+  "expected-only": "warning",
+  "internal-proof": "warning",
+  "customer-ready-proof": "success",
 };
 
 export const ValueProofCard = forwardRef<HTMLElement, ValueProofCardProps>(
@@ -46,7 +59,9 @@ export const ValueProofCard = forwardRef<HTMLElement, ValueProofCardProps>(
       customerObjective,
       proofStatus,
       proofReadiness,
+      proofReadinessLabel,
       validationStatus,
+      validationStatusLabel,
       sourceContext,
       expectedOutcome,
       badges = [],
@@ -61,7 +76,7 @@ export const ValueProofCard = forwardRef<HTMLElement, ValueProofCardProps>(
       <SectionStack gap="sm">
         {(badges.length > 0 || proofReadiness) && (
           <div className="flex flex-wrap gap-2">
-            {proofReadiness && <StatusPill tone={proofReadiness.toLowerCase().includes("ready") ? "success" : "warning"}>{proofReadiness}</StatusPill>}
+            {proofReadiness && <StatusPill tone={proofReadinessTone[proofReadiness]}>{proofReadinessLabel ?? proofReadinessLabels[proofReadiness]}</StatusPill>}
             {badges.map((badge) => (
               <SemanticTag key={badge.label} tone={badge.tone ?? "neutral"}>{badge.label}</SemanticTag>
             ))}
@@ -73,7 +88,7 @@ export const ValueProofCard = forwardRef<HTMLElement, ValueProofCardProps>(
             {period && <KeyValueRow label="Period" value={period} />}
             {customerObjective && <KeyValueRow label="Customer objective" value={customerObjective} />}
             {proofStatus && <KeyValueRow label="Proof status" value={proofStatus} />}
-            {validationStatus && <KeyValueRow label="Validation" value={validationStatus} />}
+            {validationStatus && <KeyValueRow label="Validation" value={validationStatusLabel ?? validationStatusLabels[validationStatus]} />}
             {sourceContext && <KeyValueRow label="Source context" value={sourceContext} />}
             {expectedOutcome && <KeyValueRow label="Expected outcome" value={expectedOutcome} helper="Expected outcome is not proven value." />}
           </KeyValueList>
