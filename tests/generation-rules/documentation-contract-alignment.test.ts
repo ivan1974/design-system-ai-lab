@@ -74,7 +74,9 @@ const guidelineByComponent: Record<string, string> = {
   RenewalRiskSummary: "guidelines/patterns/renewal-risk-summary.md",
   ReviewQueueRow: "guidelines/decision/review-queue-row.md",
   SecondaryNavigation: "guidelines/components/secondary-navigation.md",
+  SectionBlock: "guidelines/screen-architecture/section-stack.md",
   SectionHeader: "guidelines/decision/section-header.md",
+  SectionStack: "guidelines/screen-architecture/section-stack.md",
   Select: "guidelines/forms/select.md",
   SemanticTag: "guidelines/decision/semantic-tag.md",
   ServiceRiskSummary: "guidelines/patterns/service-risk-summary.md",
@@ -101,6 +103,8 @@ const explicitSharedGuidelineByComponent: Record<string, string> = {
 
 const allowedGuidelineReferences = new Set([
   ...approvedImports,
+  ...Object.keys(guidelineByComponent),
+  ...Object.keys(explicitSharedGuidelineByComponent),
   "CreateActionDialogValues",
   "DetailPanelTab",
   "DetailPanelTabsProps",
@@ -113,22 +117,26 @@ const allowedGuidelineReferences = new Set([
   "SelectProps",
   "TextareaProps",
   "AssetIntelligenceReadiness",
+  "AssetIntelligenceSummaryMode",
   "CustomerReadiness",
+  "CustomerStatusCardMode",
   "HumanValidationRequirement",
   "ProofReadiness",
   "RecommendationReadiness",
   "SourceStrength",
   "ValidationStatus",
+  "WorkspaceDetailPanelMode",
+  "WorkspaceDetailPanelProps",
 ]);
 
-const obsoletePromptComponentReferences = [
-  "PageHeader",
-  "DetailPanel",
-  "SlideOverPanel",
-  "PanelHeader",
-  "PanelBody",
-  "PanelFooter",
-  "PanelClose",
+const obsoletePromptComponentPatterns = [
+  /\bPageHeader\b/,
+  /\bSlideOverPanel\b/,
+  /\bPanelHeader\b/,
+  /\bPanelBody\b/,
+  /\bPanelFooter\b/,
+  /\bPanelClose\b/,
+  /(?<!Workspace)\bDetailPanel\b/,
 ];
 
 const promptFiles = [
@@ -159,6 +167,10 @@ function isExportedComponent(componentName: string) {
   return exportPattern.test(publicIndex);
 }
 
+function resolveGuideline(componentName: string) {
+  return guidelineByComponent[componentName] ?? explicitSharedGuidelineByComponent[componentName];
+}
+
 describe("generation rules: documentation and contract alignment", () => {
   it.each(Object.keys(propsContract.components))("contract component %s is exported", (componentName) => {
     expect(isExportedComponent(componentName)).toBe(true);
@@ -169,14 +181,14 @@ describe("generation rules: documentation and contract alignment", () => {
   });
 
   it.each(preferredComponents)("preferred component %s has a guideline", (componentName) => {
-    const guideline = guidelineByComponent[componentName] ?? explicitSharedGuidelineByComponent[componentName];
+    const guideline = resolveGuideline(componentName);
 
     expect(guideline).toBeTruthy();
     expect(fs.existsSync(path.join(rootDir, guideline))).toBe(true);
   });
 
   it.each(preferredComponents)("preferred component %s guideline uses required sections", (componentName) => {
-    const guideline = guidelineByComponent[componentName] ?? explicitSharedGuidelineByComponent[componentName];
+    const guideline = resolveGuideline(componentName);
     const content = read(guideline);
 
     for (const section of requiredSections) {
@@ -185,7 +197,7 @@ describe("generation rules: documentation and contract alignment", () => {
   });
 
   it.each(Object.entries(propsContract.components))("controlled values for %s appear in its guideline when documented", (componentName, propContract) => {
-    const guideline = guidelineByComponent[componentName] ?? explicitSharedGuidelineByComponent[componentName];
+    const guideline = resolveGuideline(componentName);
 
     if (!guideline) {
       return;
@@ -219,11 +231,15 @@ describe("generation rules: documentation and contract alignment", () => {
       const files = fs.readdirSync(absoluteDir).filter((fileName) => fileName.endsWith(".md"));
 
       for (const fileName of files) {
-        const content = read(path.join(guidelineDir, fileName));
+        const relativePath = path.join(guidelineDir, fileName);
+        const content = read(relativePath);
         const references = [...content.matchAll(componentReferencePattern)].map((match) => match[1]);
 
         for (const componentName of references) {
-          expect(allowedGuidelineReferences.has(componentName)).toBe(true);
+          expect(
+            allowedGuidelineReferences.has(componentName),
+            `${relativePath} references unknown PascalCase token ${componentName}`,
+          ).toBe(true);
         }
       }
     }
@@ -232,8 +248,8 @@ describe("generation rules: documentation and contract alignment", () => {
   it.each(promptFiles)("%s does not reference obsolete components", (promptFile) => {
     const content = read(promptFile);
 
-    for (const componentName of obsoletePromptComponentReferences) {
-      expect(content).not.toContain(componentName);
+    for (const pattern of obsoletePromptComponentPatterns) {
+      expect(content).not.toMatch(pattern);
     }
   });
 });
