@@ -1,148 +1,73 @@
 # ComponentHierarchy Guidelines
 
+Status: preferred
+
 ## Purpose
 
 `ComponentHierarchy` shows structural relationships between assets and subcomponents.
 
-It represents hierarchy only. It does not represent proof, recommendation or action ownership.
-
-## Business intent
-
-Help the user understand how components belong to an asset or system before reviewing signals, evidence or actions.
-
-## User decision supported
-
-```txt
-Where does this component sit in the asset or system structure?
-```
-
-## Input facts required
-
-Use only supplied hierarchy facts:
-
-```txt
-component name
-parent asset or component
-description when available
-status when supplied
-level between 0 and 3
-children when supplied
-```
-
-## Evidence and trust requirements
-
-- Show hierarchy only when source context supports it.
-- Do not imply component monitoring if only structural hierarchy is known.
-- Use `EvidenceRow` when source, freshness or validation is the main concern.
-
-## Actionability requirements
-
-`ComponentHierarchy` is not an action pattern.
-
-Use `ActionRow` or `ActionCard` for follow-through on a component.
+Use it when hierarchy affects asset intelligence, evidence or recommendation context.
 
 ## Use this component when
 
-- The user must understand component nesting.
-- Asset or component structure affects interpretation.
-- A hierarchy is clearer than a flat list.
-- A business hierarchy pattern is better than local tree markup.
+- The user must understand parent asset and component relationships.
+- Component status affects asset interpretation.
+- A recommendation depends on subcomponent context.
 
 ## Do not use this component when
 
-- The content is proof; use `ValueProofCard`.
-- The content is a recommendation; use `RecommendationCard`.
-- The content is source evidence; use `EvidenceRow`.
-- The content is an action plan; use action components.
+- There is no hierarchy to show.
+- A flat list is clearer.
+- The component tree would be invented.
 
 ## Prefer this component over
 
-- local tree markup
-- nested cards for components
-- plain bullet lists for asset hierarchy
+- Local tree markup.
+- Nested cards.
+- Decorative diagrams.
 
 ## Never generate
 
-- hierarchy that was not supplied
-- component status as proof
-- recommendation rationale inside hierarchy items
-- `ComponentHierarchyItem` outside `ComponentHierarchy`
+- Invented component hierarchy.
+- Local tree components.
+- `ComponentHierarchyItem` outside `ComponentHierarchy`.
 
 ## Required props
 
-```txt
-ComponentHierarchy.children
-ComponentHierarchyItem.name
-ComponentHierarchyItem.description when context is needed
-ComponentHierarchyItem.status when supplied
-ComponentHierarchyItem.level when nesting matters
-```
+Show asset or component identity, relationship and status when available.
 
 ## Controlled values
 
-```txt
-level: 0 | 1 | 2 | 3
-```
-
-## Mode guidance
-
-No display modes.
-
-Use this pattern as a hierarchy list.
+Use canonical source strength, validation and risk values when hierarchy informs trust or risk.
 
 ## GenAI generation rules
 
-1. Use `ComponentHierarchy` for structure only.
-2. Use `ComponentHierarchyItem` only inside `ComponentHierarchy`.
-3. Keep proof, recommendation and action semantics outside the hierarchy.
-4. Use status content only when provided and relevant.
-5. Do not rebuild hierarchy with local lists or cards.
+- Use only hierarchy provided by source context.
+- Keep component status distinct from asset health.
+- Show source scope when hierarchy is partial.
+- Do not imply live monitoring for inspected-only components.
 
 ## Common generation failures
 
-Failure: Make uses nested cards for asset hierarchy.
-Why it fails: The hierarchy becomes visually heavy and loses structural semantics.
-Fix: Use `ComponentHierarchy`.
-
-Failure: Make puts recommendations inside hierarchy items.
-Why it fails: Hierarchy and recommendations are different business concepts.
-Fix: Keep hierarchy structural and use `RecommendationCard` separately.
-
-Failure: Make presents hierarchy as proof.
-Why it fails: Structure alone is not value proof.
-Fix: Use `ValueProofCard` for proof.
+- Inventing subcomponents.
+- Creating local tree markup.
+- Treating component status as asset-level proof.
+- Hiding source scope.
 
 ## Repair prompt
 
-Use:
+Use `guidelines/evaluation/repair/no-local-components.md` when local tree components are generated.
 
-```txt
-guidelines/evaluation/repair/no-local-components.md
-guidelines/evaluation/repair/weak-layout.md
-guidelines/evaluation/repair/expected-outcomes-as-proven-value.md
-```
-
-## Related lower-level components
-
-```txt
-ComponentHierarchyItem
-StatusPill
-SemanticTag
-EvidenceRow
-ActionRow
-```
+Use `guidelines/evaluation/repair/invented-evidence.md` when hierarchy is fabricated.
 
 ## Related stories
 
-```txt
-src/design-system/stories/patterns/component-hierarchy.stories.tsx
-Story status: component-level proof expected. If absent locally, cover through installed-base or asset detail stories.
-```
+Story coverage is tracked in the story coverage contract.
 
 ## Related contracts
 
 ```txt
-contracts/components.contract.json
-contracts/business-patterns.contract.json
+contracts/component-registry.contract.json#ComponentHierarchy
+contracts/domain-model.contract.json#AssetIntelligence
 contracts/evidence-and-trust.contract.json
 ```
