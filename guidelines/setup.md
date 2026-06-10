@@ -267,6 +267,8 @@ riskLevel
 proofReadiness
 validationStatus
 sourceStrength
+customerReadiness
+humanValidation
 density
 ```
 
