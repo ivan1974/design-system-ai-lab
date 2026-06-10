@@ -2,9 +2,8 @@ import {
   ActionRow,
   AlertCard,
   Button,
+  CustomerReviewReadinessCard,
   FilterBar,
-  KeyValueList,
-  KeyValueRow,
   ListContainer,
   MasterDetailLayout,
   PageHeading,
@@ -30,7 +29,7 @@ const blockers = [
   {
     title: "Customer-ready value proof is incomplete",
     scope: "QBR preparation",
-    description: "Internal proof exists but has not been translated into customer-ready language.",
+    description: "Internal proof has not been translated into customer-ready language.",
     label: "Proof gap",
     tone: "warning" as const,
     selected: true,
@@ -38,7 +37,7 @@ const blockers = [
   {
     title: "Open recommendations need review",
     scope: "Recommendation readiness",
-    description: "Recommendations may affect customer confidence if used without source review.",
+    description: "Recommendations may affect confidence if used without source review.",
     label: "Review needed",
     tone: "warning" as const,
   },
@@ -86,14 +85,20 @@ export default function App() {
           detailLabel="Selected readiness blocker"
           list={
             <SectionStack gap="lg">
-              <SectionBlock title="Customer review context">
-                <KeyValueList columns={2}>
-                  <KeyValueRow label="Customer" value="Northstar Manufacturing" />
-                  <KeyValueRow label="Review type" value="Quarterly Business Review" />
-                  <KeyValueRow label="Review date" value="Jun 24, 2026" />
-                  <KeyValueRow label="Readiness" value="Needs review" />
-                </KeyValueList>
-              </SectionBlock>
+              <CustomerReviewReadinessCard
+                customerName="Northstar Manufacturing"
+                reviewType="Quarterly Business Review"
+                reviewDate="Jun 24, 2026"
+                customerObjective="Make service value visible before renewal discussion."
+                reviewReadiness="Needs review"
+                proofReadiness="Internal proof, not customer-ready"
+                recommendationReadiness="Source review needed"
+                riskStatus="Three readiness blockers"
+                actionReadiness="Ownership incomplete"
+                validationStatus="Review before customer use"
+                sourceContext="Closed actions, monitoring signals and recommendation history"
+                badges={[{ label: "Not customer-ready", tone: "warning" }]}
+              />
 
               <SectionHeading
                 title="Readiness blocker queue"
@@ -200,8 +205,8 @@ export default function App() {
                   proofContext="Internal proof, not customer-ready"
                 >
                   <RecommendationCard
-                    title="Prepare customer-ready value proof summary"
-                    recommendation="Prepare a customer-ready value proof summary before the QBR."
+                    title="Prepare value proof summary"
+                    recommendation="Create a customer-ready proof summary that links closed actions to business outcomes."
                     priority="high"
                     readiness="needs_review"
                     rationale="The QBR needs customer-relevant proof rather than internal activity reporting."
@@ -228,11 +233,10 @@ export default function App() {
 
         {/*
           v0.4 reference:
-          - PageHeading and SectionHeading establish hierarchy.
+          - CustomerReviewReadinessCard handles QBR readiness context.
           - RiskQueueRow inside ListContainer replaces generic blocker rows.
-          - WorkspaceDetailPanel replaces static detail panel.
-          - Tabs provide package-controlled panel navigation.
-          - White-first styling is provided by package tokens and components.
+          - RecommendationReviewPanel and RecommendationCard handle proof follow-through.
+          - WorkspaceDetailPanel and Tabs provide package-controlled detail navigation.
         */}
       </WorkspaceShell>
     </main>
