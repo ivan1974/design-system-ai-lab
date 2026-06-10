@@ -1,11 +1,14 @@
 {
   "$schema": "./schema/generation-contract.schema.json",
   "name": "props",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "sourceGuidelines": [
+    "guidelines/make-minimal-contract.md",
     "guidelines/setup.md",
     "guidelines/components",
-    "guidelines/patterns"
+    "guidelines/decision",
+    "guidelines/patterns",
+    "docs/audit/v0.5.1-guidelines-alignment-audit.md"
   ],
   "components": {
     "Button": {
@@ -39,7 +42,59 @@
     },
     "ActionCard": {
       "priority": ["low", "medium", "high", "critical"]
+    },
+    "AlertCard": {
+      "severity": ["info", "warning", "critical", "success"]
+    },
+    "Tabs": {
+      "variant": ["line", "pills"],
+      "size": ["sm", "md"]
+    },
+    "Surface": {
+      "variant": ["default", "raised", "subtle"],
+      "padding": ["none", "sm", "md", "lg"]
+    },
+    "Well": {
+      "tone": ["neutral", "info", "success", "warning", "danger"],
+      "padding": ["sm", "md", "lg"]
+    },
+    "ListContainer": {
+      "spacing": ["none", "sm", "md"]
+    },
+    "ReviewQueueRow": {
+      "density": ["compact", "comfortable"]
+    },
+    "ConnectivityCoverageCard": {
+      "mode": ["card", "section", "compact"]
+    },
+    "CustomerStatusCard": {
+      "mode": ["card", "section", "compact"]
+    },
+    "AssetIntelligenceSummary": {
+      "mode": ["card", "section", "compact", "drawer"],
+      "readiness": ["draft", "review", "ready"]
+    },
+    "ServiceRiskSummary": {
+      "mode": ["card", "section", "compact"],
+      "riskLevel": ["low", "medium", "high", "critical"]
+    },
+    "ValueProofCard": {
+      "mode": ["card", "section", "compact"],
+      "proofReadiness": ["not-available", "expected-only", "internal-proof", "customer-ready-proof"]
     }
+  },
+  "generationPreference": {
+    "doDocument": [
+      "values that change component meaning",
+      "values that affect trust or evidence interpretation",
+      "values that affect action priority",
+      "values that affect layout mode or density"
+    ],
+    "doNotDocumentByDefault": [
+      "plain React children",
+      "className escape hatches",
+      "low-risk optional labels unless they change generation choices"
+    ]
   },
   "globalPropRule": {
     "doNotInventValuesFor": [
@@ -51,12 +106,17 @@
       "mode",
       "size",
       "status",
-      "readiness"
+      "readiness",
+      "riskLevel",
+      "proofReadiness",
+      "validationStatus",
+      "sourceStrength",
+      "density"
     ],
     "fallback": "If uncertain, simplify the component usage or choose a documented value."
   },
   "notes": [
-    "This contract covers high-risk generation props first.",
-    "It should grow only when a prop value needs automated checking."
+    "This contract covers props that affect generation quality, evidence, trust, actionability or layout choice.",
+    "It intentionally does not list every React prop."
   ]
 }
