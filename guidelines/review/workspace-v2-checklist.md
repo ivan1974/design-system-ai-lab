@@ -1,13 +1,10 @@
-# Workspace v2 Quality Checklist
+# Workspace v2 Quality Checklist — v0.4
 
 ## Purpose
 
-Use this checklist after the blocking checklist when reviewing a Make output that
-should follow the decision workspace standard.
+Use this checklist after the blocking checklist when reviewing a Make output that should follow the v0.4 decision workspace standard.
 
-This checklist improves valid outputs.
-
-It does not replace:
+This checklist improves valid outputs. It does not replace:
 
 ```txt
 review/blocking-checklist.md
@@ -26,52 +23,100 @@ review/quality-checklist.md
 
 ---
 
-## 2. Workspace structure
+## 2. Page and section hierarchy
 
-- [ ] `WorkspaceShell` is used when the screen has scope, filters, review areas or persistent actions.
-- [ ] `FilterBar` shows scope, filters or result count when relevant.
-- [ ] `MasterDetailLayout` is used when the user reviews a list and a selected item.
-- [ ] `DetailPanel` is used for selected-item review.
-- [ ] `DetailPanelTabs` is used when the selected item has multiple review questions.
-- [ ] `StickyActionBar` is used when the selected item has a clear next action.
-- [ ] `SectionStack` and `SectionBlock` group dense sections.
+- [ ] `PageHeading` is used for page-level intent.
+- [ ] `SectionHeading` is used for major content areas when a section needs an introduction.
+- [ ] `SectionBlock` is used for local grouped content.
+- [ ] Text hierarchy is not flat.
+- [ ] Important source, validation and proof text remains readable.
 
----
-
-## 3. Prop and helper discipline
-
-- [ ] Package component props use documented values only.
-- [ ] Make does not invent `variant`, `tone`, `severity`, `priority`, `strength`, `mode`, `status` or `size` values.
-- [ ] Small local render helpers only compose approved package components.
-- [ ] No local visual helper creates a new button, card, badge, pill, tag, row, panel or form system.
-- [ ] Inline styles do not recreate component states, surfaces, badges, cards, radius, shadows or visual identity.
-
-Use this repair prompt when this fails:
+Repair with:
 
 ```txt
-repair-prompts/invalid-props-or-local-visual-components.md
+repair-prompts/weak-typography-hierarchy.md
 ```
 
 ---
 
-## 4. Card saturation
+## 3. Workspace structure
 
-- [ ] The screen is not a long stack of equal cards.
-- [ ] Repeated facts use `KeyValueList` and `KeyValueRow`.
+- [ ] `WorkspaceShell` is used when the screen has scope, filters, review areas or persistent actions.
+- [ ] `FilterBar`, `SecondaryNavigation` or `SegmentedControl` shows scope, filters or mode when relevant.
+- [ ] `MasterDetailLayout` is used when the user reviews a list and a selected item.
+- [ ] `WorkspaceDetailPanel` is used for selected-item review when detail should open, close or preserve the central workspace.
+- [ ] `Tabs` are used when selected detail has multiple review questions.
+- [ ] `StickyActionBar` or `ActionRow` is used when there is clear follow-through.
+- [ ] `SectionStack` and `SectionBlock` group dense sections.
+
+---
+
+## 4. Surface and visual style
+
+- [ ] The screen is white-first.
+- [ ] `Surface`, `ListContainer`, `Well`, `Divider` or `Toolbar` are used before styled div wrappers.
+- [ ] No decorative gradients are used.
+- [ ] No glassmorphism is used.
+- [ ] No glow or heavy shadows are used.
+- [ ] The output does not feel like a generic SaaS dashboard.
+
+Repair with:
+
+```txt
+repair-prompts/overdecorated-surface.md
+```
+
+---
+
+## 5. Queue rows and density
+
+- [ ] Repeated customers use `CustomerQueueRow`.
+- [ ] Repeated assets use `AssetQueueRow`.
+- [ ] Repeated risks or blockers use `RiskQueueRow`.
+- [ ] Repeated recommendations use `RecommendationQueueRow`.
+- [ ] Generic review items use `ReviewQueueRow`.
+- [ ] Queue rows are grouped in `ListContainer`.
+- [ ] Repeated facts use `KeyValueList` or rows.
 - [ ] Repeated signals use `SignalRow` or `MetricStrip`.
 - [ ] Repeated evidence uses `EvidenceRow`.
 - [ ] Repeated actions use `ActionRow`.
 - [ ] Cards are reserved for highlighted decision objects.
 
-Use this repair prompt when this fails:
+Repair with:
 
 ```txt
-repair-prompts/card-saturation.md
+repair-prompts/poor-row-density.md
+repair-prompts/missing-list-container.md
 ```
 
 ---
 
-## 5. Evidence hierarchy
+## 6. Navigation
+
+- [ ] `Tabs` are used for local content switching.
+- [ ] `HeaderTabs` are used only for major workspace views.
+- [ ] `SegmentedControl` is used for compact filters or mode switching.
+- [ ] `SecondaryNavigation` is used for secondary workspace navigation.
+- [ ] `Breadcrumbs` are used for location context when useful.
+- [ ] No local tab, breadcrumb or segmented control system is created.
+
+---
+
+## 7. Business pattern usage
+
+- [ ] `CustomerStatusCard` is used for customer context when relevant.
+- [ ] `CustomerReviewReadinessCard` is used for QBR or review readiness when relevant.
+- [ ] `ConnectivityCoverageCard` is used for monitoring coverage when relevant.
+- [ ] `AssetIntelligenceSummary` is used for asset intelligence when relevant.
+- [ ] `RenewalRiskSummary` is used for renewal context when relevant.
+- [ ] `ValueProofCard` is used for proof readiness, proof points or proof gaps when relevant.
+- [ ] `ServiceRiskSummary` is used for service risk synthesis when relevant.
+- [ ] `RecommendationReviewPanel` and `RecommendationCard` are used for selected recommendation review when relevant.
+- [ ] Generic cards do not rebuild existing patterns.
+
+---
+
+## 8. Evidence hierarchy
 
 - [ ] Facts appear before interpretation.
 - [ ] Source scope is visible when trust depends on it.
@@ -79,26 +124,27 @@ repair-prompts/card-saturation.md
 - [ ] Freshness is visible when timing affects trust.
 - [ ] Validation status is visible before customer use.
 - [ ] Recommendations are traceable to visible facts or evidence.
+- [ ] Expected outcomes are not styled as proven value.
+- [ ] Internal proof is not styled as customer-ready proof without validation.
 
 ---
 
-## 6. Actionability
+## 9. Actionability
 
 - [ ] Actions are specific.
 - [ ] Actions have owner, due date and priority.
 - [ ] Actions follow risks, proof gaps or recommendations.
 - [ ] The primary action does not compete with many other primary actions.
+- [ ] Button labels are explicit.
 
 ---
 
-## 7. Visual sobriety
+## 10. Content quality
 
-- [ ] The screen remains B2B and operational.
-- [ ] No decorative gradients are used.
-- [ ] No glassmorphism is used.
-- [ ] No decorative charts are used.
-- [ ] No custom card, badge, button or form system is created.
-- [ ] The screen would not pass as a generic SaaS dashboard.
+- [ ] Visible text is in English.
+- [ ] The same sentence is not repeated across heading, row, panel and action.
+- [ ] Recommendation title and recommendation text are not identical.
+- [ ] The next action is clear.
 
 ---
 
@@ -108,9 +154,9 @@ A workspace v2 screen should make the decision path visible:
 
 ```txt
 scope
-→ facts
-→ signals
+→ facts and source context
+→ queue or selected item
 → detail review
-→ evidence
+→ evidence and validation
 → next action
 ```
