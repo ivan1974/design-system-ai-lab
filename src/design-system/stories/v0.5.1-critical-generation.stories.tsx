@@ -78,7 +78,7 @@ export const CriticalDecisionWorkspace: Story = {
                 selected
                 interactive
                 title="Northwind Manufacturing"
-                description="Advanced Plus renewal due in 45 days with incomplete proof readiness."
+                description="Premium service renewal due in 45 days with incomplete proof readiness."
                 eyebrow="Critical account"
                 status="Needs validation"
                 statusTone="warning"
@@ -112,20 +112,20 @@ export const CriticalDecisionWorkspace: Story = {
             title="Northwind Manufacturing"
             description="Selected account detail, evidence, recommendation and follow-through actions."
             meta={<StatusPill tone="warning">Needs validation</StatusPill>}
-            footer={<ActionRow title="Schedule validation review" owner="CSM" dueDate="2026-06-18" priority="critical" status="todo" />}
+            footer={<ActionRow title="Schedule validation review" owner="Account owner" dueDate="2026-06-18" priority="critical" status="todo" />}
           >
             <div className="space-y-6">
               <RenewalRiskSummary
                 customerName="Northwind Manufacturing"
                 renewalWindow="45 days"
-                plan="CompanyName Advanced Plus"
+                plan="Premium service plan"
                 renewalReadiness="needs-review"
                 valueProofStatus="Internal proof only"
                 recommendationsReviewed="2 of 5"
                 overdueActions="3"
                 proofReadiness="internal-proof"
                 validationStatus="internal-review-needed"
-                sourceContext="CRM renewal data, service actions and QBR notes"
+                sourceContext="CRM renewal data, service actions and review notes"
                 badges={[{ label: "Renewal risk", tone: "warning" }]}
               />
 
@@ -134,7 +134,7 @@ export const CriticalDecisionWorkspace: Story = {
                 assetContext="Two monitored critical assets with partial visibility on downstream components."
                 healthSignals="Temperature drift and delayed battery replacement signal."
                 intelligenceInterpretation="Risk requires validation before customer-facing recommendation."
-                sourceContext="Connected Services Hub and advisor signal summary"
+                sourceContext="Operations hub and monitoring platform signal summary"
                 sourceScope="Connected assets only"
                 sourceStrength="multi-source"
                 validationStatus="internal-review-needed"
@@ -160,8 +160,8 @@ export const CriticalDecisionWorkspace: Story = {
                   rationale="The signal is useful but still depends on internal review and customer context."
                   scope="UPS group"
                   priority="critical"
-                  evidenceSummary="Advisor signal, maintenance history and CSH review notes are aligned."
-                  source="Advisor + CSH"
+                  evidenceSummary="Monitoring signal, maintenance history and operations review notes are aligned."
+                  source="Monitoring platform + operations review"
                   sourceScope="Connected UPS group"
                   sourceStrength="multi-source"
                   validationStatus="internal-review-needed"
@@ -178,7 +178,7 @@ export const CriticalDecisionWorkspace: Story = {
                 proofStatus="Internal proof only"
                 proofReadiness="internal-proof"
                 validationStatus="internal-review-needed"
-                sourceContext="Internal service history and advisor signals"
+                sourceContext="Internal service history and monitoring signals"
                 expectedOutcome="Expected reduction in delayed maintenance risk after validation."
                 proofPoints={[
                   { label: "Closed preventive actions", value: "8" },
@@ -193,8 +193,8 @@ export const CriticalDecisionWorkspace: Story = {
                 title="Battery replacement validation is overdue"
                 scope="UPS group"
                 description="The signal is actionable, but customer-facing use still requires expert validation."
-                evidenceSummary="Advisor signal and service notes are aligned, but not yet customer-ready proof."
-                source="Advisor + service history"
+                evidenceSummary="Monitoring signal and service notes are aligned, but not yet customer-ready proof."
+                source="Monitoring platform + service history"
                 sourceScope="Connected UPS group"
                 sourceStrength="multi-source"
                 validationStatus="internal-review-needed"
@@ -205,9 +205,9 @@ export const CriticalDecisionWorkspace: Story = {
               <SectionBlock title="Evidence trail">
                 <ListContainer>
                   <EvidenceRow
-                    label="Advisor signal"
+                    label="Monitoring signal"
                     description="Battery degradation signal detected on connected UPS group."
-                    source="Advisor"
+                    source="Monitoring platform"
                     sourceScope="Connected assets"
                     sourceStrength="multi-source"
                     freshness="Updated today"
@@ -231,7 +231,7 @@ export const CriticalDecisionWorkspace: Story = {
                 <ListContainer>
                   <ActionRow
                     title="Validate recommendation with power expert"
-                    owner="CSM"
+                    owner="Account owner"
                     dueDate="2026-06-18"
                     priority="critical"
                     status="todo"
