@@ -42,7 +42,13 @@ Include action context when the alert is actionable.
 
 Follow `contracts/props.contract.json#AlertCard`.
 
-Use canonical severity, tone, priority and status values only.
+The `severity` values are `critical`, `warning` and `info`.
+
+The `sourceStrength` values are `unknown`, `partial`, `single-source`, `multi-source` and `validated`.
+
+The `validationStatus` values are `not-reviewed`, `internal-review-needed`, `internally-validated`, `customer-ready` and `blocked`.
+
+Do not invent controlled values.
 
 ## GenAI generation rules
 
