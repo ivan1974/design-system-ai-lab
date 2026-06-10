@@ -10,6 +10,8 @@ The detailed acceptance checklist is split into actionable files:
 review/blocking-checklist.md
 review/quality-checklist.md
 review/workspace-v2-checklist.md
+review/review-loop.md
+review/repair-routing.md
 ```
 
 Use this file to choose which review checklist to apply.
@@ -18,31 +20,25 @@ Use this file to choose which review checklist to apply.
 
 ## Review model
 
-Review happens in two or three steps:
+Review happens in a controlled loop:
 
 ```txt
-1. Blocking review
-2. Quality review
-3. Workspace v2 review, when the screen should support list/detail, evidence review or follow-through
+Prompt
+→ Generation
+→ Blocking review
+→ Score, when benchmarked
+→ Repair prompt, when needed
+→ Revised generation
+→ Final score or decision
 ```
 
-The goal is to separate:
+Use:
 
 ```txt
-what blocks acceptance
+review/review-loop.md
 ```
 
-from:
-
-```txt
-what improves the screen
-```
-
-and from:
-
-```txt
-what specifically improves decision workspace structure
-```
+when a generation needs repair or benchmark scoring.
 
 ---
 
@@ -54,11 +50,9 @@ Use:
 review/blocking-checklist.md
 ```
 
-Use it to decide whether a generated screen must be rejected before quality
-review.
+Use it to decide whether a generated screen must be rejected before quality review.
 
-A generation should be blocked when it fails the design system contract or breaks
-trust integrity.
+A generation should be blocked when it fails the design system contract or breaks trust integrity.
 
 Typical blocking failures:
 
@@ -73,18 +67,13 @@ Typical blocking failures:
 - The output is a long stack of equal generic cards.
 - An `AlertCard` has no recommendation.
 - An `ActionCard` or `ActionRow` has no owner, due date or priority.
-- Source, evidence, asset facts or value proof are invented.
+- Source, evidence, asset facts or value proof are unsupported or overstated.
 - Expected outcomes are presented as proven value.
 
-If a blocking item fails, stop the review.
-
-Use the relevant repair prompt from:
+If a blocking item fails, stop the review and route the failure with:
 
 ```txt
-repair-prompts/card-saturation.md
-repair-prompts/weak-layout.md
-repair-prompts/missing-detail-panel.md
-review/anti-patterns.md
+review/repair-routing.md
 ```
 
 ---
@@ -136,8 +125,7 @@ Use it when the requested screen involves:
 - evidence review
 - follow-up action assignment
 
-The workspace review checks whether Make understood that the system is not an
-empilement of cards.
+The workspace review checks whether Make understood that the system is not an empilement of cards.
 
 It should verify:
 
@@ -145,7 +133,7 @@ It should verify:
 WorkspaceShell
 → FilterBar
 → MasterDetailLayout when relevant
-→ DetailPanel when selected-item review is needed
+→ WorkspaceDetailPanel when selected-item review is needed
 → compact facts, evidence and action rows
 ```
 
@@ -173,18 +161,23 @@ Examples:
 - manual business pattern reconstruction
 - alerts without recommendations
 - actions without ownership
-- invented evidence or proof
+- unsupported evidence or proof
 - expected outcomes presented as proven value
 - asset intelligence overconfidence
 - wrong GenAI usage
 - decorative SaaS styling
 
+Then route repair with:
+
+```txt
+review/repair-routing.md
+```
+
 ---
 
 ## Golden example comparison
 
-After blocking review, compare the generated screen with the closest golden
-example:
+After blocking review, compare the generated screen with the closest golden example:
 
 ```txt
 guidelines/examples/golden/customer-monitoring.App.tsx
@@ -208,31 +201,21 @@ screen intent
 
 ---
 
+## Benchmark review
+
+For benchmark outputs, use:
+
+```txt
+benchmarks/figma-make/scoring/scoring-model.md
+benchmarks/figma-make/evaluations/evaluation-template.md
+```
+
+Document initial score, repair prompt used, revised score and final decision.
+
+---
+
 ## Roadmap and release scope
 
 Do not use roadmap files to accept or reject a Make generation.
 
 Use active roadmap documents only to understand release scope and planned work.
-
-Current v0.5 planning lives in:
-
-```txt
-docs/roadmap/v0.5.0-roadmap.md
-docs/roadmap/v0.5.0-success-metrics.md
-```
-
-Review decisions should still be based on the blocking, quality, workspace and anti-pattern review files listed above.
-
----
-
-## Final principle
-
-Acceptance review should be fast and actionable.
-
-Use the blocking checklist to reject invalid generations.
-
-Use the quality checklist to improve valid generations.
-
-Use the workspace v2 checklist to prevent card-stack drift.
-
-Use anti-patterns to diagnose and repair recurring Make failures.
