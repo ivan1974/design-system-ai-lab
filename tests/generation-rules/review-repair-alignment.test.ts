@@ -3,11 +3,12 @@ import path from "node:path";
 import { describe, expect, it } from "vitest";
 
 const rootDir = process.cwd();
+const repairDir = "guidelines/evaluation/repair";
 
 const reviewDocs = [
-  "guidelines/review/blocking-checklist.md",
-  "guidelines/review/workspace-v2-checklist.md",
-  "guidelines/review/quality-checklist.md",
+  "guidelines/evaluation/review/blocking-checklist.md",
+  "guidelines/evaluation/review/workspace-v2-checklist.md",
+  "guidelines/evaluation/review/quality-checklist.md",
 ];
 
 const repairPrompts = [
@@ -43,20 +44,20 @@ describe("generation rules: review and repair alignment", () => {
   });
 
   it.each(repairPrompts)("repair prompt %s exists", (fileName) => {
-    expect(fs.existsSync(path.join(rootDir, "guidelines/repair-prompts", fileName))).toBe(true);
+    expect(fs.existsSync(path.join(rootDir, repairDir, fileName))).toBe(true);
   });
 
   it("blocking checklist routes through the repair router", () => {
-    const content = read("guidelines/review/blocking-checklist.md");
+    const content = read("guidelines/evaluation/review/blocking-checklist.md");
 
-    expect(content).toContain("guidelines/repair-prompts/repair-router.md");
+    expect(content).toContain("guidelines/evaluation/repair/repair-router.md");
     expect(content).toContain("blocking = reject and repair before accepting first draft");
     expect(content).toContain("quality = valid draft, improve if needed");
     expect(content).toContain("acceptance = final confirmation before handoff");
   });
 
   it("repair router mentions every repair prompt in scope", () => {
-    const content = read("guidelines/repair-prompts/repair-router.md");
+    const content = read("guidelines/evaluation/repair/repair-router.md");
 
     for (const fileName of repairPrompts.filter((fileName) => fileName !== "repair-router.md")) {
       expect(content).toContain(fileName);
