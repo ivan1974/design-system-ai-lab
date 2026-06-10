@@ -1,0 +1,110 @@
+{
+  "$schema": "./schema/generation-contract.schema.json",
+  "name": "business-patterns",
+  "version": "0.5.0",
+  "sourceGuidelines": [
+    "guidelines/setup.md",
+    "guidelines/Guidelines.md",
+    "guidelines/review/workspace-v2-checklist.md",
+    "guidelines/review/blocking-checklist.md"
+  ],
+  "intents": {
+    "customerMonitoring": {
+      "recommendedPatterns": [
+        "CustomerStatusCard",
+        "ConnectivityCoverageCard",
+        "ServiceRiskSummary"
+      ],
+      "recommendedRows": [
+        "CustomerQueueRow",
+        "AssetQueueRow",
+        "RiskQueueRow",
+        "ActionRow"
+      ],
+      "requiredSignals": [
+        "monitoringCoverage",
+        "sourceScope",
+        "freshness",
+        "nextAction"
+      ]
+    },
+    "renewalRiskReview": {
+      "recommendedPatterns": [
+        "RenewalRiskSummary",
+        "ValueProofCard",
+        "CustomerReviewReadinessCard"
+      ],
+      "recommendedRows": [
+        "RiskQueueRow",
+        "EvidenceRow",
+        "ActionRow"
+      ],
+      "requiredSignals": [
+        "riskDrivers",
+        "proofGaps",
+        "readiness",
+        "mitigationAction"
+      ]
+    },
+    "assetRecommendationReview": {
+      "recommendedPatterns": [
+        "AssetIntelligenceSummary",
+        "RecommendationReviewPanel",
+        "RecommendationCard"
+      ],
+      "recommendedRows": [
+        "AssetQueueRow",
+        "RecommendationQueueRow",
+        "EvidenceRow",
+        "ActionRow"
+      ],
+      "requiredSignals": [
+        "assetContext",
+        "observedFacts",
+        "sourceStrength",
+        "validationStatus",
+        "recommendationRationale",
+        "nextAction"
+      ]
+    },
+    "qbrReadiness": {
+      "recommendedPatterns": [
+        "CustomerReviewReadinessCard",
+        "ValueProofCard",
+        "ConnectivityCoverageCard",
+        "ServiceRiskSummary"
+      ],
+      "recommendedRows": [
+        "EvidenceRow",
+        "ActionRow",
+        "RiskQueueRow"
+      ],
+      "requiredSignals": [
+        "reviewReadiness",
+        "proofAvailability",
+        "openActions",
+        "customerReadyNarrative"
+      ]
+    },
+    "installedBaseExploration": {
+      "recommendedPatterns": [
+        "AssetIntelligenceSummary",
+        "ConnectivityCoverageCard",
+        "ServiceRiskSummary"
+      ],
+      "recommendedRows": [
+        "AssetQueueRow",
+        "EvidenceRow",
+        "ActionRow"
+      ],
+      "requiredSignals": [
+        "assetIdentity",
+        "monitoringStatus",
+        "sourceScope",
+        "knownUnknowns"
+      ]
+    }
+  },
+  "selectionRule": "Use business patterns before rebuilding equivalent sections from generic cards when the screen intent matches.",
+  "fallbackRule": "If no business pattern fits, use composition, rows and decision components instead of recreating local visual components."
+}
