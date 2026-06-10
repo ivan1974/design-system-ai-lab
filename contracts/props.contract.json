@@ -44,25 +44,34 @@
       "priority": ["low", "medium", "high", "critical"]
     },
     "AlertCard": {
-      "severity": ["info", "warning", "critical", "success"]
+      "severity": ["critical", "warning", "info"]
+    },
+    "RecommendationCard": {
+      "priority": ["low", "medium", "high", "critical"],
+      "readiness": ["internal", "needs-review", "customer-ready", "needs_review", "customer_ready"],
+      "proofReadiness": ["not-available", "expected-only", "internal-proof", "customer-ready-proof"],
+      "sourceStrength": ["unknown", "partial", "single-source", "multi-source", "validated"],
+      "validationStatus": ["not-reviewed", "internal-review-needed", "internally-validated", "customer-ready", "blocked"]
     },
     "Tabs": {
-      "variant": ["line", "pills"],
+      "variant": ["underline", "contained"],
       "size": ["sm", "md"]
     },
     "Surface": {
-      "variant": ["default", "raised", "subtle"],
+      "variant": ["plain", "bordered", "muted", "selected"],
       "padding": ["none", "sm", "md", "lg"]
     },
     "Well": {
-      "tone": ["neutral", "info", "success", "warning", "danger"],
+      "tone": ["neutral", "primary", "warning", "danger", "success"],
       "padding": ["sm", "md", "lg"]
     },
     "ListContainer": {
-      "spacing": ["none", "sm", "md"]
+      "spacing": ["compact", "comfortable", "spacious"]
     },
     "ReviewQueueRow": {
-      "density": ["compact", "comfortable"]
+      "density": ["comfortable", "spacious"],
+      "priority": ["low", "medium", "high", "critical"],
+      "sourceStrength": ["unknown", "partial", "single-source", "multi-source", "validated"]
     },
     "ConnectivityCoverageCard": {
       "mode": ["card", "section", "compact"]
@@ -71,16 +80,21 @@
       "mode": ["card", "section", "compact"]
     },
     "AssetIntelligenceSummary": {
-      "mode": ["card", "section", "compact", "drawer"],
-      "readiness": ["draft", "review", "ready"]
+      "mode": ["card", "section", "compact"],
+      "readiness": ["internal", "needs-review", "customer-ready", "needs_review", "customer_ready"],
+      "sourceStrength": ["unknown", "partial", "single-source", "multi-source", "validated"],
+      "validationStatus": ["not-reviewed", "internal-review-needed", "internally-validated", "customer-ready", "blocked"]
     },
     "ServiceRiskSummary": {
       "mode": ["card", "section", "compact"],
-      "riskLevel": ["low", "medium", "high", "critical"]
+      "riskLevel": ["critical", "warning", "info"],
+      "sourceStrength": ["unknown", "partial", "single-source", "multi-source", "validated"],
+      "validationStatus": ["not-reviewed", "internal-review-needed", "internally-validated", "customer-ready", "blocked"]
     },
     "ValueProofCard": {
       "mode": ["card", "section", "compact"],
-      "proofReadiness": ["not-available", "expected-only", "internal-proof", "customer-ready-proof"]
+      "proofReadiness": ["not-available", "expected-only", "internal-proof", "customer-ready-proof"],
+      "validationStatus": ["not-reviewed", "internal-review-needed", "internally-validated", "customer-ready", "blocked"]
     }
   },
   "generationPreference": {
@@ -117,6 +131,7 @@
   },
   "notes": [
     "This contract covers props that affect generation quality, evidence, trust, actionability or layout choice.",
-    "It intentionally does not list every React prop."
+    "It intentionally does not list every React prop.",
+    "Deprecated underscore aliases remain listed only because the source types still accept them. New documentation should prefer hyphenated values."
   ]
 }
