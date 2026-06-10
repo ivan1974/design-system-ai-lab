@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This file is the main entry point for Figma Make.
+This file is the main generation router for Figma Make.
 
 Before generating, read the minimal blocking contract first:
 
@@ -20,6 +20,7 @@ Then use this file for full generation guidance, `setup.md` for package setup an
 make-minimal-contract.md
 → Guidelines.md
 → setup.md
+→ guidelines/prompts/* when reusable scenario guidance is needed
 → specific guideline files when needed
 → contracts/ for machine-readable checks
 ```
@@ -27,6 +28,26 @@ make-minimal-contract.md
 `Guidelines.md` remains the mandatory entry point.
 
 `make-minimal-contract.md` is the shortest blocking contract. It does not replace `Guidelines.md` or `setup.md`.
+
+---
+
+## Prompt system roles
+
+Reusable prompts:
+
+```txt
+guidelines/prompts/*
+```
+
+Use them as adaptable generation guidance.
+
+Fixed benchmark cases:
+
+```txt
+benchmarks/figma-make/cases/*
+```
+
+Use them as stable scoring scenarios. Do not rewrite benchmark facts unless the scoring objective changes.
 
 ---
 
@@ -180,15 +201,15 @@ Asset hierarchy → ComponentHierarchy
 Compact signal strip → MetricStrip with CompactMetric
 ```
 
-Customer monitoring: use `WorkspaceShell`, `PageHeading`, `FilterBar`, `MasterDetailLayout`, `CustomerStatusCard`, `ConnectivityCoverageCard`, `ServiceRiskSummary`, `AlertCard`, `ActionRow`.
+Customer monitoring: use `WorkspaceShell`, `PageHeading`, `FilterBar`, `MasterDetailLayout`, `ListContainer`, queue rows, `WorkspaceDetailPanel`, `CustomerStatusCard`, `ConnectivityCoverageCard`, `ServiceRiskSummary`, `AlertCard`, `ActionRow`.
 
-Renewal risk review: use `WorkspaceShell`, `PageHeading`, `FilterBar`, `MasterDetailLayout`, `RenewalRiskSummary`, `CustomerReviewReadinessCard`, `ValueProofCard`, `RecommendationReviewPanel`, `AlertCard`, `ActionRow`.
+Renewal risk review: use `WorkspaceShell`, `PageHeading`, `FilterBar`, `MasterDetailLayout`, `ListContainer`, `RiskQueueRow`, `WorkspaceDetailPanel`, `RenewalRiskSummary`, `CustomerReviewReadinessCard`, `ValueProofCard`, `RecommendationReviewPanel`, `AlertCard`, `ActionRow`.
 
-Asset recommendation review: use `WorkspaceShell`, `PageHeading`, `FilterBar`, `MasterDetailLayout`, `WorkspaceDetailPanel`, `AssetIntelligenceSummary`, `ServiceRiskSummary`, `RecommendationReviewPanel`, `RecommendationCard`, `EvidenceRow`, `ActionRow`.
+Asset recommendation review: use `WorkspaceShell`, `PageHeading`, `FilterBar`, `MasterDetailLayout`, `ListContainer`, `RecommendationQueueRow` or `AssetQueueRow`, `WorkspaceDetailPanel`, `AssetIntelligenceSummary`, `ServiceRiskSummary`, `RecommendationReviewPanel`, `RecommendationCard`, `EvidenceRow`, `ActionRow`.
 
-QBR or customer review readiness: use `WorkspaceShell`, `PageHeading`, `FilterBar`, `MasterDetailLayout`, `WorkspaceDetailPanel`, `CustomerReviewReadinessCard`, `ValueProofCard`, `ServiceRiskSummary`, `RecommendationReviewPanel`, `AlertCard`, `ActionRow`.
+QBR or customer review readiness: use `WorkspaceShell`, `PageHeading`, `FilterBar`, `MasterDetailLayout`, `ListContainer`, `RiskQueueRow`, `WorkspaceDetailPanel`, `CustomerReviewReadinessCard`, `ValueProofCard`, `ServiceRiskSummary`, `RecommendationReviewPanel`, `AlertCard`, `ActionRow`.
 
-Installed base exploration: use `WorkspaceShell`, `PageHeading`, `FilterBar`, `MasterDetailLayout`, `WorkspaceDetailPanel`, `KeyValueList`, `MetricStrip`, `ComponentHierarchy`, `EvidenceRow`, `Timeline`, `DocumentRow`, `ActionRow`.
+Installed base exploration: use `WorkspaceShell`, `PageHeading`, `FilterBar`, `MasterDetailLayout`, `ListContainer`, `AssetQueueRow`, `WorkspaceDetailPanel`, `MetricStrip`, `ComponentHierarchy`, `ConnectivityCoverageCard`, `EvidenceRow`, `DocumentRow`, `ActionRow`.
 
 ---
 
@@ -218,22 +239,3 @@ principles/evidence-and-trust.md
 ```
 
 Use BI, APIs, databases or business tools for structured facts.
-
-Use GenAI only for synthesis, explanation, prioritization, recommendation, drafting or reformulation after visible facts are shown.
-
-Show observed facts, source scope, interpreted signals, evidence-aware recommendations, owned actions, expected outcome or proof status, and human validation when needed.
-
----
-
-## Review and repair
-
-Use after generation:
-
-```txt
-review/blocking-checklist.md
-review/acceptance-checklist.md
-review/review-loop.md
-review/repair-routing.md
-```
-
-If a screen breaks imports, creates local components, invents evidence or hides action ownership, reject and repair before quality review.
