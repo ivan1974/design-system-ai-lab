@@ -40,7 +40,9 @@ export type AssetIntelligenceSummaryProps = Omit<
 const readinessTone: Record<AssetIntelligenceReadiness, "neutral" | "warning" | "success"> = {
   internal: "neutral",
   "needs-review": "warning",
+  needs_review: "warning",
   "customer-ready": "success",
+  customer_ready: "success",
 };
 
 const Container = forwardRef<HTMLElement, { mode: AssetIntelligenceSummaryMode; title: string; description?: string; className?: string; children: ReactNode }>(
