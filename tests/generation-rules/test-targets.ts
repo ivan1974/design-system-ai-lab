@@ -6,11 +6,12 @@ export type GenerationRuleTarget = {
   content: string;
 };
 
-const defaultTargetPaths = [
+export const defaultTargetPaths = [
   "guidelines/examples/golden/customer-monitoring.App.tsx",
   "guidelines/examples/golden/renewal-risk-review.App.tsx",
   "guidelines/examples/golden/asset-recommendation-review.App.tsx",
   "guidelines/examples/golden/qbr-readiness.App.tsx",
+  "guidelines/examples/golden/installed-base-explorer.App.tsx",
 ];
 
 function getTargetPaths() {
