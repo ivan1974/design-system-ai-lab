@@ -1,96 +1,29 @@
-# Phase 3 Reclassification Plan
+# Phase 3 Reclassification Audit
 
-## Purpose
+Phase 3 is complete.
 
-This document tracks the v0.6.0 documentation reclassification before and after file moves.
-
-The goal is to remove ambiguity between runtime guidance, reference guidance, source material and evaluation material.
-
----
-
-## Target classification
+The documentation tree has been reclassified into:
 
 ```txt
-guidelines/source/knowledge/
-guidelines/source/principles/
-guidelines/source/domain-models/
-guidelines/source/visual-brand/
-
-guidelines/reference/components/
-guidelines/reference/composition/
-guidelines/reference/decision/
-guidelines/reference/forms/
-guidelines/reference/patterns/
-guidelines/reference/screen-architecture/
-
-guidelines/evaluation/review/
-guidelines/evaluation/repair/
-guidelines/evaluation/benchmarks/
+guidelines/source/
+guidelines/reference/
+guidelines/evaluation/
+docs/archive/
 ```
 
----
+## Result
 
-## Move rules
+| Area | Status |
+|---|---|
+| Source material moved under `guidelines/source/` | Done |
+| Reference material moved under `guidelines/reference/` | Done |
+| Review and repair material moved under `guidelines/evaluation/` | Done |
+| Historical audit material moved under `docs/archive/` | Done |
+| Active references updated | Done |
+| Duplicate active paths checked | Done |
 
-1. Move files, do not duplicate them.
-2. Keep long source files out of the default Figma Make read path.
-3. Keep runtime files short and active.
-4. Keep historical audit files out of active contracts.
-5. Update references after moving files.
-6. Verify that old paths no longer remain as active guidance.
+## Notes
 
----
+`benchmarks/figma-make/` remains outside `guidelines/`.
 
-## Source moves
-
-| Current path | Target path | Status |
-|---|---|---|
-| `guidelines/source/knowledge/` | `guidelines/source/knowledge/` | Planned |
-| `guidelines/source/principles/` | `guidelines/source/principles/` | Planned |
-| `guidelines/source/domain-models/` | `guidelines/source/domain-models/` | Planned |
-| `guidelines/visual-brand.md` | `guidelines/source/visual-brand/visual-brand-v0.4.md` | Done |
-
----
-
-## Reference moves
-
-| Current path | Target path | Status |
-|---|---|---|
-| `guidelines/reference/components/` | `guidelines/reference/components/` | Planned |
-| `guidelines/reference/decision/` | `guidelines/reference/decision/` | Planned |
-| `guidelines/reference/forms/` | `guidelines/reference/forms/` | Planned |
-| `guidelines/reference/patterns/` | `guidelines/reference/patterns/` | Planned |
-| `guidelines/reference/screen-architecture/` | `guidelines/reference/screen-architecture/` | Planned |
-
----
-
-## Evaluation moves
-
-| Current path | Target path | Status |
-|---|---|---|
-| `guidelines/evaluation/review/` | `guidelines/evaluation/review/` | Planned |
-| `guidelines/evaluation/repair/` | `guidelines/evaluation/repair/` | Planned |
-| `benchmarks/figma-make/` | `guidelines/evaluation/benchmarks/` as lightweight mirror only | Planned |
-
----
-
-## Audit moves
-
-| Current path | Target path | Status |
-|---|---|---|
-| `docs/archive/v0.5.1-hardening/v0.5.1-*` | `docs/archive/v0.5.1-hardening/` | Planned |
-
----
-
-## Verification checklist
-
-After moves, verify:
-
-```txt
-No root visual-brand.md exists.
-No default read path points to knowledge/, principles/ or domain-models/.
-No active runtime file points to old screen-architecture/ path.
-No active runtime file points to review/ or repair-prompts/ old paths.
-No active contract references docs/archive/v0.5.1-hardening/v0.5.1-* as source guidance.
-README and package files are updated in later phases.
-```
+Remaining v0.6.0 gaps are tracked in `docs/audit/current-gap-register.md`.
