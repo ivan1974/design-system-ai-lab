@@ -208,20 +208,20 @@ screen intent
 
 ---
 
-## Component audit roadmap
+## Roadmap and release scope
 
-The file below is not an acceptance checklist:
+Do not use roadmap files to accept or reject a Make generation.
+
+Use active roadmap documents only to understand release scope and planned work.
+
+Current v0.5 planning lives in:
 
 ```txt
-review/component-audit-roadmap.md
+docs/roadmap/v0.5.0-roadmap.md
+docs/roadmap/v0.5.0-success-metrics.md
 ```
 
-It is a working roadmap for auditing and evolving package components and business
-patterns.
-
-Do not use it to accept or reject a Make generation.
-
-Keep it only if the repository still needs a component audit planning document.
+Review decisions should still be based on the blocking, quality, workspace and anti-pattern review files listed above.
 
 ---
 
