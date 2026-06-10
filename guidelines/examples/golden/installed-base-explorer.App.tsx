@@ -1,16 +1,13 @@
 import {
   ActionRow,
+  AssetIntelligenceSummary,
   AssetQueueRow,
   Breadcrumbs,
   Button,
-  CompactMetric,
   EvidenceRow,
   FilterBar,
-  KeyValueList,
-  KeyValueRow,
   ListContainer,
   MasterDetailLayout,
-  MetricStrip,
   PageHeading,
   SectionBlock,
   SectionHeading,
@@ -47,7 +44,7 @@ export default function App() {
             <PageHeading
               eyebrow="Installed base explorer"
               title="Explore assets with source context"
-              description="Review asset identity, monitoring scope, evidence and next action in a master-detail workspace."
+              description="Review identity, live monitoring coverage, evidence and next action in one asset workspace."
               actions={<Button size="sm">Create asset action</Button>}
             />
           </div>
@@ -55,8 +52,8 @@ export default function App() {
         controls={
           <FilterBar
             title="Installed base"
-            description="Filter by site, status and monitoring scope."
-            resultCount="3 assets shown · source scope: known installed base and connected assets"
+            description="Filter by site, asset status and monitoring scope."
+            resultCount="3 assets shown · known installed base compared with connected assets"
             filters={
               <>
                 <SemanticTag>Lyon DC</SemanticTag>
@@ -82,7 +79,7 @@ export default function App() {
                     key={asset.name}
                     assetName={asset.name}
                     site={asset.description}
-                    description="Review identity, monitoring scope and source context before customer use."
+                    description="Check identity, monitoring scope and source context before customer use."
                     statusLabel={asset.value}
                     statusTone={asset.tone}
                     priority={asset.value === "Monitored" ? undefined : "high"}
@@ -104,7 +101,7 @@ export default function App() {
               meta={<StatusPill tone="warning">Review needed</StatusPill>}
               footer={
                 <StickyActionBar
-                  context="Next action: validate source before customer use."
+                  context="Next action: validate the asset interpretation before customer use."
                   secondaryActions={<Button variant="secondary" size="sm">Add note</Button>}
                   primaryAction={<Button size="sm">Assign validation</Button>}
                 />
@@ -113,7 +110,7 @@ export default function App() {
               <Tabs
                 tabs={[
                   { id: "overview", label: "Overview" },
-                  { id: "health", label: "Health" },
+                  { id: "intelligence", label: "Intelligence" },
                   { id: "evidence", label: "Evidence", count: 1 },
                   { id: "actions", label: "Actions", count: 2 },
                 ]}
@@ -122,22 +119,20 @@ export default function App() {
               />
 
               <SectionStack>
-                <SectionBlock title="Identity and scope">
-                  <KeyValueList columns={2}>
-                    <KeyValueRow label="Site" value="Lyon DC" />
-                    <KeyValueRow label="Service plan" value="EcoCare Advanced" />
-                    <KeyValueRow label="Monitoring" value="Connected asset" />
-                    <KeyValueRow label="Validation" value="Review before customer use" />
-                  </KeyValueList>
-                </SectionBlock>
-
-                <SectionBlock title="Health signals">
-                  <MetricStrip columns={3}>
-                    <CompactMetric label="Load" value="82%" tone="warning" />
-                    <CompactMetric label="Temperature" value="41°C" tone="warning" />
-                    <CompactMetric label="Freshness" value="18h" />
-                  </MetricStrip>
-                </SectionBlock>
+                <AssetIntelligenceSummary
+                  mode="section"
+                  assetScope="SM6 Bus Coupler · Lyon DC · connected asset"
+                  assetContext="Medium-voltage asset in the main electrical room."
+                  lifecycleContext="Upcoming maintenance planning may require customer budget alignment."
+                  healthSignals="Load reached 82% and temperature reached 41°C in the latest monitoring window."
+                  intelligenceInterpretation="The asset should be reviewed before any customer-facing recommendation is made."
+                  sourceContext="Monitoring platform and known installed base"
+                  sourceScope="Connected asset only"
+                  sourceStrength="partial"
+                  freshness="18 hours"
+                  validationStatus="Expert review needed"
+                  readiness="needs_review"
+                />
 
                 <SectionBlock title="Evidence">
                   <EvidenceRow
@@ -162,10 +157,10 @@ export default function App() {
 
         {/*
           v0.4 reference:
+          - AssetIntelligenceSummary handles asset facts and interpretation.
           - PageHeading and SectionHeading establish hierarchy.
           - AssetQueueRow inside ListContainer replaces generic rows.
           - WorkspaceDetailPanel replaces static detail panel.
-          - Tabs provide package-controlled panel navigation.
           - White-first styling is provided by package tokens and components.
         */}
       </WorkspaceShell>
