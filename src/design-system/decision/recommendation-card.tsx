@@ -45,7 +45,9 @@ const readinessTone: Record<
 > = {
   internal: "neutral",
   "needs-review": "warning",
+  needs_review: "warning",
   "customer-ready": "success",
+  customer_ready: "success",
 };
 
 export const RecommendationCard = forwardRef<
