@@ -1,103 +1,78 @@
 # AlertCard Guidelines
 
+Status: allowed
+
 ## Purpose
 
 `AlertCard` turns a risk, blocker, anomaly or important signal into a decision point.
 
-It must help the user understand what matters, what evidence supports it and what to do next.
+It must connect the alert to what should be considered or done next.
 
 ## Use this component when
 
-- A signal requires user attention.
-- The screen needs a visible recommendation next to the alert.
-- Source, validation or freshness affects whether the alert can be trusted.
-- The alert belongs after facts or business context and before actions.
+- A risk or blocker needs attention.
+- The alert includes a recommendation or follow-through.
+- The user must prioritize response.
 
 ## Do not use this component when
 
-- The content is only a metric or status.
-- The content is an owned task; use `ActionRow` or `ActionCard`.
-- The content is a full recommendation with detailed rationale; use `RecommendationCard`.
-- There is no recommended next step.
+- The content is only informational.
+- There is no recommendation or next step.
+- The screen would become a stack of alerts.
 
 ## Prefer this component over
 
-- generic `Card` for risks or blockers
-- local warning boxes
-- decorative banners without recommendation
+- Generic colored cards.
+- Decorative warning panels.
+- Status-only badges for complex issues.
 
 ## Never generate
 
-- `AlertCard` without `recommendation`
-- invented evidence, telemetry or sources
-- a critical alert that hides validation status when validation matters
-- an alert that presents expected outcomes as proven value
+- Alerts without recommendation.
+- Alerts based on invented evidence.
+- Color-only severity.
 
 ## Required props
 
-```txt
-severity
-title
-description
-recommendation
-source or sourceScope when trust matters
-sourceStrength when source basis matters
-validationStatus when review state matters
-action when immediate follow-through exists
-```
+Show alert title, severity or priority, and recommendation context.
+
+Include action context when the alert is actionable.
 
 ## Controlled values
 
-```txt
-severity: critical | warning | info
-sourceStrength: unknown | partial | single-source | multi-source | validated
-validationStatus: not-reviewed | internal-review-needed | internally-validated | customer-ready | blocked
-```
+Follow `contracts/props.contract.json#AlertCard`.
+
+Use canonical severity, tone, priority and status values only.
 
 ## GenAI generation rules
 
-1. Use `AlertCard` after facts, context or summary patterns.
-2. Always include `recommendation`.
-3. Use `severity="critical"` only when immediate attention is justified.
-4. Keep source limits visible when the alert depends on partial data.
-5. Put owned follow-through in `ActionRow` or `action`.
+- Every alert must include a recommendation.
+- Show why the alert matters.
+- Do not overstate weak or partial evidence.
+- Add owned action when follow-through is required.
 
 ## Common generation failures
 
-Failure: Make creates a warning card with no recommendation.
-Why it fails: The user knows there is a problem but not what to do next.
-Fix: Add a concrete `recommendation`.
-
-Failure: Make invents a source to justify the alert.
-Why it fails: It creates false evidence.
-Fix: Remove the invented source or mark the source basis as unknown.
-
-Failure: Make uses `success` as alert severity.
-Why it fails: `AlertCard.severity` only accepts critical, warning or info.
-Fix: Use the accepted severity values.
+- Alert with no recommendation.
+- Too many equal alert cards.
+- Color used as the only severity signal.
+- Missing evidence or source context.
 
 ## Repair prompt
 
-Use:
+Use `guidelines/evaluation/repair/actions-without-ownership.md` when action ownership is missing.
 
-```txt
-guidelines/evaluation/repair/invented-evidence.md
-guidelines/evaluation/repair/missing-evidence.md
-guidelines/evaluation/repair/expected-outcomes-as-proven-value.md
-```
+Use `guidelines/evaluation/repair/missing-evidence.md` when support is missing.
 
 ## Related stories
 
-```txt
-src/design-system/stories/v0.5.1-critical-generation.stories.tsx
-Story title: Design System / v0.5.1 / Critical Generation Coverage
-```
+Story coverage is tracked in the story coverage contract.
 
 ## Related contracts
 
 ```txt
-contracts/components.contract.json
-contracts/props.contract.json
+contracts/component-registry.contract.json#AlertCard
+contracts/props.contract.json#AlertCard
+contracts/domain-model.contract.json
 contracts/evidence-and-trust.contract.json
-contracts/generation-blockers.contract.json
 ```
