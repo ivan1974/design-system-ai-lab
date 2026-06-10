@@ -60,7 +60,33 @@ Do not generate a generic dashboard or a long stack of equal cards.
 
 ---
 
-## 3. Use business patterns first
+## 3. Generation preferences
+
+Use preferred components for new screens.
+
+```txt
+Page intent → PageHeading
+Selected item detail → WorkspaceDetailPanel
+Compact signal group → MetricStrip with CompactMetric
+Asset hierarchy → ComponentHierarchy
+Repeated review objects → ListContainer with approved row components
+Follow-through actions → ActionRow or StickyActionBar
+```
+
+Use with care:
+
+```txt
+PageHeader → legacy page header, not the default for new decision workspaces
+DetailPanel → lower-level primitive, not the default selected-item detail panel
+ComponentHierarchyItem → use only inside ComponentHierarchy
+Card → emphasis container, not the default repeated-object layout
+```
+
+Do not use low-level or legacy components when a preferred component matches the user decision.
+
+---
+
+## 4. Use business patterns first
 
 Use available business patterns before rebuilding known sections manually.
 
@@ -79,7 +105,7 @@ CustomerReviewReadinessCard
 
 ---
 
-## 4. Facts before interpretation
+## 5. Facts before interpretation
 
 Show observable facts before interpretation, prioritization or recommendation.
 
@@ -95,7 +121,7 @@ source-system facts
 
 ---
 
-## 5. Evidence rules
+## 6. Evidence rules
 
 Never invent evidence, sources, telemetry, proof or validation.
 
@@ -110,7 +136,7 @@ Keep source scope, source strength, proof readiness and validation visible when 
 
 ---
 
-## 6. Action rules
+## 7. Action rules
 
 Every action must have:
 
@@ -126,7 +152,7 @@ Every `AlertCard` must include a recommendation.
 
 ---
 
-## 7. Reject and repair
+## 8. Reject and repair
 
 If any blocking rule fails, revise before acceptance.
 
