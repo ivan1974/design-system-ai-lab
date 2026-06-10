@@ -13,7 +13,7 @@ This is a fixed benchmark case, not reusable prompt guidance.
 Reusable generation guidance lives in:
 
 ```txt
-guidelines/prompts/*
+guidelines/prompts/installed-base-explorer.md
 ```
 
 Do not rewrite benchmark facts unless the scoring objective changes.
