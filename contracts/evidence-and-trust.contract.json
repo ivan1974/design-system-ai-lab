@@ -1,10 +1,14 @@
 {
   "$schema": "./schema/generation-contract.schema.json",
   "name": "evidence-and-trust",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "sourceGuidelines": [
     "guidelines/Guidelines.md",
     "guidelines/setup.md",
+    "guidelines/domain-models/evidence.md",
+    "guidelines/domain-models/proof.md",
+    "guidelines/domain-models/source.md",
+    "guidelines/domain-models/recommendation.md",
     "guidelines/review/blocking-checklist.md",
     "guidelines/review/quality-checklist.md"
   ],
@@ -22,19 +26,22 @@
   "requiredForSensitiveDecisions": [
     "sourceStrength",
     "validationStatus",
-    "humanValidationVisible"
+    "humanValidation"
   ],
   "requiredForRecommendations": [
     "observableFacts",
     "sourceContext",
     "recommendationRationale",
+    "sourceStrength",
     "validationStatus",
+    "customerReadiness",
     "nextAction"
   ],
   "requiredForValueProof": [
     "proofContext",
     "proofReadiness",
     "evidenceSource",
+    "validationStatus",
     "customerReadiness"
   ],
   "allowedSourceStrengthValues": [
@@ -44,6 +51,12 @@
     "multi-source",
     "validated"
   ],
+  "deprecatedSourceStrengthAliases": [
+    "strong",
+    "needs_review",
+    "internal",
+    "customer_ready"
+  ],
   "allowedValidationStatusValues": [
     "not-reviewed",
     "internal-review-needed",
@@ -51,16 +64,59 @@
     "customer-ready",
     "blocked"
   ],
+  "allowedCustomerReadinessValues": [
+    "internal",
+    "needs-review",
+    "customer-ready"
+  ],
+  "deprecatedCustomerReadinessAliases": [
+    "needs_review",
+    "customer_ready"
+  ],
+  "allowedHumanValidationValues": [
+    "not-required",
+    "recommended",
+    "required"
+  ],
   "allowedProofReadinessValues": [
     "not-available",
     "expected-only",
     "internal-proof",
     "customer-ready-proof"
   ],
+  "allowedEvidenceSourceTypeValues": [
+    "source-system",
+    "expert-review",
+    "customer-input",
+    "ai-generated",
+    "unknown"
+  ],
+  "allowedActionPriorityValues": [
+    "low",
+    "medium",
+    "high",
+    "critical"
+  ],
+  "allowedActionStatusValues": [
+    "todo",
+    "in-progress",
+    "blocked",
+    "done"
+  ],
+  "deprecatedActionStatusAliases": [
+    "in_progress"
+  ],
+  "allowedRiskLevelValues": [
+    "critical",
+    "warning",
+    "info"
+  ],
   "labelingRules": {
     "expectedOutcome": "Label as expected, estimated or illustrative. Do not label as proven.",
     "partialVisibility": "Show scope limits and known unknowns.",
     "aiGeneratedInterpretation": "Show observable facts before AI interpretation.",
-    "customerReadyClaim": "Require validation status and proof readiness."
+    "customerReadyClaim": "Require customer readiness, validation status and proof readiness.",
+    "humanValidation": "Use not-required, recommended or required. Do not hide required validation in prose.",
+    "deprecatedAliases": "Deprecated aliases may be accepted by TypeScript for compatibility, but new documentation must prefer canonical hyphenated values."
   }
 }
