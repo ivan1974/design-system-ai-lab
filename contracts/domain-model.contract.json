@@ -112,14 +112,14 @@
       "left": "SourceStrength",
       "right": "AIConfidence",
       "rule": "Source strength describes source support, not model confidence.",
-      "blockedConfusions": ["AI confidence as source strength", "confidence percentage used as evidence"]
+      "blockedConfusions": ["AI confidence used as source strength", "confidence percentage used as evidence"]
     },
     {
       "id": "expected-outcome-vs-proven-value",
       "left": "ExpectedOutcome",
       "right": "ProvenValue",
       "rule": "Expected outcomes are projections and require proofReadiness expected-only.",
-      "blockedConfusions": ["expected outcome presented as proven value", "projected saving presented as achieved saving"]
+      "blockedConfusions": ["expected outcome presented as achieved value", "projected saving presented as achieved saving"]
     },
     {
       "id": "asset-health-vs-asset-intelligence",
@@ -143,13 +143,17 @@
       "blockedConfusions": ["internal proof labeled customer-ready", "proof without customer readiness"]
     }
   ],
-  "forbiddenPhrases": [
-    "AI confidence as source strength",
-    "expected outcome presented as proven value",
+  "forbiddenClaims": [
+    "source strength is ai confidence",
+    "ai confidence is source strength",
+    "confidence percentage is evidence",
+    "expected outcome is proven value",
+    "projected saving is achieved saving",
     "recommendation is an action",
     "evidence is proof by itself",
     "asset health equals asset intelligence",
     "customer readiness is validation status",
+    "validation status is customer readiness",
     "internal proof is customer-ready proof"
   ],
   "requiredFilesToScan": [
