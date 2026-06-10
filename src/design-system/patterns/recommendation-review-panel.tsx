@@ -6,6 +6,10 @@ import { KeyValueList, KeyValueRow } from "../components/key-value-list";
 import { SectionBlock, SectionStack } from "../composition/section-stack";
 import { SemanticTag } from "../decision/semantic-tag";
 import { StatusPill } from "../decision/status-pill";
+import type { ProofReadiness } from "../types/evidence";
+import { proofReadinessLabels } from "../types/evidence";
+import type { CustomerReadiness, HumanValidationRequirement, ValidationStatus } from "../types/trust";
+import { customerReadinessLabels, humanValidationRequirementLabels, validationStatusLabels } from "../types/trust";
 
 export type RecommendationReviewPanelBadge = {
   label: string;
@@ -25,9 +29,14 @@ export type RecommendationReviewPanelProps = HTMLAttributes<HTMLElement> & {
   reviewScope?: string;
   reviewStatus?: string;
   sourceContext?: string;
-  validationStatus?: string;
-  customerReadiness?: string;
-  proofContext?: string;
+  validationStatus?: ValidationStatus;
+  validationStatusLabel?: string;
+  customerReadiness?: CustomerReadiness;
+  customerReadinessLabel?: string;
+  proofReadiness?: ProofReadiness;
+  proofReadinessLabel?: string;
+  humanValidation?: HumanValidationRequirement;
+  humanValidationLabel?: string;
   badges?: RecommendationReviewPanelBadge[];
   extraItems?: RecommendationReviewPanelItem[];
   actions?: ReactNode;
@@ -47,8 +56,13 @@ export const RecommendationReviewPanel = forwardRef<
       reviewStatus,
       sourceContext,
       validationStatus,
+      validationStatusLabel,
       customerReadiness,
-      proofContext,
+      customerReadinessLabel,
+      proofReadiness,
+      proofReadinessLabel,
+      humanValidation,
+      humanValidationLabel,
       badges = [],
       extraItems = [],
       actions,
@@ -81,9 +95,10 @@ export const RecommendationReviewPanel = forwardRef<
             {reviewScope && <KeyValueRow label="Review scope" value={reviewScope} />}
             {reviewStatus && <KeyValueRow label="Review status" value={reviewStatus} />}
             {sourceContext && <KeyValueRow label="Source context" value={sourceContext} />}
-            {validationStatus && <KeyValueRow label="Validation" value={validationStatus} />}
-            {customerReadiness && <KeyValueRow label="Customer readiness" value={customerReadiness} />}
-            {proofContext && <KeyValueRow label="Proof context" value={proofContext} />}
+            {validationStatus && <KeyValueRow label="Validation" value={validationStatusLabel ?? validationStatusLabels[validationStatus]} />}
+            {customerReadiness && <KeyValueRow label="Customer readiness" value={customerReadinessLabel ?? customerReadinessLabels[customerReadiness]} />}
+            {proofReadiness && <KeyValueRow label="Proof readiness" value={proofReadinessLabel ?? proofReadinessLabels[proofReadiness]} />}
+            {humanValidation && <KeyValueRow label="Human validation" value={humanValidationLabel ?? humanValidationRequirementLabels[humanValidation]} />}
             {extraItems.map((item) => (
               <KeyValueRow key={item.label} label={item.label} value={item.value} />
             ))}
@@ -92,8 +107,8 @@ export const RecommendationReviewPanel = forwardRef<
 
         {customerReadiness && (
           <div>
-            <StatusPill tone={customerReadiness.toLowerCase().includes("ready") ? "success" : "warning"}>
-              {customerReadiness}
+            <StatusPill tone={customerReadiness === "customer-ready" ? "success" : "warning"}>
+              {customerReadinessLabel ?? customerReadinessLabels[customerReadiness]}
             </StatusPill>
           </div>
         )}
