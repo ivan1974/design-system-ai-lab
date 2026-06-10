@@ -14,6 +14,7 @@ import {
   MetricStrip,
   PageHeading,
   SectionBlock,
+  SectionHeading,
   SectionStack,
   SemanticTag,
   StatusPill,
@@ -73,7 +74,7 @@ export default function App() {
           listLabel="Monitoring list"
           detailLabel="Monitoring detail"
           list={
-            <SectionStack>
+            <SectionStack gap="lg">
               <SectionBlock title="Customer context">
                 <KeyValueList columns={2}>
                   <KeyValueRow label="Customer" value="Northstar Manufacturing" />
@@ -92,24 +93,26 @@ export default function App() {
                 </MetricStrip>
               </SectionBlock>
 
-              <SectionBlock title="Asset queue">
-                <ListContainer>
-                  {assetRows.map((asset) => (
-                    <AssetQueueRow
-                      key={asset.name}
-                      assetName={asset.name}
-                      site={asset.detail}
-                      description="Review monitoring scope and source freshness before customer use."
-                      statusLabel={asset.state}
-                      statusTone={asset.tone}
-                      priority={asset.state === "Monitored" ? undefined : "high"}
-                      sourceStrength={asset.state === "Monitored" ? "strong" : "partial"}
-                      freshness="18h"
-                      selected={asset.selected}
-                    />
-                  ))}
-                </ListContainer>
-              </SectionBlock>
+              <SectionHeading
+                title="Asset queue"
+                description="Assets are displayed as review rows with package-provided selected and hover states."
+              />
+              <ListContainer>
+                {assetRows.map((asset) => (
+                  <AssetQueueRow
+                    key={asset.name}
+                    assetName={asset.name}
+                    site={asset.detail}
+                    description="Review monitoring scope and source freshness before customer use."
+                    statusLabel={asset.state}
+                    statusTone={asset.tone}
+                    priority={asset.state === "Monitored" ? undefined : "high"}
+                    sourceStrength={asset.state === "Monitored" ? "strong" : "partial"}
+                    freshness="18h"
+                    selected={asset.selected}
+                  />
+                ))}
+              </ListContainer>
             </SectionStack>
           }
           detail={
@@ -177,11 +180,12 @@ export default function App() {
         </SectionBlock>
 
         {/*
-          Why this is compliant:
-          - Monitoring is a decision workspace, not a generic dashboard.
-          - Uses compact metrics for signals and master-detail for review.
-          - Keeps source scope, freshness and validation visible.
-          - Uses ActionRow for dense follow-through.
+          v0.4 reference:
+          - PageHeading and SectionHeading establish hierarchy.
+          - AssetQueueRow inside ListContainer replaces generic rows.
+          - WorkspaceDetailPanel replaces static detail panel.
+          - Tabs provide package-controlled panel navigation.
+          - White-first styling is provided by package tokens and components.
         */}
       </WorkspaceShell>
     </main>
