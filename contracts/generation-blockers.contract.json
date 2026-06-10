@@ -5,6 +5,7 @@
   "sourceGuidelines": [
     "guidelines/review/blocking-checklist.md",
     "guidelines/review/anti-patterns.md",
+    "guidelines/review/repair-routing.md",
     "guidelines/setup.md"
   ],
   "blockingFailures": [
@@ -49,6 +50,16 @@
       "description": "Workspace structure is missing when the task requires list/detail review."
     },
     {
+      "id": "missing-detail-panel",
+      "category": "screen-architecture",
+      "description": "A list/detail task has no selected item detail panel."
+    },
+    {
+      "id": "missing-list-container",
+      "category": "screen-architecture",
+      "description": "Queue rows are not grouped in ListContainer."
+    },
+    {
       "id": "card-stack-drift",
       "category": "screen-architecture",
       "description": "The output is a long stack of equal generic cards."
@@ -66,12 +77,22 @@
     {
       "id": "invented-evidence",
       "category": "evidence-and-trust",
-      "description": "Source, evidence, asset facts or value proof are invented."
+      "description": "Source, evidence, asset facts or value proof are unsupported or invented."
     },
     {
       "id": "expected-as-proven",
       "category": "evidence-and-trust",
       "description": "Expected outcomes are presented as proven value."
+    },
+    {
+      "id": "ai-confidence-as-source-strength",
+      "category": "evidence-and-trust",
+      "description": "AI confidence is presented as source strength or validation."
+    },
+    {
+      "id": "partial-visibility-overstated",
+      "category": "evidence-and-trust",
+      "description": "Partial source visibility is presented as complete asset knowledge."
     },
     {
       "id": "hidden-human-validation",
@@ -81,12 +102,23 @@
   ],
   "defaultDecision": "reject-before-quality-review",
   "repairRouting": {
-    "card-stack-drift": "guidelines/repair-prompts/card-saturation.md",
-    "missing-workspace-structure": "guidelines/repair-prompts/weak-layout.md",
     "missing-visible-app": "guidelines/review/blocking-checklist.md",
-    "local-design-system-recreation": "guidelines/review/anti-patterns.md",
-    "invented-evidence": "guidelines/review/anti-patterns.md",
-    "expected-as-proven": "guidelines/review/anti-patterns.md",
-    "action-without-ownership": "guidelines/review/anti-patterns.md"
+    "missing-package-root-import": "guidelines/repair-prompts/invalid-props-or-local-visual-components.md",
+    "missing-stylesheet-import": "guidelines/repair-prompts/invalid-props-or-local-visual-components.md",
+    "internal-package-import": "guidelines/repair-prompts/invalid-props-or-local-visual-components.md",
+    "local-design-system-recreation": "guidelines/repair-prompts/invalid-props-or-local-visual-components.md",
+    "raw-form-controls": "guidelines/repair-prompts/invalid-props-or-local-visual-components.md",
+    "ignored-business-patterns": "guidelines/repair-prompts/weak-layout.md",
+    "missing-workspace-structure": "guidelines/repair-prompts/weak-layout.md",
+    "missing-detail-panel": "guidelines/repair-prompts/missing-detail-panel.md",
+    "missing-list-container": "guidelines/repair-prompts/missing-list-container.md",
+    "card-stack-drift": "guidelines/repair-prompts/card-saturation.md",
+    "alert-without-recommendation": "guidelines/repair-prompts/actions-without-ownership.md",
+    "action-without-ownership": "guidelines/repair-prompts/actions-without-ownership.md",
+    "invented-evidence": "guidelines/repair-prompts/invented-evidence.md",
+    "expected-as-proven": "guidelines/repair-prompts/expected-outcomes-as-proven-value.md",
+    "ai-confidence-as-source-strength": "guidelines/repair-prompts/ai-confidence-as-source-strength.md",
+    "partial-visibility-overstated": "guidelines/repair-prompts/partial-visibility-overstated.md",
+    "hidden-human-validation": "guidelines/repair-prompts/missing-human-validation.md"
   }
 }
