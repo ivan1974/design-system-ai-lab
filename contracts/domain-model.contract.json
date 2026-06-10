@@ -1,0 +1,160 @@
+{
+  "$schema": "./schema/domain-model.contract.schema.json",
+  "name": "domain-model",
+  "version": "0.6.0",
+  "purpose": "Prevent GenAI from confusing critical domain concepts when generating decision screens.",
+  "sourceGuidelines": [
+    "guidelines/source/domain-models/action.md",
+    "guidelines/source/domain-models/asset.md",
+    "guidelines/source/domain-models/component.md",
+    "guidelines/source/domain-models/customer.md",
+    "guidelines/source/domain-models/evidence.md",
+    "guidelines/source/domain-models/proof.md",
+    "guidelines/source/domain-models/recommendation.md",
+    "guidelines/source/domain-models/site.md",
+    "guidelines/source/domain-models/source.md",
+    "guidelines/runtime/trust-action-rules.md"
+  ],
+  "concepts": {
+    "Action": {
+      "definition": "Owned next step required to resolve risk, progress recommendation, close proof gap or prepare customer interaction.",
+      "requiredFields": ["owner", "dueDate", "priority"],
+      "notSameAs": ["Recommendation", "Proof", "ExpectedOutcome"],
+      "preferredComponents": ["ActionRow", "ActionCard", "ActionList", "CreateActionDialog"],
+      "runtimeRule": "Every generated action must show owner, due date and priority."
+    },
+    "Recommendation": {
+      "definition": "Evidence-aware proposal for what should be considered or done next.",
+      "requiredFields": ["rationale", "sourceStrength", "validationStatus", "proofReadiness"],
+      "notSameAs": ["Action", "Proof", "ProvenValue"],
+      "preferredComponents": ["RecommendationCard", "RecommendationReviewPanel"],
+      "runtimeRule": "A recommendation may create actions, but is not an owned action by itself."
+    },
+    "Evidence": {
+      "definition": "Information that supports a signal, risk, recommendation, proof point or decision.",
+      "requiredFields": ["source", "sourceType", "sourceScope", "sourceStrength", "validationStatus"],
+      "notSameAs": ["Proof", "Interpretation", "AIConfidence"],
+      "preferredComponents": ["EvidenceRow", "SignalRow", "SourceStrengthPill"],
+      "runtimeRule": "Evidence is not proof by itself and must not be replaced by AI confidence."
+    },
+    "Proof": {
+      "definition": "Evidence that can support a value claim, customer review, renewal conversation or business impact narrative.",
+      "requiredFields": ["proofReadiness", "source", "sourceStrength", "validationStatus", "customerReadiness"],
+      "notSameAs": ["Evidence", "ExpectedOutcome", "Recommendation"],
+      "preferredComponents": ["ValueProofCard", "CustomerReviewReadinessCard", "RenewalRiskSummary"],
+      "runtimeRule": "Proof must be grounded in evidence and labeled by readiness."
+    },
+    "ExpectedOutcome": {
+      "definition": "Projected, estimated or illustrative value that has not yet been proven.",
+      "requiredFields": ["proofReadiness"],
+      "requiredValue": { "proofReadiness": "expected-only" },
+      "notSameAs": ["Proof", "ProvenValue"],
+      "runtimeRule": "Expected outcome must not be presented as proven value."
+    },
+    "SourceStrength": {
+      "definition": "Strength of the source context behind evidence, not confidence in an AI answer.",
+      "allowedValues": ["unknown", "partial", "single-source", "multi-source", "validated"],
+      "notSameAs": ["AIConfidence", "ValidationStatus", "ProofReadiness"],
+      "runtimeRule": "Never use AI confidence as source strength."
+    },
+    "AssetHealth": {
+      "definition": "Observed or inferred state of an asset at a point in time.",
+      "notSameAs": ["AssetIntelligence"],
+      "runtimeRule": "Asset health is a signal, not the full asset intelligence narrative."
+    },
+    "AssetIntelligence": {
+      "definition": "Evidence-aware interpretation of asset signals, context, risks and recommended follow-through.",
+      "notSameAs": ["AssetHealth"],
+      "runtimeRule": "Asset intelligence must show scope, evidence and recommended follow-through."
+    },
+    "CustomerReadiness": {
+      "definition": "Whether information is suitable to expose to a customer.",
+      "allowedValues": ["internal", "needs-review", "customer-ready"],
+      "notSameAs": ["ValidationStatus"],
+      "runtimeRule": "Customer readiness is not validation status."
+    },
+    "ValidationStatus": {
+      "definition": "Review state of information before it is trusted or customer-facing.",
+      "allowedValues": ["not-reviewed", "internal-review-needed", "internally-validated", "customer-ready", "blocked"],
+      "notSameAs": ["CustomerReadiness"],
+      "runtimeRule": "Validation status must remain visible when customer use is sensitive."
+    },
+    "InternalProof": {
+      "definition": "Evidence-backed proof that is not ready for customer use.",
+      "requiredValue": { "proofReadiness": "internal-proof" },
+      "notSameAs": ["CustomerReadyProof"],
+      "runtimeRule": "Internal proof must not be shown as customer-ready proof."
+    },
+    "CustomerReadyProof": {
+      "definition": "Proof with validation and customer readiness explicit.",
+      "requiredValue": { "proofReadiness": "customer-ready-proof" },
+      "notSameAs": ["InternalProof"],
+      "runtimeRule": "Customer-ready proof needs validation status and source context."
+    }
+  },
+  "criticalDistinctions": [
+    {
+      "id": "action-vs-recommendation",
+      "left": "Action",
+      "right": "Recommendation",
+      "rule": "Recommendation can propose what to do; Action is the owned follow-through.",
+      "blockedConfusions": ["recommendation used as owned action", "action without owner", "action without due date", "action without priority"]
+    },
+    {
+      "id": "evidence-vs-proof",
+      "left": "Evidence",
+      "right": "Proof",
+      "rule": "Evidence supports proof, but evidence alone is not a value proof.",
+      "blockedConfusions": ["evidence called proof without proof readiness", "proof without validation", "proof without source context"]
+    },
+    {
+      "id": "source-strength-vs-ai-confidence",
+      "left": "SourceStrength",
+      "right": "AIConfidence",
+      "rule": "Source strength describes source support, not model confidence.",
+      "blockedConfusions": ["AI confidence as source strength", "confidence percentage used as evidence"]
+    },
+    {
+      "id": "expected-outcome-vs-proven-value",
+      "left": "ExpectedOutcome",
+      "right": "ProvenValue",
+      "rule": "Expected outcomes are projections and require proofReadiness expected-only.",
+      "blockedConfusions": ["expected outcome presented as proven value", "projected saving presented as achieved saving"]
+    },
+    {
+      "id": "asset-health-vs-asset-intelligence",
+      "left": "AssetHealth",
+      "right": "AssetIntelligence",
+      "rule": "Asset health is a signal; asset intelligence combines signal, context, evidence, risk and next action.",
+      "blockedConfusions": ["health status presented as full intelligence", "asset intelligence without evidence or follow-through"]
+    },
+    {
+      "id": "customer-readiness-vs-validation-status",
+      "left": "CustomerReadiness",
+      "right": "ValidationStatus",
+      "rule": "Customer readiness is audience suitability; validation status is review state.",
+      "blockedConfusions": ["customer-ready used as validation substitute", "needs-review used without validation state"]
+    },
+    {
+      "id": "internal-proof-vs-customer-ready-proof",
+      "left": "InternalProof",
+      "right": "CustomerReadyProof",
+      "rule": "Internal proof may exist but must not be exposed as customer-ready proof.",
+      "blockedConfusions": ["internal proof labeled customer-ready", "proof without customer readiness"]
+    }
+  ],
+  "forbiddenPhrases": [
+    "AI confidence as source strength",
+    "expected outcome presented as proven value",
+    "recommendation is an action",
+    "evidence is proof by itself",
+    "asset health equals asset intelligence",
+    "customer readiness is validation status",
+    "internal proof is customer-ready proof"
+  ],
+  "requiredFilesToScan": [
+    "guidelines/prompts",
+    "guidelines/examples/golden",
+    "benchmarks/figma-make/cases"
+  ]
+}
