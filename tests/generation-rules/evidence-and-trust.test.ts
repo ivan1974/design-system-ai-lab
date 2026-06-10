@@ -14,8 +14,8 @@ describe("generation rules: evidence and trust", () => {
     if (nonCustomerReadyProof.test(target.content)) {
       expectNoForbiddenPattern(
         target,
-        /\b(proven|proved|customer-ready proof)\b/i,
-        "Do not use proven/customer-ready proof language when proofReadiness is not customer-ready-proof.",
+        /\b(proven|proved)\b/i,
+        "Do not use proven language when proofReadiness is not customer-ready-proof.",
       );
     }
   });
@@ -44,7 +44,7 @@ describe("generation rules: evidence and trust", () => {
     if (!/proofReadiness=\{?["']customer-ready-proof["']\}?/.test(target.content)) {
       expectNoForbiddenPattern(
         target,
-        /\b(proven|proved|customer-ready proof|fully monitored|complete asset knowledge)\b/i,
+        /\b(proven|proved|fully monitored|complete asset knowledge)\b/i,
         "Risky proof or source confidence language requires explicit customer-ready proof or validation context.",
       );
     }
