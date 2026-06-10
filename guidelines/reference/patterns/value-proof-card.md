@@ -1,98 +1,74 @@
 # ValueProofCard Guidelines
 
+Status: allowed
+
 ## Purpose
 
 `ValueProofCard` shows value evidence, proof readiness and validation state.
 
-It prevents Make from presenting expected outcomes as proven customer value.
+Use it to prevent expected outcomes from being presented as proven value.
 
 ## Use this component when
 
-- The screen must explain delivered value, proof status or proof gaps.
-- A QBR, renewal or customer review needs value context.
-- Proof readiness or validation status affects customer-facing use.
-- Expected outcomes must be separated from proven value.
+- A value claim needs proof context.
+- Proof readiness affects customer communication.
+- A proof gap must be closed before renewal, QBR or customer review.
 
 ## Do not use this component when
 
-- The content is only a metric grid.
-- The content is a recommendation rationale.
-- The content is an action list.
-- No proof points are available.
+- The content is only a generic metric.
+- There is no evidence or proof readiness.
+- The value is only decorative marketing copy.
 
 ## Prefer this component over
 
-- generic `Card` for value proof
-- metric-only summaries
-- local proof widgets
+- Generic cards for proof claims.
+- Metric cards for proof readiness.
+- Local proof summary components.
 
 ## Never generate
 
-- customer-ready proof without validation
-- expected outcomes as proven value
-- AI-generated proof claims
-- proof points without source or proof readiness when trust matters
+- Expected outcome as proven value.
+- Internal proof as customer-ready proof.
+- Proof without source or validation context.
 
 ## Required props
 
-```txt
-proofPoints
-proofReadiness when proof maturity matters
-validationStatus when review state matters
-sourceContext when proof basis matters
-expectedOutcome only when clearly labeled as expected
-period when time scope matters
-customerObjective when value depends on business goal
-mode when layout matters
-```
+Show proof point, proof readiness, source context and validation status when relevant.
 
 ## Controlled values
 
-```txt
-mode: card | section | compact
-proofReadiness: not-available | expected-only | internal-proof | customer-ready-proof
-validationStatus: not-reviewed | internal-review-needed | internally-validated | customer-ready | blocked
-```
+Follow `contracts/props.contract.json#ValueProofCard`.
+
+Use canonical `proofReadiness`, `sourceStrength`, `validationStatus` and `customerReadiness` values.
 
 ## GenAI generation rules
 
-1. Use `ValueProofCard` after facts, completed actions or service outcomes.
-2. Label expected outcomes as expected, not proven.
-3. Use `proofReadiness="internal-proof"` for internal evidence not ready for customers.
-4. Use `customer-ready-proof` only when customer-ready proof is explicit.
-5. Do not use this component as a recommendation or action plan.
+- Label expected value as expected-only.
+- Keep internal proof distinct from customer-ready proof.
+- Show source scope when proof is partial.
+- Add action when a proof gap must be closed.
 
 ## Common generation failures
 
-Failure: Make claims value was delivered based on an expected outcome.
-Why it fails: Expected outcome is not proof.
-Fix: Show it as `expectedOutcome` and keep proof readiness visible.
-
-Failure: Make lists proof points without validation status.
-Why it fails: The user cannot judge customer readiness.
-Fix: Add `proofReadiness` and `validationStatus`.
+- Claiming value without evidence.
+- Turning completed activity into business proof automatically.
+- Hiding validation status.
+- Styling weak proof as validated.
 
 ## Repair prompt
 
-Use:
-
-```txt
-guidelines/evaluation/repair/expected-outcomes-as-proven-value.md
-guidelines/evaluation/repair/missing-human-validation.md
-```
+Use `guidelines/evaluation/repair/expected-outcomes-as-proven-value.md` when value is overstated.
 
 ## Related stories
 
-```txt
-src/design-system/stories/v0.5.1-critical-generation.stories.tsx
-Story title: Design System / v0.5.1 / Critical Generation Coverage
-```
+Story coverage is tracked in the story coverage contract.
 
 ## Related contracts
 
 ```txt
-contracts/components.contract.json
-contracts/props.contract.json
+contracts/component-registry.contract.json#ValueProofCard
+contracts/props.contract.json#ValueProofCard
+contracts/domain-model.contract.json#Proof
 contracts/evidence-and-trust.contract.json
-contracts/generation-blockers.contract.json
 ```
