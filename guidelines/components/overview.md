@@ -126,7 +126,7 @@ Good uses:
 
 Use only one main primary action per screen section.
 
-Do not use vague labels such as `OK`, `Submit`, `More` or `Click here`.
+Do not use vague labels such as OK, Submit, More or Click here.
 
 ---
 
@@ -189,7 +189,7 @@ Every action must include:
 
 Action titles should describe concrete work to do.
 
-Do not use vague titles such as `Follow up`, `Check`, `Review` or `Update`.
+Do not use vague titles such as Follow up, Check, Review or Update.
 
 ---
 
