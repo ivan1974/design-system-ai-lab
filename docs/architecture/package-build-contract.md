@@ -179,6 +179,27 @@ They should be run locally after pulling the Sprint 1 commits.
 
 ---
 
+## Lockfile audit note
+
+`package-lock.json` should be regenerated locally during Sprint 1 after pulling these changes.
+
+Reason:
+
+```txt
+The lockfile root metadata was already stale compared with package.json.
+The safest fix is to regenerate it with npm rather than rewrite the lockfile manually.
+```
+
+Recommended local command:
+
+```bash
+npm install
+```
+
+Then commit the resulting `package-lock.json` if npm changes it.
+
+---
+
 ## Acceptance criteria
 
 Sprint 1 foundation work is acceptable when:
@@ -190,6 +211,7 @@ package root import remains the only public component import path
 package stylesheet import remains design-system-ai-lab/styles.css
 all used Radix primitives are consistently externalized
 script audit status is documented
+package-lock.json has been regenerated locally if npm reports changes
 ```
 
 ---
