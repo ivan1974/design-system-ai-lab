@@ -23,7 +23,7 @@ It should help the user understand what the screen is for before reading any det
 ## Prefer this component over
 
 - `PageHeader` for new GenAI output.
-- Local `Header`, `Hero`, `TitleBar` or `PageTitle` components.
+- Local header, hero, title bar or page title components.
 
 ## Never generate
 
