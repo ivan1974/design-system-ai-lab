@@ -26,7 +26,12 @@ const forbiddenGoldenExampleSnippets = [
   "proofReadiness=\"Customer-ready proof available\"",
   "CompanyName",
   "PageHeader",
-  "DetailPanel",
+];
+
+const forbiddenGoldenExamplePatterns = [
+  /import\s*\{[^}]*\bDetailPanel\b[^}]*\}\s*from\s*"design-system-ai-lab"/s,
+  /<DetailPanel\b/,
+  /<\/DetailPanel>/,
 ];
 
 const requiredArchitectureComponents = [
@@ -83,6 +88,12 @@ describe("generation rules: golden examples", () => {
   it.each(targets)("$path avoids obsolete or deprecated golden-example snippets", (target) => {
     for (const snippet of forbiddenGoldenExampleSnippets) {
       expect(target.content).not.toContain(snippet);
+    }
+  });
+
+  it.each(targets)("$path avoids obsolete or deprecated golden-example components", (target) => {
+    for (const pattern of forbiddenGoldenExamplePatterns) {
+      expect(target.content).not.toMatch(pattern);
     }
   });
 });
