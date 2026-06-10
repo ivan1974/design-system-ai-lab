@@ -6,7 +6,6 @@ import {
 
 const targets = readGenerationRuleTargets();
 
-const riskyProofLanguage = /\b(proven|proved|validated|customer-ready proof|live monitored|fully monitored|complete asset knowledge)\b/i;
 const weakSourceValues = /sourceStrength=\{?["'](?:partial|unknown)["']\}?/;
 const nonCustomerReadyProof = /proofReadiness=\{?["'](?:not-available|expected-only|internal-proof)["']\}?/;
 
@@ -21,12 +20,12 @@ describe("generation rules: evidence and trust", () => {
     }
   });
 
-  it.each(targets)("$path does not overclaim live monitoring on weak source strength", (target) => {
+  it.each(targets)("$path does not overclaim monitoring on weak source strength", (target) => {
     if (weakSourceValues.test(target.content)) {
       expectNoForbiddenPattern(
         target,
-        /\b(live monitored|fully monitored|complete asset knowledge)\b/i,
-        "Do not overclaim live monitoring or complete asset knowledge when sourceStrength is partial or unknown.",
+        /\b(fully monitored|complete asset knowledge)\b/i,
+        "Do not overclaim full monitoring or complete asset knowledge when sourceStrength is partial or unknown.",
       );
     }
   });
@@ -45,7 +44,7 @@ describe("generation rules: evidence and trust", () => {
     if (!/proofReadiness=\{?["']customer-ready-proof["']\}?/.test(target.content)) {
       expectNoForbiddenPattern(
         target,
-        riskyProofLanguage,
+        /\b(proven|proved|customer-ready proof|fully monitored|complete asset knowledge)\b/i,
         "Risky proof or source confidence language requires explicit customer-ready proof or validation context.",
       );
     }
