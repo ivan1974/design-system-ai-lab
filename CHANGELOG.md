@@ -8,7 +8,7 @@ It aligns guidelines, contracts, prompts, examples, review checklists, repair pr
 
 ---
 
-## Added
+## 0.5.1 Added
 
 - GenAI-ready component guideline template in `guidelines/templates/component-guideline-template.md`.
 - Expanded guidelines for priority components, screen architecture, forms, decision components and business patterns.
@@ -21,7 +21,7 @@ It aligns guidelines, contracts, prompts, examples, review checklists, repair pr
 
 ---
 
-## Changed
+## 0.5.1 Changed
 
 - Aligned controlled values across domain models, props contract and guidelines.
 - Updated golden examples to use canonical readiness, validation, proof and source strength values.
@@ -31,7 +31,7 @@ It aligns guidelines, contracts, prompts, examples, review checklists, repair pr
 
 ---
 
-## Fixed
+## 0.5.1 Fixed
 
 - Reduced documentation drift around legacy components and generic dashboard generation.
 - Tightened tests so preferred components require guidelines.
@@ -39,7 +39,7 @@ It aligns guidelines, contracts, prompts, examples, review checklists, repair pr
 
 ---
 
-## Migration notes
+## 0.5.1 Migration notes
 
 Read:
 
@@ -59,7 +59,7 @@ It adds machine-readable rules, stricter critical props, tested golden examples,
 
 ---
 
-## Added
+## 0.5.0 Added
 
 - Machine-readable generation contracts in `contracts/`.
 - Shared critical TypeScript types for trust, evidence, decision and action dimensions.
@@ -77,7 +77,7 @@ It adds machine-readable rules, stricter critical props, tested golden examples,
 
 ---
 
-## Changed
+## 0.5.0 Changed
 
 - `Guidelines.md` now points to `make-minimal-contract.md` as the first blocking contract to read before full generation guidance.
 - `README.md` now positions v0.5.0 as the main release milestone.
@@ -88,7 +88,7 @@ It adds machine-readable rules, stricter critical props, tested golden examples,
 
 ---
 
-## Fixed
+## 0.5.0 Fixed
 
 - Package import checks now validate the current `PageHeading` / workspace structure expectations.
 - Evidence and trust checks avoid false positives on customer-ready proof gap language.
@@ -98,7 +98,7 @@ It adds machine-readable rules, stricter critical props, tested golden examples,
 
 ---
 
-## Deprecated
+## 0.5.0 Deprecated
 
 - Free-text statuses for trust-critical fields.
 - Free-text source strength values.
@@ -110,7 +110,7 @@ It adds machine-readable rules, stricter critical props, tested golden examples,
 
 ---
 
-## Migration notes
+## 0.5.0 Migration notes
 
 Read:
 
