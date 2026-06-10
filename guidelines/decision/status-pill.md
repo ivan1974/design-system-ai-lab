@@ -42,15 +42,16 @@ tone when semantic state matters
 ## Controlled values
 
 ```txt
-tone: neutral | primary | success | warning | danger
+tone: neutral | success | warning | danger | info
 ```
 
 ## GenAI generation rules
 
 1. Use for short passive statuses.
 2. Use `warning` or `danger` only when the state requires attention.
-3. Keep validation status explicit when customer-facing readiness matters.
-4. Do not use `StatusPill` to represent source quality.
+3. Use `info` for neutral informational state that should still be visible.
+4. Keep validation status explicit when customer-facing readiness matters.
+5. Do not use `StatusPill` to represent source quality.
 
 ## Common generation failures
 
