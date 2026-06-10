@@ -19,6 +19,7 @@
     "README.md",
     "CHANGELOG.md",
     "contracts",
+    "benchmarks/figma-make",
     "guidelines/make-minimal-contract.md",
     "guidelines/Guidelines.md",
     "guidelines/setup.md",
@@ -39,9 +40,7 @@
     "guidelines/review",
     "guidelines/screen-architecture"
   ],
-  "sideEffects": [
-    "*.css"
-  ],
+  "sideEffects": ["*.css"],
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
@@ -56,16 +55,7 @@
     "check": "npm run lint && npm run lint:md && npm run test && npm run build:ds",
     "prepublishOnly": "npm run build:ds"
   },
-  "keywords": [
-    "design-system",
-    "react",
-    "figma",
-    "figma-make",
-    "ai",
-    "promptable-ui",
-    "controlled-generation",
-    "storybook"
-  ],
+  "keywords": ["design-system", "react", "figma", "figma-make", "ai", "promptable-ui", "controlled-generation", "storybook"],
   "author": "Ivan Lenoble",
   "license": "MIT",
   "dependencies": {
