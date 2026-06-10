@@ -2,8 +2,9 @@
 
 ## Definition
 
-A customer is the account or organization receiving EcoCare, service plans,
-monitoring, recommendations and value proof.
+A customer is the account or organization receiving EcoCare, service plans, monitoring, recommendations and value proof.
+
+Customer context must come from structured data or explicit user-provided facts.
 
 ## Key fields
 
@@ -16,8 +17,54 @@ contract
 CSM or owner
 renewalDate
 customerObjective
-reviewReadiness
+customerReadiness
 proofReadiness
+validationStatus
+sourceContext
+```
+
+## Controlled values
+
+### Customer readiness
+
+Canonical values:
+
+```txt
+internal
+needs-review
+customer-ready
+```
+
+Deprecated aliases accepted by TypeScript for compatibility:
+
+```txt
+needs_review
+customer_ready
+```
+
+Use hyphenated values in new documentation and generated screens.
+
+### Proof readiness
+
+Canonical values:
+
+```txt
+not-available
+expected-only
+internal-proof
+customer-ready-proof
+```
+
+### Validation status
+
+Canonical values:
+
+```txt
+not-reviewed
+internal-review-needed
+internally-validated
+customer-ready
+blocked
 ```
 
 ## Relationships
@@ -56,7 +103,17 @@ CustomerStatusCard
 CustomerReviewReadinessCard
 RenewalRiskSummary
 ValueProofCard
-KeyValueList, when compact context is enough
+KeyValueList when compact context is enough
+```
+
+## GenAI generation rules
+
+```txt
+Do not invent customer objectives.
+Do not invent renewal risk.
+Show customerReadiness when customer-facing use matters.
+Show proofReadiness when value proof affects customer conversation.
+Show validationStatus when content is not customer-ready.
 ```
 
 ## Make mistakes to avoid
@@ -66,4 +123,13 @@ inventing customer objectives
 inventing renewal risk
 presenting internal proof as customer-ready
 implying full operational visibility when only connected assets are covered
+using reviewReadiness as vague prose instead of customerReadiness or validationStatus
+```
+
+## Related contracts
+
+```txt
+contracts/evidence-and-trust.contract.json
+contracts/props.contract.json
+contracts/business-patterns.contract.json
 ```
