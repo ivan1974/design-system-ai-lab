@@ -1,87 +1,73 @@
 # ListContainer Guidelines
 
+Status: preferred
+
 ## Purpose
 
-`ListContainer` groups repeated row components in a controlled, dense and scannable structure.
+`ListContainer` groups repeated row components in a dense, scannable structure.
 
-It prevents Figma Make from turning every repeated object into a separate card.
+Use it to avoid card stacks when the user needs to compare multiple items.
 
 ## Use this component when
 
-- The screen has repeated review objects.
-- The user needs to scan customers, assets, risks, recommendations, evidence or actions.
-- Rows should share one visual container and consistent separators.
+- Showing repeated customers, assets, risks, recommendations, documents or actions.
+- Rows need a shared title, count, empty state or hierarchy.
+- The list feeds a detail panel or review workflow.
 
 ## Do not use this component when
 
-- The content is a single summary or one-off emphasis block.
-- The section needs a business pattern instead of row composition.
-- The content is a form layout.
+- There is only one item.
+- A business pattern already owns the section.
+- A metric strip or summary card is more appropriate.
 
 ## Prefer this component over
 
-- card stacks for repeated objects
-- local list wrappers
-- custom row containers
+- Grids of equal cards.
+- Local list wrappers.
+- Raw `ul` / `li` rows styled as a design system.
 
 ## Never generate
 
-- repeated queue rows outside a `ListContainer`
-- local separators, custom list borders or custom row shells
-- a `ListContainer` filled with unrelated card components
+- Card-saturated review queues.
+- Rows without clear labels.
+- Lists with mixed unrelated object types.
 
 ## Required props
 
-```txt
-children
-spacing when divided is false and spacing must be explicit
-divided when row separators are required or not required
-```
+Use clear list title, row content and empty state when relevant.
 
 ## Controlled values
 
-```txt
-spacing: compact | comfortable | spacious
-```
+Follow `contracts/props.contract.json#ListContainer` when controlled values are used.
 
 ## GenAI generation rules
 
-1. Use `ListContainer` around approved row components.
-2. Use it for `ReviewQueueRow`, `EvidenceRow`, `ActionRow` and queue rows.
-3. Keep row content dense and comparable.
-4. Use sections or business patterns around the list when context is needed.
+- Pair with approved row components.
+- Keep repeated objects comparable.
+- Sort critical or high-priority items first when priority matters.
+- Use `MasterDetailLayout` when list selection needs detail.
 
 ## Common generation failures
 
-Failure: Make generates a stack of cards for every customer, asset or action.
-Why it fails: The screen becomes visually saturated and hard to scan.
-Fix: Use `ListContainer` with approved row components.
-
-Failure: Make creates custom list styling with local borders.
-Why it fails: It recreates package layout primitives.
-Fix: Use `ListContainer`.
+- Replacing rows with cards.
+- Mixing unrelated items.
+- Missing empty state.
+- Too much metadata per row.
 
 ## Repair prompt
 
-Use:
+Use `guidelines/evaluation/repair/missing-list-container.md` when repeated objects are not grouped.
 
-```txt
-guidelines/evaluation/repair/missing-list-container.md
-guidelines/evaluation/repair/poor-row-density.md
-guidelines/evaluation/repair/card-saturation.md
-```
+Use `guidelines/evaluation/repair/card-saturation.md` when cards replace rows.
 
 ## Related stories
 
-```txt
-src/design-system/stories/v0.5.1-critical-generation.stories.tsx
-Story title: Design System / v0.5.1 / Critical Generation Coverage
-```
+Story coverage is tracked in the story coverage contract.
 
 ## Related contracts
 
 ```txt
-contracts/components.contract.json
-contracts/props.contract.json
+contracts/component-registry.contract.json#ListContainer
+contracts/props.contract.json#ListContainer
 contracts/screen-architecture.contract.json
 ```
