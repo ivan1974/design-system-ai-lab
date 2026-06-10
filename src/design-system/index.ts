@@ -1,3 +1,24 @@
+export type {
+  ActionOwnership,
+  ActionPriority,
+  ActionStatus,
+} from "./types/action";
+export type {
+  RecommendationPriority,
+  RecommendationReadiness,
+  RiskLevel,
+} from "./types/decision";
+export type {
+  EvidenceSourceType,
+  ProofReadiness,
+} from "./types/evidence";
+export type {
+  CustomerReadiness,
+  HumanValidationRequirement,
+  SourceStrength,
+  ValidationStatus,
+} from "./types/trust";
+
 // Components
 export { Badge } from "./components/badge";
 export type { BadgeProps, BadgeTone } from "./components/badge";
@@ -177,11 +198,7 @@ export type {
 
 // Decision
 export { ActionCard } from "./decision/action-card";
-export type {
-  ActionCardProps,
-  ActionPriority,
-  ActionStatus,
-} from "./decision/action-card";
+export type { ActionCardProps } from "./decision/action-card";
 
 export { ActionList } from "./decision/action-list";
 export type { ActionListProps } from "./decision/action-list";
@@ -211,11 +228,7 @@ export { PriorityPill } from "./decision/priority-pill";
 export type { PriorityPillProps } from "./decision/priority-pill";
 
 export { RecommendationCard } from "./decision/recommendation-card";
-export type {
-  RecommendationCardProps,
-  RecommendationPriority,
-  RecommendationReadiness,
-} from "./decision/recommendation-card";
+export type { RecommendationCardProps } from "./decision/recommendation-card";
 
 export { ReviewQueueRow } from "./decision/review-queue-row";
 export type {
@@ -237,10 +250,7 @@ export { SignalRow } from "./decision/observed-signal-row";
 export type { SignalRowProps } from "./decision/observed-signal-row";
 
 export { SourceStrengthPill } from "./decision/source-strength-pill";
-export type {
-  SourceStrength,
-  SourceStrengthPillProps,
-} from "./decision/source-strength-pill";
+export type { SourceStrengthPillProps } from "./decision/source-strength-pill";
 
 export { StatusPill } from "./decision/status-pill";
 export type { StatusPillProps, StatusPillTone } from "./decision/status-pill";
