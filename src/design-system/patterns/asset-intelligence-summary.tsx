@@ -6,11 +6,10 @@ import { SectionBlock, SectionStack } from "../composition/section-stack";
 import { SourceStrengthPill } from "../decision/source-strength-pill";
 import { StatusPill } from "../decision/status-pill";
 import type { StatusSummaryBadge, StatusSummaryItem } from "../decision/status-summary";
+import type { CustomerReadiness, SourceStrength, ValidationStatus } from "../types/trust";
+import { customerReadinessLabels, validationStatusLabels } from "../types/trust";
 
-export type AssetIntelligenceReadiness =
-  | "internal"
-  | "needs_review"
-  | "customer_ready";
+export type AssetIntelligenceReadiness = CustomerReadiness;
 
 export type AssetIntelligenceSummaryMode = "card" | "section" | "compact";
 
@@ -25,10 +24,12 @@ export type AssetIntelligenceSummaryProps = Omit<
   intelligenceInterpretation?: string;
   sourceContext?: string;
   sourceScope?: string;
-  sourceStrength?: string;
+  sourceStrength?: SourceStrength;
   freshness?: string;
-  validationStatus?: string;
+  validationStatus?: ValidationStatus;
+  validationStatusLabel?: string;
   readiness?: AssetIntelligenceReadiness;
+  readinessLabel?: string;
   badges?: StatusSummaryBadge[];
   extraItems?: StatusSummaryItem[];
   title?: string;
@@ -36,16 +37,10 @@ export type AssetIntelligenceSummaryProps = Omit<
   mode?: AssetIntelligenceSummaryMode;
 };
 
-const readinessLabel: Record<AssetIntelligenceReadiness, string> = {
-  internal: "Internal",
-  needs_review: "Needs review",
-  customer_ready: "Customer-ready",
-};
-
 const readinessTone: Record<AssetIntelligenceReadiness, "neutral" | "warning" | "success"> = {
   internal: "neutral",
-  needs_review: "warning",
-  customer_ready: "success",
+  "needs-review": "warning",
+  "customer-ready": "success",
 };
 
 const Container = forwardRef<HTMLElement, { mode: AssetIntelligenceSummaryMode; title: string; description?: string; className?: string; children: ReactNode }>(
@@ -90,7 +85,9 @@ export const AssetIntelligenceSummary = forwardRef<
       sourceStrength,
       freshness,
       validationStatus,
+      validationStatusLabel,
       readiness,
+      readinessLabel,
       badges = [],
       extraItems = [],
       title = "Asset intelligence summary",
@@ -106,8 +103,8 @@ export const AssetIntelligenceSummary = forwardRef<
         <SectionStack gap="sm">
           {(badges.length > 0 || readiness || sourceStrength) && (
             <div className="flex flex-wrap gap-2">
-              {readiness && <StatusPill tone={readinessTone[readiness]}>{readinessLabel[readiness]}</StatusPill>}
-              {sourceStrength && <SourceStrengthPill strength={sourceStrength === "strong" ? "strong" : sourceStrength === "customer-ready" ? "customer_ready" : sourceStrength === "internal" ? "internal" : "partial"} />}
+              {readiness && <StatusPill tone={readinessTone[readiness]}>{readinessLabel ?? customerReadinessLabels[readiness]}</StatusPill>}
+              {sourceStrength && <SourceStrengthPill strength={sourceStrength} />}
               {badges.map((badge) => (
                 <StatusPill key={badge.label} tone={badge.tone ?? "neutral"}>{badge.label}</StatusPill>
               ))}
@@ -122,7 +119,7 @@ export const AssetIntelligenceSummary = forwardRef<
               {sourceContext && <KeyValueRow label="Source context" value={sourceContext} />}
               {sourceScope && <KeyValueRow label="Source scope" value={sourceScope} />}
               {freshness && <KeyValueRow label="Freshness" value={freshness} />}
-              {validationStatus && <KeyValueRow label="Validation" value={validationStatus} />}
+              {validationStatus && <KeyValueRow label="Validation" value={validationStatusLabel ?? validationStatusLabels[validationStatus]} />}
               {extraItems.map((item) => (
                 <KeyValueRow key={item.label} label={item.label} value={item.value} />
               ))}
