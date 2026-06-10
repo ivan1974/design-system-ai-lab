@@ -105,6 +105,7 @@ const allowedGuidelineReferences = new Set([
   ...approvedImports,
   ...Object.keys(guidelineByComponent),
   ...Object.keys(explicitSharedGuidelineByComponent),
+  "OK",
   "CreateActionDialogValues",
   "DetailPanelTab",
   "DetailPanelTabsProps",
