@@ -40,7 +40,15 @@ Show asset identity, signal or health context, source scope and readiness when a
 
 Follow `contracts/props.contract.json#AssetIntelligenceSummary`.
 
-Use canonical source strength, validation status and readiness values.
+The `mode` values are `card`, `section` and `compact`.
+
+The `readiness` values are `internal`, `needs-review`, `customer-ready`, `needs_review` and `customer_ready`.
+
+The `sourceStrength` values are `unknown`, `partial`, `single-source`, `multi-source` and `validated`.
+
+The `validationStatus` values are `not-reviewed`, `internal-review-needed`, `internally-validated`, `customer-ready` and `blocked`.
+
+Do not invent controlled values. Do not generate deprecated underscore aliases in new output.
 
 ## GenAI generation rules
 
