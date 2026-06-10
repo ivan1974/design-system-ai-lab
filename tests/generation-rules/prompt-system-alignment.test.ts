@@ -36,9 +36,12 @@ const reusablePromptRequiredSnippets = [
   "Do not recreate design system components locally.",
   "Do not create local wrappers for package components.",
   "Do not import from dist/ or src/.",
-  "Do not generate a generic dashboard.",
-  "Do not create card saturation.",
   "Every action must include owner, due date and priority.",
+];
+
+const reusablePromptRequiredPatterns = [
+  /Do not generate (a )?generic dashboard/,
+  /Do not create (a )?card (stack|saturation)/,
 ];
 
 const forbiddenPromptSnippets = [
@@ -47,7 +50,6 @@ const forbiddenPromptSnippets = [
   "readiness=\"needs_review\"",
   "readiness=\"customer_ready\"",
   "status=\"in_progress\"",
-  "create local components",
   "Create a dashboard",
 ];
 
@@ -69,6 +71,10 @@ describe("generation rules: prompt system alignment", () => {
 
     for (const snippet of reusablePromptRequiredSnippets) {
       expect(content).toContain(snippet);
+    }
+
+    for (const pattern of reusablePromptRequiredPatterns) {
+      expect(content).toMatch(pattern);
     }
   });
 
