@@ -6,6 +6,18 @@ Generate an asset recommendation review workspace.
 
 The user must review an asset, its evidence, recommendation rationale, validation status and next action before customer use.
 
+## Benchmark status
+
+This is a fixed benchmark case, not reusable prompt guidance.
+
+Reusable guidance lives in:
+
+```txt
+guidelines/prompts/asset-recommendation-review.md
+```
+
+Do not rewrite benchmark facts unless the scoring objective changes.
+
 ## Prompt for Figma Make
 
 Create a React `App.tsx` screen for a service expert reviewing asset recommendations.
