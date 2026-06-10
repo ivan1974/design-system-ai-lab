@@ -1,10 +1,12 @@
 {
   "$schema": "./schema/generation-contract.schema.json",
   "name": "components",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "sourceGuidelines": [
+    "guidelines/make-minimal-contract.md",
     "guidelines/setup.md",
-    "guidelines/Guidelines.md"
+    "guidelines/Guidelines.md",
+    "docs/audit/v0.5.1-guidelines-alignment-audit.md"
   ],
   "approvedImports": {
     "components": [
@@ -12,6 +14,7 @@
       "Breadcrumbs",
       "Button",
       "Card",
+      "CompactMetric",
       "Dialog",
       "DialogClose",
       "DialogFooter",
@@ -23,6 +26,7 @@
       "KeyValueRow",
       "ListContainer",
       "MetricCard",
+      "MetricStrip",
       "PageHeader",
       "PageHeading",
       "PanelHeader",
@@ -69,7 +73,6 @@
       "AlertCard",
       "EvidenceRow",
       "MetricGrid",
-      "MetricStrip",
       "PriorityList",
       "PriorityPill",
       "RecommendationCard",
@@ -84,6 +87,8 @@
     "businessPatterns": [
       "AssetIntelligenceSummary",
       "AssetQueueRow",
+      "ComponentHierarchy",
+      "ComponentHierarchyItem",
       "ConnectivityCoverageCard",
       "CreateActionDialog",
       "CustomerQueueRow",
@@ -107,22 +112,47 @@
     "SectionStack",
     "SectionBlock",
     "ActionRow",
-    "EvidenceRow"
+    "EvidenceRow",
+    "CompactMetric",
+    "MetricStrip",
+    "ComponentHierarchy"
   ],
   "legacyOrUseWithCare": [
     {
       "component": "PageHeader",
-      "reason": "Use PageHeading for page intent in new decision workspaces."
+      "reason": "Use PageHeading for page intent in new decision workspaces. PageHeader remains available for legacy screens that already use it."
     },
     {
       "component": "DetailPanel",
-      "reason": "Use WorkspaceDetailPanel for new interactive selected-item detail panels."
+      "reason": "Use WorkspaceDetailPanel for new selected-item detail panels. DetailPanel remains available as a lower-level composition primitive."
+    },
+    {
+      "component": "ComponentHierarchyItem",
+      "reason": "Use through ComponentHierarchy. Do not generate standalone hierarchy items outside a hierarchy section."
     },
     {
       "component": "Card",
       "reason": "Use cards for emphasis, not as the default repeated-object layout primitive."
     }
   ],
+  "generationAliases": {
+    "pageIntent": {
+      "preferred": "PageHeading",
+      "legacy": "PageHeader"
+    },
+    "selectedItemDetail": {
+      "preferred": "WorkspaceDetailPanel",
+      "lowerLevelPrimitive": "DetailPanel"
+    },
+    "compactSignals": {
+      "preferredGroup": "MetricStrip",
+      "preferredItem": "CompactMetric"
+    },
+    "assetHierarchy": {
+      "preferredGroup": "ComponentHierarchy",
+      "subcomponent": "ComponentHierarchyItem"
+    }
+  },
   "forbiddenLocalComponents": [
     "Button",
     "Card",
