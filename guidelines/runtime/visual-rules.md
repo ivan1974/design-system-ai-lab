@@ -1,10 +1,12 @@
 # Runtime Visual Rules
 
-## Purpose
+## Status
+
+```txt
+ACTIVE RUNTIME / VISUAL RULES / FIGMA MAKE
+```
 
 This file contains the active visual rules Figma Make must apply when generating screens with `design-system-ai-lab`.
-
-It is runtime guidance.
 
 For historical visual intent, read only when needed:
 
@@ -69,7 +71,7 @@ colored cards for every status
 
 ## Component-first visual expression
 
-Express visual hierarchy through approved package components.
+Express visual hierarchy through package components.
 
 Prefer:
 
@@ -105,7 +107,7 @@ LocalCard
 
 ## Color rules
 
-Use CompanyName green only for purposeful emphasis:
+Use CompanyName green only for meaningful emphasis:
 
 ```txt
 primary actions
@@ -136,7 +138,7 @@ proof readiness
 human validation requirement
 ```
 
-Do not hide uncertainty through low contrast or muted styling.
+Do not hide uncertainty through low contrast, muted styling or visual hierarchy.
 
 Do not style expected outcomes as proven value.
 
@@ -183,6 +185,24 @@ custom tab system
 custom row system
 colored cards for every status
 visual treatment that overstates evidence strength
+visual treatment that hides uncertainty
+```
+
+---
+
+## Final check
+
+Before final answer, verify:
+
+```txt
+white-first surfaces
+borders before shadows
+package components create hierarchy
+green is used only with meaning
+status is not color-only
+evidence strength is not visually overstated
+uncertainty remains readable
+no local visual system exists
 ```
 
 ---
