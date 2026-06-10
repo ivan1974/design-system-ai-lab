@@ -1,4 +1,4 @@
-# Evaluation — [Case name]
+# Evaluation template
 
 ## Output summary
 
@@ -19,21 +19,46 @@
 
 ## Initial score
 
-| Dimension | Score | Notes |
-| --- | ---: | --- |
-| Package contract |  |  |
-| Workspace architecture |  |  |
-| Component and pattern usage |  |  |
-| Evidence and trust |  |  |
-| Actionability |  |  |
-| Visual sobriety and accessibility |  |  |
-| Total |  |  |
+Package contract:
+
+- Score:
+- Notes:
+
+Workspace architecture:
+
+- Score:
+- Notes:
+
+Component and pattern usage:
+
+- Score:
+- Notes:
+
+Evidence and trust:
+
+- Score:
+- Notes:
+
+Actionability:
+
+- Score:
+- Notes:
+
+Visual sobriety and accessibility:
+
+- Score:
+- Notes:
+
+Total:
+
+- Score:
+- Notes:
 
 ## Repair needed
 
-- Required: Yes / No
+- Required: Yes or No
 - Failure category:
-- Blocking failure: Yes / No
+- Blocking failure: Yes or No
 
 ## Repair prompt used
 
@@ -43,18 +68,43 @@ path/to/repair-prompt.md
 
 ## Revised score
 
-| Dimension | Score | Notes |
-| --- | ---: | --- |
-| Package contract |  |  |
-| Workspace architecture |  |  |
-| Component and pattern usage |  |  |
-| Evidence and trust |  |  |
-| Actionability |  |  |
-| Visual sobriety and accessibility |  |  |
-| Total |  |  |
+Package contract:
+
+- Score:
+- Notes:
+
+Workspace architecture:
+
+- Score:
+- Notes:
+
+Component and pattern usage:
+
+- Score:
+- Notes:
+
+Evidence and trust:
+
+- Score:
+- Notes:
+
+Actionability:
+
+- Score:
+- Notes:
+
+Visual sobriety and accessibility:
+
+- Score:
+- Notes:
+
+Total:
+
+- Score:
+- Notes:
 
 ## Final decision
 
-- Accepted / Needs repair / Rejected:
+- Decision:
 - Reason:
-- Add to golden examples: Yes / No
+- Add to golden examples: Yes or No
