@@ -1,103 +1,76 @@
 # RecommendationReviewPanel Guidelines
 
+Status: preferred
+
 ## Purpose
 
-`RecommendationReviewPanel` frames one or more recommendations with review status, readiness, proof context and human validation.
+`RecommendationReviewPanel` frames sensitive recommendations with evidence, validation, readiness and follow-through.
 
-It prevents Make from presenting sensitive recommendations as automatically approved.
+Use it when a recommendation needs human review before customer use.
 
 ## Use this component when
 
-- Recommendations share a review scope.
-- The user must compare readiness, validation or proof state.
-- Human validation is required before customer use.
-- Recommendations should be grouped before follow-through actions.
+- Recommendations are sensitive, customer-facing or high impact.
+- Human validation, proof readiness or source strength matters.
+- The user must decide whether a recommendation is ready to use.
 
 ## Do not use this component when
 
-- There is only a simple recommendation with no review context.
-- The content is an action plan.
-- The content is a generic list or dashboard section.
+- A simple recommendation card is enough.
+- The screen only needs a queue row.
+- There is no evidence or validation context.
 
 ## Prefer this component over
 
-- generic `Card` around recommendation lists
-- local review panels
-- unstructured recommendation groups
+- Multiple disconnected `RecommendationCard` items for one review decision.
+- Local review panels.
+- Hiding validation in prose.
 
 ## Never generate
 
-- customer-ready recommendations without validation
-- hidden human validation requirements
-- recommendations that appear auto-approved by AI
-- proof readiness that contradicts the recommendation content
+- Customer-ready recommendations without validation context.
+- AI confidence as source strength.
+- Recommendations with hidden evidence.
 
 ## Required props
 
-```txt
-children
-reviewScope when the recommendations share a scope
-reviewStatus when review state matters
-sourceContext when source basis matters
-validationStatus when review state matters
-customerReadiness when customer use matters
-proofReadiness when value proof matters
-humanValidation when human review is required
-mode when layout matters
-```
+Show recommendation summary, evidence context, validation status, proof readiness and follow-through when applicable.
 
 ## Controlled values
 
-```txt
-mode: card | section | drawer
-validationStatus: not-reviewed | internal-review-needed | internally-validated | customer-ready | blocked
-customerReadiness: internal | needs-review | customer-ready | needs_review | customer_ready
-proofReadiness: not-available | expected-only | internal-proof | customer-ready-proof
-humanValidation: not-required | recommended | required
-```
+Follow `contracts/props.contract.json#RecommendationReviewPanel`.
 
-Use hyphenated readiness values in new documentation. Underscore values are deprecated aliases.
+Use canonical human validation, source strength, proof readiness and validation status values.
 
 ## GenAI generation rules
 
-1. Use this panel when recommendations need review context before customer use.
-2. Put `RecommendationCard` inside `children`.
-3. Show validation and proof readiness before actions.
-4. Use `humanValidation="required"` when decisions are sensitive or evidence is partial.
-5. Do not use the panel to approve recommendations automatically.
+- Facts and evidence before recommendation readiness.
+- Keep human validation visible for sensitive decisions.
+- Keep expected outcome separate from proven value.
+- Add owned actions when review work remains.
 
 ## Common generation failures
 
-Failure: Make shows recommendations without review context.
-Why it fails: The user cannot judge readiness.
-Fix: Wrap them in `RecommendationReviewPanel`.
-
-Failure: Make marks customer-ready recommendations while proof is internal-only.
-Why it fails: Readiness and proof conflict.
-Fix: Use `customerReadiness="needs-review"` and `proofReadiness="internal-proof"`.
+- Hiding human validation.
+- Presenting expected outcomes as proof.
+- Review panel without evidence.
+- Too much detail at the first hierarchy level.
 
 ## Repair prompt
 
-Use:
+Use `guidelines/evaluation/repair/missing-human-validation.md` when validation is hidden.
 
-```txt
-guidelines/evaluation/repair/missing-human-validation.md
-guidelines/evaluation/repair/expected-outcomes-as-proven-value.md
-guidelines/evaluation/repair/invented-evidence.md
-```
+Use `guidelines/evaluation/repair/missing-evidence.md` when support is missing.
 
 ## Related stories
 
-```txt
-src/design-system/stories/v0.5.1-critical-generation.stories.tsx
-Story title: Design System / v0.5.1 / Critical Generation Coverage
-```
+Story coverage is tracked in the story coverage contract.
 
 ## Related contracts
 
 ```txt
-contracts/components.contract.json
-contracts/props.contract.json
+contracts/component-registry.contract.json#RecommendationReviewPanel
+contracts/props.contract.json#RecommendationReviewPanel
+contracts/domain-model.contract.json
 contracts/evidence-and-trust.contract.json
-contracts/generation-blockers.contract.json
 ```
