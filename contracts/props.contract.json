@@ -1,0 +1,62 @@
+{
+  "$schema": "./schema/generation-contract.schema.json",
+  "name": "props",
+  "version": "0.5.0",
+  "sourceGuidelines": [
+    "guidelines/setup.md",
+    "guidelines/components",
+    "guidelines/patterns"
+  ],
+  "components": {
+    "Button": {
+      "variant": ["primary", "secondary", "ghost", "danger"],
+      "size": ["sm", "md", "lg"]
+    },
+    "MasterDetailLayout": {
+      "detailMode": ["inline", "overlay"],
+      "detailWidth": ["sm", "md", "lg"]
+    },
+    "RecommendationReviewPanel": {
+      "mode": ["card", "section", "drawer"]
+    },
+    "WorkspaceDetailPanel": {
+      "mode": ["inline", "overlay", "section"]
+    },
+    "StatusPill": {
+      "tone": ["neutral", "success", "warning", "danger", "info"]
+    },
+    "PriorityPill": {
+      "priority": ["low", "medium", "high", "critical"]
+    },
+    "SourceStrengthPill": {
+      "strength": ["unknown", "partial", "single-source", "multi-source", "validated"]
+    },
+    "SemanticTag": {
+      "tone": ["neutral", "info", "success", "warning", "danger"]
+    },
+    "ActionRow": {
+      "priority": ["low", "medium", "high", "critical"]
+    },
+    "ActionCard": {
+      "priority": ["low", "medium", "high", "critical"]
+    }
+  },
+  "globalPropRule": {
+    "doNotInventValuesFor": [
+      "variant",
+      "tone",
+      "severity",
+      "priority",
+      "strength",
+      "mode",
+      "size",
+      "status",
+      "readiness"
+    ],
+    "fallback": "If uncertain, simplify the component usage or choose a documented value."
+  },
+  "notes": [
+    "This contract covers high-risk generation props first.",
+    "It should grow only when a prop value needs automated checking."
+  ]
+}
