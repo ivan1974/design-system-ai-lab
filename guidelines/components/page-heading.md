@@ -51,9 +51,9 @@ No enum-like controlled values.
 
 ## Common generation failures
 
-Failure: The generated title is `Dashboard` or `Overview`.
+Failure: The generated title is Dashboard or Overview.
 Why it fails: It does not express the user decision.
-Fix: Rename the title around the decision, such as `Review renewal risk with evidence and owned actions`.
+Fix: Rename the title around the decision, such as "Review renewal risk with evidence and owned actions".
 
 Failure: Make uses `PageHeader` by default.
 Why it fails: `PageHeader` is legacy/use-with-care for new generation.
