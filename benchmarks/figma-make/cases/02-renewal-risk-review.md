@@ -6,9 +6,21 @@ Generate a renewal risk review workspace.
 
 The user must identify renewal blockers, proof gaps and mitigation actions before a renewal discussion.
 
+## Benchmark status
+
+This is a fixed benchmark case, not reusable prompt guidance.
+
+Reusable guidance lives in:
+
+```txt
+guidelines/prompts/renewal-risk-review.md
+```
+
+Do not rewrite benchmark facts unless the scoring objective changes.
+
 ## Prompt for Figma Make
 
-Create a React `App.tsx` screen for a Account owner preparing a renewal risk review.
+Create a React `App.tsx` screen for an account owner preparing a renewal risk review.
 
 Use `design-system-ai-lab` components only.
 
