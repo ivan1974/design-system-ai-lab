@@ -90,14 +90,14 @@ export default function App() {
                 contract="#NS-2024-118"
                 renewalDate="Sep 15, 2026"
                 renewalWindow="90 days"
-                renewalReadiness="Medium"
+                renewalReadiness="needs-review"
                 valueProofStatus="Incomplete"
                 recommendationsReviewed="5 of 12"
                 overdueActions="4 mitigation actions"
                 renewalRiskReason="Customer-ready proof and mitigation ownership are not complete."
                 customerObjective="Improve service visibility before renewal"
-                proofReadiness="Internal proof, not customer-ready"
-                validationStatus="Proof review needed before customer use"
+                proofReadiness="internal-proof"
+                validationStatus="internal-review-needed"
                 sourceContext="Closed service actions and recommendation history from the last 90 days"
                 badges={[{ label: "Proof review needed", tone: "warning" }]}
               />
@@ -129,8 +129,8 @@ export default function App() {
                 period="Last 90 days"
                 customerObjective="Improve service visibility before renewal"
                 proofStatus="Customer-ready summary incomplete"
-                proofReadiness="Internal proof, not customer-ready"
-                validationStatus="Proof review needed"
+                proofReadiness="internal-proof"
+                validationStatus="internal-review-needed"
                 sourceContext="Closed service actions and recommendation history"
                 expectedOutcome="Stronger renewal discussion after proof consolidation"
                 badges={[{ label: "Internal proof", tone: "warning" }]}
@@ -179,7 +179,7 @@ export default function App() {
                     sourceScope="Closed service actions and recommendation history"
                     sourceStrength="partial"
                     freshness="Last 90 days"
-                    validationStatus="Proof review needed before customer use"
+                    validationStatus="internal-review-needed"
                   />
                 </SectionBlock>
 
@@ -188,15 +188,15 @@ export default function App() {
                   reviewScope="Renewal preparation"
                   reviewStatus="Proof and source review needed"
                   sourceContext="Closed service actions and recommendation history"
-                  validationStatus="Review before customer use"
-                  customerReadiness="Not customer-ready yet"
-                  proofContext="Internal proof, not customer-ready"
+                  validationStatus="internal-review-needed"
+                  customerReadiness="needs-review"
+                  proofReadiness="internal-proof"
                 >
                   <RecommendationCard
                     title="Prepare value proof summary"
                     recommendation="Create a customer-ready proof summary that connects closed actions to outcomes."
                     priority="high"
-                    readiness="needs_review"
+                    readiness="needs-review"
                     rationale="The renewal discussion needs evidence of customer-relevant outcomes."
                     scope="Value proof"
                     evidenceSummary="12 service actions were closed but not synthesized for customer use."
@@ -205,7 +205,7 @@ export default function App() {
                     sourceStrength="partial"
                     freshness="Last 90 days"
                     proofStatus="Internal proof, not customer-ready"
-                    validationStatus="Proof review needed"
+                    validationStatus="internal-review-needed"
                   />
                 </RecommendationReviewPanel>
               </SectionStack>
@@ -215,16 +215,17 @@ export default function App() {
 
         <SectionBlock title="Mitigation actions">
           <ActionRow title="Prepare customer-ready value proof summary" owner="Account owner" dueDate="Before renewal meeting" priority="high" status="todo" context="Proof is internal and needs customer-ready synthesis." />
-          <ActionRow title="Review recommendation readiness with service team" owner="Service Manager" dueDate="Next 3 business days" priority="high" status="in_progress" context="Recommendations need source and proof review." />
+          <ActionRow title="Review recommendation readiness with service team" owner="Service Manager" dueDate="Next 3 business days" priority="high" status="in-progress" context="Recommendations need source and proof review." />
           <ActionRow title="Assign overdue mitigation actions" owner="Renewal Manager" dueDate="This week" priority="high" status="todo" context="Overdue actions are blocking readiness." />
         </SectionBlock>
 
         {/*
-          v0.4 reference:
+          v0.5.1 reference:
           - RenewalRiskSummary handles renewal context instead of a generic snapshot.
           - RiskQueueRow inside ListContainer replaces generic risk cards as the list layer.
           - RecommendationReviewPanel and RecommendationCard handle selected proof follow-through.
           - WorkspaceDetailPanel and Tabs provide package-controlled detail navigation.
+          - Readiness and validation values use canonical contract values.
         */}
       </WorkspaceShell>
     </main>
