@@ -75,6 +75,48 @@ guidelines/migration/v0.4-to-v0.5.md
 
 ---
 
+## What v0.5.1 hardens
+
+The `v0.5.1` workstream hardens documentation for generative AI.
+
+The goal is stricter alignment between:
+
+```txt
+exports
+→ component contracts
+→ props contracts
+→ guidelines
+→ README guidance
+```
+
+Preferred generation vocabulary:
+
+```txt
+Page intent → PageHeading
+Selected item detail → WorkspaceDetailPanel
+Compact signal group → MetricStrip with CompactMetric
+Asset hierarchy → ComponentHierarchy
+Repeated review objects → ListContainer with approved row components
+Follow-through actions → ActionRow or StickyActionBar
+```
+
+Use with care:
+
+```txt
+PageHeader → legacy page header, not the default for new decision workspaces
+DetailPanel → lower-level primitive, not the default selected-item detail panel
+ComponentHierarchyItem → use only inside ComponentHierarchy
+Card → emphasis container, not the default repeated-object layout
+```
+
+Current audit:
+
+```txt
+docs/audit/v0.5.1-guidelines-alignment-audit.md
+```
+
+---
+
 ## What this project demonstrates
 
 This project demonstrates the full chain:
@@ -195,6 +237,7 @@ benchmarks/
     scoring/
 
 docs/
+  audit/
   release/
 ```
 
@@ -212,6 +255,9 @@ contracts/
 
 benchmarks/figma-make/
 = measurement harness, not reusable prompt guidance
+
+docs/audit/
+= alignment audits and hardening backlog
 
 docs/release/
 = release operations and publication checklist
