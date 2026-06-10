@@ -44,6 +44,10 @@ customer_ready
 
 Use hyphenated values in new documentation and generated screens.
 
+Customer readiness is not validation status.
+
+Customer readiness describes whether information is suitable for customer exposure.
+
 ### Proof readiness
 
 Canonical values:
@@ -66,6 +70,8 @@ internally-validated
 customer-ready
 blocked
 ```
+
+Validation status describes review state before information is trusted or customer-facing.
 
 ## Relationships
 
@@ -114,6 +120,7 @@ Do not invent renewal risk.
 Show customerReadiness when customer-facing use matters.
 Show proofReadiness when value proof affects customer conversation.
 Show validationStatus when content is not customer-ready.
+Do not use customerReadiness as a substitute for validationStatus.
 ```
 
 ## Make mistakes to avoid
@@ -132,4 +139,5 @@ using reviewReadiness as vague prose instead of customerReadiness or validationS
 contracts/evidence-and-trust.contract.json
 contracts/props.contract.json
 contracts/business-patterns.contract.json
+contracts/domain-model.contract.json
 ```
