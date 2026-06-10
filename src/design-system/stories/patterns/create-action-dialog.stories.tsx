@@ -58,7 +58,7 @@ export const RecommendationFollowUpAction: Story = {
     confirmLabel: "Save follow-up action",
     defaultValues: {
       title: "Review source evidence before customer discussion",
-      owner: "CSM",
+      owner: "Account owner",
       priority: "high",
       context: "Follow-up required after high-priority recommendation.",
       sourceContext: "CompanyName monitored assets only · Source strength: partial",
@@ -77,7 +77,7 @@ export const AssetReviewAction: Story = {
     confirmLabel: "Save asset review action",
     defaultValues: {
       title: "Review affected assets before customer discussion",
-      owner: "CSM",
+      owner: "Account owner",
       priority: "high",
       context: "Follow-up required after partial connectivity alert.",
       assetContext: "Critical Power > UPS Room A",
@@ -116,7 +116,7 @@ export const ProofFollowUpAction: Story = {
     confirmLabel: "Save proof follow-up action",
     defaultValues: {
       title: "Prepare customer-ready value proof summary",
-      owner: "CSM",
+      owner: "Account owner",
       priority: "medium",
       proofContext: "Customer-ready proof missing",
       validationStatus: "Proof review needed",

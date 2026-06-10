@@ -53,8 +53,8 @@ export const OwnerSelect: Story = {
   render: () => (
     <div className="w-96">
       <Field label="Owner" htmlFor="owner">
-        <Select id="owner" defaultValue="csm">
-          <option value="csm">CSM</option>
+        <Select id="owner" defaultValue="Account owner">
+          <option value="Account owner">Account owner</option>
           <option value="support">Support team</option>
           <option value="service-manager">Service manager</option>
           <option value="customer">Customer</option>

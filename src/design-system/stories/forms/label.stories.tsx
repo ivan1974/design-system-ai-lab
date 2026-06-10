@@ -29,7 +29,7 @@ export const WithInput: Story = {
   render: () => (
     <div className="w-96 space-y-2">
       <Label htmlFor="owner">Owner</Label>
-      <Input id="owner" placeholder="CSM" />
+      <Input id="owner" placeholder="Account owner" />
     </div>
   ),
 };
@@ -47,7 +47,7 @@ export const CustomerActionLabels: Story = {
 
       <div className="space-y-2">
         <Label htmlFor="action-owner">Owner</Label>
-        <Input id="action-owner" placeholder="CSM" />
+        <Input id="action-owner" placeholder="Account owner" />
       </div>
 
       <div className="space-y-2">

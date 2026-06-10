@@ -98,7 +98,7 @@ Use the component with these props:
 >
   <ActionCard
     title="Plan connectivity review with the customer"
-    owner="CSM"
+    owner="Account owner"
     dueDate="This week"
     priority="high"
     status="todo"
@@ -386,7 +386,7 @@ Preferred:
 >
   <ActionCard
     title="Prepare customer-ready value proof summary"
-    owner="CSM"
+    owner="Account owner"
     dueDate="Jun 14, 2026"
     priority="high"
     status="todo"
@@ -577,7 +577,7 @@ Good pattern:
 <ActionList title="Recommended actions">
   <ActionCard
     title="Plan connectivity review with the customer"
-    owner="CSM"
+    owner="Account owner"
     dueDate="This week"
     priority="high"
     status="todo"
@@ -613,7 +613,7 @@ Good pattern:
 <ActionList title="Recommended actions">
   <ActionCard
     title="Plan connectivity review with the customer"
-    owner="CSM"
+    owner="Account owner"
     dueDate="This week"
     priority="high"
   />
@@ -746,7 +746,7 @@ Use `ActionList` only for the concrete actions that follow from recommendations.
 >
   <ActionCard
     title="Plan connectivity review with the customer"
-    owner="CSM"
+    owner="Account owner"
     dueDate="This week"
     priority="high"
     status="todo"
@@ -757,7 +757,7 @@ Use `ActionList` only for the concrete actions that follow from recommendations.
 
   <ActionCard
     title="Prepare customer-ready value proof summary"
-    owner="CSM"
+    owner="Account owner"
     dueDate="Before next customer review"
     priority="high"
     status="blocked"
@@ -788,7 +788,7 @@ This is good because:
 >
   <ActionCard
     title="Review affected assets before customer discussion"
-    owner="CSM"
+    owner="Account owner"
     dueDate="This week"
     priority="high"
     status="todo"
@@ -821,7 +821,7 @@ This is good because:
 >
   <ActionCard
     title="Create proof follow-up before renewal meeting"
-    owner="CSM"
+    owner="Account owner"
     dueDate="Before renewal review"
     priority="high"
     status="blocked"
@@ -832,7 +832,7 @@ This is good because:
 
   <ActionCard
     title="Confirm source evidence before customer-ready summary"
-    owner="CSM"
+    owner="Account owner"
     dueDate="Before next customer review"
     priority="medium"
     status="todo"

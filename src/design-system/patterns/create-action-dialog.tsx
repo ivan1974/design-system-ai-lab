@@ -115,7 +115,7 @@ export function CreateActionDialog({
         <Field label="Owner" htmlFor="action-owner">
           <Input
             id="action-owner"
-            placeholder="CSM, Support Team or Service Manager"
+            placeholder="Account owner, Support Team or Service Manager"
             value={values.owner}
             onChange={(event) => updateValue("owner", event.target.value)}
           />

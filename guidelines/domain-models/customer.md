@@ -14,7 +14,7 @@ industry or segment
 sites
 membership or plan
 contract
-CSM or owner
+Account owner or owner
 renewalDate
 customerObjective
 customerReadiness

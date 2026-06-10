@@ -214,7 +214,7 @@ export default function App() {
         />
 
         <SectionBlock title="Mitigation actions">
-          <ActionRow title="Prepare customer-ready value proof summary" owner="CSM" dueDate="Before renewal meeting" priority="high" status="todo" context="Proof is internal and needs customer-ready synthesis." />
+          <ActionRow title="Prepare customer-ready value proof summary" owner="Account owner" dueDate="Before renewal meeting" priority="high" status="todo" context="Proof is internal and needs customer-ready synthesis." />
           <ActionRow title="Review recommendation readiness with service team" owner="Service Manager" dueDate="Next 3 business days" priority="high" status="in_progress" context="Recommendations need source and proof review." />
           <ActionRow title="Assign overdue mitigation actions" owner="Renewal Manager" dueDate="This week" priority="high" status="todo" context="Overdue actions are blocking readiness." />
         </SectionBlock>

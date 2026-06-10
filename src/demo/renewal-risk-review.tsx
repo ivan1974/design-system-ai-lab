@@ -168,7 +168,7 @@ export function RenewalRiskReview() {
         />
 
         <SectionBlock title="Mitigation actions">
-          <ActionRow title="Prepare customer-ready value proof summary" owner="CSM" dueDate="Before renewal meeting" priority="high" status="todo" context="Proof is internal and needs customer-ready synthesis." />
+          <ActionRow title="Prepare customer-ready value proof summary" owner="Account owner" dueDate="Before renewal meeting" priority="high" status="todo" context="Proof is internal and needs customer-ready synthesis." />
           <ActionRow title="Review recommendation readiness" owner="Service Manager" dueDate="Next 3 business days" priority="high" status="in_progress" context="Recommendations need source and proof review." />
         </SectionBlock>
       </WorkspaceShell>

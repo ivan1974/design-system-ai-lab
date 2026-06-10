@@ -152,7 +152,7 @@ export default function App() {
 
         <SectionBlock title="Open actions">
           <ActionRow title="Validate asset interpretation" owner="Service Expert" dueDate="Next 3 business days" priority="high" status="todo" />
-          <ActionRow title="Prepare customer-ready summary" owner="CSM" dueDate="Before customer review" priority="medium" status="todo" />
+          <ActionRow title="Prepare customer-ready summary" owner="Account owner" dueDate="Before customer review" priority="medium" status="todo" />
         </SectionBlock>
 
         {/*

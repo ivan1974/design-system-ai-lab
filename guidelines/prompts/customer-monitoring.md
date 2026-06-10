@@ -231,5 +231,5 @@ repair-prompts/missing-detail-panel.md
 This prompt should generate a focused customer monitoring workspace, not a generic
 dashboard.
 
-The output should help a CSM understand the customer situation, trust the visible
+The output should help a Account owner understand the customer situation, trust the visible
 signals, identify priority service risks and assign the next actions.

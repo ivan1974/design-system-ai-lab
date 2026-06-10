@@ -212,7 +212,7 @@ export const WithExtraItems: Story = {
     customerReadiness: "Needs review",
     badges: [{ label: "Needs review", tone: "warning" }],
     extraItems: [
-      { label: "Review owner", value: "CSM" },
+      { label: "Review owner", value: "Account owner" },
       { label: "Next checkpoint", value: "Before QBR preparation" },
     ],
     children: (

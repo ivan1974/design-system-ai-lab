@@ -53,7 +53,7 @@ export const ReviewQueueRows: Story = {
           statusTone="warning"
           priority="medium"
           sourceStrength="needs_review"
-          metrics={[{ label: "Actions", value: "4" }, { label: "Owner", value: "CSM" }]}
+          metrics={[{ label: "Actions", value: "4" }, { label: "Owner", value: "Account owner" }]}
         />
       </ListContainer>
     </div>
@@ -134,7 +134,7 @@ export const BusinessQueueRows: Story = {
               priority="high"
               sourceStrength="needs_review"
               evidenceCount="3"
-              owner="CSM"
+              owner="Account owner"
             />
           </ListContainer>
         </div>

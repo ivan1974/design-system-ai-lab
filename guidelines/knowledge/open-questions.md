@@ -72,7 +72,7 @@ customer, geography, role or service workflow.
 Question:
 
 ```txt
-Does the standard decision-first flow work equally well for CSM, CSH, CCC, Sales and Field Services users?
+Does the standard decision-first flow work equally well for Account owner, Monitoring agent, CCC, Sales and Field Services users?
 ```
 
 Why it matters:
@@ -87,7 +87,7 @@ PageHeader
 → actions
 ```
 
-This may work well for CSMs and service managers, but other roles may need a
+This may work well for Account owners and service managers, but other roles may need a
 more task-first, case-first or action-first view.
 
 What to test:
@@ -228,7 +228,7 @@ What to test:
 - whether users distinguish activity from value proof
 - whether users distinguish expected outcomes from proven value
 - whether users distinguish technical asset outcomes from customer-ready proof
-- whether asset intervention outcomes need CSM or customer validation before use
+- whether asset intervention outcomes need Account owner or customer validation before use
 - whether proof points are credible enough for customers
 - whether proof gaps are easy to understand
 - whether customer objectives should appear more prominently
@@ -249,7 +249,7 @@ Current status:
 
 ```txt
 Research-informed
-Needs CSM, Sales and customer validation
+Needs Account owner, Sales and customer validation
 ```
 
 ---
@@ -259,7 +259,7 @@ Needs CSM, Sales and customer validation
 Question:
 
 ```txt
-Which renewal risk signals help CSMs, Sales or Renewal Managers prioritize mitigation actions?
+Which renewal risk signals help Account owners, Sales or Renewal Managers prioritize mitigation actions?
 ```
 
 Why it matters:
@@ -366,7 +366,7 @@ What to test:
 - whether users can execute an action from the available fields
 - whether assignees understand context after handoff
 - whether due date and priority are interpreted consistently
-- whether additional fields are required for CSM, CSH or CCC workflows
+- whether additional fields are required for Account owner, Monitoring agent or CCC workflows
 - whether asset-related actions need site, zone, room or asset group context
 - whether actions based on non-connected assets need different validation metadata
 - whether phased actions are easier to execute than a single generic action
@@ -803,7 +803,7 @@ Current status:
 ```txt
 Research-informed
 Demo-ready
-Needs CSM, CSH, Field Services and customer validation
+Needs Account owner, Monitoring agent, Field Services and customer validation
 ```
 
 ---
@@ -816,10 +816,10 @@ Use this backlog to prioritize future research or testing.
 
 | Priority | Question | Suggested method |
 | --- | --- | --- |
-| High | Does the decision-first flow work for CSMs? | Moderated usability test |
-| High | Are AlertCard recommendations actionable? | Prototype review with CSM / CSH users |
+| High | Does the decision-first flow work for Account owners? | Moderated usability test |
+| High | Are AlertCard recommendations actionable? | Prototype review with Account owner / Monitoring agent users |
 | High | Are ActionCard fields enough for handoff? | Workflow walkthrough |
-| High | What makes value proof customer-ready? | CSM + Sales review, then customer validation |
+| High | What makes value proof customer-ready? | Account owner + Sales review, then customer validation |
 | High | Where should AI assistance appear? | AI-assisted prototype test |
 | Medium | Do users understand partial visibility? | Connectivity review prototype test |
 | Medium | Do users understand asset intelligence without false confidence? | Asset intelligence recommendation prototype test |

@@ -73,7 +73,7 @@ Fact: 8 known monitored assets are disconnected.
 Scope: monitored CompanyName assets only.
 Signal: Monitoring coverage is partial.
 Recommendation: Plan a connectivity review.
-Owned action: CSM validates and assigns the recovery owner.
+Owned action: Account owner validates and assigns the recovery owner.
 ```
 
 Avoid:
@@ -349,7 +349,7 @@ Good:
 ```txt
 Recommendation: Plan a connectivity review with the customer.
 Evidence: Coverage dropped to 68%, 8 assets are disconnected and 2 are critical.
-Validation: CSM confirms the action before assigning the support owner.
+Validation: Account owner confirms the action before assigning the support owner.
 ```
 
 Weak:
@@ -400,7 +400,7 @@ Good:
 ```txt
 Proof point: 4 critical recommendations completed before the renewal review.
 Evidence: Linked to closed mitigation actions and reviewed recommendation status.
-Gap: Customer-ready value summary still needs validation by the CSM.
+Gap: Customer-ready value summary still needs validation by the Account owner.
 ```
 
 Weak:
@@ -495,7 +495,7 @@ Good UI language:
 
 ```txt
 Human review required
-CSM validation needed
+Account owner validation needed
 Confirm before sending
 Validate against contract source
 Review recommendation before action
@@ -517,7 +517,7 @@ Better:
 ```txt
 AI-assisted recommendation ready for human review.
 Entitlement should be confirmed against the source system.
-CSM validates escalation before action is created.
+Account owner validates escalation before action is created.
 ```
 
 ---

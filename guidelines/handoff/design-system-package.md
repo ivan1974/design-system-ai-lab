@@ -315,7 +315,7 @@ Good:
 
 ```tsx
 <Field label="Owner" htmlFor="owner">
-  <Input id="owner" placeholder="CSM" />
+  <Input id="owner" placeholder="Account owner" />
 </Field>
 ```
 
@@ -634,7 +634,7 @@ export function GeneratedScreen() {
           customerName="Northstar Manufacturing"
           plan="Advanced service plan"
           contract="#NS-2024-118"
-          csm="Sarah Moreau"
+          Account owner="Sarah Moreau"
           renewalDate="90 days"
           assetsCovered="25 assets across 3 sites"
           coverage="68% connected"
@@ -728,7 +728,7 @@ export function GeneratedScreen() {
         >
           <ActionCard
             title="Plan connectivity review with the customer"
-            owner="CSM"
+            owner="Account owner"
             dueDate="This week"
             priority="high"
             status="todo"

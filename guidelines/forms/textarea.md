@@ -434,7 +434,7 @@ Do not use inline styles:
 Do not use `Textarea` for a short value:
 
 ```tsx
-<Textarea placeholder="CSM" />
+<Textarea placeholder="Account owner" />
 ```
 
 Use `Input` instead.

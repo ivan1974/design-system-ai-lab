@@ -70,7 +70,7 @@ as:
 - customer name
 - service plan
 - contract reference
-- owner or CSM
+- owner or Account owner
 - renewal date
 - assets covered
 - coverage status
@@ -99,7 +99,7 @@ Use the component with these props:
   customerName="Greenfield Industries"
   plan="Advanced service plan"
   contract="#CR-2024-441"
-  csm="Sarah Moreau"
+  Account owner="Sarah Moreau"
   renewalDate="Aug 5, 2026"
   assetsCovered="25 assets — 3 sites"
   coverage="68% connected"
@@ -119,7 +119,7 @@ customerName
 description
 plan
 contract
-csm
+Account owner
 renewalDate
 assetsCovered
 coverage
@@ -139,7 +139,7 @@ Use `plan` for the current service or support plan.
 
 Use `contract` for the relevant contract, subscription or agreement reference.
 
-Use `csm` for the accountable owner, customer success contact or service owner.
+Use `Account owner` for the accountable owner, customer success contact or service owner.
 
 Use `renewalDate` when renewal timing matters.
 
@@ -182,7 +182,7 @@ Good minimum example:
 <CustomerStatusCard
   customerName="Greenfield Industries"
   plan="Advanced service plan"
-  csm="Sarah Moreau"
+  Account owner="Sarah Moreau"
   coverage="68% connected"
   customerObjective="Improve service visibility before renewal"
 />
@@ -530,7 +530,7 @@ Avoid duplicating the same information across all patterns.
   customerName="Greenfield Industries"
   plan="Advanced service plan"
   contract="#CR-2024-441"
-  csm="Sarah Moreau"
+  Account owner="Sarah Moreau"
   renewalDate="Aug 5, 2026"
   assetsCovered="25 assets — 3 sites"
   coverage="68% connected"
@@ -571,7 +571,7 @@ This is good because:
   customerName="Greenfield Industries"
   plan="Advanced service plan"
   contract="#CR-2024-441"
-  csm="Sarah Moreau"
+  Account owner="Sarah Moreau"
   renewalDate="Aug 5, 2026"
   assetsCovered="25 assets — 3 sites"
   coverage="68% connected"
@@ -592,7 +592,7 @@ This is good because:
   customerName="Greenfield Industries"
   plan="Advanced service plan"
   contract="#CR-2024-441"
-  csm="Sarah Moreau"
+  Account owner="Sarah Moreau"
   renewalDate="Aug 5, 2026"
   assetsCovered="25 assets — 3 sites"
   coverage="68% connected"

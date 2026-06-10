@@ -118,7 +118,7 @@ Use the component with these props:
 ```tsx
 <ActionCard
   title="Plan connectivity review with the customer"
-  owner="CSM"
+  owner="Account owner"
   dueDate="This week"
   priority="high"
   context="Closes a partial connectivity visibility gap before the customer review."
@@ -164,7 +164,7 @@ Planned code evolution:
 ```tsx
 <ActionCard
   title="Review affected assets before customer discussion"
-  owner="CSM"
+  owner="Account owner"
   dueDate="This week"
   priority="high"
   status="todo"
@@ -333,7 +333,7 @@ follow-through, not a vague system actor.
 Good owners:
 
 ```txt
-CSM
+Account owner
 Service Manager
 Support Team
 Field Services
@@ -604,14 +604,14 @@ Preferred:
 >
   <ActionCard
     title="Plan connectivity review with the customer"
-    owner="CSM"
+    owner="Account owner"
     dueDate="This week"
     priority="high"
   />
 
   <ActionCard
     title="Prepare customer-ready value proof summary"
-    owner="CSM"
+    owner="Account owner"
     dueDate="Before next customer review"
     priority="high"
   />
@@ -646,7 +646,7 @@ Good pattern:
 <ActionList title="Recommended actions">
   <ActionCard
     title="Plan connectivity review with the customer"
-    owner="CSM"
+    owner="Account owner"
     dueDate="This week"
     priority="high"
   />
@@ -753,7 +753,7 @@ Prepare a customer-ready value proof summary before the renewal review
 ```tsx
 <ActionCard
   title="Plan connectivity review with the customer"
-  owner="CSM"
+  owner="Account owner"
   dueDate="This week"
   priority="high"
 />
@@ -773,7 +773,7 @@ This is good because:
 ```tsx
 <ActionCard
   title="Review affected assets before customer discussion"
-  owner="CSM"
+  owner="Account owner"
   dueDate="This week"
   priority="high"
   context="Follow-up required after partial connectivity alert."
@@ -797,7 +797,7 @@ This is good because:
 ```tsx
 <ActionCard
   title="Create proof follow-up before renewal meeting"
-  owner="CSM"
+  owner="Account owner"
   dueDate="Before renewal review"
   priority="high"
   status="blocked"
@@ -847,7 +847,7 @@ This is good because:
 >
   <ActionCard
     title="Prepare customer-ready value proof summary"
-    owner="CSM"
+    owner="Account owner"
     dueDate="Jun 14, 2026"
     priority="high"
   />
@@ -861,7 +861,7 @@ This is good because:
 
   <ActionCard
     title="Select top recommendations for the customer discussion"
-    owner="CSM"
+    owner="Account owner"
     dueDate="Jun 18, 2026"
     priority="medium"
   />
@@ -931,7 +931,7 @@ Example:
 
 <ActionCard
   title="Plan connectivity review with the customer"
-  owner="CSM"
+  owner="Account owner"
   dueDate="This week"
   priority="high"
 />

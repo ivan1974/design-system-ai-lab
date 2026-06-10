@@ -19,7 +19,7 @@ const meta = {
     label: "Owner",
     htmlFor: "owner",
     helper: "Assign a clear owner for this action.",
-    children: <Input id="owner" placeholder="CSM" />,
+    children: <Input id="owner" placeholder="Account owner" />,
   },
 } satisfies Meta<typeof Field>;
 
@@ -96,7 +96,7 @@ export const CustomerActionForm: Story = {
       </Field>
 
       <Field label="Owner" htmlFor="customer-action-owner">
-        <Input id="customer-action-owner" placeholder="CSM" />
+        <Input id="customer-action-owner" placeholder="Account owner" />
       </Field>
 
       <Field label="Priority" htmlFor="customer-action-priority">

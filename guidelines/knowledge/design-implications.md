@@ -37,7 +37,7 @@ The main research-backed direction is:
 Users need help understanding what is happening, what can be trusted, what matters most and what to do next.
 ```
 
-This applies to both customers and internal roles such as CSM, CSH, CCC, Sales,
+This applies to both customers and internal roles such as Account owner, Monitoring agent, CCC, Sales,
 Field Services and service managers.
 
 For asset-heavy service screens, this also means helping users understand which
@@ -393,7 +393,7 @@ visible when several roles are involved.
 
 Why it matters:
 
-Internal fragmentation between CSM, CSH, CCC, Sales and Field Services can
+Internal fragmentation between Account owner, Monitoring agent, CCC, Sales and Field Services can
 increase customer effort and employee effort.
 
 Apply this in:
@@ -712,7 +712,7 @@ Generated screens should reflect the user role, goal and decision moment.
 
 Why it matters:
 
-The same customer situation may require a different view for a CSM, Sales,
+The same customer situation may require a different view for a Account owner, Sales,
 Support, Field Services or customer user.
 
 Apply this in:

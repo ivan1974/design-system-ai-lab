@@ -29,7 +29,7 @@ const meta = {
   },
   args: {
     title: "Plan connectivity review with the customer",
-    owner: "CSM",
+    owner: "Account owner",
     dueDate: "This week",
     priority: "high",
     status: "todo",
@@ -52,7 +52,7 @@ export const PriorityLevels: Story = {
     <div className="w-160 space-y-3">
       <ActionCard
         title="Plan connectivity review with the customer"
-        owner="CSM"
+        owner="Account owner"
         dueDate="This week"
         priority="high"
         status="todo"
@@ -61,7 +61,7 @@ export const PriorityLevels: Story = {
 
       <ActionCard
         title="Prepare customer-ready value proof summary"
-        owner="CSM"
+        owner="Account owner"
         dueDate="Before next QBR"
         priority="medium"
         status="in_progress"
@@ -94,7 +94,7 @@ export const StatusLevels: Story = {
 
       <ActionCard
         title="Review affected assets before customer discussion"
-        owner="CSM"
+        owner="Account owner"
         dueDate="This week"
         priority="high"
         status="in_progress"
@@ -103,7 +103,7 @@ export const StatusLevels: Story = {
 
       <ActionCard
         title="Create proof follow-up before renewal meeting"
-        owner="CSM"
+        owner="Account owner"
         dueDate="Before renewal review"
         priority="high"
         status="blocked"
@@ -113,7 +113,7 @@ export const StatusLevels: Story = {
 
       <ActionCard
         title="Update customer-ready summary with validated proof"
-        owner="CSM"
+        owner="Account owner"
         dueDate="Completed"
         priority="medium"
         status="done"
@@ -126,7 +126,7 @@ export const StatusLevels: Story = {
 export const AssetFollowUpAction: Story = {
   args: {
     title: "Review affected assets before customer discussion",
-    owner: "CSM",
+    owner: "Account owner",
     dueDate: "This week",
     priority: "high",
     status: "todo",
@@ -141,7 +141,7 @@ export const AssetFollowUpAction: Story = {
 export const ProofGapAction: Story = {
   args: {
     title: "Create proof follow-up before renewal meeting",
-    owner: "CSM",
+    owner: "Account owner",
     dueDate: "Before renewal review",
     priority: "high",
     status: "blocked",
@@ -171,7 +171,7 @@ export const HumanValidationAction: Story = {
 export const SourceEvidenceReviewAction: Story = {
   args: {
     title: "Confirm source evidence before customer-ready summary",
-    owner: "CSM",
+    owner: "Account owner",
     dueDate: "Before next customer review",
     priority: "medium",
     status: "todo",
@@ -186,7 +186,7 @@ export const SourceEvidenceReviewAction: Story = {
 export const WithCustomClassName: Story = {
   args: {
     title: "Prepare customer-ready value proof summary",
-    owner: "CSM",
+    owner: "Account owner",
     dueDate: "Before Jun 20",
     priority: "medium",
     status: "in_progress",

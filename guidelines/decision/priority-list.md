@@ -596,7 +596,7 @@ Good pattern:
 <ActionList title="Recommended actions">
   <ActionCard
     title="Plan connectivity review with the customer"
-    owner="CSM"
+    owner="Account owner"
     dueDate="This week"
     priority="high"
     status="todo"

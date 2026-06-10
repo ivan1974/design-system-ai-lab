@@ -157,7 +157,7 @@ export const CustomerMonitoringMetrics: Story = {
       <MetricCard
         label="Actions en retard"
         value="4"
-        helper="Deux actions nécessitent un arbitrage CSM"
+        helper="Deux actions nécessitent un arbitrage Account owner"
       />
     </MetricGrid>
   ),

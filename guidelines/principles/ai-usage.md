@@ -380,7 +380,7 @@ Recommendation: Plan a connectivity review with the customer.
 Asset scope: monitored CompanyName assets in UPS Room A and UPS Room B.
 Evidence: Coverage dropped to 68%, 8 known monitored assets are disconnected and 2 are critical.
 Source: monitoring platform, last updated 18 hours ago.
-Human next step: CSM confirms the action and assigns the support owner.
+Human next step: Account owner confirms the action and assigns the support owner.
 ```
 
 Weak:
@@ -487,7 +487,7 @@ Good:
 ```txt
 Visible facts: 4 recommendations completed, 2 risks resolved, proof summary still draft.
 AI action: Prepare customer-ready renewal talking points.
-Human role: CSM reviews and validates before customer communication.
+Human role: Account owner reviews and validates before customer communication.
 ```
 
 Weak:
@@ -548,8 +548,8 @@ AI confirmed contract eligibility.
 Better:
 
 ```txt
-AI-assisted recommendation ready for CSM review.
-CSM validates escalation before action is created.
+AI-assisted recommendation ready for Account owner review.
+Account owner validates escalation before action is created.
 Contract eligibility should be confirmed against the source system.
 ```
 
@@ -747,7 +747,7 @@ Source data requires review.
 Some contract fields are missing.
 Connectivity status was last updated 18 hours ago.
 Monitoring coverage is partial.
-Proof summary still needs CSM validation.
+Proof summary still needs Account owner validation.
 Source scope: monitored CompanyName assets only.
 Asset is non-connected; current health is based on service history, not live telemetry.
 Expected outcome is not proven yet.
@@ -1096,7 +1096,7 @@ Renewal window, value proof status, recommendations reviewed, overdue actions
 and disconnected assets.
 
 Human role:
-CSM reviews, edits and validates before customer communication.
+Account owner reviews, edits and validates before customer communication.
 ```
 
 This is good because:

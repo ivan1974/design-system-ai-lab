@@ -57,7 +57,7 @@ Preferred:
 
 ```tsx
 <Field label="Owner" htmlFor="action-owner">
-  <Input id="action-owner" placeholder="CSM" />
+  <Input id="action-owner" placeholder="Account owner" />
 </Field>
 ```
 
@@ -223,14 +223,14 @@ Good:
 
 ```tsx
 <Label htmlFor="action-owner">Owner</Label>
-<Input id="action-owner" placeholder="CSM" />
+<Input id="action-owner" placeholder="Account owner" />
 ```
 
 Weak:
 
 ```tsx
 <Label>Owner</Label>
-<Input placeholder="CSM" />
+<Input placeholder="Account owner" />
 ```
 
 The second example may render, but it is weaker for accessibility and review
@@ -258,7 +258,7 @@ Good:
 
 ```tsx
 <Field label="Owner" htmlFor="action-owner">
-  <Input id="action-owner" placeholder="CSM" />
+  <Input id="action-owner" placeholder="Account owner" />
 </Field>
 ```
 
@@ -358,14 +358,14 @@ Do not generate raw labels when `Field` fits:
 
 ```tsx
 <label htmlFor="owner">Owner</label>
-<input id="owner" placeholder="CSM" />
+<input id="owner" placeholder="Account owner" />
 ```
 
 Use package components instead:
 
 ```tsx
 <Field label="Owner" htmlFor="owner">
-  <Input id="owner" placeholder="CSM" />
+  <Input id="owner" placeholder="Account owner" />
 </Field>
 ```
 

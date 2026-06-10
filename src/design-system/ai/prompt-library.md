@@ -105,7 +105,7 @@ Package rules:
 
 Screen structure:
 1. PageHeader with title, description and CreateActionDialog as primary action
-2. CustomerStatusCard with customer, plan, contract, CSM, renewal date and coverage
+2. CustomerStatusCard with customer, plan, contract, Account owner, renewal date and coverage
 3. MetricGrid with three decision-relevant metrics
 4. ConnectivityCoverageCard for monitoring coverage
 5. PriorityList with AlertCard items sorted by severity
@@ -123,7 +123,7 @@ Suggested content:
 - Customer: Greenfield Industries
 - Plan: Advanced service plan
 - Contract: #CR-2024-441
-- CSM: Sarah Moreau
+- Account owner: Sarah Moreau
 - Renewal date: Aug 5, 2026
 - Coverage: 68% connected
 - Critical issue: Main HVAC control unit no longer monitored

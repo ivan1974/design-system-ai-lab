@@ -94,7 +94,7 @@ export const OperationalReviewContext: Story = {
       { label: "Active plan", tone: "primary" },
     ],
     items: [
-      { label: "Owner", value: "CSM" },
+      { label: "Owner", value: "Account owner" },
       { label: "Review date", value: "Jun 24, 2026" },
       { label: "Scope", value: "3 sites" },
       { label: "Last update", value: "18 hours ago" },
@@ -153,7 +153,7 @@ export const WithoutBadges: Story = {
     items: [
       { label: "Customer", value: "Greenfield Industries" },
       { label: "Service plan", value: "Advanced" },
-      { label: "CSM", value: "Sarah Moreau" },
+      { label: "Account owner", value: "Sarah Moreau" },
     ],
   },
 };

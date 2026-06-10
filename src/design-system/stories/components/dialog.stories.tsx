@@ -93,7 +93,7 @@ export const WithCustomFooter: Story = {
         </Field>
 
         <Field label="Responsable" htmlFor="advanced-action-owner">
-          <Input id="advanced-action-owner" placeholder="CSM" />
+          <Input id="advanced-action-owner" placeholder="Account owner" />
         </Field>
 
         <Field label="Priorité" htmlFor="advanced-action-priority">

@@ -56,7 +56,7 @@ The source material includes:
 
 - customer interviews
 - internal employee interviews
-- CSM, CSH, CCC, Sales and service stakeholder feedback
+- Account owner, Monitoring agent, CCC, Sales and service stakeholder feedback
 - VoC research
 - journey mapping studies
 - customer success stories
@@ -416,7 +416,7 @@ Observed problems:
 
 - customers are unsure who to contact for support
 - tickets may not be assigned to the right person immediately
-- CSMs may spend effort identifying the right point of contact
+- Account owners may spend effort identifying the right point of contact
 - customers may not know whether they or CompanyName have the next action
 - recommendations may not be reviewed or converted into action
 - follow-up tasks may be tracked in tools that other assignees cannot access
@@ -466,7 +466,7 @@ Actions should follow from visible context, risks or recommendations.
 Research learning:
 
 Customer experience is strongly affected by internal coordination between Sales,
-CSM, CSH, CCC, Field Services, technicians and other operational roles.
+Account owner, Monitoring agent, CCC, Field Services, technicians and other operational roles.
 
 Many customer-facing issues are symptoms of internal fragmentation.
 
@@ -837,7 +837,7 @@ coordination.
 ### Observed problems
 
 - internal roles need different levels of detail
-- Sales, CSM, CSH, CCC and service teams may need different views of the same situation
+- Sales, Account owner, Monitoring agent, CCC and service teams may need different views of the same situation
 - customers and employees may experience the same issue from different sides
 - customer effort is often caused by internal coordination gaps
 - internal effort is often caused by fragmented data, unclear ownership and manual reporting

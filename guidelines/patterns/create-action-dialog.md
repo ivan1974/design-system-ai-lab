@@ -241,7 +241,7 @@ action to an existing action plan.
 >
   <ActionCard
     title="Plan connectivity review with the customer"
-    owner="CSM"
+    owner="Account owner"
     dueDate="This week"
     priority="high"
   />
@@ -266,7 +266,7 @@ Use `defaultValues` when the action is linked to a specific alert or blocker.
   confirmLabel="Save recovery action"
   defaultValues={{
     title: "Plan connectivity review with the customer",
-    owner: "CSM",
+    owner: "Account owner",
     priority: "high",
     note: "Connectivity is partial and affects critical assets.",
   }}
@@ -292,7 +292,7 @@ or execute the recommendation. It should not approve the recommendation itself.
   confirmLabel="Save follow-up action"
   defaultValues={{
     title: "Review source evidence before customer discussion",
-    owner: "CSM",
+    owner: "Account owner",
     priority: "high",
     context: "Follow-up required after high-priority recommendation.",
     sourceContext: "CompanyName monitored assets only · Source strength: partial",
@@ -320,7 +320,7 @@ strength or asset recommendation validation.
   confirmLabel="Save asset review action"
   defaultValues={{
     title: "Review affected assets before customer discussion",
-    owner: "CSM",
+    owner: "Account owner",
     priority: "high",
     context: "Follow-up required after partial connectivity alert.",
     assetContext: "Critical Power > UPS Room A",
@@ -348,7 +348,7 @@ Use renewal-specific copy when creating mitigation actions.
   confirmLabel="Save mitigation action"
   defaultValues={{
     title: "Prepare customer-ready value proof summary",
-    owner: "CSM",
+    owner: "Account owner",
     priority: "high",
     proofContext: "Internal proof, not customer-ready",
     validationStatus: "Proof review needed",
@@ -373,7 +373,7 @@ Use value-proof-specific copy when the user needs to prepare proof points.
   confirmLabel="Save proof action"
   defaultValues={{
     title: "Prepare customer-ready value proof summary",
-    owner: "CSM",
+    owner: "Account owner",
     priority: "medium",
     proofContext: "Customer-ready proof missing",
     validationStatus: "Proof review needed",
@@ -397,7 +397,7 @@ recommendation, summary or customer discussion.
   confirmLabel="Save source review action"
   defaultValues={{
     title: "Confirm source evidence before customer-ready summary",
-    owner: "CSM",
+    owner: "Account owner",
     priority: "medium",
     sourceContext: "Closed service actions · Source strength: partial",
     validationStatus: "Review needed",
@@ -593,7 +593,7 @@ Good default values:
 ```tsx
 defaultValues={{
   title: "Plan connectivity review with the customer",
-  owner: "CSM",
+  owner: "Account owner",
   priority: "high",
   context: "Follow-up required after partial connectivity alert.",
   assetContext: "Critical Power > UPS Room A",
@@ -895,7 +895,7 @@ The dialog copy should reflect the context.
   confirmLabel="Save mitigation action"
   defaultValues={{
     title: "Prepare customer-ready value proof summary",
-    owner: "CSM",
+    owner: "Account owner",
     priority: "high",
     proofContext: "Internal proof, not customer-ready",
     validationStatus: "Proof review needed",

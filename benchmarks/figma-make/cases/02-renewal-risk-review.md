@@ -8,7 +8,7 @@ The user must identify renewal blockers, proof gaps and mitigation actions befor
 
 ## Prompt for Figma Make
 
-Create a React `App.tsx` screen for a CSM preparing a renewal risk review.
+Create a React `App.tsx` screen for a Account owner preparing a renewal risk review.
 
 Use `design-system-ai-lab` components only.
 

@@ -352,7 +352,7 @@ Use `Field` to group a label, a form control and optional helper or error text.
   htmlFor="owner"
   helper="Assign a clear owner for this action."
 >
-  <Input id="owner" placeholder="CSM" />
+  <Input id="owner" placeholder="Account owner" />
 </Field>
 ```
 
@@ -395,7 +395,7 @@ Use `Input` for short single-line values.
 ### Example
 
 ```tsx
-<Input id="owner" placeholder="CSM" />
+<Input id="owner" placeholder="Account owner" />
 ```
 
 ### Rules
@@ -614,7 +614,7 @@ Use `ActionCard` for recommended, planned or overdue actions.
 ```tsx
 <ActionCard
   title="Plan connectivity review with the customer"
-  owner="CSM"
+  owner="Account owner"
   dueDate="This week"
   priority="high"
 />
@@ -691,7 +691,7 @@ account context.
   customerName="Greenfield Industries"
   plan="Advanced service plan"
   contract="#CR-2024-441"
-  csm="Sarah Moreau"
+  Account owner="Sarah Moreau"
   renewalDate="Aug 5, 2026"
   assetsCovered="25 assets — 3 sites"
   coverage="68% connected"

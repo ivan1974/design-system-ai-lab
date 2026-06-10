@@ -39,7 +39,7 @@ Preferred:
 
 ```tsx
 <Field label="Owner" htmlFor="action-owner">
-  <Input id="action-owner" placeholder="CSM" />
+  <Input id="action-owner" placeholder="Account owner" />
 </Field>
 ```
 
@@ -47,7 +47,7 @@ Avoid:
 
 ```tsx
 <label>Owner</label>
-<input placeholder="CSM" />
+<input placeholder="Account owner" />
 ```
 
 Avoid:
@@ -225,7 +225,7 @@ Good:
 
 ```tsx
 <Field label="Owner" htmlFor="owner">
-  <Input id="owner" placeholder="CSM" />
+  <Input id="owner" placeholder="Account owner" />
 </Field>
 ```
 
@@ -499,7 +499,7 @@ Prepare customer-ready value proof summary
 Partial visibility on UPS Room A
 Non-connected asset — based on service history, not live telemetry
 Expected outcome not yet proven
-AI interpretation — CSM review required
+AI interpretation — Account owner review required
 Partially connected asset — telemetry incomplete
 Evidence: historical service report
 Technical outcome validated internally, not customer-ready proof

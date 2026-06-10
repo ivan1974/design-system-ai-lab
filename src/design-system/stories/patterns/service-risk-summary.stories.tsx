@@ -80,7 +80,7 @@ export const RenewalProofRisk: Story = {
     affectedScope: "Renewal preparation",
     customerImpact:
       "The customer may not see completed service outcomes clearly.",
-    serviceImpact: "CSM needs to consolidate proof before the review.",
+    serviceImpact: "Account owner needs to consolidate proof before the review.",
     sourceContext: "Closed service actions from the last 90 days",
     sourceStrength: "medium",
     freshness: "Current renewal preparation period",
@@ -127,7 +127,7 @@ export const InformationalServiceRisk: Story = {
     customerImpact:
       "The next customer discussion may miss useful next-step guidance.",
     serviceImpact:
-      "CSM should select relevant recommendations before the review.",
+      "Account owner should select relevant recommendations before the review.",
     sourceContext: "Monthly service report and recommendation history",
     sourceStrength: "medium",
     freshness: "Current monthly report",

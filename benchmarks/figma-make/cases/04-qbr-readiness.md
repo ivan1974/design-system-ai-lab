@@ -8,7 +8,7 @@ The user must check whether proof, risks, recommendations and preparation action
 
 ## Prompt for Figma Make
 
-Create a React `App.tsx` screen for a CSM preparing a Quarterly Business Review.
+Create a React `App.tsx` screen for a Account owner preparing a Quarterly Business Review.
 
 Use `design-system-ai-lab` components only.
 

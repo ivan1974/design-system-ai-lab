@@ -82,7 +82,7 @@ export const CustomerContext: Story = {
           </div>
           <div>
             <dt className="mb-1 text-xs text-(--ec-color-text-muted)">
-              CSM
+              Account owner
             </dt>
             <dd className="text-sm font-medium text-(--ec-color-text-primary)">
               Sarah Moreau

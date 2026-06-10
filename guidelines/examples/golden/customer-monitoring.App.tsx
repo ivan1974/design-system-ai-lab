@@ -177,7 +177,7 @@ export default function App() {
         />
 
         <SectionBlock title="Assigned next actions">
-          <ActionRow title="Review monitoring scope" owner="CSM" dueDate="This week" priority="high" status="todo" context="Clarify what is visible before customer communication." />
+          <ActionRow title="Review monitoring scope" owner="Account owner" dueDate="This week" priority="high" status="todo" context="Clarify what is visible before customer communication." />
           <ActionRow title="Confirm asset connection status" owner="Remote Support" dueDate="Next 3 business days" priority="high" status="in_progress" context="Validate connected status before recommendations are shared." />
         </SectionBlock>
 

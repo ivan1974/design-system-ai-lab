@@ -513,7 +513,7 @@ Use these action phases when available:
 Example:
 
 ```txt
-Immediate: Validate telemetry gap with CSH.
+Immediate: Validate telemetry gap with Monitoring agent.
 Urgent: Schedule site review for disconnected critical assets.
 Mid-term: Prepare modernization roadmap for aging UPS assets.
 ```
@@ -612,7 +612,7 @@ Good:
 Confidence: Medium
 Evidence: lifecycle database + manual inventory
 Missing: live telemetry
-Validation: CSM review required before customer communication
+Validation: Account owner review required before customer communication
 ```
 
 Weak:

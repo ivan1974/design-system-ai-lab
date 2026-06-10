@@ -176,7 +176,7 @@ Preferred:
 
 ```tsx
 <Field label="Owner" htmlFor="owner">
-  <Input id="owner" placeholder="CSM" />
+  <Input id="owner" placeholder="Account owner" />
 </Field>
 ```
 
@@ -376,7 +376,7 @@ Example:
 ```txt
 Screen structure:
 1. PageHeader with title, description and CreateActionDialog action
-2. CustomerStatusCard with customer, plan, contract, CSM and coverage
+2. CustomerStatusCard with customer, plan, contract, Account owner and coverage
 3. MetricGrid with three decision-relevant metrics
 4. ConnectivityCoverageCard if monitoring coverage is important
 5. PriorityList with AlertCard items sorted by severity
@@ -453,7 +453,7 @@ Package rules:
 
 Screen structure:
 1. PageHeader with title, description and CreateActionDialog as primary action
-2. CustomerStatusCard with customer, plan, contract, CSM, renewal date and coverage
+2. CustomerStatusCard with customer, plan, contract, Account owner, renewal date and coverage
 3. MetricGrid with three decision-relevant metrics
 4. ConnectivityCoverageCard for monitoring coverage
 5. PriorityList with AlertCard items sorted by severity

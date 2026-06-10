@@ -61,7 +61,7 @@ This file therefore covers needs from:
 - energy managers
 - electrical engineers
 - Customer Success Managers
-- Connected Services Hub teams
+- Operation Hub teams
 - Contact Center teams
 - Sales teams
 - Field Services teams
@@ -88,8 +88,8 @@ As a user, I need to quickly understand the current customer, service or renewal
 Who it concerns:
 
 - customers
-- CSMs
-- CSH teams
+- Account owners
+- Monitoring agent teams
 - CCC teams
 - Sales teams
 - service managers
@@ -143,10 +143,10 @@ As a customer or internal user, I need to understand what is included in the ser
 Who it concerns:
 
 - customers
-- CSMs
+- Account owners
 - Sales teams
 - CCC teams
-- CSH teams
+- Monitoring agent teams
 - service managers
 
 Why it matters:
@@ -199,8 +199,8 @@ As a user, I need to know whether the information is reliable, fresh, confirmed 
 Who it concerns:
 
 - customers
-- CSMs
-- CSH teams
+- Account owners
+- Monitoring agent teams
 - CCC teams
 - Field Services teams
 - Sales teams
@@ -260,8 +260,8 @@ As a user, I need the interface to help me identify the most important signals, 
 Who it concerns:
 
 - customers
-- CSMs
-- CSH teams
+- Account owners
+- Monitoring agent teams
 - CCC teams
 - Field Services teams
 - service managers
@@ -314,9 +314,9 @@ As a user, I need to understand why a metric, alert or risk matters for the cust
 Who it concerns:
 
 - customers
-- CSMs
+- Account owners
 - Sales teams
-- CSH teams
+- Monitoring agent teams
 - service managers
 
 Why it matters:
@@ -370,8 +370,8 @@ As a user, I need to know the recommended next step so that I can move from awar
 Who it concerns:
 
 - customers
-- CSMs
-- CSH teams
+- Account owners
+- Monitoring agent teams
 - CCC teams
 - Sales teams
 - Field Services teams
@@ -424,8 +424,8 @@ As a user, I need to know who owns the next step so that responsibility does not
 Who it concerns:
 
 - customers
-- CSMs
-- CSH teams
+- Account owners
+- Monitoring agent teams
 - CCC teams
 - Sales teams
 - Field Services teams
@@ -478,8 +478,8 @@ Who it concerns:
 
 - customers
 - maintenance teams
-- CSMs
-- CSH teams
+- Account owners
+- Monitoring agent teams
 - CCC teams
 - service managers
 
@@ -535,8 +535,8 @@ Who it concerns:
 
 - customers
 - maintenance teams
-- CSMs
-- CSH teams
+- Account owners
+- Monitoring agent teams
 - Field Services teams
 - service managers
 
@@ -593,7 +593,7 @@ As a user, I need customer-specific constraints and objectives to be visible wit
 Who it concerns:
 
 - customers
-- CSMs
+- Account owners
 - Sales teams
 - service managers
 - product teams
@@ -644,7 +644,7 @@ As a customer-facing or renewal user, I need to see what value has been delivere
 Who it concerns:
 
 - customers
-- CSMs
+- Account owners
 - Sales teams
 - Renewal Managers
 - service managers
@@ -693,12 +693,12 @@ Reject value proof sections with unsupported claims, fake sources, invented proo
 User need:
 
 ```txt
-As a CSM, Sales or Renewal Manager, I need to prepare customer-ready summaries, proof points and mitigation actions before renewal or review discussions.
+As a Account owner, Sales or Renewal Manager, I need to prepare customer-ready summaries, proof points and mitigation actions before renewal or review discussions.
 ```
 
 Who it concerns:
 
-- CSMs
+- Account owners
 - Sales teams
 - Renewal Managers
 - service managers
@@ -750,8 +750,8 @@ As a user, I need basic facts to be visible directly instead of having to ask an
 Who it concerns:
 
 - customers
-- CSMs
-- CSH teams
+- Account owners
+- Monitoring agent teams
 - CCC teams
 - Sales teams
 - service managers
@@ -801,8 +801,8 @@ As a user, I need AI assistance when it helps me synthesize complex context, exp
 
 Who it concerns:
 
-- CSMs
-- CSH teams
+- Account owners
+- Monitoring agent teams
 - CCC teams
 - Sales teams
 - service managers
@@ -858,9 +858,9 @@ As a user, I need critical customer, contract, service, safety or compliance dec
 Who it concerns:
 
 - customers
-- CSMs
+- Account owners
 - CCC teams
-- CSH teams
+- Monitoring agent teams
 - Sales teams
 - Field Services teams
 - service managers
@@ -905,13 +905,13 @@ Reject screens that imply AI has autonomously approved entitlement, escalation, 
 User need:
 
 ```txt
-As an internal user, I need shared context and visible handoffs so that CSM, CSH, CCC, Sales and Field Services can coordinate without losing information.
+As an internal user, I need shared context and visible handoffs so that Account owner, Monitoring agent, CCC, Sales and Field Services can coordinate without losing information.
 ```
 
 Who it concerns:
 
-- CSMs
-- CSH teams
+- Account owners
+- Monitoring agent teams
 - CCC teams
 - Sales teams
 - Field Services teams
@@ -965,8 +965,8 @@ As a user in a specific role, I need the screen to match my task, vocabulary and
 Who it concerns:
 
 - customers
-- CSMs
-- CSH teams
+- Account owners
+- Monitoring agent teams
 - CCC teams
 - Sales teams
 - Field Services teams
@@ -1022,8 +1022,8 @@ Who it concerns:
 
 - customers
 - CCC teams
-- CSMs
-- CSH teams
+- Account owners
+- Monitoring agent teams
 - Field Services teams
 - Sales teams
 
@@ -1075,8 +1075,8 @@ As a user, I need to see what is unknown, incomplete or still requiring validati
 Who it concerns:
 
 - customers
-- CSMs
-- CSH teams
+- Account owners
+- Monitoring agent teams
 - CCC teams
 - Sales teams
 - Field Services teams
@@ -1129,7 +1129,7 @@ As a customer-facing user, I need service activity to be translated into clear c
 
 Who it concerns:
 
-- CSMs
+- Account owners
 - Sales teams
 - Renewal Managers
 - service managers
@@ -1184,8 +1184,8 @@ Who it concerns:
 
 - customers
 - maintenance teams
-- CSMs
-- CSH teams
+- Account owners
+- Monitoring agent teams
 - Field Services teams
 - Sales teams
 - Renewal Managers

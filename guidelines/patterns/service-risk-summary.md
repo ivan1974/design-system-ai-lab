@@ -458,7 +458,7 @@ This is good because:
   riskSummary="Service proof is incomplete before the customer review."
   affectedScope="Renewal preparation"
   customerImpact="The customer may not see completed service outcomes clearly."
-  serviceImpact="CSM needs to consolidate proof before the review."
+  serviceImpact="Account owner needs to consolidate proof before the review."
   sourceContext="Closed service actions from the last 90 days"
   sourceStrength="medium"
   validationStatus="Proof review needed"

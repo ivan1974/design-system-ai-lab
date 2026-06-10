@@ -15,7 +15,7 @@ const meta = {
     className: { control: "text" },
   },
   args: {
-    placeholder: "CSM",
+    placeholder: "Account owner",
     type: "text",
     disabled: false,
   },
@@ -68,7 +68,7 @@ export const InField: Story = {
         htmlFor="owner"
         helper="Assign a clear owner for this action."
       >
-        <Input id="owner" placeholder="CSM" />
+        <Input id="owner" placeholder="Account owner" />
       </Field>
     </div>
   ),
@@ -85,7 +85,7 @@ export const CustomerActionInputs: Story = {
       </Field>
 
       <Field label="Owner" htmlFor="action-owner">
-        <Input id="action-owner" placeholder="CSM" />
+        <Input id="action-owner" placeholder="Account owner" />
       </Field>
 
       <Field label="Due date" htmlFor="action-due-date">
@@ -108,7 +108,7 @@ export const WithNativeInputProps: Story = {
       aria-label="Customer action owner"
       data-testid="storybook-input"
       name="owner"
-      placeholder="CSM"
+      placeholder="Account owner"
       autoComplete="off"
       className="w-96"
     />

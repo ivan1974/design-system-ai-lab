@@ -562,7 +562,7 @@ This is good because:
     helper="5 of 12 recommendations reviewed"
     trend="+12%"
     trendTone="success"
-    source="CSM review log"
+    source="Account owner review log"
     freshness="This quarter"
   />
 </MetricGrid>

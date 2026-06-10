@@ -290,7 +290,7 @@ Needs further usability testing
 
 Testing notes:
 
-Test whether CSMs or renewal users can identify the renewal risk, value proof
+Test whether Account owners or renewal users can identify the renewal risk, value proof
 gaps and mitigation action priority without reading every detail on the screen.
 
 ---
@@ -892,13 +892,13 @@ value without relying on AI wording alone.
 
 The following patterns should be prioritized for future testing:
 
-- `RenewalRiskSummary` with CSMs, Sales or Renewal Managers
-- `ValueProofCard` with CSMs and customer-facing stakeholders
+- `RenewalRiskSummary` with Account owners, Sales or Renewal Managers
+- `ValueProofCard` with Account owners and customer-facing stakeholders
 - `ConnectivityCoverageCard` with internal users and customers
-- `CreateActionDialog` with CSM, CSH and CCC users
+- `CreateActionDialog` with Account owner, Monitoring agent and CCC users
 - BI-first, AI-assisted flows with internal users
 – evidence-aware recommendations in AI-assisted prototypes
-– asset intelligence recommendation flow with CSM, CSH and Field Services users
+– asset intelligence recommendation flow with Account owner, Monitoring agent and Field Services users
 – limited density rules for complex internal workflows
 
 ---

@@ -484,7 +484,7 @@ Prefer:
   customerName="Greenfield Industries"
   plan="Advanced service plan"
   contract="#CR-2024-441"
-  csm="Sarah Moreau"
+  Account owner="Sarah Moreau"
   coverage="68% connected"
 />
 ```

@@ -159,7 +159,7 @@ export function CustomerDashboard() {
         />
 
         <SectionBlock title="Assigned next actions">
-          <ActionRow title="Plan monitoring scope review" owner="CSM" dueDate="This week" priority="high" status="todo" context="Review what is and is not visible before customer communication." />
+          <ActionRow title="Plan monitoring scope review" owner="Account owner" dueDate="This week" priority="high" status="todo" context="Review what is and is not visible before customer communication." />
           <ActionRow title="Confirm asset connection status" owner="Remote Support" dueDate="Next 3 business days" priority="high" status="in_progress" context="Confirm source scope before making recommendations." />
         </SectionBlock>
       </WorkspaceShell>

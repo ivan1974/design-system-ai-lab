@@ -316,7 +316,7 @@ export function CustomerMonitoringScreen() {
           customerName="Greenfield Industries"
           plan="Advanced service plan"
           contract="#CR-2024-441"
-          csm="Sarah Moreau"
+          Account owner="Sarah Moreau"
           renewalDate="Aug 5, 2026"
           assetsCovered="25 assets — 3 sites"
           coverage="68% connected"
@@ -357,7 +357,7 @@ export function CustomerMonitoringScreen() {
         <ActionList title="Recommended actions">
           <ActionCard
             title="Plan connectivity review with the customer"
-            owner="CSM"
+            owner="Account owner"
             dueDate="This week"
             priority="high"
           />
@@ -554,7 +554,7 @@ Package rules:
 
 Screen structure:
 1. PageHeader with title, description and CreateActionDialog as primary action
-2. CustomerStatusCard with customer, plan, contract, CSM, renewal date and coverage
+2. CustomerStatusCard with customer, plan, contract, Account owner, renewal date and coverage
 3. MetricGrid with three decision-relevant metrics
 4. ConnectivityCoverageCard for monitoring coverage
 5. PriorityList with AlertCard items sorted by severity

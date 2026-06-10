@@ -74,7 +74,7 @@ Use the component with these props:
   htmlFor="owner"
   helper="Assign a clear owner for this action."
 >
-  <Input id="owner" placeholder="CSM" />
+  <Input id="owner" placeholder="Account owner" />
 </Field>
 ```
 
@@ -111,7 +111,7 @@ Preferred:
 
 ```tsx
 <Field label="Owner" htmlFor="owner">
-  <Input id="owner" placeholder="CSM" />
+  <Input id="owner" placeholder="Account owner" />
 </Field>
 ```
 
@@ -231,7 +231,7 @@ Example:
   htmlFor="owner"
   error="Owner is required before saving the action."
 >
-  <Input id="owner" placeholder="CSM" aria-invalid="true" />
+  <Input id="owner" placeholder="Account owner" aria-invalid="true" />
 </Field>
 ```
 
@@ -313,7 +313,7 @@ Example:
 
 ```tsx
 <Field label="Owner" htmlFor="action-owner">
-  <Input id="action-owner" placeholder="CSM" />
+  <Input id="action-owner" placeholder="Account owner" />
 </Field>
 ```
 
@@ -463,14 +463,14 @@ Do not use raw labels and inputs:
 
 ```tsx
 <label>Owner</label>
-<input placeholder="CSM" />
+<input placeholder="Account owner" />
 ```
 
 Use `Field` and `Input` instead:
 
 ```tsx
 <Field label="Owner" htmlFor="owner">
-  <Input id="owner" placeholder="CSM" />
+  <Input id="owner" placeholder="Account owner" />
 </Field>
 ```
 

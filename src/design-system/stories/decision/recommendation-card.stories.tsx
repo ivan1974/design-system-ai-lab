@@ -138,7 +138,7 @@ export const LowPriorityCustomerReady: Story = {
     customerContext:
       "Customer has access to the latest monthly recommendations but has not opened all of them.",
     evidenceSummary:
-      "Portal activity and recommendation availability were reviewed by the CSM.",
+      "Portal activity and recommendation availability were reviewed by the Account owner.",
     source: "Customer portal activity",
     sourceStrength: "medium",
     validationStatus: "Customer-ready",

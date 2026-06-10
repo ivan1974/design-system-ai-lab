@@ -90,7 +90,7 @@ Prefer:
   customerName="Greenfield Industries"
   plan="Advanced service plan"
   contract="#CR-2024-441"
-  csm="Sarah Moreau"
+  Account owner="Sarah Moreau"
   coverage="68% connected"
 />
 ```
@@ -137,7 +137,7 @@ Use the component with these props:
     { label: "Review needed", tone: "warning" },
   ]}
   items={[
-    { label: "Owner", value: "CSM" },
+    { label: "Owner", value: "Account owner" },
     { label: "Review date", value: "Jun 24, 2026" },
     { label: "Scope", value: "3 sites" },
     { label: "Source strength", value: "Partial" },
@@ -514,7 +514,7 @@ business pattern or dedicated component.
     { label: "Active plan", tone: "primary" },
   ]}
   items={[
-    { label: "Owner", value: "CSM" },
+    { label: "Owner", value: "Account owner" },
     { label: "Review date", value: "Jun 24, 2026" },
     { label: "Scope", value: "3 sites" },
     { label: "Last update", value: "18 hours ago" },
@@ -659,7 +659,7 @@ Do not manually recreate a status summary:
   <dl className="grid gap-6 md:grid-cols-3">
     <div>
       <dt>Owner</dt>
-      <dd>CSM</dd>
+      <dd>Account owner</dd>
     </div>
   </dl>
 </Card>
@@ -670,7 +670,7 @@ Use `StatusSummary` instead:
 ```tsx
 <StatusSummary
   title="Service context"
-  items={[{ label: "Owner", value: "CSM" }]}
+  items={[{ label: "Owner", value: "Account owner" }]}
 />
 ```
 

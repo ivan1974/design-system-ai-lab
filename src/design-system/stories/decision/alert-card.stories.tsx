@@ -85,7 +85,7 @@ export const SeverityLevels: Story = {
         scope="Service recommendations"
         description="New source evidence can support the next customer discussion, but it should be reviewed before customer use."
         recommendation="Review the source evidence and decide which points should be included in the customer summary."
-        source="Service monitoring and CSM review log"
+        source="Service monitoring and Account owner review log"
         sourceStrength="medium"
         validationStatus="Review needed"
       />

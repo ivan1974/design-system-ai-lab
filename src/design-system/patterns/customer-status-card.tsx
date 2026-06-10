@@ -16,18 +16,18 @@ export type CustomerStatusCardProps = Omit<
   description?: string;
   plan?: string;
   contract?: string;
-  csm?: string;
-  renewalDate?: string;
-  assetsCovered?: string;
-  coverage?: string;
-  customerObjective?: string;
-  sourceContext?: string;
-  validationStatus?: string;
-  proofReadiness?: string;
-  badges?: StatusSummaryBadge[];
-  extraItems?: StatusSummaryItem[];
-  title?: string;
-  mode?: CustomerStatusCardMode;
+  Account owner ?: string;
+renewalDate ?: string;
+assetsCovered ?: string;
+coverage ?: string;
+customerObjective ?: string;
+sourceContext ?: string;
+validationStatus ?: string;
+proofReadiness ?: string;
+badges ?: StatusSummaryBadge[];
+extraItems ?: StatusSummaryItem[];
+title ?: string;
+mode ?: CustomerStatusCardMode;
 };
 
 export const CustomerStatusCard = forwardRef<
@@ -40,7 +40,7 @@ export const CustomerStatusCard = forwardRef<
       description = "Current customer context and service coverage.",
       plan,
       contract,
-      csm,
+      Account owner,
       renewalDate,
       assetsCovered,
       coverage,
@@ -71,7 +71,7 @@ export const CustomerStatusCard = forwardRef<
             <KeyValueRow label="Customer" value={customerName} />
             {plan && <KeyValueRow label="Plan" value={plan} />}
             {contract && <KeyValueRow label="Contract" value={contract} />}
-            {csm && <KeyValueRow label="CSM" value={csm} />}
+            {Account owner && <KeyValueRow label="Account owner" value={Account owner} />}
             {renewalDate && <KeyValueRow label="Renewal date" value={renewalDate} />}
             {assetsCovered && <KeyValueRow label="Assets covered" value={assetsCovered} />}
             {coverage && <KeyValueRow label="Coverage" value={coverage} />}

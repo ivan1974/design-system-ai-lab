@@ -21,7 +21,7 @@ const meta = {
       <>
         <ActionCard
           title="Plan connectivity review with the customer"
-          owner="CSM"
+          owner="Account owner"
           dueDate="This week"
           priority="high"
           status="todo"
@@ -32,7 +32,7 @@ const meta = {
 
         <ActionCard
           title="Prepare customer-ready value proof summary"
-          owner="CSM"
+          owner="Account owner"
           dueDate="Before next QBR"
           priority="medium"
           status="blocked"
@@ -83,7 +83,7 @@ export const WithHeaderAction: Story = {
 
         <ActionCard
           title="Share updated recovery plan with customer"
-          owner="CSM"
+          owner="Account owner"
           dueDate="This week"
           priority="high"
           status="in_progress"
@@ -110,7 +110,7 @@ export const AssetVisibilityRecoveryActions: Story = {
       <>
         <ActionCard
           title="Review affected assets before customer discussion"
-          owner="CSM"
+          owner="Account owner"
           dueDate="This week"
           priority="high"
           status="todo"
@@ -159,7 +159,7 @@ export const ProofGapClosureActions: Story = {
       <>
         <ActionCard
           title="Create proof follow-up before renewal meeting"
-          owner="CSM"
+          owner="Account owner"
           dueDate="Before renewal review"
           priority="high"
           status="blocked"
@@ -170,7 +170,7 @@ export const ProofGapClosureActions: Story = {
 
         <ActionCard
           title="Confirm source evidence before customer-ready summary"
-          owner="CSM"
+          owner="Account owner"
           dueDate="Before next customer review"
           priority="medium"
           status="todo"
@@ -181,7 +181,7 @@ export const ProofGapClosureActions: Story = {
 
         <ActionCard
           title="Prepare customer-ready value proof summary"
-          owner="CSM"
+          owner="Account owner"
           dueDate="Before QBR"
           priority="medium"
           status="in_progress"
@@ -219,7 +219,7 @@ export const HumanValidationActions: Story = {
 
         <ActionCard
           title="Review source evidence before customer use"
-          owner="CSM"
+          owner="Account owner"
           dueDate="Before customer meeting"
           priority="high"
           status="todo"
@@ -240,7 +240,7 @@ export const WithoutHeader: Story = {
       <>
         <ActionCard
           title="Prepare customer-ready value summary"
-          owner="CSM"
+          owner="Account owner"
           dueDate="Before renewal meeting"
           priority="medium"
           status="in_progress"
@@ -275,7 +275,7 @@ export const RenewalActions: Story = {
       <>
         <ActionCard
           title="Prepare value proof summary with closed actions"
-          owner="CSM"
+          owner="Account owner"
           dueDate="Jun 20, 2026"
           priority="high"
           status="in_progress"
@@ -285,7 +285,7 @@ export const RenewalActions: Story = {
 
         <ActionCard
           title="Review unresolved recommendations with the service team"
-          owner="CSM + Support"
+          owner="Account owner + Support"
           dueDate="Jun 14, 2026"
           priority="medium"
           status="todo"
@@ -295,7 +295,7 @@ export const RenewalActions: Story = {
 
         <ActionCard
           title="Confirm renewal meeting agenda with customer"
-          owner="CSM"
+          owner="Account owner"
           dueDate="Jun 24, 2026"
           priority="medium"
           status="todo"
@@ -334,7 +334,7 @@ export const WithNativeSectionProps: Story = {
     >
       <ActionCard
         title="Plan customer follow-up"
-        owner="CSM"
+        owner="Account owner"
         dueDate="This week"
         priority="high"
         status="todo"
@@ -343,7 +343,7 @@ export const WithNativeSectionProps: Story = {
 
       <ActionCard
         title="Prepare service outcome summary"
-        owner="CSM"
+        owner="Account owner"
         dueDate="Before QBR"
         priority="medium"
         status="in_progress"

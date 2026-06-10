@@ -165,7 +165,7 @@ export const ActionRowStory: Story = {
     <Card title="ActionRow" description="Use for owned, dated and prioritized follow-through.">
       <ActionRow
         title="Validate recommendation"
-        owner="CSM"
+        owner="Account owner"
         dueDate="2026-06-14"
         priority="high"
         status="todo"
@@ -240,7 +240,7 @@ export const CombinedExample: Story = {
             <CompactMetric label="Freshness" value="18h" />
           </MetricStrip>
           <EvidenceRow label="Service report" description="Internal observation requiring validation." source="Service report" sourceStrength="partial" validationStatus="Review needed" />
-          <ActionRow title="Validate recommendation" owner="CSM" dueDate="2026-06-14" priority="high" status="todo" action={<PriorityPill priority="high" />} />
+          <ActionRow title="Validate recommendation" owner="Account owner" dueDate="2026-06-14" priority="high" status="todo" action={<PriorityPill priority="high" />} />
         </SectionBlock>
       </SectionStack>
     </Card>

@@ -145,7 +145,7 @@ export default function App() {
                 riskSummary="The QBR is not customer-ready because proof and recommendation readiness need review."
                 affectedScope="QBR preparation and renewal discussion"
                 customerImpact="The customer may not clearly see service value delivered during the period."
-                serviceImpact="The CSM may need to explain open risks without validated proof points."
+                serviceImpact="The Account owner may need to explain open risks without validated proof points."
                 sourceContext="Closed actions, monitoring signals and recommendation history"
                 sourceStrength="partial"
                 freshness="Last 90 days"
@@ -226,9 +226,9 @@ export default function App() {
         />
 
         <SectionBlock title="Preparation actions">
-          <ActionRow title="Prepare customer-ready value proof summary" owner="CSM" dueDate="Before QBR" priority="high" status="todo" context="Internal proof needs customer-ready synthesis." />
+          <ActionRow title="Prepare customer-ready value proof summary" owner="Account owner" dueDate="Before QBR" priority="high" status="todo" context="Internal proof needs customer-ready synthesis." />
           <ActionRow title="Review recommendation readiness with service team" owner="Service Manager" dueDate="Next 3 business days" priority="high" status="in_progress" context="Recommendations need source and proof review." />
-          <ActionRow title="Confirm QBR preparation action owners" owner="CSM" dueDate="This week" priority="medium" status="todo" context="Open preparation actions need ownership before the meeting." />
+          <ActionRow title="Confirm QBR preparation action owners" owner="Account owner" dueDate="This week" priority="medium" status="todo" context="Open preparation actions need ownership before the meeting." />
         </SectionBlock>
 
         {/*

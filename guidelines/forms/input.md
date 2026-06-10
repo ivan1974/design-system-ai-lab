@@ -75,7 +75,7 @@ Use `StatusSummary` or a business pattern when the value is display-only.
 Use it like this:
 
 ```tsx
-<Input id="action-owner" placeholder="CSM" />
+<Input id="action-owner" placeholder="Account owner" />
 ```
 
 Common props:
@@ -107,7 +107,7 @@ Prefer wrapping `Input` with `Field`.
 
 ```tsx
 <Field label="Owner" htmlFor="action-owner">
-  <Input id="action-owner" placeholder="CSM" />
+  <Input id="action-owner" placeholder="Account owner" />
 </Field>
 ```
 
@@ -200,7 +200,7 @@ Placeholders should provide examples, not replace labels.
 Good placeholders:
 
 ```txt
-CSM
+Account owner
 Plan connectivity review with the customer
 customer@example.com
 25
@@ -291,7 +291,7 @@ Example:
 </Field>
 
 <Field label="Owner" htmlFor="action-owner">
-  <Input id="action-owner" placeholder="CSM" />
+  <Input id="action-owner" placeholder="Account owner" />
 </Field>
 
 <Field label="Due date" htmlFor="action-due-date">
@@ -315,7 +315,7 @@ Use `Input` inside `Field` when a custom dialog form needs a short value.
 >
   <form className="space-y-4">
     <Field label="Owner" htmlFor="action-owner">
-      <Input id="action-owner" placeholder="CSM" />
+      <Input id="action-owner" placeholder="Account owner" />
     </Field>
 
     <Field label="Due date" htmlFor="action-due-date">
@@ -337,7 +337,7 @@ Example:
 
 ```tsx
 <Field label="Owner" htmlFor="action-owner">
-  <Input id="action-owner" defaultValue="CSM" disabled />
+  <Input id="action-owner" defaultValue="Account owner" disabled />
 </Field>
 ```
 
@@ -358,7 +358,7 @@ Use `Field error` with `Input` when the user must correct a value.
   htmlFor="action-owner"
   error="Owner is required before saving the action."
 >
-  <Input id="action-owner" placeholder="CSM" aria-invalid="true" />
+  <Input id="action-owner" placeholder="Account owner" aria-invalid="true" />
 </Field>
 ```
 
@@ -432,7 +432,7 @@ Use `Field` and `Input` instead:
 
 ```tsx
 <Field label="Owner" htmlFor="owner">
-  <Input id="owner" placeholder="CSM" />
+  <Input id="owner" placeholder="Account owner" />
 </Field>
 ```
 
