@@ -74,6 +74,40 @@ contracts/package.contract.json
 
 ---
 
+## Preferred generation vocabulary
+
+Use the vocabulary in:
+
+```txt
+contracts/components.contract.json
+contracts/props.contract.json
+```
+
+For new decision workspaces, prefer:
+
+```txt
+PageHeading over PageHeader
+WorkspaceDetailPanel over DetailPanel for selected-item detail
+MetricStrip with CompactMetric for compact signal groups
+ComponentHierarchy for asset hierarchy
+ListContainer with approved row components for repeated objects
+SectionStack and SectionBlock for dense grouped sections
+ActionRow or StickyActionBar for follow-through
+```
+
+Use with care:
+
+```txt
+PageHeader → legacy page header, not the default for new decision workspaces
+DetailPanel → lower-level primitive, not the default selected-item detail panel
+ComponentHierarchyItem → use only inside ComponentHierarchy
+Card → emphasis container, not the default repeated-object layout
+```
+
+If a component is listed as use with care, Make must have a specific reason to use it.
+
+---
+
 ## Decision workspace principle
 
 Use this default hierarchy when the user needs to compare, review evidence or act:
@@ -113,17 +147,19 @@ Dense action list → ActionRow items
 Evidence list → EvidenceRow items
 Signal list → SignalRow items
 Generic structured metadata → KeyValueList or StatusSummary
+Asset hierarchy → ComponentHierarchy
+Compact signal strip → MetricStrip with CompactMetric
 ```
 
-Customer monitoring: use `WorkspaceShell`, `FilterBar`, `MasterDetailLayout`, `CustomerStatusCard`, `ConnectivityCoverageCard`, `ServiceRiskSummary`, `AlertCard`, `ActionRow`.
+Customer monitoring: use `WorkspaceShell`, `PageHeading`, `FilterBar`, `MasterDetailLayout`, `CustomerStatusCard`, `ConnectivityCoverageCard`, `ServiceRiskSummary`, `AlertCard`, `ActionRow`.
 
-Renewal risk review: use `WorkspaceShell`, `FilterBar`, `MasterDetailLayout`, `RenewalRiskSummary`, `CustomerReviewReadinessCard`, `ValueProofCard`, `RecommendationReviewPanel`, `AlertCard`, `ActionRow`.
+Renewal risk review: use `WorkspaceShell`, `PageHeading`, `FilterBar`, `MasterDetailLayout`, `RenewalRiskSummary`, `CustomerReviewReadinessCard`, `ValueProofCard`, `RecommendationReviewPanel`, `AlertCard`, `ActionRow`.
 
-Asset recommendation review: use `WorkspaceShell`, `FilterBar`, `MasterDetailLayout`, `AssetIntelligenceSummary`, `ServiceRiskSummary`, `RecommendationReviewPanel`, `RecommendationCard`, `EvidenceRow`, `ActionRow`.
+Asset recommendation review: use `WorkspaceShell`, `PageHeading`, `FilterBar`, `MasterDetailLayout`, `WorkspaceDetailPanel`, `AssetIntelligenceSummary`, `ServiceRiskSummary`, `RecommendationReviewPanel`, `RecommendationCard`, `EvidenceRow`, `ActionRow`.
 
-QBR or customer review readiness: use `WorkspaceShell`, `FilterBar`, `MasterDetailLayout`, `CustomerReviewReadinessCard`, `ValueProofCard`, `ServiceRiskSummary`, `RecommendationReviewPanel`, `AlertCard`, `ActionRow`.
+QBR or customer review readiness: use `WorkspaceShell`, `PageHeading`, `FilterBar`, `MasterDetailLayout`, `WorkspaceDetailPanel`, `CustomerReviewReadinessCard`, `ValueProofCard`, `ServiceRiskSummary`, `RecommendationReviewPanel`, `AlertCard`, `ActionRow`.
 
-Installed base exploration: use `WorkspaceShell`, `FilterBar`, `MasterDetailLayout`, `WorkspaceDetailPanel`, `KeyValueList`, `MetricStrip`, `ComponentHierarchy`, `EvidenceRow`, `Timeline`, `DocumentRow`, `ActionRow`.
+Installed base exploration: use `WorkspaceShell`, `PageHeading`, `FilterBar`, `MasterDetailLayout`, `WorkspaceDetailPanel`, `KeyValueList`, `MetricStrip`, `ComponentHierarchy`, `EvidenceRow`, `Timeline`, `DocumentRow`, `ActionRow`.
 
 ---
 
@@ -137,7 +173,7 @@ contracts/components.contract.json
 contracts/props.contract.json
 ```
 
-Do not invent enum-like prop values for `variant`, `tone`, `severity`, `priority`, `strength`, `mode`, `size`, `status` or `readiness`.
+Do not invent enum-like prop values for `variant`, `tone`, `severity`, `priority`, `strength`, `mode`, `size`, `status`, `readiness`, `riskLevel`, `proofReadiness`, `validationStatus`, `sourceStrength` or `density`.
 
 ---
 
