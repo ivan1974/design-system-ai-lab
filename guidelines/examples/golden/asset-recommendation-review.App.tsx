@@ -28,7 +28,7 @@ const recommendations = [
   {
     title: "Review UPS battery replacement plan",
     priority: "high" as const,
-    readiness: "Needs review",
+    readiness: "needs-review",
     tone: "warning" as const,
     scope: "Connected UPS assets",
     evidence: "Recurring battery health warnings appear on two connected UPS assets.",
@@ -37,7 +37,7 @@ const recommendations = [
   {
     title: "Recover connectivity for critical assets",
     priority: "high" as const,
-    readiness: "Internal only",
+    readiness: "internal",
     tone: "warning" as const,
     scope: "Backup power system",
     evidence: "Three known backup power assets are outside live monitoring.",
@@ -45,7 +45,7 @@ const recommendations = [
   {
     title: "Prepare customer-ready wording",
     priority: "medium" as const,
-    readiness: "Needs review",
+    readiness: "needs-review",
     tone: "warning" as const,
     scope: "Customer communication",
     evidence: "Source scope needs validation before external wording is prepared.",
@@ -73,7 +73,7 @@ export default function App() {
               <>
                 <SemanticTag tone="warning">Expert review needed</SemanticTag>
                 <SemanticTag>Backup power system</SemanticTag>
-                <SemanticTag tone="primary">CompanyName Advanced</SemanticTag>
+                <SemanticTag tone="primary">Advanced service plan</SemanticTag>
               </>
             }
           />
@@ -98,8 +98,8 @@ export default function App() {
                 sourceScope="Known installed base and connected monitored assets only"
                 sourceStrength="partial"
                 freshness="18 hours"
-                validationStatus="Expert review needed before customer use"
-                readiness="needs_review"
+                validationStatus="internal-review-needed"
+                readiness="needs-review"
               />
 
               <SectionHeading
@@ -134,7 +134,7 @@ export default function App() {
                 sourceContext="Monitoring platform, known installed base and service history"
                 sourceStrength="partial"
                 freshness="18 hours"
-                validationStatus="Expert review needed"
+                validationStatus="internal-review-needed"
                 recommendedReview="Validate source scope, connected status and rationale."
               />
             </SectionStack>
@@ -175,16 +175,16 @@ export default function App() {
                   reviewScope="Backup power system recommendation set"
                   reviewStatus="Expert validation needed"
                   sourceContext="Monitoring platform, known installed base and service history"
-                  validationStatus="Review before customer use"
-                  customerReadiness="Not customer-ready yet"
-                  proofContext="Source strength is partial"
+                  validationStatus="internal-review-needed"
+                  customerReadiness="needs-review"
+                  proofReadiness="expected-only"
                   badges={[{ label: "Not customer-ready", tone: "danger" }]}
                 >
                   <RecommendationCard
                     title="UPS battery replacement plan"
                     recommendation="Plan an expert review before sharing the battery replacement recommendation externally."
                     priority="high"
-                    readiness="needs_review"
+                    readiness="needs-review"
                     rationale="The signal is meaningful, but the recommendation still depends on partial asset visibility."
                     scope="Connected UPS assets"
                     evidenceSummary="Recurring battery health warnings appear on two connected UPS assets."
@@ -192,7 +192,7 @@ export default function App() {
                     sourceScope="Connected assets and known installed base"
                     sourceStrength="partial"
                     freshness="18 hours"
-                    validationStatus="Expert review needed"
+                    validationStatus="internal-review-needed"
                   />
                 </RecommendationReviewPanel>
 
@@ -204,7 +204,7 @@ export default function App() {
                     sourceScope="Connected UPS assets only"
                     sourceStrength="partial"
                     freshness="18 hours"
-                    validationStatus="Expert validation needed"
+                    validationStatus="internal-review-needed"
                   />
                   <EvidenceRow
                     label="Connectivity gap"
@@ -212,7 +212,7 @@ export default function App() {
                     source="Known installed base and monitoring platform"
                     sourceScope="Known installed base compared with connected monitored assets"
                     sourceStrength="partial"
-                    validationStatus="Internal action before customer use"
+                    validationStatus="internal-review-needed"
                   />
                 </SectionBlock>
               </SectionStack>
@@ -222,15 +222,16 @@ export default function App() {
 
         <SectionBlock title="Follow-through actions">
           <ActionRow title="Validate recommendation with service expert" owner="Service Manager" dueDate="Next 3 business days" priority="high" status="todo" context="Expert validation is needed before customer communication." action={<Button size="sm">Open</Button>} />
-          <ActionRow title="Confirm connectivity status for non-connected assets" owner="Remote Support Specialist" dueDate="This week" priority="high" status="in_progress" context="Non-connected assets cannot be treated as live-monitored." />
+          <ActionRow title="Confirm connectivity status for non-connected assets" owner="Remote Support Specialist" dueDate="This week" priority="high" status="in-progress" context="Non-connected assets cannot be treated as live-monitored." />
         </SectionBlock>
 
         {/*
-          v0.4 reference:
+          v0.5.1 reference:
           - AssetIntelligenceSummary provides the asset context behind the recommendation.
           - RecommendationQueueRow inside ListContainer replaces generic cards as the list layer.
           - RecommendationReviewPanel and RecommendationCard handle selected recommendation review.
           - WorkspaceDetailPanel and Tabs provide package-controlled detail navigation.
+          - Controlled readiness and validation values use canonical contract vocabulary.
         */}
       </WorkspaceShell>
     </main>
