@@ -1,4 +1,4 @@
-# Make Minimal Contract v0.5
+# Make Minimal Contract v0.5.1
 
 ## Purpose
 
@@ -10,10 +10,16 @@ Use:
 
 ```txt
 make-minimal-contract.md → blocking rules
-Guidelines.md → full generation guidance
+Guidelines.md → full generation router
 setup.md → package setup and approved vocabulary
+guidelines/prompts/* → reusable generation guidance
+benchmarks/figma-make/cases/* → fixed scoring cases
 contracts/ → machine-readable rules
 ```
+
+Reusable prompts may be adapted to a user scenario.
+
+Benchmark cases are fixed scoring scenarios. Do not rewrite benchmark facts unless the scoring objective changes.
 
 ---
 
@@ -96,11 +102,13 @@ Examples:
 CustomerStatusCard
 ConnectivityCoverageCard
 AssetIntelligenceSummary
+ComponentHierarchy
 RenewalRiskSummary
 ValueProofCard
 ServiceRiskSummary
 RecommendationReviewPanel
 CustomerReviewReadinessCard
+CreateActionDialog
 ```
 
 ---
