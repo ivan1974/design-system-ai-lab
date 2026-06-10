@@ -1,36 +1,41 @@
-# Workspace v2 Prompt Guidance — v0.4
+# Workspace Prompt Guidance — v0.5.1
 
 ## Purpose
 
-Use this file when Figma Make needs the v0.4 decision workspace standard.
+Use this file when Figma Make needs reusable guidance for a v0.5.1 decision workspace.
 
-The design system is not a dashboard generator. A generated screen should help the user decide what to do next, using visible source context, clear hierarchy and owned actions.
+This is reusable generation guidance, not a fixed benchmark case.
+
+Benchmark cases live in:
+
+```txt
+benchmarks/figma-make/cases/*
+```
+
+A generated screen should help the user decide what to do next, using visible source context, clear hierarchy, business patterns and owned actions.
 
 ---
 
 ## Required workspace instruction
 
-Add this block to screen prompts when review, comparison or follow-up is needed:
+Add this block to reusable screen prompts when review, comparison or follow-up is needed:
 
 ```txt
-Use a v0.4 decision workspace structure.
+Use a v0.5.1 decision workspace structure.
 Use WorkspaceShell for the page shell.
 Use PageHeading for page intent.
-Use SectionHeading for major content areas.
-Use FilterBar or SecondaryNavigation for scope and filters.
+Use FilterBar or SecondaryNavigation for scope and navigation.
 Use MasterDetailLayout when the user reviews a list and a selected item.
-Use WorkspaceDetailPanel for selected-item review when the detail panel should open, close or preserve the central workspace.
-Use detailMode="inline" for desktop side detail and detailMode="overlay" when the central workspace should keep full width.
-Use Surface, ListContainer, Well, Divider and Toolbar instead of local styled div wrappers.
-Use CustomerQueueRow, AssetQueueRow, RiskQueueRow, RecommendationQueueRow or ReviewQueueRow for repeated review objects.
-Use Tabs, HeaderTabs, SegmentedControl, SecondaryNavigation and Breadcrumbs instead of local navigation components.
-Use business patterns when they match the intent: CustomerStatusCard, CustomerReviewReadinessCard, ConnectivityCoverageCard, AssetIntelligenceSummary, RenewalRiskSummary, ValueProofCard, ServiceRiskSummary, RecommendationReviewPanel.
-Use RecommendationCard for selected recommendation detail, not for repeated recommendation queues.
-Use AlertCard for highlighted risk, EvidenceRow for source context and ActionRow for follow-through.
+Use ListContainer with approved queue row components for repeated review objects.
+Use WorkspaceDetailPanel for selected-item detail.
+Use Tabs when selected detail has several local views.
+Use StickyActionBar, ActionRow or ActionCard for follow-through.
+Use business patterns before rebuilding known sections manually.
 Use only documented prop values.
 Do not create local visual components or wrappers.
-Keep source scope, source strength, freshness, proof status and validation visible where trust matters.
-Use white-first visual style and avoid card saturation.
+Do not invent evidence, telemetry, proof, sources, customer facts or asset facts.
+Keep source scope, source strength, freshness, proof readiness and validation visible where trust matters.
+Avoid generic dashboards and card saturation.
 ```
 
 ---
@@ -42,15 +47,15 @@ Use white-first visual style and avoid card saturation.
 ```txt
 WorkspaceShell
 PageHeading
-SectionHeading
 FilterBar
+SecondaryNavigation
 MasterDetailLayout
 WorkspaceDetailPanel
 SectionStack
 SectionBlock
 ```
 
-### Surface
+### Surface and grouping
 
 ```txt
 Surface
@@ -81,7 +86,7 @@ ReviewQueueRow
 ActionRow
 EvidenceRow
 DocumentRow
-SignalRow only for simple observed signals
+SignalRow only for observed signals
 ```
 
 ### Business patterns
@@ -91,27 +96,31 @@ CustomerStatusCard
 CustomerReviewReadinessCard
 ConnectivityCoverageCard
 AssetIntelligenceSummary
+ComponentHierarchy
 RenewalRiskSummary
 ValueProofCard
 ServiceRiskSummary
 RecommendationReviewPanel
+CreateActionDialog
 ```
 
 ---
 
 ## Pattern selection rules
 
-Use the most specific component that fits the intent.
+Use the most specific business pattern that fits the user decision.
 
 ```txt
 Customer context -> CustomerStatusCard
-QBR readiness -> CustomerReviewReadinessCard
-Asset context and intelligence -> AssetIntelligenceSummary
+Customer review readiness -> CustomerReviewReadinessCard
 Connectivity coverage -> ConnectivityCoverageCard
+Asset context and intelligence -> AssetIntelligenceSummary
+Asset or component hierarchy -> ComponentHierarchy
 Renewal risk -> RenewalRiskSummary
 Value proof -> ValueProofCard
 Service risk -> ServiceRiskSummary
 Recommendation review detail -> RecommendationReviewPanel + RecommendationCard
+Action creation -> CreateActionDialog
 Repeated recommendation list -> RecommendationQueueRow
 Repeated risk list -> RiskQueueRow
 Repeated asset list -> AssetQueueRow
@@ -119,6 +128,26 @@ Repeated customer list -> CustomerQueueRow
 ```
 
 Do not rebuild these sections with raw cards, styled divs or generic key-value blocks when a pattern exists.
+
+---
+
+## Prompt versus benchmark case
+
+Reusable prompts:
+
+```txt
+guidelines/prompts/*
+```
+
+Use them as adaptable generation guidance.
+
+Fixed benchmark cases:
+
+```txt
+benchmarks/figma-make/cases/*
+```
+
+Use them as stable scoring scenarios. Do not rewrite benchmark facts unless the scoring objective changes.
 
 ---
 
@@ -152,9 +181,51 @@ Small local helpers are acceptable only if they compose approved package compone
 
 ---
 
+## Evidence and actionability rules
+
+Show facts before interpretation.
+
+Separate:
+
+```txt
+source-system facts
+→ observed signals
+→ interpretation
+→ recommendation
+→ owned action
+```
+
+Keep the following visible when trust matters:
+
+```txt
+sourceScope
+sourceStrength
+freshness
+proofReadiness
+validationStatus
+customerReadiness
+human validation
+```
+
+Every action must include:
+
+```txt
+owner
+due date
+priority
+```
+
+Never present expected outcomes as proven value.
+
+Never present partial visibility as complete knowledge.
+
+Never present internal proof as customer-ready proof without validation.
+
+---
+
 ## Acceptance criteria
 
-A workspace v2 Make output should pass these checks:
+A v0.5.1 Make output should pass these checks:
 
 - App.tsx renders a complete visible screen.
 - Components are imported from `design-system-ai-lab`.
@@ -163,13 +234,12 @@ A workspace v2 Make output should pass these checks:
 - No local visual component duplicates package components.
 - The screen supports one clear decision.
 - The layout is not a generic dashboard.
-- PageHeading and SectionHeading create visible hierarchy.
+- PageHeading creates visible page intent.
 - A list/detail task uses MasterDetailLayout.
-- Interactive selected detail uses WorkspaceDetailPanel.
+- Selected detail uses WorkspaceDetailPanel.
+- Detail views use Tabs.
 - Customer, asset, risk and recommendation queues use queue row components.
 - Queue rows are grouped in ListContainer.
-- Repeated facts use KeyValueList or rows.
-- Repeated actions use ActionRow.
-- Repeated evidence uses EvidenceRow.
 - Business patterns are used before generic cards.
 - Source scope, freshness and validation are visible where trust matters.
+- Actions show owner, due date and priority.
