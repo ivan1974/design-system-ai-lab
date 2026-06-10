@@ -39,7 +39,9 @@ const expectedDistinctions = [
   "internal-proof-vs-customer-ready-proof",
 ];
 
-function listMarkdownFiles(relativeDir: string) {
+const scannedExtensions = new Set([".md", ".mdx", ".tsx", ".ts"]);
+
+function listScannedFiles(relativeDir: string): string[] {
   const absoluteDir = path.join(rootDir, relativeDir);
   if (!fs.existsSync(absoluteDir)) return [];
 
@@ -47,8 +49,8 @@ function listMarkdownFiles(relativeDir: string) {
     .readdirSync(absoluteDir, { withFileTypes: true })
     .flatMap((entry) => {
       const relativePath = path.join(relativeDir, entry.name);
-      if (entry.isDirectory()) return listMarkdownFiles(relativePath);
-      return entry.isFile() && entry.name.endsWith(".md") ? [relativePath] : [];
+      if (entry.isDirectory()) return listScannedFiles(relativePath);
+      return entry.isFile() && scannedExtensions.has(path.extname(entry.name)) ? [relativePath] : [];
     });
 }
 
@@ -91,7 +93,7 @@ describe("generation rules: domain model semantics", () => {
   });
 
   it("does not include forbidden semantic confusions in prompts, golden examples or benchmark cases", () => {
-    const files = contract.requiredFilesToScan.flatMap(listMarkdownFiles);
+    const files = contract.requiredFilesToScan.flatMap(listScannedFiles);
 
     for (const file of files) {
       const content = read(file).toLowerCase();
