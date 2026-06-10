@@ -30,6 +30,7 @@ export type ActionCardProps = HTMLAttributes<HTMLElement> & {
 const statusTone: Record<ActionStatus, "neutral" | "primary" | "warning" | "success"> = {
   todo: "neutral",
   "in-progress": "primary",
+  in_progress: "primary",
   blocked: "warning",
   done: "success",
 };
