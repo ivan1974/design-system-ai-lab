@@ -1,10 +1,23 @@
 # Runtime Generation Contract
 
-## Purpose
+## Status
 
-This file is the shortest active blocking contract for Figma Make generation.
+```txt
+ACTIVE RUNTIME / BLOCKING / FIGMA MAKE
+```
 
-Use it after `Guidelines.md`, `setup.md`, `tokens.md` and `styles.md`.
+This file is the active v0.6.0 blocking contract for Figma Make generation.
+
+It replaces `guidelines/make-minimal-contract.md` as the active runtime contract.
+
+Use it after:
+
+```txt
+Guidelines.md
+setup.md
+tokens.md
+styles.md
+```
 
 ---
 
@@ -12,7 +25,9 @@ Use it after `Guidelines.md`, `setup.md`, `tokens.md` and `styles.md`.
 
 Generate one complete visible React screen in `App.tsx`.
 
-The screen must be decision-oriented, not a generic dashboard.
+The screen must support one primary decision.
+
+Do not generate a generic dashboard, landing page, marketing page or decorative mockup.
 
 ---
 
@@ -30,15 +45,23 @@ Import styles once:
 import "design-system-ai-lab/styles.css";
 ```
 
-Never import from internal package paths.
+Never import from:
 
-Never create a local design system.
+```txt
+design-system-ai-lab/dist/*
+design-system-ai-lab/src/*
+./components/ui/*
+./src/design-system/*
+packages/design-system-ai-lab/*
+```
+
+Never create local design-system substitutes.
 
 ---
 
 ## Required screen model
 
-Prefer a decision workspace:
+Prefer this decision workspace model:
 
 ```txt
 WorkspaceShell
@@ -47,16 +70,54 @@ WorkspaceShell
 → MasterDetailLayout when list/detail is needed
 → ListContainer with approved rows
 → WorkspaceDetailPanel for selected-item detail
+→ Tabs only when detail has several views
 → ActionRow or StickyActionBar for follow-through
 ```
 
-Do not generate a long stack of unrelated cards.
+Do not make every fact, signal, proof point or action a separate card.
 
 ---
 
-## Evidence and trust rules
+## Use business patterns first
 
-Always show facts before interpretation.
+Use a business pattern before rebuilding a known section manually.
+
+Examples:
+
+```txt
+CustomerStatusCard
+ConnectivityCoverageCard
+AssetIntelligenceSummary
+RenewalRiskSummary
+ValueProofCard
+ServiceRiskSummary
+RecommendationReviewPanel
+CustomerReviewReadinessCard
+CreateActionDialog
+```
+
+If no pattern fits, simplify before creating custom composition.
+
+---
+
+## Facts before interpretation
+
+Show information in this order when possible:
+
+```txt
+source-system facts
+→ health or service signals
+→ intelligence interpretation
+→ evidence-aware recommendation
+→ owned action
+→ human validation when needed
+```
+
+Do not start with a confident recommendation if facts or evidence are missing.
+
+---
+
+## Evidence rules
 
 Never invent:
 
@@ -66,21 +127,27 @@ sources
 citations
 telemetry
 asset facts
+benchmark data
 value proof
-benchmarks
+validation state
 ```
 
-Do not present expected outcomes as proven value.
+Do not present:
 
-Do not use AI confidence as source strength.
+```txt
+expected outcomes as proven value
+partial visibility as complete asset knowledge
+AI confidence as source strength
+internal proof as customer-ready proof without validation
+```
 
-Keep human validation visible for sensitive decisions.
+Keep source scope, source strength, proof readiness and validation visible when trust matters.
 
 ---
 
 ## Action rules
 
-Every actionable item must show:
+Every actionable item must include:
 
 ```txt
 owner
@@ -88,9 +155,13 @@ due date
 priority
 ```
 
+Use `ActionRow` for owned follow-through.
+
+Use `ActionCard` only when the action needs more context than a row.
+
 Every `AlertCard` must include a recommendation.
 
-Do not show vague actions without ownership.
+Do not show vague next steps without ownership.
 
 ---
 
@@ -98,23 +169,34 @@ Do not show vague actions without ownership.
 
 Show the minimum decision-critical information first.
 
-Keep evidence and explanation available, but do not expose all details at the same hierarchy level.
+Keep evidence and explanation available, but secondary.
+
+Do not expose all facts, proof points, recommendations and actions at the same hierarchy level.
 
 ---
 
 ## Reject and repair
 
-Reject or repair if the screen includes:
+Reject or repair before acceptance if the screen includes:
 
 ```txt
 internal imports
+missing stylesheet import
 local components
 local visual system
 generic dashboard
-card stack
-invented evidence
-missing action ownership
+long equal card stack
+invented evidence or sources
 unsupported prop values
+missing action ownership
+hidden validation for sensitive decisions
 visual overstatement of weak evidence
 information overload
+```
+
+Repair guidance:
+
+```txt
+guidelines/evaluation/repair/repair-router.md
+contracts/generation-blockers.contract.json
 ```
