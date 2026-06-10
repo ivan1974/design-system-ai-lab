@@ -40,7 +40,17 @@ Show recommendation, rationale, priority, readiness and evidence context when re
 
 Follow `contracts/props.contract.json#RecommendationCard`.
 
-Use canonical source strength and proof readiness values.
+The `priority` values are `low`, `medium`, `high` and `critical`.
+
+The `readiness` values are `internal`, `needs-review`, `customer-ready`, `needs_review` and `customer_ready`.
+
+The `proofReadiness` values are `not-available`, `expected-only`, `internal-proof` and `customer-ready-proof`.
+
+The `sourceStrength` values are `unknown`, `partial`, `single-source`, `multi-source` and `validated`.
+
+The `validationStatus` values are `not-reviewed`, `internal-review-needed`, `internally-validated`, `customer-ready` and `blocked`.
+
+Do not invent controlled values. Do not generate deprecated underscore aliases in new output.
 
 ## GenAI generation rules
 
