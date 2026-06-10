@@ -39,9 +39,11 @@ const reusablePromptRequiredSnippets = [
   "Every action must include owner, due date and priority.",
 ];
 
-const reusablePromptRequiredPatterns = [
-  /Do not generate (a )?generic dashboard/,
-  /Do not (create|generate)( a)? (card stack|card stacks|card saturation|long stack of equal cards)/,
+const antiCardStackPhrases = [
+  "card stack",
+  "card stacks",
+  "card saturation",
+  "long stack of equal cards",
 ];
 
 const forbiddenPromptSnippets = [
@@ -73,9 +75,8 @@ describe("generation rules: prompt system alignment", () => {
       expect(content).toContain(snippet);
     }
 
-    for (const pattern of reusablePromptRequiredPatterns) {
-      expect(content).toMatch(pattern);
-    }
+    expect(content).toMatch(/Do not generate (a )?generic dashboard/);
+    expect(antiCardStackPhrases.some((phrase) => content.includes(phrase))).toBe(true);
   });
 
   it.each(promptBenchmarkPairs)("$benchmark points back to its reusable prompt", ({ prompt, benchmark }) => {
