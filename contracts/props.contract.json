@@ -5,6 +5,7 @@
   "sourceGuidelines": [
     "guidelines/make-minimal-contract.md",
     "guidelines/setup.md",
+    "guidelines/domain-models",
     "guidelines/components",
     "guidelines/decision",
     "guidelines/patterns",
@@ -20,7 +21,11 @@
       "detailWidth": ["sm", "md", "lg"]
     },
     "RecommendationReviewPanel": {
-      "mode": ["card", "section", "drawer"]
+      "mode": ["card", "section", "drawer"],
+      "validationStatus": ["not-reviewed", "internal-review-needed", "internally-validated", "customer-ready", "blocked"],
+      "customerReadiness": ["internal", "needs-review", "customer-ready", "needs_review", "customer_ready"],
+      "proofReadiness": ["not-available", "expected-only", "internal-proof", "customer-ready-proof"],
+      "humanValidation": ["not-required", "recommended", "required"]
     },
     "WorkspaceDetailPanel": {
       "mode": ["inline", "overlay", "section"]
@@ -38,13 +43,17 @@
       "tone": ["neutral", "info", "success", "warning", "danger"]
     },
     "ActionRow": {
-      "priority": ["low", "medium", "high", "critical"]
+      "priority": ["low", "medium", "high", "critical"],
+      "status": ["todo", "in-progress", "blocked", "done", "in_progress"]
     },
     "ActionCard": {
-      "priority": ["low", "medium", "high", "critical"]
+      "priority": ["low", "medium", "high", "critical"],
+      "status": ["todo", "in-progress", "blocked", "done", "in_progress"]
     },
     "AlertCard": {
-      "severity": ["critical", "warning", "info"]
+      "severity": ["critical", "warning", "info"],
+      "sourceStrength": ["unknown", "partial", "single-source", "multi-source", "validated"],
+      "validationStatus": ["not-reviewed", "internal-review-needed", "internally-validated", "customer-ready", "blocked"]
     },
     "RecommendationCard": {
       "priority": ["low", "medium", "high", "critical"],
@@ -74,7 +83,9 @@
       "sourceStrength": ["unknown", "partial", "single-source", "multi-source", "validated"]
     },
     "ConnectivityCoverageCard": {
-      "mode": ["card", "section", "compact"]
+      "mode": ["card", "section", "compact"],
+      "sourceStrength": ["unknown", "partial", "single-source", "multi-source", "validated"],
+      "validationStatus": ["not-reviewed", "internal-review-needed", "internally-validated", "customer-ready", "blocked"]
     },
     "CustomerStatusCard": {
       "mode": ["card", "section", "compact"]
@@ -83,6 +94,11 @@
       "mode": ["card", "section", "compact"],
       "readiness": ["internal", "needs-review", "customer-ready", "needs_review", "customer_ready"],
       "sourceStrength": ["unknown", "partial", "single-source", "multi-source", "validated"],
+      "validationStatus": ["not-reviewed", "internal-review-needed", "internally-validated", "customer-ready", "blocked"]
+    },
+    "RenewalRiskSummary": {
+      "renewalReadiness": ["internal", "needs-review", "customer-ready", "needs_review", "customer_ready"],
+      "proofReadiness": ["not-available", "expected-only", "internal-proof", "customer-ready-proof"],
       "validationStatus": ["not-reviewed", "internal-review-needed", "internally-validated", "customer-ready", "blocked"]
     },
     "ServiceRiskSummary": {
@@ -125,6 +141,8 @@
       "proofReadiness",
       "validationStatus",
       "sourceStrength",
+      "customerReadiness",
+      "humanValidation",
       "density"
     ],
     "fallback": "If uncertain, simplify the component usage or choose a documented value."
