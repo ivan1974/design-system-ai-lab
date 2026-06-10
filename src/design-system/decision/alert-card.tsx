@@ -1,5 +1,7 @@
 import { forwardRef } from "react";
 import type { HTMLAttributes, ReactNode } from "react";
+import type { SourceStrength, ValidationStatus } from "../types/trust";
+import { sourceStrengthLabels, validationStatusLabels } from "../types/trust";
 import { StatusPill } from "./status-pill";
 
 export type AlertSeverity = "critical" | "warning" | "info";
@@ -10,13 +12,15 @@ export type AlertCardProps = HTMLAttributes<HTMLElement> & {
   equipment?: string;
   scope?: string;
   description: string;
-  recommendation: string;
+  recommendation: ReactNode;
   evidenceSummary?: string;
   source?: string;
   sourceScope?: string;
-  sourceStrength?: string;
+  sourceStrength?: SourceStrength;
+  sourceStrengthLabel?: string;
   freshness?: string;
-  validationStatus?: string;
+  validationStatus?: ValidationStatus;
+  validationStatusLabel?: string;
   action?: ReactNode;
 };
 
@@ -45,8 +49,10 @@ export const AlertCard = forwardRef<HTMLElement, AlertCardProps>(
       source,
       sourceScope,
       sourceStrength,
+      sourceStrengthLabel,
       freshness,
       validationStatus,
+      validationStatusLabel,
       action,
       className = "",
       ...props
@@ -57,9 +63,9 @@ export const AlertCard = forwardRef<HTMLElement, AlertCardProps>(
     const metadata = [
       source && `Source: ${source}`,
       sourceScope && `Scope: ${sourceScope}`,
-      sourceStrength && `Strength: ${sourceStrength}`,
+      sourceStrength && `Strength: ${sourceStrengthLabel ?? sourceStrengthLabels[sourceStrength]}`,
       freshness && `Freshness: ${freshness}`,
-      validationStatus && `Validation: ${validationStatus}`,
+      validationStatus && `Validation: ${validationStatusLabel ?? validationStatusLabels[validationStatus]}`,
     ].filter(Boolean);
 
     return (
@@ -95,7 +101,7 @@ export const AlertCard = forwardRef<HTMLElement, AlertCardProps>(
 
           <div className="rounded-(--ec-radius-sm) bg-(--ec-color-surface-muted) px-3 py-2">
             <p className="text-xs font-medium text-(--ec-color-text-muted)">Recommendation</p>
-            <p className="mt-1 text-sm font-medium text-(--ec-color-text-primary)">{recommendation}</p>
+            <div className="mt-1 text-sm font-medium text-(--ec-color-text-primary)">{recommendation}</div>
           </div>
         </div>
       </article>
