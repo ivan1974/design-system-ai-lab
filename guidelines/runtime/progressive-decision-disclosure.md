@@ -1,6 +1,10 @@
 # Runtime Progressive Decision Disclosure
 
-## Purpose
+## Status
+
+```txt
+ACTIVE RUNTIME / INFORMATION DENSITY / FIGMA MAKE
+```
 
 This file prevents information overload in generated decision screens.
 
@@ -35,6 +39,8 @@ what action follows
 
 Keep this first level short.
 
+Prefer 1 primary decision, 2 to 4 key signals and 1 visible next action area.
+
 Avoid long unprioritized card stacks.
 
 ---
@@ -55,6 +61,8 @@ status summary
 
 Use detail to build trust, not to overwhelm the first view.
 
+Evidence must remain available when it affects trust.
+
 ---
 
 ## Recommended hierarchy
@@ -70,6 +78,33 @@ Use detail to build trust, not to overwhelm the first view.
 Actions may appear early when the screen is operational.
 
 Do not hide ownership under long explanations.
+
+Do not hide validation when trust matters.
+
+---
+
+## Good pattern
+
+```txt
+High renewal risk
+→ Main reason: proof is internal-only and two actions are overdue
+→ Recommended next step: assign renewal readiness review
+→ Evidence visible in detail panel
+→ ActionRow with owner, due date and priority
+```
+
+---
+
+## Bad pattern
+
+```txt
+12 equal cards
++ all metrics
++ full evidence list
++ all proof points
++ all actions
++ no clear first decision
+```
 
 ---
 
