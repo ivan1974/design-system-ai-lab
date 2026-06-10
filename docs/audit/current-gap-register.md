@@ -41,8 +41,8 @@ It does not expand the component library.
 | G-002 | P0 | Make entry point | `Guidelines.md` is too broad for a mandatory GenAI entry point | Rewrite as a short router, not full documentation | Closed |
 | G-003 | P0 | Setup | `setup.md` mixes package setup with generation guidance | Reduce to package setup, imports, styles and forbidden local design system rules | Closed |
 | G-004 | P0 | Runtime docs | Active runtime guidance is not yet isolated in `guidelines/runtime/` | Create runtime files for contract, flow, component selection, trust/action, visual rules and progressive disclosure | Ready for review |
-| G-005 | P0 | Source-of-truth | Long source files can still be read as active generation instructions | Move knowledge, principles, domain models and visual brand to `guidelines/source/` | In progress |
-| G-006 | P0 | Legacy audit | Historical v0.5.1 audit files risk being treated as active guidance | Archive v0.5.1 hardening material and ensure no active contract references audit files | Open |
+| G-005 | P0 | Source-of-truth | Long source files can still be read as active generation instructions | Move knowledge, principles, domain models and visual brand to `guidelines/source/` | Closed |
+| G-006 | P0 | Legacy audit | Historical v0.5.1 audit files risk being treated as active guidance | Archive v0.5.1 hardening material and ensure no active contract references audit files | Closed |
 | G-007 | P0 | Component registry | There is no single registry mapping exports, GenAI status, guideline, contract and story | Create `contracts/component-registry.contract.json` | Open |
 | G-008 | P0 | Component status | Preferred, allowed, use-with-care, internal-only, deprecated and blocked components are not centrally enforced | Add `genAIStatus` and `allowedInRuntime` to the registry | Open |
 | G-009 | P0 | Domain semantics | Critical semantic distinctions are not yet contractually enforced | Create `contracts/domain-model.contract.json` | Open |
@@ -73,8 +73,6 @@ v0.6.0 cannot be released while any of these remain open or below ready-for-revi
 
 ```txt
 G-004 runtime docs creation — ready for review
-G-005 source/reference/runtime classification — in progress
-G-006 legacy audit archival — open
 G-007 component registry — open
 G-008 central component status — open
 G-009 domain model contract — open
@@ -89,6 +87,8 @@ Closed P0 blockers:
 G-001 Release scope freeze
 G-002 Guidelines.md router rewrite
 G-003 setup.md reduction
+G-005 source/reference/runtime classification
+G-006 legacy audit archival
 G-010 visual rules contract
 ```
 
@@ -125,10 +125,9 @@ A gap can be closed only when one of the following is true:
 ## Current status summary
 
 ```txt
-P0 closed: 4
+P0 closed: 6
 P0 ready for review: 1
-P0 in progress: 1
-P0 open: 7
+P0 open: 6
 P1 ready for review: 4
 P1 open: 3
 P2 open: 4
