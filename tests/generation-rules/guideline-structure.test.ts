@@ -54,9 +54,16 @@ const genAiReadyGuidelines = [
   "guidelines/decision/status-pill.md",
   "guidelines/decision/status-summary.md",
   "guidelines/patterns/asset-intelligence-summary.md",
+  "guidelines/patterns/component-hierarchy.md",
+  "guidelines/patterns/connectivity-coverage-card.md",
+  "guidelines/patterns/create-action-dialog.md",
+  "guidelines/patterns/customer-review-readiness-card.md",
+  "guidelines/patterns/customer-status-card.md",
+  "guidelines/patterns/queue-row-patterns.md",
   "guidelines/patterns/recommendation-review-panel.md",
   "guidelines/patterns/value-proof-card.md",
   "guidelines/patterns/renewal-risk-summary.md",
+  "guidelines/patterns/service-risk-summary.md",
 ];
 
 const requiredSections = [
