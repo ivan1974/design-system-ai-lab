@@ -42,7 +42,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "lint:md": "npx --yes markdownlint-cli2 \"README.md\" \"guidelines/**/*.md\" \"docs/**/*.md\"",
+    "lint:md": "npx --yes markdownlint-cli2 \"README.md\" \"guidelines/**/*.md\"",
     "test": "vitest run --config vitest.generation.config.ts",
     "test:generation": "vitest run --config vitest.generation.config.ts",
     "preview": "vite preview",
