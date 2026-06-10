@@ -11,6 +11,38 @@ const expectedGoldenExamples = [
   "guidelines/examples/golden/installed-base-explorer.App.tsx",
 ];
 
+const forbiddenGoldenExampleSnippets = [
+  "sourceStrength=\"strong\"",
+  "readiness=\"needs_review\"",
+  "readiness=\"customer_ready\"",
+  "customerReadiness=\"Not customer-ready yet\"",
+  "customerReadiness=\"Customer-ready\"",
+  "status=\"in_progress\"",
+  "validationStatus=\"Review before customer use\"",
+  "validationStatus=\"Proof review needed\"",
+  "validationStatus=\"Expert review needed\"",
+  "validationStatus=\"Expert validation needed\"",
+  "proofReadiness=\"Internal proof, not customer-ready\"",
+  "proofReadiness=\"Customer-ready proof available\"",
+  "CompanyName",
+  "PageHeader",
+  "DetailPanel",
+];
+
+const requiredArchitectureComponents = [
+  "WorkspaceShell",
+  "PageHeading",
+  "MasterDetailLayout",
+  "WorkspaceDetailPanel",
+  "ListContainer",
+];
+
+const requiredDecisionSignals = [
+  "sourceStrength=\"partial\"",
+  "validationStatus=\"internal-review-needed\"",
+  "ActionRow",
+];
+
 describe("generation rules: golden examples", () => {
   it("uses guidelines examples directly as the golden fixtures", () => {
     expect(defaultTargetPaths).toEqual(expectedGoldenExamples);
@@ -27,5 +59,30 @@ describe("generation rules: golden examples", () => {
   it.each(targets)("$path is a visible App.tsx screen", (target) => {
     expect(target.content).toMatch(/<main\b/);
     expect(target.content).toMatch(/min-h-screen/);
+  });
+
+  it.each(targets)("$path imports only from the public package root", (target) => {
+    expect(target.content).toContain('from "design-system-ai-lab"');
+    expect(target.content).toContain('import "design-system-ai-lab/styles.css"');
+    expect(target.content).not.toMatch(/from "\.\.?\//);
+    expect(target.content).not.toMatch(/from "src\//);
+  });
+
+  it.each(targets)("$path uses current workspace architecture", (target) => {
+    for (const component of requiredArchitectureComponents) {
+      expect(target.content).toContain(component);
+    }
+  });
+
+  it.each(targets)("$path keeps trust, validation and actionability visible", (target) => {
+    for (const signal of requiredDecisionSignals) {
+      expect(target.content).toContain(signal);
+    }
+  });
+
+  it.each(targets)("$path avoids obsolete or deprecated golden-example snippets", (target) => {
+    for (const snippet of forbiddenGoldenExampleSnippets) {
+      expect(target.content).not.toContain(snippet);
+    }
   });
 });
