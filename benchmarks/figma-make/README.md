@@ -9,15 +9,16 @@ This folder is not a second guideline source. It is a measurement harness.
 Use:
 
 - `guidelines/` for human and AI-facing rules
+- `guidelines/prompts/` for reusable generation prompts, if maintained
 - `contracts/` for machine-readable rules
 - `tests/generation-rules/` for automated checks
-- `benchmarks/figma-make/` for prompt runs and scoring
+- `benchmarks/figma-make/` for fixed benchmark cases, outputs and scoring
 
 ## Run protocol
 
-1. Pick one prompt from `prompts/`.
-2. Give it to Figma Make with access to the package guidance.
-3. Save generated `App.tsx` in `outputs/` using the same prompt number.
+1. Pick one benchmark case from `cases/`.
+2. Give the case prompt to Figma Make with access to the package guidance.
+3. Save generated `App.tsx` in `outputs/` using the same case number.
 4. Run generation tests against the output:
 
 ```bash
@@ -27,21 +28,21 @@ GENERATED_APP_PATH=benchmarks/figma-make/outputs/01-customer-monitoring.App.tsx 
 5. Score the output with `scoring/scoring-template.md`.
 6. Save the completed scorecard in `evaluations/`.
 
-## Prompt set
+## Benchmark cases
 
-Normal prompts:
+Normal cases:
 
-- `01-customer-monitoring.prompt.md`
-- `02-renewal-risk-review.prompt.md`
-- `03-asset-recommendation-review.prompt.md`
-- `04-qbr-readiness.prompt.md`
-- `05-installed-base-explorer.prompt.md`
+- `01-customer-monitoring.md`
+- `02-renewal-risk-review.md`
+- `03-asset-recommendation-review.md`
+- `04-qbr-readiness.md`
+- `05-installed-base-explorer.md`
 
-Adversarial prompts:
+Adversarial cases:
 
-- `06-bad-card-stack-prompt.prompt.md`
-- `07-bad-invented-evidence-prompt.prompt.md`
-- `08-bad-local-components-prompt.prompt.md`
+- `06-adversarial-card-stack.md`
+- `07-adversarial-invented-evidence.md`
+- `08-adversarial-local-components.md`
 
 ## Acceptance thresholds
 
