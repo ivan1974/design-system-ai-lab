@@ -3,14 +3,8 @@ import path from "node:path";
 import { describe, expect, it } from "vitest";
 
 const rootDir = process.cwd();
-
-function read(relativePath: string) {
-  return fs.readFileSync(path.join(rootDir, relativePath), "utf-8");
-}
-
-function readJson<T>(relativePath: string): T {
-  return JSON.parse(read(relativePath)) as T;
-}
+const read = (relativePath: string) => fs.readFileSync(path.join(rootDir, relativePath), "utf-8");
+const readJson = <T>(relativePath: string) => JSON.parse(read(relativePath)) as T;
 
 type ComponentsContract = {
   approvedImports: Record<string, string[]>;
@@ -20,9 +14,7 @@ type ComponentsContract = {
 
 type PropsContract = {
   components: Record<string, Record<string, string[]>>;
-  globalPropRule: {
-    doNotInventValuesFor: string[];
-  };
+  globalPropRule: { doNotInventValuesFor: string[] };
 };
 
 const componentsContract = readJson<ComponentsContract>("contracts/components.contract.json");
@@ -30,10 +22,7 @@ const propsContract = readJson<PropsContract>("contracts/props.contract.json");
 const publicIndex = read("src/design-system/index.ts");
 
 const approvedImports = new Set(Object.values(componentsContract.approvedImports).flat());
-const preferredComponents = componentsContract.preferredForNewGeneration;
-const legacyComponents = new Set(
-  componentsContract.legacyOrUseWithCare.map((entry) => entry.component),
-);
+const legacyComponents = new Set(componentsContract.legacyOrUseWithCare.map((entry) => entry.component));
 
 const guidelineByComponent: Record<string, string> = {
   ActionCard: "guidelines/decision/action-card.md",
@@ -94,18 +83,19 @@ const guidelineByComponent: Record<string, string> = {
   WorkspaceShell: "guidelines/screen-architecture/workspace-shell.md",
 };
 
-const explicitSharedGuidelineByComponent: Record<string, string> = {
+const sharedGuidelineByComponent: Record<string, string> = {
   AssetQueueRow: "guidelines/patterns/queue-row-patterns.md",
   CustomerQueueRow: "guidelines/patterns/queue-row-patterns.md",
   RecommendationQueueRow: "guidelines/patterns/queue-row-patterns.md",
   RiskQueueRow: "guidelines/patterns/queue-row-patterns.md",
 };
 
-const allowedGuidelineReferences = new Set([
+const allowedPascalCaseTokens = new Set([
   ...approvedImports,
   ...Object.keys(guidelineByComponent),
-  ...Object.keys(explicitSharedGuidelineByComponent),
+  ...Object.keys(sharedGuidelineByComponent),
   "OK",
+  "Submit",
   "CreateActionDialogValues",
   "DetailPanelTab",
   "DetailPanelTabsProps",
@@ -129,16 +119,6 @@ const allowedGuidelineReferences = new Set([
   "WorkspaceDetailPanelMode",
   "WorkspaceDetailPanelProps",
 ]);
-
-const obsoletePromptComponentPatterns = [
-  /\bPageHeader\b/,
-  /\bSlideOverPanel\b/,
-  /\bPanelHeader\b/,
-  /\bPanelBody\b/,
-  /\bPanelFooter\b/,
-  /\bPanelClose\b/,
-  /(?<!Workspace)\bDetailPanel\b/,
-];
 
 const promptFiles = [
   "guidelines/prompts/customer-monitoring.md",
@@ -164,12 +144,11 @@ const requiredSections = [
 ];
 
 function isExportedComponent(componentName: string) {
-  const exportPattern = new RegExp(`export\\s+\\{[^}]*\\b${componentName}\\b[^}]*\\}\\s+from`);
-  return exportPattern.test(publicIndex);
+  return new RegExp(`export\\s+\\{[^}]*\\b${componentName}\\b[^}]*\\}\\s+from`).test(publicIndex);
 }
 
 function resolveGuideline(componentName: string) {
-  return guidelineByComponent[componentName] ?? explicitSharedGuidelineByComponent[componentName];
+  return guidelineByComponent[componentName] ?? sharedGuidelineByComponent[componentName];
 }
 
 describe("generation rules: documentation and contract alignment", () => {
@@ -181,66 +160,40 @@ describe("generation rules: documentation and contract alignment", () => {
     expect(isExportedComponent(componentName) || legacyComponents.has(componentName)).toBe(true);
   });
 
-  it.each(preferredComponents)("preferred component %s has a guideline", (componentName) => {
+  it.each(componentsContract.preferredForNewGeneration)("preferred component %s has a guideline", (componentName) => {
     const guideline = resolveGuideline(componentName);
-
     expect(guideline).toBeTruthy();
     expect(fs.existsSync(path.join(rootDir, guideline))).toBe(true);
   });
 
-  it.each(preferredComponents)("preferred component %s guideline uses required sections", (componentName) => {
-    const guideline = resolveGuideline(componentName);
-    const content = read(guideline);
-
-    for (const section of requiredSections) {
-      expect(content).toContain(section);
-    }
+  it.each(componentsContract.preferredForNewGeneration)("preferred component %s guideline uses required sections", (componentName) => {
+    const content = read(resolveGuideline(componentName));
+    for (const section of requiredSections) expect(content).toContain(section);
   });
 
   it.each(Object.entries(propsContract.components))("controlled values for %s appear in its guideline when documented", (componentName, propContract) => {
     const guideline = resolveGuideline(componentName);
-
-    if (!guideline) {
-      return;
-    }
-
+    if (!guideline) return;
     const content = read(guideline);
-
     for (const [propName, values] of Object.entries(propContract)) {
       expect(content).toContain(propName);
-
-      for (const value of values) {
-        expect(content).toContain(value);
-      }
+      for (const value of values) expect(content).toContain(value);
     }
   });
 
   it("setup prop value rule mirrors the props contract global rule", () => {
     const setup = read("guidelines/setup.md");
-
-    for (const propName of propsContract.globalPropRule.doNotInventValuesFor) {
-      expect(setup).toContain(propName);
-    }
+    for (const propName of propsContract.globalPropRule.doNotInventValuesFor) expect(setup).toContain(propName);
   });
 
   it("guidelines do not recommend unknown PascalCase package components", () => {
     const guidelineDirs = ["guidelines/components", "guidelines/decision", "guidelines/forms", "guidelines/patterns", "guidelines/screen-architecture"];
-    const componentReferencePattern = /`([A-Z][A-Za-z0-9]+)`/g;
-
     for (const guidelineDir of guidelineDirs) {
-      const absoluteDir = path.join(rootDir, guidelineDir);
-      const files = fs.readdirSync(absoluteDir).filter((fileName) => fileName.endsWith(".md"));
-
-      for (const fileName of files) {
+      for (const fileName of fs.readdirSync(path.join(rootDir, guidelineDir)).filter((fileName) => fileName.endsWith(".md"))) {
         const relativePath = path.join(guidelineDir, fileName);
-        const content = read(relativePath);
-        const references = [...content.matchAll(componentReferencePattern)].map((match) => match[1]);
-
+        const references = [...read(relativePath).matchAll(/`([A-Z][A-Za-z0-9]+)`/g)].map((match) => match[1]);
         for (const componentName of references) {
-          expect(
-            allowedGuidelineReferences.has(componentName),
-            `${relativePath} references unknown PascalCase token ${componentName}`,
-          ).toBe(true);
+          expect(allowedPascalCaseTokens.has(componentName), `${relativePath} references unknown PascalCase token ${componentName}`).toBe(true);
         }
       }
     }
@@ -248,8 +201,7 @@ describe("generation rules: documentation and contract alignment", () => {
 
   it.each(promptFiles)("%s does not reference obsolete components", (promptFile) => {
     const content = read(promptFile);
-
-    for (const pattern of obsoletePromptComponentPatterns) {
+    for (const pattern of [/\bPageHeader\b/, /\bSlideOverPanel\b/, /\bPanelHeader\b/, /\bPanelBody\b/, /\bPanelFooter\b/, /\bPanelClose\b/, /(?<!Workspace)\bDetailPanel\b/]) {
       expect(content).not.toMatch(pattern);
     }
   });
