@@ -3,10 +3,10 @@
 Use this repair prompt when Figma Make generates code that almost follows the design system but drifts in one of these ways:
 
 - invents unsupported enum values for component props
-- uses undocumented `variant`, `tone`, `severity`, `priority`, `strength` or `mode` values
+- uses undocumented `variant`, `tone`, `severity`, `priority`, `strength`, `mode`, `size`, `status` or `readiness` values
 - creates local visual components or wrappers that duplicate package components
-- creates local `Button`, `Card`, `Badge`, `Dialog`, `Metric`, `Pill`, `Tag` or form wrappers
-- uses inline styles to simulate selected states, cards, badges or layout primitives
+- creates local Button, Card, Badge, Dialog, Tabs, Drawer, Row, Metric, Pill, Tag or form wrappers
+- uses inline styles to simulate selected states, cards, badges, rows, panels or layout primitives
 
 ---
 
@@ -24,34 +24,27 @@ Small local render helpers are acceptable only when they compose approved `desig
 
 ## Required changes
 
-1. Replace unsupported prop values with documented values from the package stories, component contracts or TypeScript declarations.
+1. Replace unsupported prop values with documented values from package stories, component contracts or TypeScript declarations.
 2. Replace local visual wrappers with approved package components.
-3. Remove local `Button`, `Card`, `Badge`, `Dialog`, `Metric`, `Pill`, `Tag` and form wrappers.
-4. Keep small render helpers only if they are pure composition helpers using approved package components.
-5. Remove inline styles that create custom visual systems.
-6. Prefer official `--ec-*` tokens when custom layout styling is unavoidable.
-7. Keep imports from the package root only:
-
-```tsx
-import { WorkspaceShell, FilterBar, ActionRow } from "design-system-ai-lab";
-import "design-system-ai-lab/styles.css";
-```
+3. Remove local Button, Card, Badge, Dialog, Tabs, Drawer, Row, Metric, Pill, Tag and form wrappers.
+4. Use `WorkspaceDetailPanel` instead of a local drawer or side panel.
+5. Use `Tabs`, `HeaderTabs`, `SegmentedControl`, `SecondaryNavigation` and `Breadcrumbs` instead of local navigation.
+6. Use queue rows instead of local customer, asset, risk or recommendation rows.
+7. Use `ListContainer` for grouped rows.
+8. Keep imports from the package root only.
 
 ---
 
-## Examples of likely corrections
+## Related repair prompts
 
-If `Button variant="outline"` is not documented, replace it with a documented variant such as:
+Use a more specific prompt when possible:
 
-```tsx
-<Button variant="secondary">Export</Button>
+```txt
+weak-typography-hierarchy.md
+overdecorated-surface.md
+poor-row-density.md
+missing-list-container.md
 ```
-
-If `SourceStrengthPill strength="medium"` is not documented, replace it with a documented source strength value.
-
-If `StatusPill tone="neutral"` is used for a positive readiness state, use a documented success or ready state when available.
-
-If a local row component creates its own selected state with inline styles, prefer package primitives and minimal composition.
 
 ---
 
@@ -61,7 +54,7 @@ The repaired screen is acceptable only if:
 
 - all package component props use documented values
 - no local visual component duplicates a package component
-- small local helpers do not create visual styles or new UI primitives
 - no local design system folder is created
 - package imports remain from `design-system-ai-lab`
+- package CSS is imported once
 - the screen still uses the workspace v2 structure when relevant
