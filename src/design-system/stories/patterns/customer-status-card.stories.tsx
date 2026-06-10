@@ -14,7 +14,7 @@ const meta = {
     customerName: { control: "text" },
     plan: { control: "text" },
     contract: { control: "text" },
-    Account owner: { control: "text" },
+    accountOwner: { control: "text" },
     renewalDate: { control: "text" },
     assetsCovered: { control: "text" },
     coverage: { control: "text" },
@@ -27,12 +27,12 @@ const meta = {
     customerName: "Greenfield Industries",
     plan: "Advanced service plan",
     contract: "#CR-2024-441",
-    Account owner: "Sarah Moreau",
+    accountOwner: "Sarah Moreau",
     renewalDate: "Aug 5, 2026",
     assetsCovered: "25 assets — 3 sites",
     coverage: "68% connected",
     customerObjective: "Improve service visibility before renewal",
-    sourceContext: "CompanyName monitored assets only",
+    sourceContext: "Monitored assets only",
     validationStatus: "Review before customer use",
     badges: [
       { label: "Active plan", tone: "primary" },
@@ -54,12 +54,12 @@ export const HighRiskCustomer: Story = {
     customerName: "Greenfield Industries",
     plan: "Advanced service plan",
     contract: "#CR-2024-441",
-    Account owner: "Sarah Moreau",
+    accountOwner: "Sarah Moreau",
     renewalDate: "Aug 5, 2026",
     assetsCovered: "25 assets — 3 sites",
     coverage: "52% connected",
     customerObjective: "Improve service visibility before renewal",
-    sourceContext: "CompanyName monitored assets only",
+    sourceContext: "Monitored assets only",
     validationStatus: "Review before customer use",
     proofReadiness: "Internal proof, not customer-ready",
     badges: [
@@ -76,12 +76,12 @@ export const HealthyCustomer: Story = {
     customerName: "North Valley Hospital",
     plan: "Essential service plan",
     contract: "#CR-2025-118",
-    Account owner: "Lina Patel",
+    accountOwner: "Lina Patel",
     renewalDate: "Nov 18, 2026",
     assetsCovered: "50 assets — 4 sites",
     coverage: "96% connected",
     customerObjective: "Maintain high continuity for critical care services",
-    sourceContext: "CompanyName monitored assets only",
+    sourceContext: "Monitored assets only",
     validationStatus: "Reviewed for customer use",
     proofReadiness: "Customer-ready proof available",
     badges: [
@@ -97,12 +97,12 @@ export const TrustSensitiveCustomerContext: Story = {
     customerName: "Greenfield Industries",
     plan: "Advanced service plan",
     contract: "#CR-2024-441",
-    Account owner: "Sarah Moreau",
+    accountOwner: "Sarah Moreau",
     renewalDate: "Aug 5, 2026",
     assetsCovered: "25 assets — 3 sites",
     coverage: "68% connected",
     customerObjective: "Improve service visibility before renewal",
-    sourceContext: "CompanyName monitored assets only",
+    sourceContext: "Monitored assets only",
     validationStatus: "Review before customer use",
     proofReadiness: "Internal proof, not customer-ready",
     badges: [
@@ -118,7 +118,7 @@ export const RecommendationReviewContext: Story = {
     customerName: "Greenfield Industries",
     plan: "Advanced service plan",
     contract: "#CR-2024-441",
-    Account owner: "Sarah Moreau",
+    accountOwner: "Sarah Moreau",
     renewalDate: "Aug 5, 2026",
     assetsCovered: "25 assets — 3 sites",
     coverage: "68% connected",
@@ -137,7 +137,7 @@ export const WithExtraItems: Story = {
   args: {
     customerName: "Greenfield Industries",
     plan: "Advanced service plan",
-    Account owner: "Sarah Moreau",
+    accountOwner: "Sarah Moreau",
     coverage: "68% connected",
     customerObjective: "Improve service visibility before renewal",
     badges: [{ label: "Account owner review required", tone: "warning" }],
@@ -156,12 +156,12 @@ export const WithNativeSectionProps: Story = {
       customerName="Greenfield Industries"
       plan="Advanced service plan"
       contract="#CR-2024-441"
-      Account owner="Sarah Moreau"
+      accountOwner="Sarah Moreau"
       renewalDate="Aug 5, 2026"
       assetsCovered="25 assets — 3 sites"
       coverage="68% connected"
       customerObjective="Improve service visibility before renewal"
-      sourceContext="CompanyName monitored assets only"
+      sourceContext="Monitored assets only"
       validationStatus="Review before customer use"
       badges={[
         { label: "Active plan", tone: "primary" },
