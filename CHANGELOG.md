@@ -1,5 +1,56 @@
 # Changelog
 
+## 0.5.1 — GenAI Guidance Hardening
+
+Version `0.5.1` hardens the controlled generation standard introduced in `0.5.0`.
+
+It aligns guidelines, contracts, prompts, examples, review checklists, repair prompts and documentation tests so generated screens can be reviewed against the same rules the package contracts enforce.
+
+---
+
+## Added
+
+- GenAI-ready component guideline template in `guidelines/templates/component-guideline-template.md`.
+- Expanded guidelines for priority components, screen architecture, forms, decision components and business patterns.
+- Reusable installed base prompt in `guidelines/prompts/installed-base-explorer.md`.
+- Repair router in `guidelines/repair-prompts/repair-router.md`.
+- v0.5.1 review loop across blocking, workspace and quality checklists.
+- Documentation drift tests for contracts, exports, guidelines, prompts and repair routes.
+- Migration note in `guidelines/migration/v0.5.0-to-v0.5.1.md`.
+- Release checklist in `docs/release/v0.5.1-release-hardening-checklist.md`.
+
+---
+
+## Changed
+
+- Aligned controlled values across domain models, props contract and guidelines.
+- Updated golden examples to use canonical readiness, validation, proof and source strength values.
+- Aligned reusable prompts with fixed benchmark cases.
+- Clarified blocking, quality and acceptance review levels.
+- Mapped common generation failures to actual repair prompts.
+
+---
+
+## Fixed
+
+- Reduced documentation drift around legacy components and generic dashboard generation.
+- Tightened tests so preferred components require guidelines.
+- Improved repair coverage for local components, card saturation, weak layout, evidence gaps, human validation, action ownership, raw form controls and metric overload.
+
+---
+
+## Migration notes
+
+Read:
+
+```txt
+guidelines/migration/v0.5.0-to-v0.5.1.md
+```
+
+Runtime React migration is not expected for consuming apps.
+
+---
+
 ## 0.5.0 — Controlled Generation Standard
 
 Version `0.5.0` turns the project into a controlled generation standard for Figma Make.
