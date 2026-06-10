@@ -1,10 +1,14 @@
-# Setup Guidelines v0.4
+# Setup Guidelines v0.5
 
 ## Purpose
 
-This file explains how Figma Make should set up and compose generated React screens with `design-system-ai-lab` v0.4.
+This file explains how Figma Make should set up and compose generated React screens with `design-system-ai-lab`.
 
-It defines the package import rule, approved component vocabulary, local-helper limits and minimum screen structure.
+It defines the package import rule, approved component vocabulary, local-helper limits, minimum screen structure and package build assumptions.
+
+This file is an active AI-facing source of truth.
+
+Do not duplicate these setup rules in a separate documentation folder.
 
 ---
 
@@ -88,6 +92,89 @@ import "design-system-ai-lab/styles.css";
 
 Do not import from internal package paths.
 
+Forbidden examples:
+
+```txt
+design-system-ai-lab/dist/*
+design-system-ai-lab/src/*
+./components/ui/*
+packages/design-system-ai-lab/*
+```
+
+---
+
+## Public package contract
+
+The public package contract is intentionally small.
+
+Supported entry points:
+
+```txt
+design-system-ai-lab
+= public component and pattern API
+
+design-system-ai-lab/styles.css
+= public stylesheet entry point
+```
+
+The package should continue to expose only:
+
+```txt
+.
+./styles.css
+```
+
+This keeps Make focused on the public API and prevents reliance on implementation details.
+
+---
+
+## Stylesheet contract
+
+The package exports one stylesheet entry point:
+
+```txt
+design-system-ai-lab/styles.css
+```
+
+The library build emits:
+
+```txt
+dist/styles.css
+```
+
+The build removes `dist/styles.js` after library build because the public stylesheet contract should be CSS-only.
+
+---
+
+## Radix and React build assumptions
+
+Figma Make and consuming React apps provide the React runtime.
+
+React and React DOM are peer dependencies and should stay externalized.
+
+Decision for the v0.5 foundation:
+
+```txt
+Externalize all Radix primitives used by the package.
+```
+
+Externalized Radix packages:
+
+```txt
+@radix-ui/react-dialog
+@radix-ui/react-dropdown-menu
+@radix-ui/react-select
+@radix-ui/react-tabs
+@radix-ui/react-tooltip
+```
+
+Reason:
+
+```txt
+Do not bundle a partial and inconsistent subset of Radix primitives.
+Keep the library build aligned with the React/Radix runtime used by Figma Make and consuming apps.
+```
+
 ---
 
 ## Prop value rule
@@ -148,7 +235,7 @@ Small local helpers are allowed only if they:
 
 ---
 
-## Minimum v0.4 screen structure
+## Minimum screen structure
 
 A generated decision workspace should usually use:
 
@@ -363,3 +450,39 @@ A generated screen passes setup if:
 - navigation uses `Tabs`, `HeaderTabs`, `SegmentedControl`, `SecondaryNavigation` or `Breadcrumbs`
 - business patterns are used before generic cards when they fit
 - all prop values are documented
+
+---
+
+## Maintainer script checks
+
+These commands are for maintainers, not Figma Make generation.
+
+Foundation check:
+
+```bash
+npm run check
+```
+
+It runs:
+
+```txt
+npm run lint
+npm run lint:md
+npm run test
+npm run build:ds
+```
+
+Critical Sprint 1 commands:
+
+```txt
+npm run dev
+npm run build
+npm run build:ds
+npm run lint
+npm run lint:md
+npm run test
+npm run storybook
+npm run build-storybook
+```
+
+`package-lock.json` should be regenerated locally with `npm install` whenever package metadata or dependency decisions change.
