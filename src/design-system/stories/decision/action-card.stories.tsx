@@ -35,7 +35,7 @@ const meta = {
     status: "todo",
     context: "Follow-up required after partial connectivity alert.",
     assetContext: "Critical Power > UPS Room A",
-    sourceContext: "Schneider monitored assets only · Source strength: partial",
+    sourceContext: "CompanyName monitored assets only · Source strength: partial",
     validationStatus: "Review before customer use",
     className: "w-160",
   },
@@ -132,7 +132,7 @@ export const AssetFollowUpAction: Story = {
     status: "todo",
     context: "Follow-up required after partial connectivity alert.",
     assetContext: "Critical Power > UPS Room A",
-    sourceContext: "Schneider monitored assets only · Source strength: partial",
+    sourceContext: "CompanyName monitored assets only · Source strength: partial",
     validationStatus: "Review before customer use",
     className: "w-160",
   },
@@ -155,7 +155,7 @@ export const ProofGapAction: Story = {
 
 export const HumanValidationAction: Story = {
   args: {
-    title: "Validate asset recommendation with Schneider expert",
+    title: "Validate asset recommendation with CompanyName expert",
     owner: "Service Manager",
     dueDate: "Before customer action plan",
     priority: "high",

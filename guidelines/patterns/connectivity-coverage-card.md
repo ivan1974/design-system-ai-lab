@@ -106,7 +106,7 @@ Use the component with these props:
   monitoringStatus="Partial monitoring coverage"
   affectedScope="Site A and Site C"
   lastUpdate="18 hours ago"
-  sourceScope="Schneider monitored assets only"
+  sourceScope="CompanyName monitored assets only"
   sourceStrength="partial"
   coverageBasis="Connected assets and known installed base"
   validationStatus="Review before customer use"
@@ -159,7 +159,7 @@ Use `monitoringStatus` to describe the overall monitoring state.
 Use `affectedScope` to identify the sites, assets or systems impacted.
 
 Use `sourceScope` to clarify what population the coverage applies to, such as
-Schneider monitored assets, connected assets or known installed base.
+CompanyName monitored assets, connected assets or known installed base.
 
 Use `sourceStrength` to clarify whether the coverage view is complete, partial,
 manual, inferred or needs review.
@@ -175,7 +175,7 @@ blocked or restored.
 Use `customerDependency` for customer-side prerequisites such as firewall,
 network or access validation.
 
-Use `serviceDependency` for Schneider-side follow-up such as remote support,
+Use `serviceDependency` for CompanyName-side follow-up such as remote support,
 field service or platform review.
 
 Use `lastUpdate` to clarify freshness.
@@ -215,7 +215,7 @@ Good minimum example:
   connectedAssets="17 assets"
   disconnectedAssets="8 assets"
   monitoringStatus="Partial monitoring coverage"
-  sourceScope="Schneider monitored assets only"
+  sourceScope="CompanyName monitored assets only"
   sourceStrength="partial"
 />
 ```
@@ -235,7 +235,7 @@ the full installed base or when the view combines multiple sources.
 Good source context:
 
 ```txt
-Source scope: Schneider monitored assets only
+Source scope: CompanyName monitored assets only
 Source strength: Partial
 Coverage basis: Connected assets and known installed base
 Validation status: Review before customer use
@@ -252,7 +252,7 @@ Validation: Automatically approved
 Do not present non-connected assets as live-monitored.
 
 Do not imply complete installed base visibility when the evidence only covers
-connected assets, Schneider monitored assets, manual inventory or service
+connected assets, CompanyName monitored assets, manual inventory or service
 records.
 
 Do not use confidence language as a substitute for source scope, source
@@ -607,7 +607,7 @@ Avoid repeating the same coverage numbers in every pattern.
   monitoringStatus="Partial monitoring coverage"
   affectedScope="Site A and Site C"
   lastUpdate="18 hours ago"
-  sourceScope="Schneider monitored assets only"
+  sourceScope="CompanyName monitored assets only"
   sourceStrength="partial"
   coverageBasis="Connected assets and known installed base"
   validationStatus="Review before customer use"
@@ -643,7 +643,7 @@ This is good because:
   monitoringStatus="Recovery needed"
   affectedScope="Main site and backup power system"
   lastUpdate="18 hours ago"
-  sourceScope="Schneider monitored assets only"
+  sourceScope="CompanyName monitored assets only"
   sourceStrength="partial"
   coverageBasis="Connected assets and known installed base"
   validationStatus="Review before customer use"
@@ -675,7 +675,7 @@ This is good because:
   monitoringStatus="Partial monitoring coverage"
   affectedScope="Critical Power > UPS Room A"
   lastUpdate="18 hours ago"
-  sourceScope="Schneider monitored assets only"
+  sourceScope="CompanyName monitored assets only"
   sourceStrength="partial"
   coverageBasis="Connected assets and known installed base"
   validationStatus="Review before customer use"

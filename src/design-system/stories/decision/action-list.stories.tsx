@@ -116,7 +116,7 @@ export const AssetVisibilityRecoveryActions: Story = {
           status="todo"
           context="Follow-up required after partial connectivity alert."
           assetContext="Critical Power > UPS Room A"
-          sourceContext="Schneider monitored assets only · Source strength: partial"
+          sourceContext="CompanyName monitored assets only · Source strength: partial"
           validationStatus="Review before customer use"
         />
 
@@ -207,7 +207,7 @@ export const HumanValidationActions: Story = {
     children: (
       <>
         <ActionCard
-          title="Validate asset recommendation with Schneider expert"
+          title="Validate asset recommendation with CompanyName expert"
           owner="Service Manager"
           dueDate="Before customer action plan"
           priority="high"

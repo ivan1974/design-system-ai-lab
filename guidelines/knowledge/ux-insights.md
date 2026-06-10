@@ -263,7 +263,7 @@ business pattern fits.
 
 Research learning:
 
-Data quality is a recurring barrier for both customers and Schneider teams.
+Data quality is a recurring barrier for both customers and CompanyName teams.
 
 Users can lose trust in the interface when data is incomplete, outdated,
 inconsistent or visibly wrong.
@@ -354,7 +354,7 @@ Observed problems:
 - customers may be reluctant to maintain platform data themselves
 - users may get sent in circles when looking for information
 - customers may struggle to find the right resolution steps
-- customers may prefer direct contact with Schneider employees instead of raising tickets
+- customers may prefer direct contact with CompanyName employees instead of raising tickets
 - internal teams may need to monitor processes manually to ensure assets are added correctly
 
 Design system implication:
@@ -417,7 +417,7 @@ Observed problems:
 - customers are unsure who to contact for support
 - tickets may not be assigned to the right person immediately
 - CSMs may spend effort identifying the right point of contact
-- customers may not know whether they or Schneider have the next action
+- customers may not know whether they or CompanyName have the next action
 - recommendations may not be reviewed or converted into action
 - follow-up tasks may be tracked in tools that other assignees cannot access
 
@@ -477,7 +477,7 @@ Observed problems:
 - teams may lack access to the same customer case history
 - employees may create local workarounds in spreadsheets or tools
 - assigned tasks may not be visible to the actual assignee
-- customers may face multiple Schneider representatives and have to map who is who
+- customers may face multiple CompanyName representatives and have to map who is who
 - changes in points of contact may not be visible to the customer
 
 Design system implication:
@@ -538,20 +538,20 @@ Research learning:
 Customers operate mixed environments with multiple vendors, multiple locations
 and their own internal maintenance systems.
 
-A Schneider-only view may be useful but can feel incomplete if it only covers a
+A CompanyName-only view may be useful but can feel incomplete if it only covers a
 fraction of the customer’s operational reality.
 
 Observed problems:
 
 - customers have assets from multiple vendors
 - customers may already use internal maintenance management systems
-- Schneider assets may represent only part of the install base
+- CompanyName assets may represent only part of the install base
 - some assets may be connected while others are partially connected or non-connected
 - asset data may come from live telemetry, service reports, manual inventory or lifecycle databases
 - customers may need to know whether the view covers physical maintainable assets or embedded components
 - customers may want a unified view across assets, sites and systems
 - disconnected tools increase effort and reduce platform adoption
-- customers may not see the same data across different Schneider interfaces
+- customers may not see the same data across different CompanyName interfaces
 
 Design system implication:
 
@@ -609,7 +609,7 @@ Research learning:
 Customers have specific needs depending on industry, site structure, security
 constraints, compliance expectations, existing tools and operational practices.
 
-At the same time, Schneider needs scalable patterns and common ground.
+At the same time, CompanyName needs scalable patterns and common ground.
 
 Observed problems:
 

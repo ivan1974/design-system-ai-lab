@@ -58,7 +58,7 @@ export const NegativeTrend: Story = {
     helper: "17 équipements surveillés sur 25",
     trend: "-12% ce mois-ci",
     trendTone: "warning",
-    sourceScope: "Actifs surveillés Schneider uniquement",
+    sourceScope: "Actifs surveillés CompanyName uniquement",
     sourceStrength: "partielle",
     freshness: "18 heures",
     className: "w-80",
@@ -81,7 +81,7 @@ export const PartialSourceStrength: Story = {
     label: "Source strength",
     value: "Partielle",
     helper: "La donnée combine télémétrie et inventaire manuel",
-    source: "Inventaire manuel + monitoring Schneider",
+    source: "Inventaire manuel + monitoring CompanyName",
     sourceScope: "Actifs surveillés et inventoriés",
     sourceStrength: "partielle",
     freshness: "18 heures",
@@ -96,7 +96,7 @@ export const AssetHeavyMetric: Story = {
     value: "68%",
     helper: "17 actifs connectés sur 25",
     meta: "Ne représente pas les actifs non inventoriés",
-    sourceScope: "Actifs surveillés Schneider uniquement",
+    sourceScope: "Actifs surveillés CompanyName uniquement",
     sourceStrength: "partielle",
     freshness: "18 heures",
     className: "w-80",
@@ -146,7 +146,7 @@ export const CustomerMonitoringMetrics: Story = {
         helper="17 équipements connectés sur 25"
         trend="-12%"
         trendTone="warning"
-        sourceScope="Actifs surveillés Schneider uniquement"
+        sourceScope="Actifs surveillés CompanyName uniquement"
         sourceStrength="partielle"
       />
       <MetricCard
@@ -203,7 +203,7 @@ export const WithNativeCardProps: Story = {
       helper="17 équipements surveillés sur 25"
       trend="-12% ce mois-ci"
       trendTone="warning"
-      sourceScope="Actifs surveillés Schneider uniquement"
+      sourceScope="Actifs surveillés CompanyName uniquement"
       sourceStrength="partielle"
       freshness="18 heures"
       className="w-80"

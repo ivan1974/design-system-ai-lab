@@ -74,7 +74,7 @@ export const BusinessQueueRows: Story = {
           <ListContainer>
             <CustomerQueueRow
               customerName="Northstar Manufacturing"
-              plan="EcoCare Advanced"
+              plan="CompanyName Advanced"
               description="QBR in 6 days · service visibility needs review"
               riskLabel="Critical monitoring gap"
               riskTone="danger"

@@ -475,7 +475,7 @@ Good:
 
 ```tsx
 <Badge tone="warning">Source strength: partial</Badge>
-<p>Source scope: Schneider monitored assets only.</p>
+<p>Source scope: CompanyName monitored assets only.</p>
 ```
 
 Good:

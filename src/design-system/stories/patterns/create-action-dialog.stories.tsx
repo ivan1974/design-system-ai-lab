@@ -61,7 +61,7 @@ export const RecommendationFollowUpAction: Story = {
       owner: "CSM",
       priority: "high",
       context: "Follow-up required after high-priority recommendation.",
-      sourceContext: "Schneider monitored assets only · Source strength: partial",
+      sourceContext: "CompanyName monitored assets only · Source strength: partial",
       validationStatus: "Review before customer use",
       note: "Do not use the recommendation with the customer until evidence has been reviewed.",
     },
@@ -81,7 +81,7 @@ export const AssetReviewAction: Story = {
       priority: "high",
       context: "Follow-up required after partial connectivity alert.",
       assetContext: "Critical Power > UPS Room A",
-      sourceContext: "Schneider monitored assets only · Source strength: partial",
+      sourceContext: "CompanyName monitored assets only · Source strength: partial",
       validationStatus: "Review before customer use",
       note: "Confirm affected scope before preparing the customer summary.",
     },
@@ -95,7 +95,7 @@ export const HumanValidationAction: Story = {
     description: "Add an action for expert review before customer use.",
     confirmLabel: "Save validation action",
     defaultValues: {
-      title: "Validate asset recommendation with Schneider expert",
+      title: "Validate asset recommendation with CompanyName expert",
       owner: "Service Manager",
       priority: "high",
       context:

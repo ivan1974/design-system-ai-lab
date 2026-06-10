@@ -38,7 +38,7 @@ shadow-heavy
 
 ## Primary color
 
-Use Schneider green only for purposeful emphasis:
+Use CompanyName green only for purposeful emphasis:
 
 ```txt
 #00953B
@@ -148,7 +148,7 @@ A v0.4 generated screen is acceptable if:
 - it feels calm and operational
 - it uses white-first surfaces
 - it does not rely on decorative shadows
-- it uses Schneider green only where meaningful
+- it uses CompanyName green only where meaningful
 - it uses package typography components for hierarchy
 - it uses package surface and row components instead of styled divs
 - it keeps source scope, freshness, validation and proof status readable

@@ -26,7 +26,7 @@ Use:
 <Toolbar />
 ```
 
-They live in the generic `components` layer because they are not specific to EcoCare or to one business pattern.
+They live in the generic `components` layer because they are not specific to CompanyName or to one business pattern.
 
 ---
 

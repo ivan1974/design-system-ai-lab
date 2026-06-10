@@ -70,7 +70,7 @@ Preferred:
 
 ```txt
 Fact: 8 known monitored assets are disconnected.
-Scope: monitored Schneider assets only.
+Scope: monitored CompanyName assets only.
 Signal: Monitoring coverage is partial.
 Recommendation: Plan a connectivity review.
 Owned action: CSM validates and assigns the recovery owner.
@@ -569,7 +569,7 @@ Monitoring coverage is partial.
 68% of known assets are connected.
 4 known assets are partially connected.
 8 known assets are non-connected.
-Source scope: monitored Schneider assets only.
+Source scope: monitored CompanyName assets only.
 Full customer environment not represented.
 ```
 

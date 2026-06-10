@@ -33,7 +33,7 @@ not from heavy shadows, tinted backgrounds or glass effects.
 
 ## Green usage
 
-Keep Schneider green as the primary color:
+Keep CompanyName green as the primary color:
 
 ```txt
 #00953B

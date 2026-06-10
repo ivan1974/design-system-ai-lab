@@ -544,7 +544,7 @@ Why it matters:
 
 Customers may operate mixed environments with multiple vendors, sites and tools.
 
-Schneider visibility may cover only part of the operational reality.
+CompanyName visibility may cover only part of the operational reality.
 
 Assets may be connected, partially connected or non-connected.
 

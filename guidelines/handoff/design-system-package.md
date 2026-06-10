@@ -639,7 +639,7 @@ export function GeneratedScreen() {
           assetsCovered="25 assets across 3 sites"
           coverage="68% connected"
           customerObjective="Improve service visibility before renewal"
-          sourceContext="Schneider monitored assets only"
+          sourceContext="CompanyName monitored assets only"
           validationStatus="Review before customer communication"
           badges={[
             { label: "Active plan", tone: "primary" },

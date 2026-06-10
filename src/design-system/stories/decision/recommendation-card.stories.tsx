@@ -43,7 +43,7 @@ const meta = {
     scope: "Critical Power > UPS Room A",
     priority: "high",
     evidenceSummary: "17 of 25 known assets are currently monitored.",
-    sourceScope: "Schneider monitored assets only",
+    sourceScope: "CompanyName monitored assets only",
     sourceStrength: "partial",
     freshness: "18 hours ago",
     validationStatus: "Review before customer use",
@@ -82,7 +82,7 @@ export const ReadinessAndPriorityLevels: Story = {
         scope="Critical Power > UPS Room A"
         priority="high"
         evidenceSummary="17 of 25 known assets are currently monitored."
-        sourceScope="Schneider monitored assets only"
+        sourceScope="CompanyName monitored assets only"
         sourceStrength="partial"
         freshness="18 hours ago"
         validationStatus="Review before customer use"
@@ -117,7 +117,7 @@ export const HighPriorityNeedsReview: Story = {
     scope: "Critical Power > UPS Room A",
     priority: "high",
     evidenceSummary: "17 of 25 known assets are currently monitored.",
-    sourceScope: "Schneider monitored assets only",
+    sourceScope: "CompanyName monitored assets only",
     sourceStrength: "partial",
     freshness: "18 hours ago",
     validationStatus: "Review before customer use",
@@ -163,7 +163,7 @@ export const AssetIntelligenceRecommendation: Story = {
     sourceStrength: "partial",
     interpretation:
       "The recommendation is an Intelligence interpretation and should not be presented as source-system truth.",
-    validationStatus: "Validate with Schneider expert",
+    validationStatus: "Validate with CompanyName expert",
     readiness: "needs_review",
     className: "w-180",
   },
@@ -220,7 +220,7 @@ export const WithAction: Story = {
       scope="Critical Power > UPS Room A"
       priority="high"
       evidenceSummary="17 of 25 known assets are currently monitored."
-      sourceScope="Schneider monitored assets only"
+      sourceScope="CompanyName monitored assets only"
       sourceStrength="partial"
       freshness="18 hours ago"
       validationStatus="Review before customer use"
@@ -246,7 +246,7 @@ export const WithNativeArticleProps: Story = {
       scope="Critical Power > UPS Room A"
       priority="high"
       evidenceSummary="17 of 25 known assets are currently monitored."
-      sourceScope="Schneider monitored assets only"
+      sourceScope="CompanyName monitored assets only"
       sourceStrength="partial"
       freshness="18 hours ago"
       validationStatus="Review before customer use"

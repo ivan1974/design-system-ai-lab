@@ -191,7 +191,7 @@ export function CreateActionDialog({
             >
               <Textarea
                 id="action-source-context"
-                placeholder="Schneider monitored assets only · Source strength: partial"
+                placeholder="CompanyName monitored assets only · Source strength: partial"
                 value={values.sourceContext}
                 onChange={(event) =>
                   updateValue("sourceContext", event.target.value)

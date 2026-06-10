@@ -202,7 +202,7 @@ Good customer-level trust context:
 
 ```txt
 Customer objective: Improve service visibility before renewal
-Source context: Schneider monitored assets only
+Source context: CompanyName monitored assets only
 Validation status: Review before customer use
 Proof readiness: Internal proof, not customer-ready
 ```
@@ -535,7 +535,7 @@ Avoid duplicating the same information across all patterns.
   assetsCovered="25 assets — 3 sites"
   coverage="68% connected"
   customerObjective="Improve service visibility before renewal"
-  sourceContext="Schneider monitored assets only"
+  sourceContext="CompanyName monitored assets only"
   validationStatus="Review before customer use"
   badges={[
     { label: "Active plan", tone: "primary" },
@@ -597,7 +597,7 @@ This is good because:
   assetsCovered="25 assets — 3 sites"
   coverage="68% connected"
   customerObjective="Improve service visibility before renewal"
-  sourceContext="Schneider monitored assets only"
+  sourceContext="CompanyName monitored assets only"
   validationStatus="Review before customer use"
   proofReadiness="Internal proof, not customer-ready"
   badges={[

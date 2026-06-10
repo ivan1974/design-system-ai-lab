@@ -44,7 +44,7 @@ Use the design system as a soft enterprise workspace language:
 - clear panel hierarchy
 - restrained motion and transitions
 
-Use Schneider green as the main confidence and action color:
+Use CompanyName green as the main confidence and action color:
 
 ```txt
 #00953B

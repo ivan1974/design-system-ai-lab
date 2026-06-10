@@ -27,7 +27,7 @@ const meta = {
           helper="17 of 25 assets monitored"
           trend="-12%"
           trendTone="warning"
-          sourceScope="Schneider monitored assets only"
+          sourceScope="CompanyName monitored assets only"
           sourceStrength="partial"
           freshness="18 hours ago"
         />
@@ -67,7 +67,7 @@ export const CustomerMonitoringMetrics: Story = {
           helper="17 of 25 assets monitored"
           trend="-12%"
           trendTone="warning"
-          sourceScope="Schneider monitored assets only"
+          sourceScope="CompanyName monitored assets only"
           sourceStrength="partial"
           freshness="18 hours ago"
         />
@@ -226,7 +226,7 @@ export const ThreeColumns: Story = {
           helper="17 of 25 assets monitored"
           trend="-12%"
           trendTone="warning"
-          sourceScope="Schneider monitored assets only"
+          sourceScope="CompanyName monitored assets only"
           sourceStrength="partial"
         />
         <MetricCard
@@ -311,7 +311,7 @@ export const WithNativeSectionProps: Story = {
         label="Monitoring coverage"
         value="68%"
         helper="17 assets monitored out of 25 known assets"
-        sourceScope="Schneider monitored assets only"
+        sourceScope="CompanyName monitored assets only"
         sourceStrength="partial"
       />
       <MetricCard

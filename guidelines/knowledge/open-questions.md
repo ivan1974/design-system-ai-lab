@@ -562,7 +562,7 @@ What to test:
 - whether value proof should be simplified for customer-facing views
 - whether risk and renewal information should be internal only
 - whether connectivity gaps should be framed differently for customers
-- whether ownership information should show Schneider roles or named contacts
+- whether ownership information should show CompanyName roles or named contacts
 
 Affected files:
 
@@ -594,7 +594,7 @@ How should partners, integrators or resellers be represented in service decision
 
 Why it matters:
 
-The current knowledge layer focuses mainly on customers and Schneider internal
+The current knowledge layer focuses mainly on customers and CompanyName internal
 roles.
 
 Partner workflows may introduce additional ownership, access, handoff and proof
@@ -604,7 +604,7 @@ What to test:
 
 - whether partners need distinct screen patterns
 - whether partner ownership should appear in action cards
-- whether customers understand partner versus Schneider responsibility
+- whether customers understand partner versus CompanyName responsibility
 - whether partner visibility should be limited
 - whether value proof includes partner-executed actions
 

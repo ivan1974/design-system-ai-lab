@@ -86,9 +86,9 @@ one card per item
 
 ---
 
-## Schneider green rule
+## CompanyName green rule
 
-Use Schneider green only where it has meaning:
+Use CompanyName green only where it has meaning:
 
 ```txt
 primary actions
@@ -134,7 +134,7 @@ Use:
 <StatusPill tone="warning">Review needed</StatusPill>
 <SourceStrengthPill strength="partial" />
 <PriorityPill priority="high" />
-<SemanticTag tone="primary">EcoCare Advanced</SemanticTag>
+<SemanticTag tone="primary">CompanyName Advanced</SemanticTag>
 ```
 
 Do not create custom chips, badges, pills or tags.

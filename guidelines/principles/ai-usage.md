@@ -377,7 +377,7 @@ Good:
 
 ```txt
 Recommendation: Plan a connectivity review with the customer.
-Asset scope: monitored Schneider assets in UPS Room A and UPS Room B.
+Asset scope: monitored CompanyName assets in UPS Room A and UPS Room B.
 Evidence: Coverage dropped to 68%, 8 known monitored assets are disconnected and 2 are critical.
 Source: monitoring platform, last updated 18 hours ago.
 Human next step: CSM confirms the action and assigns the support owner.
@@ -748,7 +748,7 @@ Some contract fields are missing.
 Connectivity status was last updated 18 hours ago.
 Monitoring coverage is partial.
 Proof summary still needs CSM validation.
-Source scope: monitored Schneider assets only.
+Source scope: monitored CompanyName assets only.
 Asset is non-connected; current health is based on service history, not live telemetry.
 Expected outcome is not proven yet.
 Recommendation should be validated against the source system.

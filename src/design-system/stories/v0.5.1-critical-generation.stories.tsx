@@ -118,7 +118,7 @@ export const CriticalDecisionWorkspace: Story = {
               <RenewalRiskSummary
                 customerName="Northwind Manufacturing"
                 renewalWindow="45 days"
-                plan="EcoCare Advanced Plus"
+                plan="CompanyName Advanced Plus"
                 renewalReadiness="needs-review"
                 valueProofStatus="Internal proof only"
                 recommendationsReviewed="2 of 5"

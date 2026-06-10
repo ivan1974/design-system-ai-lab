@@ -83,7 +83,7 @@ export const AssetReviewWorkspace: Story = {
           resultCount="3 assets shown · source scope: connected and service-covered assets"
           filters={
             <>
-              <Badge tone="primary">EcoCare Advanced</Badge>
+              <Badge tone="primary">CompanyName Advanced</Badge>
               <Badge tone="warning">Review needed</Badge>
               <Badge tone="neutral">Lyon DC</Badge>
             </>

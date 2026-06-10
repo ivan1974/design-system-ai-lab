@@ -193,7 +193,7 @@ What it supports:
 
 Research basis:
 
-Customers need a system view, but Schneider visibility may be partial because
+Customers need a system view, but CompanyName visibility may be partial because
 customers operate multiple sites, vendors, tools and asset types.
 
 Data quality and monitoring freshness affect trust.

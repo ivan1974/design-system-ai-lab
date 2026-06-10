@@ -36,7 +36,7 @@ const meta = {
     monitoringStatus: "Partial monitoring coverage",
     affectedScope: "Critical Power > UPS Room A",
     lastUpdate: "18 hours ago",
-    sourceScope: "Schneider monitored assets only",
+    sourceScope: "CompanyName monitored assets only",
     sourceStrength: "partial",
     coverageBasis: "Connected assets and known installed base",
     validationStatus: "Review before customer use",
@@ -65,7 +65,7 @@ export const HealthyCoverage: Story = {
     monitoringStatus: "Healthy monitoring coverage",
     affectedScope: "No critical scope affected",
     lastUpdate: "12 minutes ago",
-    sourceScope: "Schneider monitored assets only",
+    sourceScope: "CompanyName monitored assets only",
     sourceStrength: "high",
     coverageBasis: "Connected assets and known installed base",
     validationStatus: "Reviewed for customer use",
@@ -88,7 +88,7 @@ export const CriticalCoverageGap: Story = {
     monitoringStatus: "Critical monitoring gap",
     affectedScope: "Main production line",
     lastUpdate: "26 hours ago",
-    sourceScope: "Schneider monitored assets only",
+    sourceScope: "CompanyName monitored assets only",
     sourceStrength: "partial",
     coverageBasis: "Connected assets and known installed base",
     validationStatus: "Review before customer use",
@@ -113,7 +113,7 @@ export const PartialSourceCoverage: Story = {
     monitoringStatus: "Partial monitoring coverage",
     affectedScope: "Critical Power > UPS Room A",
     lastUpdate: "18 hours ago",
-    sourceScope: "Schneider monitored assets only",
+    sourceScope: "CompanyName monitored assets only",
     sourceStrength: "partial",
     coverageBasis: "Connected assets and known installed base",
     validationStatus: "Review before customer use",
@@ -160,7 +160,7 @@ export const RecoveryInProgress: Story = {
     monitoringStatus: "Recovery in progress",
     affectedScope: "Site A and Site C",
     lastUpdate: "4 hours ago",
-    sourceScope: "Schneider monitored assets only",
+    sourceScope: "CompanyName monitored assets only",
     sourceStrength: "medium",
     coverageBasis: "Live telemetry and platform recovery logs",
     validationStatus: "Review before customer update",
@@ -205,7 +205,7 @@ export const WithExtraItems: Story = {
     monitoringStatus: "Recovery in progress",
     affectedScope: "Critical Power > UPS Room A",
     lastUpdate: "18 hours ago",
-    sourceScope: "Schneider monitored assets only",
+    sourceScope: "CompanyName monitored assets only",
     sourceStrength: "partial",
     coverageBasis: "Connected assets and known installed base",
     validationStatus: "Review before customer use",
@@ -231,7 +231,7 @@ export const WithNativeSectionProps: Story = {
       monitoringStatus="Partial monitoring coverage"
       affectedScope="Critical Power > UPS Room A"
       lastUpdate="18 hours ago"
-      sourceScope="Schneider monitored assets only"
+      sourceScope="CompanyName monitored assets only"
       sourceStrength="partial"
       coverageBasis="Connected assets and known installed base"
       validationStatus="Review before customer use"

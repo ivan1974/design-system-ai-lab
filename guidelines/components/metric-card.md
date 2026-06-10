@@ -84,7 +84,7 @@ Use the component with these props:
 <MetricCard
   label="Connected equipment"
   value="68%"
-  helper="17 of 25 assets monitored · Source scope: Schneider monitored assets · Source strength: partial"
+  helper="17 of 25 assets monitored · Source scope: CompanyName monitored assets · Source strength: partial"
   trend="-12% this month"
 />
 ```
@@ -126,7 +126,7 @@ Planned code evolution:
   helper="17 of 25 assets monitored"
   trend="-12% this month"
   trendTone="warning"
-  sourceScope="Schneider monitored assets only"
+  sourceScope="CompanyName monitored assets only"
   sourceStrength="partial"
   freshness="18 hours ago"
 />
@@ -247,7 +247,7 @@ Good helper text:
 Action plan should be updated before the next customer meeting
 Renewal discussion is planned in 62 days
 Value proof needs consolidation before the review
-Source scope: Schneider monitored assets only
+Source scope: CompanyName monitored assets only
 Source strength: partial
 Based on manual inventory updated 18 hours ago
 Expected outcome, not proven value
@@ -382,7 +382,7 @@ Assets reviewed
 Do not present non-connected assets as live-monitored.
 
 Do not use a single metric to imply complete installed base visibility when the
-value only covers Schneider monitored assets, connected assets or manual
+value only covers CompanyName monitored assets, connected assets or manual
 inventory.
 
 Use `ConnectivityCoverageCard` when the section needs to show full coverage
@@ -590,7 +590,7 @@ Good pattern:
   <MetricCard
     label="Connected equipment"
     value="68%"
-    helper="17 of 25 assets monitored · Source scope: Schneider monitored assets · Source strength: partial"
+    helper="17 of 25 assets monitored · Source scope: CompanyName monitored assets · Source strength: partial"
     trend="-12% this month"
   />
   <MetricCard
@@ -652,7 +652,7 @@ instead of overloading helper text.
   helper="17 of 25 assets monitored"
   trend="-12% this month"
   trendTone="warning"
-  sourceScope="Schneider monitored assets only"
+  sourceScope="CompanyName monitored assets only"
   sourceStrength="partial"
   freshness="18 hours ago"
 />

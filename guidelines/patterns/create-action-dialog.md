@@ -295,7 +295,7 @@ or execute the recommendation. It should not approve the recommendation itself.
     owner: "CSM",
     priority: "high",
     context: "Follow-up required after high-priority recommendation.",
-    sourceContext: "Schneider monitored assets only · Source strength: partial",
+    sourceContext: "CompanyName monitored assets only · Source strength: partial",
     validationStatus: "Review before customer use",
     note: "Do not use the recommendation with the customer until evidence has been reviewed.",
   }}
@@ -324,7 +324,7 @@ strength or asset recommendation validation.
     priority: "high",
     context: "Follow-up required after partial connectivity alert.",
     assetContext: "Critical Power > UPS Room A",
-    sourceContext: "Schneider monitored assets only · Source strength: partial",
+    sourceContext: "CompanyName monitored assets only · Source strength: partial",
     validationStatus: "Review before customer use",
     note: "Confirm affected scope before preparing the customer summary.",
   }}
@@ -424,7 +424,7 @@ a critical decision.
   description="Add an action for expert review before customer use."
   confirmLabel="Save validation action"
   defaultValues={{
-    title: "Validate asset recommendation with Schneider expert",
+    title: "Validate asset recommendation with CompanyName expert",
     owner: "Service Manager",
     priority: "high",
     context: "Recommendation is based on Intelligence interpretation of multiple Health signals.",
@@ -597,7 +597,7 @@ defaultValues={{
   priority: "high",
   context: "Follow-up required after partial connectivity alert.",
   assetContext: "Critical Power > UPS Room A",
-  sourceContext: "Schneider monitored assets only · Source strength: partial",
+  sourceContext: "CompanyName monitored assets only · Source strength: partial",
   validationStatus: "Review before customer use",
   dueDate: "",
   note: "Connectivity is partial and affects critical assets.",
@@ -709,7 +709,7 @@ Good action creation language:
 ```txt
 Create validation action
 Review source evidence
-Validate with Schneider expert
+Validate with CompanyName expert
 Prepare customer-ready proof summary
 Create proof follow-up action
 ```

@@ -63,7 +63,7 @@ const meta = {
           scope="Critical Power > UPS Room A"
           assetContext="UPS Room A and gateway-linked assets"
           evidenceSummary="17 of 25 known assets are currently monitored."
-          sourceScope="Schneider monitored assets only"
+          sourceScope="CompanyName monitored assets only"
           sourceStrength="partial"
           freshness="18 hours ago"
           validationStatus="Review before customer use"
@@ -89,7 +89,7 @@ export const AssetRecommendationReview: Story = {
     reviewStatus: "Expert validation needed",
     sourceContext:
       "Lifecycle registry, service history and partial monitoring data",
-    validationStatus: "Validate with Schneider expert before customer use",
+    validationStatus: "Validate with CompanyName expert before customer use",
     customerReadiness: "Needs review",
     proofContext: "Expected outcome, not proven value",
     badges: [
@@ -109,7 +109,7 @@ export const AssetRecommendationReview: Story = {
         source="Lifecycle registry, service history and partial monitoring data"
         sourceStrength="partial"
         interpretation="The recommendation is an Intelligence interpretation and should not be presented as source-system truth."
-        validationStatus="Validate with Schneider expert"
+        validationStatus="Validate with CompanyName expert"
         expectedOutcome="Expected reduction of operational exposure after expert review"
       />
     ),

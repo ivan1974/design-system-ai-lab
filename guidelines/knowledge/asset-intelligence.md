@@ -194,8 +194,8 @@ Asset-heavy service screens often represent brownfield environments.
 
 A brownfield installed base may include:
 
-- current Schneider assets
-- older Schneider assets
+- current CompanyName assets
+- older CompanyName assets
 - legacy assets
 - third-party assets
 - partially documented assets
@@ -204,14 +204,14 @@ A brownfield installed base may include:
 - assets covered by different service levels
 - assets with different lifecycle states
 
-Do not assume that all assets are fully monitored, fully documented or Schneider-owned.
+Do not assume that all assets are fully monitored, fully documented or CompanyName-owned.
 
 Show the scope of what is represented when it affects trust.
 
 Good:
 
 ```txt
-Scope: known monitored Schneider assets in UPS Room A.
+Scope: known monitored CompanyName assets in UPS Room A.
 Third-party cooling assets are not included in this view.
 ```
 

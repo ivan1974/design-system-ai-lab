@@ -32,7 +32,7 @@ const meta = {
     assetsCovered: "25 assets — 3 sites",
     coverage: "68% connected",
     customerObjective: "Improve service visibility before renewal",
-    sourceContext: "Schneider monitored assets only",
+    sourceContext: "CompanyName monitored assets only",
     validationStatus: "Review before customer use",
     badges: [
       { label: "Active plan", tone: "primary" },
@@ -59,7 +59,7 @@ export const HighRiskCustomer: Story = {
     assetsCovered: "25 assets — 3 sites",
     coverage: "52% connected",
     customerObjective: "Improve service visibility before renewal",
-    sourceContext: "Schneider monitored assets only",
+    sourceContext: "CompanyName monitored assets only",
     validationStatus: "Review before customer use",
     proofReadiness: "Internal proof, not customer-ready",
     badges: [
@@ -81,7 +81,7 @@ export const HealthyCustomer: Story = {
     assetsCovered: "50 assets — 4 sites",
     coverage: "96% connected",
     customerObjective: "Maintain high continuity for critical care services",
-    sourceContext: "Schneider monitored assets only",
+    sourceContext: "CompanyName monitored assets only",
     validationStatus: "Reviewed for customer use",
     proofReadiness: "Customer-ready proof available",
     badges: [
@@ -102,7 +102,7 @@ export const TrustSensitiveCustomerContext: Story = {
     assetsCovered: "25 assets — 3 sites",
     coverage: "68% connected",
     customerObjective: "Improve service visibility before renewal",
-    sourceContext: "Schneider monitored assets only",
+    sourceContext: "CompanyName monitored assets only",
     validationStatus: "Review before customer use",
     proofReadiness: "Internal proof, not customer-ready",
     badges: [
@@ -161,7 +161,7 @@ export const WithNativeSectionProps: Story = {
       assetsCovered="25 assets — 3 sites"
       coverage="68% connected"
       customerObjective="Improve service visibility before renewal"
-      sourceContext="Schneider monitored assets only"
+      sourceContext="CompanyName monitored assets only"
       validationStatus="Review before customer use"
       badges={[
         { label: "Active plan", tone: "primary" },

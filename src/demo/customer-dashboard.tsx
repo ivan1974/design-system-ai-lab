@@ -127,7 +127,7 @@ export function CustomerDashboard() {
                     lastUpdate="18 hours ago"
                     sourceScope="Monitoring platform and known installed base"
                     sourceStrength="partial"
-                    coverageBasis="Known Schneider monitored assets only"
+                    coverageBasis="Known CompanyName monitored assets only"
                     validationStatus="Review before customer communication"
                   />
 

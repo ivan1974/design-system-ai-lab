@@ -339,7 +339,7 @@ Use package components instead:
 <MetricCard
   label="Connected equipment"
   value="68%"
-  helper="17 of 25 known monitored assets — Schneider scope only"
+  helper="17 of 25 known monitored assets — CompanyName scope only"
 />
 ```
 
@@ -590,7 +590,7 @@ The generated code should be easy to read, maintain and review.
   <MetricCard
     label="Connected equipment"
     value="68%"
-    helper="17 of 25 known monitored assets — Schneider scope only"
+    helper="17 of 25 known monitored assets — CompanyName scope only"
   />
   <MetricCard
     label="Evidence status"

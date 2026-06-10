@@ -28,7 +28,7 @@ const meta = {
     ],
     items: [
       { label: "Source", value: "Service monitoring" },
-      { label: "Source scope", value: "Schneider monitored assets only" },
+      { label: "Source scope", value: "CompanyName monitored assets only" },
       { label: "Source strength", value: "Partial" },
       { label: "Freshness", value: "18 hours ago" },
       { label: "Validation status", value: "Review before customer use" },
@@ -55,7 +55,7 @@ export const SourceEvidenceContext: Story = {
     ],
     items: [
       { label: "Source", value: "Service monitoring" },
-      { label: "Source scope", value: "Schneider monitored assets only" },
+      { label: "Source scope", value: "CompanyName monitored assets only" },
       { label: "Source strength", value: "Partial" },
       { label: "Freshness", value: "18 hours ago" },
       { label: "Validation status", value: "Review before customer use" },

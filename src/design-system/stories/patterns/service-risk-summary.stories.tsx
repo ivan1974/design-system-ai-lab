@@ -108,7 +108,7 @@ export const AssetIntelligenceRisk: Story = {
       "Lifecycle registry, service history and partial Health signals",
     sourceStrength: "partial",
     freshness: "Last updated 18 hours ago",
-    validationStatus: "Validate with Schneider expert before customer use",
+    validationStatus: "Validate with CompanyName expert before customer use",
     recommendedReview:
       "Review source evidence and Intelligence interpretation before customer discussion.",
     badges: [

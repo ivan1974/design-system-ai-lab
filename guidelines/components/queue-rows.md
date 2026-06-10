@@ -24,7 +24,7 @@ Use:
 
 `ReviewQueueRow` lives in the decision layer.
 
-Business-specific queue rows live in the patterns layer because they map to EcoCare-like review objects.
+Business-specific queue rows live in the patterns layer because they map to CompanyName-like review objects.
 
 ---
 
@@ -62,7 +62,7 @@ Preferred:
 ```tsx
 <CustomerQueueRow
   customerName="Northstar Manufacturing"
-  plan="EcoCare Advanced"
+  plan="CompanyName Advanced"
   description="QBR in 6 days · service visibility needs review"
   riskLabel="Critical monitoring gap"
   riskTone="danger"

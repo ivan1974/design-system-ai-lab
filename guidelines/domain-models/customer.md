@@ -2,7 +2,7 @@
 
 ## Definition
 
-A customer is the account or organization receiving EcoCare, service plans, monitoring, recommendations and value proof.
+A customer is the account or organization receiving CompanyName, service plans, monitoring, recommendations and value proof.
 
 Customer context must come from structured data or explicit user-provided facts.
 

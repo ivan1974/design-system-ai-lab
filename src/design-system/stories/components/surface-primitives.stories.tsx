@@ -76,7 +76,7 @@ export const ListsAndToolbar: Story = {
       />
 
       <ListContainer>
-        <SignalRow label="Northstar Manufacturing" description="EcoCare Advanced · QBR in 6 days" value="Review needed" />
+        <SignalRow label="Northstar Manufacturing" description="CompanyName Advanced · QBR in 6 days" value="Review needed" />
         <SignalRow label="Greenfield Industries" description="Monthly review in 12 days" value="Proof not ready" />
         <SignalRow label="Summit Energy Group" description="Monitoring healthy" value="Current" />
       </ListContainer>

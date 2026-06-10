@@ -90,7 +90,7 @@ Use the component with these props:
     helper="17 of 25 assets monitored"
     trend="-12% this month"
     trendTone="warning"
-    sourceScope="Schneider monitored assets only"
+    sourceScope="CompanyName monitored assets only"
     sourceStrength="partial"
     freshness="18 hours ago"
   />
@@ -221,7 +221,7 @@ Good:
     label="Connected equipment"
     value="68%"
     helper="17 of 25 assets monitored"
-    sourceScope="Schneider monitored assets only"
+    sourceScope="CompanyName monitored assets only"
     sourceStrength="partial"
     freshness="18 hours ago"
   />
@@ -279,7 +279,7 @@ Asset-heavy metrics should make clear whether they cover:
 
 ```txt
 full installed base
-Schneider monitored assets only
+CompanyName monitored assets only
 known installed base
 connected assets only
 manual inventory
@@ -466,7 +466,7 @@ without searching elsewhere.
     helper="17 of 25 assets monitored"
     trend="-12% this month"
     trendTone="warning"
-    sourceScope="Schneider monitored assets only"
+    sourceScope="CompanyName monitored assets only"
     sourceStrength="partial"
     freshness="18 hours ago"
   />
@@ -627,7 +627,7 @@ Use `MetricGrid` and `MetricCard` instead:
     label="Connected equipment"
     value="68%"
     helper="17 of 25 assets monitored"
-    sourceScope="Schneider monitored assets only"
+    sourceScope="CompanyName monitored assets only"
     sourceStrength="partial"
   />
 </MetricGrid>

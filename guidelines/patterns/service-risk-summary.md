@@ -237,7 +237,7 @@ Good recommended review values:
 Review connectivity recovery and customer communication before QBR.
 Review source evidence before customer update.
 Review proof gaps and mitigation actions before renewal discussion.
-Validate asset risk with Schneider expert before customer use.
+Validate asset risk with CompanyName expert before customer use.
 ```
 
 Avoid recommended review values:

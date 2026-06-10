@@ -60,7 +60,7 @@ export const SeverityLevels: Story = {
         equipment="Main LV switchboard"
         description="The customer may lose visibility on a critical asset before the service team communicates the issue."
         recommendation="Escalate to the support team today and schedule a connectivity review within 48 hours."
-        sourceScope="Schneider monitored assets only"
+        sourceScope="CompanyName monitored assets only"
         sourceStrength="partial"
         freshness="18 hours ago"
         validationStatus="Review before customer use"
@@ -73,7 +73,7 @@ export const SeverityLevels: Story = {
         description="The monitoring view does not cover all critical UPS assets, which limits confidence in the current service status."
         recommendation="Review affected assets and plan a connectivity recovery action before the next customer discussion."
         evidenceSummary="17 of 25 known assets are currently monitored."
-        sourceScope="Schneider monitored assets only"
+        sourceScope="CompanyName monitored assets only"
         sourceStrength="partial"
         freshness="18 hours ago"
         validationStatus="Review before customer use"
@@ -103,7 +103,7 @@ export const AssetConnectivityAlert: Story = {
     recommendation:
       "Review affected assets and plan a connectivity recovery action before the next customer discussion.",
     evidenceSummary: "17 of 25 known assets are currently monitored.",
-    sourceScope: "Schneider monitored assets only",
+    sourceScope: "CompanyName monitored assets only",
     sourceStrength: "partial",
     freshness: "18 hours ago",
     validationStatus: "Review before customer use",
@@ -155,7 +155,7 @@ export const HumanValidationRequired: Story = {
     description:
       "The recommendation is based on Intelligence interpretation of multiple Health signals and should be reviewed before customer use.",
     recommendation:
-      "Validate the recommendation with a Schneider expert before creating the customer action plan.",
+      "Validate the recommendation with a CompanyName expert before creating the customer action plan.",
     evidenceSummary:
       "Load, busbar temperature, SF6 pressure and insulation signals are simultaneously outside expected ranges.",
     source: "Live telemetry and connected asset benchmark",
@@ -196,7 +196,7 @@ export const WithNativeArticleProps: Story = {
       equipment="Main HVAC control unit"
       description="The customer has no visibility on a critical asset since the latest monitoring interruption."
       recommendation="Escalate to support today and inform the customer proactively."
-      sourceScope="Schneider monitored assets only"
+      sourceScope="CompanyName monitored assets only"
       sourceStrength="partial"
       freshness="18 hours ago"
       validationStatus="Review before customer use"

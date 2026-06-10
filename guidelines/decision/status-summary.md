@@ -296,7 +296,7 @@ Good trust metadata items:
 
 ```txt
 Source: Service monitoring
-Source scope: Schneider monitored assets only
+Source scope: CompanyName monitored assets only
 Source strength: Partial
 Freshness: 18 hours ago
 Validation status: Review before customer use
@@ -547,7 +547,7 @@ This is good because:
   ]}
   items={[
     { label: "Source", value: "Service monitoring" },
-    { label: "Source scope", value: "Schneider monitored assets only" },
+    { label: "Source scope", value: "CompanyName monitored assets only" },
     { label: "Source strength", value: "Partial" },
     { label: "Freshness", value: "18 hours ago" },
     { label: "Validation status", value: "Review before customer use" },

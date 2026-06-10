@@ -36,10 +36,10 @@ const meta = {
       "Modernization may reduce operational exposure, but evidence needs expert review.",
     sourceContext:
       "Lifecycle registry, service history and partial monitoring data",
-    sourceScope: "Known installed base and Schneider monitored assets",
+    sourceScope: "Known installed base and CompanyName monitored assets",
     sourceStrength: "partial",
     freshness: "Last updated 18 hours ago",
-    validationStatus: "Validate with Schneider expert before customer use",
+    validationStatus: "Validate with CompanyName expert before customer use",
     readiness: "needs_review",
     badges: [
       { label: "Needs review", tone: "warning" },
@@ -65,10 +65,10 @@ export const NeedsExpertReview: Story = {
       "Modernization may reduce operational exposure, but evidence needs expert review.",
     sourceContext:
       "Lifecycle registry, service history and partial monitoring data",
-    sourceScope: "Known installed base and Schneider monitored assets",
+    sourceScope: "Known installed base and CompanyName monitored assets",
     sourceStrength: "partial",
     freshness: "Last updated 18 hours ago",
-    validationStatus: "Validate with Schneider expert before customer use",
+    validationStatus: "Validate with CompanyName expert before customer use",
     readiness: "needs_review",
     badges: [
       { label: "Needs review", tone: "warning" },
@@ -107,7 +107,7 @@ export const CustomerReadyAssetContext: Story = {
     intelligenceInterpretation:
       "Connectivity recovery can be presented as part of the service continuity review.",
     sourceContext: "Monitoring data and service review notes",
-    sourceScope: "Schneider monitored assets only",
+    sourceScope: "CompanyName monitored assets only",
     sourceStrength: "high",
     freshness: "Reviewed today",
     validationStatus: "Reviewed for customer use",
@@ -128,7 +128,7 @@ export const ConnectivityAndAssetVisibility: Story = {
     intelligenceInterpretation:
       "Connectivity recovery should be reviewed before customer-facing recommendations are prepared.",
     sourceContext: "Monitoring platform and known installed base",
-    sourceScope: "Schneider monitored assets only",
+    sourceScope: "CompanyName monitored assets only",
     sourceStrength: "partial",
     freshness: "Last update 18 hours ago",
     validationStatus: "Review before customer use",
@@ -170,10 +170,10 @@ export const WithNativeSectionProps: Story = {
       healthSignals="Partial Health visibility: thermal trend and service history available"
       intelligenceInterpretation="Modernization may reduce operational exposure, but evidence needs expert review."
       sourceContext="Lifecycle registry, service history and partial monitoring data"
-      sourceScope="Known installed base and Schneider monitored assets"
+      sourceScope="Known installed base and CompanyName monitored assets"
       sourceStrength="partial"
       freshness="Last updated 18 hours ago"
-      validationStatus="Validate with Schneider expert before customer use"
+      validationStatus="Validate with CompanyName expert before customer use"
       readiness="needs_review"
       badges={[
         { label: "Needs review", tone: "warning" },

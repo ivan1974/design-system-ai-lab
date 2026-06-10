@@ -73,7 +73,7 @@ export default function App() {
               <>
                 <SemanticTag tone="warning">Expert review needed</SemanticTag>
                 <SemanticTag>Backup power system</SemanticTag>
-                <SemanticTag tone="primary">EcoCare Advanced</SemanticTag>
+                <SemanticTag tone="primary">CompanyName Advanced</SemanticTag>
               </>
             }
           />

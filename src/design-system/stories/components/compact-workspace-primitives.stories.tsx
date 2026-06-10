@@ -38,7 +38,7 @@ export const KeyValueListAndRow: Story = {
       <KeyValueList columns={2}>
         <KeyValueRow label="Site" value="Lyon DC" />
         <KeyValueRow label="Scope" value="Connected assets only" helper="Visibility is partial." />
-        <KeyValueRow label="Plan" value="EcoCare Advanced" />
+        <KeyValueRow label="Plan" value="CompanyName Advanced" />
         <KeyValueRow label="Last update" value="18 hours ago" />
       </KeyValueList>
     </Card>
@@ -51,7 +51,7 @@ export const SemanticTagStory: Story = {
     <Card title="SemanticTag" description="Use for semantic categories or compact qualifiers.">
       <div className="flex flex-wrap gap-2">
         <SemanticTag>MV Switchgear</SemanticTag>
-        <SemanticTag tone="primary">EcoCare Advanced</SemanticTag>
+        <SemanticTag tone="primary">CompanyName Advanced</SemanticTag>
         <SemanticTag tone="success">Customer-ready</SemanticTag>
         <SemanticTag tone="warning">Review needed</SemanticTag>
         <SemanticTag tone="danger">Critical scope</SemanticTag>

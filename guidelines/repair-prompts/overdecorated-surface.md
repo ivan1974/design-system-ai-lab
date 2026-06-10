@@ -19,7 +19,7 @@ Use package surface primitives and workspace components instead of custom decora
 3. Remove heavy shadows from normal cards, rows and panels.
 4. Replace local card wrappers with `Surface`, `ListContainer`, `Well`, `Toolbar` or business patterns.
 5. Use white or subtle neutral surfaces.
-6. Use Schneider green only for primary actions, selected states, active navigation or meaningful positive status.
+6. Use CompanyName green only for primary actions, selected states, active navigation or meaningful positive status.
 7. Keep source, freshness and validation readable.
 
 ---

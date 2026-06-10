@@ -401,7 +401,7 @@ Preferred:
     priority="high"
     status="todo"
     assetContext="Critical Power > UPS Room A"
-    sourceContext="Schneider monitored assets only · Source strength: partial"
+    sourceContext="CompanyName monitored assets only · Source strength: partial"
   />
 </ActionList>
 ```
@@ -794,7 +794,7 @@ This is good because:
     status="todo"
     context="Follow-up required after partial connectivity alert."
     assetContext="Critical Power > UPS Room A"
-    sourceContext="Schneider monitored assets only · Source strength: partial"
+    sourceContext="CompanyName monitored assets only · Source strength: partial"
     validationStatus="Review before customer use"
   />
 

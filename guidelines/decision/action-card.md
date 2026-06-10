@@ -170,7 +170,7 @@ Planned code evolution:
   status="todo"
   context="Follow-up required after partial connectivity alert."
   assetContext="Critical Power > UPS Room A"
-  sourceContext="Schneider monitored assets only · Source strength: partial"
+  sourceContext="CompanyName monitored assets only · Source strength: partial"
   validationStatus="Review before customer use"
 />
 ```
@@ -267,7 +267,7 @@ Review overdue actions with service team
 Select top recommendations for the customer discussion
 Prepare QBR summary with closed actions and avoided risks
 Review affected assets before customer discussion
-Validate asset recommendation with Schneider expert
+Validate asset recommendation with CompanyName expert
 Create proof follow-up before renewal meeting
 Assign owner for partial connectivity recovery
 Confirm source evidence before customer-ready summary
@@ -453,7 +453,7 @@ Good asset-related action titles:
 ```txt
 Review affected assets before customer discussion
 Plan connectivity recovery for UPS Room A
-Validate asset recommendation with Schneider expert
+Validate asset recommendation with CompanyName expert
 Assign owner for partial connectivity recovery
 ```
 
@@ -508,7 +508,7 @@ visible when relevant.
 Good action language:
 
 ```txt
-Validate asset recommendation with Schneider expert
+Validate asset recommendation with CompanyName expert
 Review source evidence before customer use
 Confirm proof readiness before the renewal meeting
 Assign owner for modernization feasibility review
@@ -778,7 +778,7 @@ This is good because:
   priority="high"
   context="Follow-up required after partial connectivity alert."
   assetContext="Critical Power > UPS Room A"
-  sourceContext="Schneider monitored assets only · Source strength: partial"
+  sourceContext="CompanyName monitored assets only · Source strength: partial"
   validationStatus="Review before customer use"
 />
 ```
@@ -820,7 +820,7 @@ This is good because:
 
 ```tsx
 <ActionCard
-  title="Validate asset recommendation with Schneider expert"
+  title="Validate asset recommendation with CompanyName expert"
   owner="Service Manager"
   dueDate="Before customer action plan"
   priority="high"
