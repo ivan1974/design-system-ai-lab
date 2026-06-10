@@ -2,8 +2,9 @@
 
 ## Definition
 
-A site is a physical customer location that contains rooms, systems, assets and
-service scope.
+A site is a physical customer location that contains rooms, systems, assets and service scope.
+
+Site hierarchy and coverage must come from structured data or explicit input.
 
 ## Key fields
 
@@ -16,7 +17,46 @@ criticality
 assetCount
 connectedAssetCount
 serviceCoverage
+sourceScope
+sourceStrength
+validationStatus
 lastUpdate
+```
+
+## Controlled values
+
+### Source strength
+
+Canonical values:
+
+```txt
+unknown
+partial
+single-source
+multi-source
+validated
+```
+
+### Validation status
+
+Canonical values:
+
+```txt
+not-reviewed
+internal-review-needed
+internally-validated
+customer-ready
+blocked
+```
+
+### Risk level when site risk is summarized
+
+Canonical values:
+
+```txt
+critical
+warning
+info
 ```
 
 ## Relationships
@@ -54,6 +94,17 @@ ConnectivityCoverageCard
 KeyValueList
 FilterBar
 MasterDetailLayout
+WorkspaceDetailPanel
+```
+
+## GenAI generation rules
+
+```txt
+Show sourceScope when site visibility is partial.
+Show connectedAssetCount separately from assetCount.
+Show validationStatus when site-level information needs review.
+Do not mix customer-level and site-level scope.
+Do not present site visibility as complete when only part is connected.
 ```
 
 ## Make mistakes to avoid
@@ -63,4 +114,13 @@ inventing rooms or buildings
 hiding partial site coverage
 mixing customer-level and site-level scope
 presenting site visibility as complete when only part is connected
+using connectedAssetCount as total installed base
+```
+
+## Related contracts
+
+```txt
+contracts/evidence-and-trust.contract.json
+contracts/props.contract.json
+contracts/business-patterns.contract.json
 ```
