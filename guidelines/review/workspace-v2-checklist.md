@@ -1,15 +1,30 @@
-# Workspace v2 Quality Checklist — v0.4
+# Workspace v2 Quality Checklist — v0.5.1
 
 ## Purpose
 
-Use this checklist after the blocking checklist when reviewing a Make output that should follow the v0.4 decision workspace standard.
+Use this checklist after `review/blocking-checklist.md` passes.
 
-This checklist improves valid outputs. It does not replace:
+This checklist improves valid Figma Make outputs that should follow the v0.5.1 decision workspace standard.
+
+It does not replace:
 
 ```txt
-review/blocking-checklist.md
-review/quality-checklist.md
+guidelines/review/blocking-checklist.md
+guidelines/review/quality-checklist.md
+guidelines/repair-prompts/repair-router.md
 ```
+
+---
+
+## Checklist level
+
+```txt
+level: quality
+use after: blocking checklist
+output: repair suggestions, not automatic rejection
+```
+
+If a problem breaks package contract, trust integrity, accessibility or actionability, return to the blocking checklist.
 
 ---
 
@@ -21,20 +36,27 @@ review/quality-checklist.md
 - [ ] The primary action supports the decision.
 - [ ] The screen does not solve unrelated goals.
 
+Repair route:
+
+```txt
+repair-prompts/weak-layout.md
+```
+
 ---
 
 ## 2. Page and section hierarchy
 
 - [ ] `PageHeading` is used for page-level intent.
 - [ ] `SectionHeading` is used for major content areas when a section needs an introduction.
-- [ ] `SectionBlock` is used for local grouped content.
+- [ ] `SectionBlock`, `SectionStack` or business patterns are used for grouped content.
 - [ ] Text hierarchy is not flat.
 - [ ] Important source, validation and proof text remains readable.
 
-Repair with:
+Repair route:
 
 ```txt
 repair-prompts/weak-typography-hierarchy.md
+repair-prompts/weak-layout.md
 ```
 
 ---
@@ -46,24 +68,32 @@ repair-prompts/weak-typography-hierarchy.md
 - [ ] `MasterDetailLayout` is used when the user reviews a list and a selected item.
 - [ ] `WorkspaceDetailPanel` is used for selected-item review when detail should open, close or preserve the central workspace.
 - [ ] `Tabs` are used when selected detail has multiple review questions.
-- [ ] `StickyActionBar` or `ActionRow` is used when there is clear follow-through.
+- [ ] `StickyActionBar`, `ActionRow` or `ActionCard` is used when there is clear follow-through.
 - [ ] `SectionStack` and `SectionBlock` group dense sections.
+
+Repair route:
+
+```txt
+repair-prompts/weak-layout.md
+repair-prompts/missing-detail-panel.md
+```
 
 ---
 
 ## 4. Surface and visual style
 
 - [ ] The screen is white-first.
-- [ ] `Surface`, `ListContainer`, `Well`, `Divider` or `Toolbar` are used before styled div wrappers.
+- [ ] `Surface`, `ListContainer`, `Well`, `Divider`, `Toolbar` or approved patterns are used before styled div wrappers.
 - [ ] No decorative gradients are used.
 - [ ] No glassmorphism is used.
 - [ ] No glow or heavy shadows are used.
 - [ ] The output does not feel like a generic SaaS dashboard.
 
-Repair with:
+Repair route:
 
 ```txt
 repair-prompts/overdecorated-surface.md
+repair-prompts/generic-dashboard.md
 ```
 
 ---
@@ -82,11 +112,12 @@ repair-prompts/overdecorated-surface.md
 - [ ] Repeated actions use `ActionRow`.
 - [ ] Cards are reserved for highlighted decision objects.
 
-Repair with:
+Repair route:
 
 ```txt
 repair-prompts/poor-row-density.md
 repair-prompts/missing-list-container.md
+repair-prompts/card-saturation.md
 ```
 
 ---
@@ -100,6 +131,13 @@ repair-prompts/missing-list-container.md
 - [ ] `Breadcrumbs` are used for location context when useful.
 - [ ] No local tab, breadcrumb or segmented control system is created.
 
+Repair route:
+
+```txt
+repair-prompts/invalid-props-or-local-visual-components.md
+repair-prompts/no-local-components.md
+```
+
 ---
 
 ## 7. Business pattern usage
@@ -108,11 +146,19 @@ repair-prompts/missing-list-container.md
 - [ ] `CustomerReviewReadinessCard` is used for QBR or review readiness when relevant.
 - [ ] `ConnectivityCoverageCard` is used for monitoring coverage when relevant.
 - [ ] `AssetIntelligenceSummary` is used for asset intelligence when relevant.
+- [ ] `ComponentHierarchy` is used for hierarchy when relevant.
 - [ ] `RenewalRiskSummary` is used for renewal context when relevant.
 - [ ] `ValueProofCard` is used for proof readiness, proof points or proof gaps when relevant.
 - [ ] `ServiceRiskSummary` is used for service risk synthesis when relevant.
 - [ ] `RecommendationReviewPanel` and `RecommendationCard` are used for selected recommendation review when relevant.
 - [ ] Generic cards do not rebuild existing patterns.
+
+Repair route:
+
+```txt
+repair-prompts/no-local-components.md
+repair-prompts/weak-layout.md
+```
 
 ---
 
@@ -127,6 +173,14 @@ repair-prompts/missing-list-container.md
 - [ ] Expected outcomes are not styled as proven value.
 - [ ] Internal proof is not styled as customer-ready proof without validation.
 
+Repair route:
+
+```txt
+repair-prompts/missing-evidence.md
+repair-prompts/expected-outcomes-as-proven-value.md
+repair-prompts/missing-human-validation.md
+```
+
 ---
 
 ## 9. Actionability
@@ -137,14 +191,61 @@ repair-prompts/missing-list-container.md
 - [ ] The primary action does not compete with many other primary actions.
 - [ ] Button labels are explicit.
 
+Repair route:
+
+```txt
+repair-prompts/actions-without-ownership.md
+```
+
 ---
 
-## 10. Content quality
+## 10. Accessibility and form safety
 
-- [ ] Visible text is in English.
-- [ ] The same sentence is not repeated across heading, row, panel and action.
-- [ ] Recommendation title and recommendation text are not identical.
-- [ ] The next action is clear.
+- [ ] Forms appear only when the user has a clear submit, save, review or create action.
+- [ ] Form controls use package `Field`, `Input`, `Select`, `Textarea` and `Label`.
+- [ ] Visible labels are present.
+- [ ] `htmlFor` and `id` relationships are present when labels target controls.
+- [ ] Placeholder text is not the only label.
+
+Repair route:
+
+```txt
+repair-prompts/raw-form-controls.md
+repair-prompts/no-inline-styled-inputs.md
+```
+
+---
+
+## 11. Golden example alignment
+
+Compare the generated screen with the closest golden example:
+
+```txt
+guidelines/examples/golden/customer-monitoring.App.tsx
+guidelines/examples/golden/renewal-risk-review.App.tsx
+guidelines/examples/golden/asset-recommendation-review.App.tsx
+guidelines/examples/golden/qbr-readiness.App.tsx
+guidelines/examples/golden/installed-base-explorer.App.tsx
+```
+
+Check whether the generated screen preserves:
+
+```txt
+screen intent
+→ component hierarchy
+→ evidence hierarchy
+→ actionability
+→ visual sobriety
+→ package usage
+```
+
+Repair route:
+
+```txt
+repair-prompts/weak-layout.md
+repair-prompts/generic-dashboard.md
+repair-prompts/card-saturation.md
+```
 
 ---
 
@@ -160,3 +261,5 @@ scope
 → evidence and validation
 → next action
 ```
+
+If the issue is blocking, use `blocking-checklist.md` and `repair-router.md` before returning to this quality checklist.
