@@ -4,6 +4,8 @@
 
 An asset is a maintainable equipment item in the installed base.
 
+Asset facts must come from structured systems, explicit input or visible source context.
+
 Examples:
 
 ```txt
@@ -33,6 +35,43 @@ lastActivity
 sourceScope
 sourceStrength
 freshness
+validationStatus
+```
+
+## Controlled values
+
+### Source strength
+
+Canonical values:
+
+```txt
+unknown
+partial
+single-source
+multi-source
+validated
+```
+
+### Validation status
+
+Canonical values:
+
+```txt
+not-reviewed
+internal-review-needed
+internally-validated
+customer-ready
+blocked
+```
+
+### Risk level when asset risk is summarized
+
+Canonical values:
+
+```txt
+critical
+warning
+info
 ```
 
 ## Relationships
@@ -77,7 +116,7 @@ service coverage
 health status
 ```
 
-Do not use GenAI to invent asset facts or telemetry.
+Do not use GenAI to invent asset facts, hierarchy or telemetry.
 
 ## UI representation
 
@@ -87,11 +126,27 @@ Use:
 AssetIntelligenceSummary
 ConnectivityCoverageCard
 ComponentHierarchy
-CompactMetric / MetricStrip
+CompactMetric
+MetricStrip
 KeyValueList
 Timeline
 DocumentRow
-DetailPanel
+WorkspaceDetailPanel
+```
+
+Use `WorkspaceDetailPanel` for new selected asset detail in generated workspaces.
+
+Use `DetailPanel` only as a lower-level primitive or legacy composition.
+
+## GenAI generation rules
+
+```txt
+Show sourceScope when only connected assets are represented.
+Show sourceStrength when asset facts drive a recommendation.
+Show validationStatus when asset intelligence needs review.
+Do not present non-connected assets as live-monitored.
+Do not collapse Health facts and Intelligence interpretation.
+Do not present expected outcome as proven value.
 ```
 
 ## Make mistakes to avoid
@@ -100,6 +155,15 @@ DetailPanel
 presenting non-connected assets as live-monitored
 collapsing Health facts and Intelligence interpretation
 inventing asset hierarchy
+inventing telemetry
 inventing benchmark values
 presenting expected outcome as proven value
+```
+
+## Related contracts
+
+```txt
+contracts/evidence-and-trust.contract.json
+contracts/props.contract.json
+contracts/business-patterns.contract.json
 ```
