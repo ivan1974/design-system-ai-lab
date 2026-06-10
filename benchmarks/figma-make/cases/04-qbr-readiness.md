@@ -6,9 +6,21 @@ Generate a QBR readiness workspace.
 
 The user must check whether proof, risks, recommendations and preparation actions are ready for a customer review.
 
+## Benchmark status
+
+This is a fixed benchmark case, not reusable prompt guidance.
+
+Reusable guidance lives in:
+
+```txt
+guidelines/prompts/qbr-readiness.md
+```
+
+Do not rewrite benchmark facts unless the scoring objective changes.
+
 ## Prompt for Figma Make
 
-Create a React `App.tsx` screen for a Account owner preparing a Quarterly Business Review.
+Create a React `App.tsx` screen for an account owner preparing a Quarterly Business Review.
 
 Use `design-system-ai-lab` components only.
 
