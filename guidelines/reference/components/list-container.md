@@ -38,7 +38,11 @@ Use clear list title, row content and empty state when relevant.
 
 ## Controlled values
 
-Follow `contracts/props.contract.json#ListContainer` when controlled values are used.
+Follow `contracts/props.contract.json#ListContainer`.
+
+The `spacing` values are `compact`, `comfortable` and `spacious`.
+
+Do not invent `spacing` values.
 
 ## GenAI generation rules
 
