@@ -19,12 +19,14 @@ const promptBenchmarkPairs = [
   },
 ];
 
-const reusablePrompts = [
-  "guidelines/prompts/customer-monitoring.md",
-  "guidelines/prompts/renewal-risk-review.md",
-  "guidelines/prompts/asset-recommendation-review.md",
+const reusablePrompts = promptBenchmarkPairs.map(({ prompt }) => prompt);
+
+const removedPrompts = [
   "guidelines/prompts/qbr-readiness.md",
   "guidelines/prompts/installed-base-explorer.md",
+  "guidelines/prompts/overview.md",
+  "guidelines/prompts/template.md",
+  "guidelines/prompts/workspace-v2.md",
 ];
 
 const reusablePromptRequiredSnippets = [
@@ -32,21 +34,25 @@ const reusablePromptRequiredSnippets = [
   "Use the npm package design-system-ai-lab.",
   "Import components from design-system-ai-lab.",
   "Import styles from design-system-ai-lab/styles.css.",
-  "Do not create a local package.",
-  "Do not recreate design system components locally.",
-  "Do not create local wrappers for package components.",
+  "Read only the v0.6.0 Make Kit runtime path unless a specific component detail is needed:",
+  "guidelines/runtime/generation-contract.md",
+  "guidelines/runtime/generation-flow.md",
+  "guidelines/runtime/component-selection.md",
+  "guidelines/runtime/trust-action-rules.md",
+  "guidelines/runtime/visual-rules.md",
+  "guidelines/runtime/progressive-decision-disclosure.md",
+  "Do not create local components or local wrappers.",
   "Do not import from dist/ or src/.",
   "Every action must include owner, due date and priority.",
-];
-
-const antiCardStackPhrases = [
-  "card stack",
-  "card stacks",
-  "card saturation",
-  "long stack of equal cards",
+  "guidelines/evaluation/repair/repair-router.md",
 ];
 
 const forbiddenPromptSnippets = [
+  "v0.5.1",
+  "make-minimal-contract.md",
+  "prompts/workspace-v2.md",
+  "contracts/components.contract.json",
+  "repair-prompts/",
   "PageHeader",
   "sourceStrength=\"strong\"",
   "readiness=\"needs_review\"",
@@ -64,19 +70,20 @@ describe("generation rules: prompt system alignment", () => {
     expect(fs.existsSync(path.join(rootDir, prompt))).toBe(true);
   });
 
+  it.each(removedPrompts)("'%s' stays removed from the active prompt set", (prompt) => {
+    expect(fs.existsSync(path.join(rootDir, prompt))).toBe(false);
+  });
+
   it.each(promptBenchmarkPairs)("$benchmark exists", ({ benchmark }) => {
     expect(fs.existsSync(path.join(rootDir, benchmark))).toBe(true);
   });
 
-  it.each(reusablePrompts)("'%s' declares reusable prompt role", (prompt) => {
+  it.each(reusablePrompts)("'%s' declares reusable v0.6.0 prompt role", (prompt) => {
     const content = read(prompt);
 
     for (const snippet of reusablePromptRequiredSnippets) {
       expect(content).toContain(snippet);
     }
-
-    expect(content).toMatch(/Do not generate (a )?generic dashboard/);
-    expect(antiCardStackPhrases.some((phrase) => content.includes(phrase))).toBe(true);
   });
 
   it.each(promptBenchmarkPairs)("$benchmark points back to its reusable prompt", ({ prompt, benchmark }) => {
