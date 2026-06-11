@@ -53,6 +53,11 @@ function AssetDetailExample() {
 const meta = {
   title: "Screen Architecture/Asset Detail Analysis Panel",
   component: AssetDetailAnalysisPanel,
+  args: {
+    open: true,
+    onClose: () => undefined,
+    asset,
+  },
 } satisfies Meta<typeof AssetDetailAnalysisPanel>;
 
 export default meta;
