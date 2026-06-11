@@ -12,6 +12,8 @@ type BenchmarkContract = {
     outputDirectory: string;
     evaluationDirectory: string;
     scoringTemplate: string;
+    installedBaseScoringTemplate: string;
+    installedBaseGenerationTemplate: string;
     testCommand: string;
     minimumAcceptedScore: number;
     excellentScore: number;
@@ -45,10 +47,16 @@ const expectedCaseIds = [
   "09-adversarial-visual-overbranding",
   "10-adversarial-context-drift-after-3-adjustments",
   "11-adversarial-information-overload",
+  "12-installed-base-intelligence-closed-spec",
+  "13-adversarial-installed-base-local-components",
+  "14-adversarial-installed-base-generic-dashboard",
+  "15-adversarial-installed-base-third-party-overclaim",
+  "16-adversarial-installed-base-health-intelligence-mixing",
+  "17-adversarial-installed-base-extra-actions-filters-tabs",
 ];
 
 describe("generation rules: benchmark contract", () => {
-  it("defines the exact v0.6.0 Phase 9 benchmark cases", () => {
+  it("defines the exact v0.7.0 benchmark cases", () => {
     expect(caseIds).toEqual(expectedCaseIds);
   });
 
@@ -107,6 +115,9 @@ describe("generation rules: benchmark contract", () => {
       "owner, due date and priority",
       "visual",
       "information overload",
+      "third-party asset",
+      "health and intelligence",
+      "seven columns",
     ];
 
     for (const phrase of expectedPhrases) {
@@ -118,6 +129,8 @@ describe("generation rules: benchmark contract", () => {
     expect(benchmark.protocol.outputDirectory).toBe("benchmarks/figma-make/outputs");
     expect(benchmark.protocol.evaluationDirectory).toBe("benchmarks/figma-make/evaluations");
     expect(fs.existsSync(path.join(rootDir, benchmark.protocol.scoringTemplate))).toBe(true);
+    expect(fs.existsSync(path.join(rootDir, benchmark.protocol.installedBaseScoringTemplate))).toBe(true);
+    expect(fs.existsSync(path.join(rootDir, benchmark.protocol.installedBaseGenerationTemplate))).toBe(true);
     expect(benchmark.protocol.testCommand).toContain("GENERATED_APP_PATH");
     expect(benchmark.protocol.minimumAcceptedScore).toBe(80);
     expect(benchmark.protocol.excellentScore).toBe(90);
