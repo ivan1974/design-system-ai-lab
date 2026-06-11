@@ -10,6 +10,7 @@ const activeGoldenExamples = [
   "customer-monitoring.App.tsx",
   "renewal-risk-review.App.tsx",
   "asset-recommendation-review.App.tsx",
+  "installed-base-intelligence.App.tsx",
 ];
 
 const removedGoldenExamples = [
