@@ -3,15 +3,18 @@
 ## Status
 
 ```txt
-ACTIVE RUNTIME / VISUAL RULES / FIGMA MAKE
+ACTIVE RUNTIME / VISUAL RULES / FIGMA MAKE / v0.8
 ```
 
 This file contains the active visual rules Figma Make must apply when generating screens with `design-system-ai-lab`.
 
-For historical visual intent, read only when needed:
+The v0.8 visual system is extracted from the shared prototype. Source references are anonymized, but the visual grammar is preserved.
+
+For tokens, read:
 
 ```txt
-guidelines/source/visual-brand/visual-brand-v0.4.md
+guidelines/tokens.md
+contracts/tokens.contract.json
 ```
 
 ---
@@ -41,6 +44,42 @@ gradient-heavy
 card-saturated
 shadow-heavy
 ```
+
+---
+
+## v0.8 prototype-derived baseline
+
+Use the package token grammar for the whole active design system surface, not only for Installed Base.
+
+Required baseline:
+
+```txt
+white surfaces
+neutral borders
+compact typography
+compact controls
+compact tags and pills
+dense rows
+table-first operational layouts
+right-side or inline panels
+sticky action areas when decisions need follow-through
+```
+
+Required tokenized values:
+
+```txt
+background: --ec-color-background
+surface: --ec-color-surface
+muted surface: --ec-color-surface-muted
+text: --ec-color-text-primary
+muted text: --ec-color-text-muted
+border: --ec-color-border
+input background: --ec-color-input-background
+radius: --ec-radius-md
+accent: --ec-color-primary
+```
+
+Do not copy source prototype labels, product names or company names into generated screens or docs.
 
 ---
 
@@ -81,14 +120,16 @@ SectionHeading
 WorkspaceShell
 MasterDetailLayout
 WorkspaceDetailPanel
-Surface
+SidePanel
 ListContainer
+Table
+Tabs
 MetricStrip
 ActionRow
 EvidenceRow
 StatusPill
-SourceStrengthPill
-Business patterns
+SemanticTag
+Screen-contract patterns
 ```
 
 Do not create local wrappers such as:
@@ -107,7 +148,7 @@ LocalCard
 
 ## Color rules
 
-Use CompanyName green only for meaningful emphasis:
+Use the anonymized green accent only for meaningful emphasis:
 
 ```txt
 primary actions
@@ -158,6 +199,7 @@ Use:
 
 ```txt
 WorkspaceDetailPanel
+SidePanel
 Tabs
 EvidenceRow
 KeyValueList
@@ -165,6 +207,42 @@ StatusSummary
 ```
 
 for supporting detail.
+
+---
+
+## Table and row alignment
+
+Operational inventories and review queues should prefer rows, lists and tables over card grids.
+
+Use:
+
+```txt
+aligned columns
+compact cell padding
+visible object identity
+status with label
+source or validation context when trust matters
+action affordance at row or panel level
+```
+
+Do not replace operational inventories with dashboard cards.
+
+---
+
+## Panel behavior
+
+Panels should use:
+
+```txt
+white surface
+subtle border
+independent scroll
+sticky actions when follow-through is required
+360px minimum width
+500px preferred max-width for dense side panels
+```
+
+Do not use blurred or glass panels.
 
 ---
 
@@ -186,6 +264,8 @@ custom row system
 colored cards for every status
 visual treatment that overstates evidence strength
 visual treatment that hides uncertainty
+local token system
+source prototype labels that were not anonymized
 ```
 
 ---
@@ -203,6 +283,8 @@ status is not color-only
 evidence strength is not visually overstated
 uncertainty remains readable
 no local visual system exists
+no local token system exists
+source references are anonymized
 ```
 
 ---
