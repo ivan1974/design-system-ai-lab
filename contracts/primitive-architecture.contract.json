@@ -5,6 +5,8 @@
   "status": "active",
   "implementationModel": "shadcn-compatible",
   "publicGenerationSurface": "design-system-ai-lab",
+  "publicStylesheetSurface": "design-system-ai-lab/styles.css",
+  "internalPrimitiveLayer": "src/design-system/internal/primitives",
   "internalPrimitiveStrategy": "Radix and Tailwind implementation patterns may be used internally, but generated screens must use public DS exports.",
   "allowedImplementationInfluences": [
     "shadcn-compatible patterns",
@@ -23,6 +25,7 @@
     "./components/ui",
     "components/ui",
     "src/design-system/internal",
+    "src/design-system/internal/primitives",
     "src/design-system/primitives",
     "design-system-ai-lab/src",
     "design-system-ai-lab/dist"
@@ -34,6 +37,7 @@
   "rules": [
     "shadcn-compatible internally",
     "design-system-ai-lab externally",
+    "internal primitives are not generation targets",
     "DS tokens remain the visual source of truth",
     "props contracts remain the public API source of truth",
     "screen contracts override primitive defaults",
