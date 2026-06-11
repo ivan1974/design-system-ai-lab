@@ -204,7 +204,8 @@ export default function App() {
                     sourceScope="Last 90 days"
                     sourceStrength="partial"
                     freshness="Last 90 days"
-                    proofStatus="Internal proof, not customer-ready"
+                    proofReadiness="internal-proof"
+                    proofReadinessLabel="Internal proof, not customer-ready"
                     validationStatus="internal-review-needed"
                   />
                 </RecommendationReviewPanel>
