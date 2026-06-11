@@ -14,6 +14,39 @@ If no component fits, simplify the screen instead of creating a local design sys
 
 ---
 
+## Primitive implementation boundary
+
+Some DS primitives may be implemented with shadcn-compatible Radix and Tailwind patterns.
+
+This does not change component selection.
+
+Generated screens must import public DS components only.
+
+Do not select or create:
+
+```txt
+components/ui
+@radix-ui/*
+local shadcn primitives
+internal primitive wrappers
+```
+
+If a shadcn-like primitive seems useful, choose the equivalent public DS component instead.
+
+Examples:
+
+| shadcn-like need | Use DS public component |
+| --- | --- |
+| Button | `Button` |
+| Badge | `Badge`, `SemanticTag`, `CoverageTag`, `DppTag` |
+| Sheet | `SidePanel`, `WorkspaceDetailPanel`, or screen-specific panel |
+| Dialog | `Dialog` or `CreateActionDialog` |
+| Tabs | `Tabs` or contract-specific tab navigation |
+| Select | `Select` |
+| Table | approved list/table pattern or screen-specific list |
+
+---
+
 ## Screen contract selection rule
 
 When a screen contract exists, component selection is contract-led.
@@ -56,7 +89,11 @@ These components are target v0.7.0 components. Until implemented, they are block
 | Structured metadata | `KeyValueList` or `StatusSummary` |
 | Evidence trail | `EvidenceRow` |
 | Trust marker | `SourceStrengthPill` + validation status when relevant |
-| Status or readiness | `StatusPill` |
+| Status or readiness | `StatusPill`, `StatusWithIcon` when an operational icon is required |
+| Health state | `HealthPill` |
+| Connectivity state | `ConnectivityLabel` |
+| Coverage state | `CoverageTag` |
+| DPP state | `DppTag` |
 | Priority | `PriorityPill` |
 | Owned follow-through | `ActionRow` |
 | Rich action context | `ActionCard` |
@@ -124,6 +161,8 @@ business patterns
 buttons
 selects
 screen-contract components
+shadcn primitives
+components/ui files
 ```
 
 ---
@@ -142,4 +181,5 @@ legacy component avoided unless justified
 repeated objects use rows and lists, not cards
 trust-sensitive content uses evidence and validation markers
 actions use ActionRow, ActionCard or StickyActionBar
+no local shadcn or components/ui primitive created
 ```
