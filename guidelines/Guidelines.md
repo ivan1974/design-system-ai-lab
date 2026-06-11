@@ -37,12 +37,13 @@ Read in this order:
 4. styles.md
 5. runtime/generation-contract.md
 6. runtime/screen-contract-generation.md
-7. runtime/generation-flow.md
-8. runtime/component-selection.md
-9. runtime/trust-action-rules.md
-10. runtime/visual-rules.md
-11. runtime/operational-intelligence-visual-rules.md
-12. runtime/progressive-decision-disclosure.md
+7. runtime/primitive-implementation-strategy.md
+8. runtime/generation-flow.md
+9. runtime/component-selection.md
+10. runtime/trust-action-rules.md
+11. runtime/visual-rules.md
+12. runtime/operational-intelligence-visual-rules.md
+13. runtime/progressive-decision-disclosure.md
 ```
 
 Only read detailed files when the task requires them:
@@ -57,6 +58,16 @@ contracts/ = machine-readable checks
 If the requested screen has a screen contract, read it before component reference documentation.
 
 Screen contracts override generic workspace suggestions when they define exact layers, zones, filters, columns, tabs, actions or prohibited content.
+
+---
+
+## Primitive implementation boundary
+
+The DS may use shadcn-compatible Radix and Tailwind implementation patterns internally.
+
+Figma Make must still generate only public `design-system-ai-lab` imports.
+
+Never import local `components/ui`, internal primitives, `@radix-ui/*`, package `src` or package `dist` paths in generated examples.
 
 ---
 
@@ -81,13 +92,14 @@ Never:
 
 1. Import from internal paths.
 2. Create `components/ui`, local wrappers or a local design system.
-3. Invent evidence, sources, citations, telemetry, asset facts or value proof.
-4. Present expected outcomes as proven value.
-5. Use AI confidence as evidence strength.
-6. Hide human validation for sensitive decisions.
-7. Use visual emphasis to make weak evidence look stronger.
-8. Expose every fact, proof point and action at the same hierarchy level.
-9. Add undefined filters, columns, tabs, actions or primary layers when a screen contract exists.
+3. Import `@radix-ui/*` directly in generated examples.
+4. Invent evidence, sources, citations, telemetry, asset facts or value proof.
+5. Present expected outcomes as proven value.
+6. Use AI confidence as evidence strength.
+7. Hide human validation for sensitive decisions.
+8. Use visual emphasis to make weak evidence look stronger.
+9. Expose every fact, proof point and action at the same hierarchy level.
+10. Add undefined filters, columns, tabs, actions or primary layers when a screen contract exists.
 
 ---
 
@@ -149,6 +161,7 @@ runtime/component-selection.md
 contracts/component-registry.contract.json
 contracts/components.contract.json
 contracts/props.contract.json
+contracts/primitive-architecture.contract.json
 ```
 
 ---
@@ -161,6 +174,8 @@ Reject or repair the screen if it contains:
 internal package imports
 missing stylesheet import
 local design-system components
+local components/ui primitives
+direct @radix-ui imports
 generic dashboard layout
 long stack of equal cards
 invented evidence or sources
