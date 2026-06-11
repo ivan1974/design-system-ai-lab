@@ -29,6 +29,13 @@ Use `SidePanel` for strict right-side operational panels that need overlay close
 - `closeOnEscape`
 - `lockBackgroundScroll`
 
+## Controlled values
+
+- `width`: `analysis`
+- `closeOnOverlay`: `true` or `false`
+- `closeOnEscape`: `true` or `false`
+- `lockBackgroundScroll`: `true` or `false`
+
 ## Required behavior
 
 - overlay click closes when enabled;
