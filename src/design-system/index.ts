@@ -187,6 +187,9 @@ export type {
 export { StickyActionBar } from "./composition/sticky-action-bar";
 export type { StickyActionBarProps } from "./composition/sticky-action-bar";
 
+export { SidePanel } from "./composition/side-panel";
+export type { SidePanelProps, SidePanelWidth } from "./composition/side-panel";
+
 export { FilterBar } from "./composition/filter-bar";
 export type { FilterBarProps } from "./composition/filter-bar";
 
@@ -212,8 +215,20 @@ export type {
   AlertSeverity,
 } from "./decision/alert-card";
 
+export { ConnectivityLabel } from "./decision/connectivity-label";
+export type { ConnectivityLabelProps, ConnectivityValue } from "./decision/connectivity-label";
+
+export { CoverageTag } from "./decision/coverage-tag";
+export type { CoverageTagProps, CoverageValue } from "./decision/coverage-tag";
+
+export { DppTag } from "./decision/dpp-tag";
+export type { DppTagProps, DppValue } from "./decision/dpp-tag";
+
 export { EvidenceRow } from "./decision/evidence-row";
 export type { EvidenceRowProps } from "./decision/evidence-row";
+
+export { HealthPill } from "./decision/health-pill";
+export type { AssetHealth, HealthPillProps } from "./decision/health-pill";
 
 export { MetricGrid } from "./decision/metric-grid";
 export type {
@@ -254,6 +269,9 @@ export type { SourceStrengthPillProps } from "./decision/source-strength-pill";
 
 export { StatusPill } from "./decision/status-pill";
 export type { StatusPillProps, StatusPillTone } from "./decision/status-pill";
+
+export { StatusWithIcon } from "./decision/status-with-icon";
+export type { OperationalStatus, StatusWithIconProps } from "./decision/status-with-icon";
 
 export { StatusSummary } from "./decision/status-summary";
 export type {
