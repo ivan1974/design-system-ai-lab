@@ -10,6 +10,12 @@ Generate a renewal risk review workspace from scratch.
 
 The user must identify renewal blockers, proof gaps and mitigation actions before a customer renewal discussion.
 
+## Related reusable prompt
+
+```txt
+guidelines/prompts/renewal-risk-review.md
+```
+
 ## Prompt for Figma Make
 
 Create a React `App.tsx` screen for an account owner preparing a renewal risk review.
