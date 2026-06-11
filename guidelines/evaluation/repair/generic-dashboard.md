@@ -42,8 +42,7 @@ Context
 → owned actions
 
 Use business patterns before raw Card sections.
-Use MetricGrid and MetricCard only for decision-relevant metrics.
-Limit metrics to 2 to 4.
+Use MetricStrip and CompactMetric for 2 to 4 decision-relevant secondary metrics.
 Remove decorative charts and generic metric cards.
 Remove generic sections such as Overview, Activity, Analytics or Insights unless they directly support the user decision.
 
@@ -64,7 +63,7 @@ After repair, verify:
 
 - [ ] The user decision is visible and specific.
 - [ ] The screen is not a generic dashboard.
-- [ ] The structure follows the relevant screen intent router.
+- [ ] The structure follows the runtime generation flow.
 - [ ] Metrics are limited and decision-relevant.
 - [ ] Business patterns are used when available.
 - [ ] Alerts include recommendations.
