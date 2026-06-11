@@ -1,8 +1,13 @@
-import { describe, it } from "vitest";
+import fs from "node:fs";
+import path from "node:path";
+import { describe, expect, it } from "vitest";
 import {
   expectNoForbiddenPattern,
   readGenerationRuleTargets,
 } from "./test-targets";
+
+const rootDir = process.cwd();
+const read = (relativePath: string) => fs.readFileSync(path.join(rootDir, relativePath), "utf-8");
 
 const targets = readGenerationRuleTargets();
 
@@ -48,5 +53,28 @@ describe("generation rules: evidence and trust", () => {
         "Risky proof or source confidence language requires explicit customer-ready proof or validation context.",
       );
     }
+  });
+
+  it("hardens progressive disclosure around trust adjacency", () => {
+    const runtime = read("guidelines/runtime/progressive-decision-disclosure.md").toLowerCase();
+
+    expect(runtime).toContain("signal");
+    expect(runtime).toContain("decision");
+    expect(runtime).toContain("evidence");
+    expect(runtime).toContain("source strength");
+    expect(runtime).toContain("validation status");
+    expect(runtime).toContain("proof readiness");
+    expect(runtime).toContain("expected outcomes");
+    expect(runtime).toContain("do not use ai confidence as source strength");
+  });
+
+  it("keeps screen contract generation aligned with progressive disclosure", () => {
+    const screenContractRuntime = read("guidelines/runtime/screen-contract-generation.md").toLowerCase();
+
+    expect(screenContractRuntime).toContain("signal");
+    expect(screenContractRuntime).toContain("decision");
+    expect(screenContractRuntime).toContain("evidence");
+    expect(screenContractRuntime).toContain("do not break the screen contract");
+    expect(screenContractRuntime).toContain("allowed panel");
   });
 });
