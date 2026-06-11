@@ -109,7 +109,7 @@ repair-prompts/actions-without-ownership.md
 Related fixed benchmark case:
 
 ```txt
-benchmarks/figma-make/cases/03-asset-recommendation-review.md
+benchmarks/figma-make/cases/03-first-generation-asset-recommendation.md
 ```
 
 Benchmark cases are stable scoring scenarios. Do not rewrite benchmark facts unless the scoring objective changes.
