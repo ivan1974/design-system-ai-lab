@@ -4,7 +4,6 @@ import type { HTMLAttributes, ReactNode } from "react";
 import { Button } from "../components/button";
 import {
   PanelBody,
-  PanelClose,
   PanelFooter,
   PanelHeader,
   SlideOverPanel,
@@ -98,7 +97,6 @@ export const SidePanel = forwardRef<HTMLDivElement, SidePanelProps>(
             description={description}
             onClose={onClose}
             closeLabel={closeLabel}
-            actions={<PanelClose label={closeLabel} onClick={onClose} />}
             className="shrink-0"
           />
           <div className="min-h-0 flex-1 overflow-y-auto">
