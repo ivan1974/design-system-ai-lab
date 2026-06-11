@@ -19,7 +19,7 @@ import type {
 
 import "design-system-ai-lab/styles.css";
 
-export type InstalledBaseIntelligenceScenario =
+type InstalledBaseIntelligenceScenario =
   | "default"
   | "all-filters-open"
   | "asset-detail-overview-open"
@@ -30,11 +30,11 @@ export type InstalledBaseIntelligenceScenario =
   | "active-alert-selected"
   | "non-connected-with-service-history-selected";
 
-export type InstalledBaseIntelligenceAppProps = {
+type InstalledBaseIntelligenceAppProps = {
   scenario?: InstalledBaseIntelligenceScenario;
 };
 
-export const installedBaseGoldenAssets: InstalledBaseAsset[] = [
+const installedBaseGoldenAssets: InstalledBaseAsset[] = [
   { id: "connected-oem", state: "connected-oem", name: "Main MV switchgear", reference: "MV-001", description: "Primary incoming equipment", type: "MV Switchgear", building: "Building A", electricalArea: "Electrical Area 01", room: "Room MV-01", connectivity: "connected", coverage: "premium-service-plan-advanced", health: "good", status: "live-telemetry", statusDate: "Today" },
   { id: "active-alert", state: "connected-oem-with-alert", name: "LV distribution board", reference: "LV-204", description: "Distribution equipment with active alert", type: "LV Switchgear", building: "Building A", electricalArea: "Electrical Area 01", room: "Room MV-01", connectivity: "connected", coverage: "premium-service-plan-essential", health: "poor", status: "active-alert", statusDate: "2h ago", attentionRequired: true },
   { id: "connectivity-issue", state: "connected-oem-with-connectivity-issue", name: "Cooling unit", reference: "COOL-09", description: "Cooling equipment telemetry interrupted", type: "Cooling", building: "Building A", electricalArea: "Electrical Area 01", room: "Room MV-01", connectivity: "not-connected", coverage: "advanced-service-plan", health: "fair", status: "connectivity-issue", statusDate: "Yesterday", attentionRequired: true },
@@ -43,7 +43,7 @@ export const installedBaseGoldenAssets: InstalledBaseAsset[] = [
   { id: "third-party", state: "third-party", name: "Third-party PDU", reference: "PDU-TP-7", description: "Externally supplied power distribution unit", type: "PDU", building: "Building A", electricalArea: "Electrical Area 01", room: "Room UPS-02", connectivity: "connected", coverage: "premium-service-plan-advanced", health: "excellent", status: "live-telemetry" },
 ];
 
-export const installedBaseGoldenGroups: InstalledBaseBuildingGroup[] = [
+const installedBaseGoldenGroups: InstalledBaseBuildingGroup[] = [
   {
     building: "Building A",
     electricalAreas: [
@@ -58,7 +58,7 @@ export const installedBaseGoldenGroups: InstalledBaseBuildingGroup[] = [
   },
 ];
 
-export const installedBaseGoldenFilters: InstalledBaseFilterGroup[] = [
+const installedBaseGoldenFilters: InstalledBaseFilterGroup[] = [
   { category: "Health", options: ["Critical", "Poor", "Fair", "Good", "Excellent", "Unknown"].map((label) => ({ label, value: label })) },
   { category: "Connectivity", options: ["Connected", "Non-connected", "Unknown"].map((label) => ({ label, value: label })) },
   { category: "Coverage", options: ["Premium Service Plan Advanced", "Premium Service Plan Essential", "Advanced Service Plan", "No Coverage"].map((label) => ({ label, value: label })) },
