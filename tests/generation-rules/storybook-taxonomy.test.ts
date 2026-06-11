@@ -27,7 +27,9 @@ function walk(dir: string): string[] {
 
 function readTitle(filePath: string) {
   const content = fs.readFileSync(filePath, "utf-8");
-  const match = content.match(/title:\s*["']([^"']+)["']/);
+  const metaStart = content.indexOf("const meta");
+  const source = metaStart >= 0 ? content.slice(metaStart) : content;
+  const match = source.match(/title:\s*["']([^"']+)["']/);
   return match?.[1] ?? null;
 }
 
@@ -55,6 +57,7 @@ describe("generation rules: Storybook taxonomy", () => {
       composition: "Composition",
       decision: "Decision",
       forms: "Forms",
+      foundations: "Foundations",
       patterns: "Patterns",
       "screen-architecture": "Screen Architecture",
     };
