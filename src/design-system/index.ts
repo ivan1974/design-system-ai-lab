@@ -1,24 +1,9 @@
-export type {
-  ActionOwnership,
-  ActionPriority,
-  ActionStatus,
-} from "./types/action";
-export type {
-  RecommendationPriority,
-  RecommendationReadiness,
-  RiskLevel,
-} from "./types/decision";
-export type {
-  EvidenceSourceType,
-  ProofReadiness,
-} from "./types/evidence";
-export type {
-  CustomerReadiness,
-  HumanValidationRequirement,
-  SourceStrength,
-  ValidationStatus,
-} from "./types/trust";
-
+export type { ActionOwnership, ActionPriority, ActionStatus } from "./types/action";
+export type { RecommendationPriority, RecommendationReadiness, RiskLevel } from "./types/decision";
+export type { EvidenceSourceType, ProofReadiness } from "./types/evidence";
+export type { CustomerReadiness, HumanValidationRequirement, SourceStrength, ValidationStatus } from "./types/trust";
+export type { InstalledBaseAdvancedFilterCategory, InstalledBaseFilterGroup, InstalledBaseFilterOption, InstalledBaseFilterTrigger, InstalledBaseView } from "./types/installed-base";
+export { installedBaseAdvancedFilterCategories, installedBaseFilterTriggers, installedBaseViews } from "./types/installed-base";
 export { Badge } from "./components/badge";
 export type { BadgeProps, BadgeTone } from "./components/badge";
 export { Breadcrumbs } from "./components/breadcrumbs";
@@ -41,6 +26,8 @@ export { KeyValueList, KeyValueRow } from "./components/key-value-list";
 export type { KeyValueListProps, KeyValueRowProps } from "./components/key-value-list";
 export { ListContainer } from "./components/list-container";
 export type { ListContainerProps, ListContainerSpacing } from "./components/list-container";
+export { MainNavigation } from "./components/main-navigation";
+export type { MainNavigationProps } from "./components/main-navigation";
 export { MetricCard } from "./components/metric-card";
 export type { MetricCardProps, MetricTrendTone } from "./components/metric-card";
 export { MetricStrip } from "./components/metric-strip";
@@ -73,7 +60,6 @@ export { Tooltip } from "./components/tooltip";
 export type { TooltipAlign, TooltipProps, TooltipSide } from "./components/tooltip";
 export { Well } from "./components/well";
 export type { WellPadding, WellProps, WellTone } from "./components/well";
-
 export { Checkbox } from "./forms/checkbox";
 export type { CheckboxProps, CheckboxSize } from "./forms/checkbox";
 export { Field } from "./forms/field";
@@ -86,7 +72,6 @@ export { Select } from "./forms/select";
 export type { SelectProps } from "./forms/select";
 export { Textarea } from "./forms/textarea";
 export type { TextareaProps } from "./forms/textarea";
-
 export { WorkspaceShell } from "./composition/workspace-shell";
 export type { WorkspaceShellProps } from "./composition/workspace-shell";
 export { MasterDetailLayout } from "./composition/master-detail-layout";
@@ -105,7 +90,6 @@ export { FilterBar } from "./composition/filter-bar";
 export type { FilterBarProps } from "./composition/filter-bar";
 export { SectionBlock, SectionStack } from "./composition/section-stack";
 export type { SectionBlockProps, SectionStackProps } from "./composition/section-stack";
-
 export { ActionCard } from "./decision/action-card";
 export type { ActionCardProps } from "./decision/action-card";
 export { ActionList } from "./decision/action-list";
@@ -148,7 +132,8 @@ export { StatusWithIcon } from "./decision/status-with-icon";
 export type { OperationalStatus, StatusWithIconProps } from "./decision/status-with-icon";
 export { StatusSummary } from "./decision/status-summary";
 export type { StatusSummaryBadge, StatusSummaryItem, StatusSummaryProps } from "./decision/status-summary";
-
+export { AllFiltersPanel } from "./patterns/all-filters-panel";
+export type { AllFiltersPanelProps } from "./patterns/all-filters-panel";
 export { AssetQueueRow } from "./patterns/asset-queue-row";
 export type { AssetQueueRowProps } from "./patterns/asset-queue-row";
 export { AssetIntelligenceSummary } from "./patterns/asset-intelligence-summary";
@@ -165,6 +150,10 @@ export { CreateActionDialog } from "./patterns/create-action-dialog";
 export type { CreateActionDialogProps, CreateActionDialogValues } from "./patterns/create-action-dialog";
 export { CustomerStatusCard } from "./patterns/customer-status-card";
 export type { CustomerStatusCardMode, CustomerStatusCardProps } from "./patterns/customer-status-card";
+export { InstalledBaseHeader } from "./patterns/installed-base-header";
+export type { InstalledBaseHeaderProps } from "./patterns/installed-base-header";
+export { InstalledBaseViewFilterBar } from "./patterns/installed-base-view-filter-bar";
+export type { InstalledBaseViewFilterBarProps } from "./patterns/installed-base-view-filter-bar";
 export { RecommendationQueueRow } from "./patterns/recommendation-queue-row";
 export type { RecommendationQueueRowProps } from "./patterns/recommendation-queue-row";
 export { RecommendationReviewPanel } from "./patterns/recommendation-review-panel";
