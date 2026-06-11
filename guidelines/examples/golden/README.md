@@ -2,19 +2,18 @@
 
 ## Purpose
 
-This folder contains golden `App.tsx` examples for Figma Make.
+This folder contains v0.6.0 golden `App.tsx` examples for Figma Make.
 
-Golden examples show what a good generated screen should look like when using
-`design-system-ai-lab`.
+Golden examples show what a good generated screen should look like when using `design-system-ai-lab`.
 
-They are not application demos.
+They are not production application demos.
 
-They are Make-ready reference outputs.
+They are Make-ready reference outputs and generation-rule fixtures.
 
 Use them to help Make understand:
 
-- the expected import pattern
-- the expected screen structure
+- the expected public package import pattern
+- the expected workspace structure
 - the right business patterns for each screen intent
 - how much density is appropriate
 - how to keep evidence and validation context visible
@@ -24,53 +23,42 @@ Use them to help Make understand:
 
 ---
 
-## Relationship with src/demo
+## Required Make Kit context
 
-Do not move `src/demo` files into this folder.
-
-Use this separation:
+Before using a golden example, Figma Make should read the v0.6.0 runtime path:
 
 ```txt
-src/demo/
-= application demos, development demos and Storybook-oriented examples
-
-guidelines/examples/golden/
-= Figma Make reference outputs for governed screen generation
+guidelines/Guidelines.md
+guidelines/setup.md
+guidelines/tokens.md
+guidelines/styles.md
+guidelines/runtime/generation-contract.md
+guidelines/runtime/generation-flow.md
+guidelines/runtime/component-selection.md
+guidelines/runtime/trust-action-rules.md
+guidelines/runtime/visual-rules.md
+guidelines/runtime/progressive-decision-disclosure.md
 ```
-
-Golden examples can be inspired by `src/demo`, but they should remain optimized
-for Make guidance.
-
-They should be complete, direct and easy for Make to imitate.
-
----
-
-## Required Make kit context
-
-Before using a golden example, Figma Make should read and follow:
-
-```txt
-Guidelines.md
-setup.md
-tokens.md
-styles.md
-prompts/overview.md
-prompts/template.md
-```
-
-Use the relevant prompt file with the relevant golden example.
 
 Do not use a golden example alone as the full instruction set.
 
 ---
 
-## Available golden examples
+## Active golden examples
 
-### Customer monitoring
+The active v0.6.0 golden fixture set is intentionally small:
 
 ```txt
 customer-monitoring.App.tsx
+renewal-risk-review.App.tsx
+asset-recommendation-review.App.tsx
 ```
+
+These examples align with the three active first-generation benchmark cases.
+
+---
+
+## Customer monitoring
 
 Use this when the screen intent is:
 
@@ -81,7 +69,7 @@ Customer monitoring
 Main decision:
 
 ```txt
-Decide which service risks need action before the next customer touchpoint.
+Decide which customer, asset or service risk needs action before the next customer touchpoint.
 ```
 
 Expected flow:
@@ -95,29 +83,26 @@ Customer context
 → owned actions
 ```
 
-Key patterns:
+Key components and patterns:
 
 ```txt
-PageHeader
-CreateActionDialog
+WorkspaceShell
+PageHeading
+FilterBar
+MasterDetailLayout
+ListContainer
+WorkspaceDetailPanel
 CustomerStatusCard
-MetricGrid
-MetricCard
 ConnectivityCoverageCard
 ServiceRiskSummary
-PriorityList
+MetricStrip
 AlertCard
-ActionList
-ActionCard
+ActionRow
 ```
 
 ---
 
-### Renewal risk review
-
-```txt
-renewal-risk-review.App.tsx
-```
+## Renewal risk review
 
 Use this when the screen intent is:
 
@@ -135,7 +120,7 @@ Expected flow:
 
 ```txt
 Renewal context
-→ review readiness
+→ proof readiness
 → value proof status
 → decision signals
 → renewal blockers
@@ -143,31 +128,27 @@ Renewal context
 → mitigation actions
 ```
 
-Key patterns:
+Key components and patterns:
 
 ```txt
-PageHeader
-CreateActionDialog
+WorkspaceShell
+PageHeading
+FilterBar
+MasterDetailLayout
+ListContainer
+WorkspaceDetailPanel
 RenewalRiskSummary
-CustomerReviewReadinessCard
 ValueProofCard
-MetricGrid
-MetricCard
-PriorityList
-AlertCard
+CustomerReviewReadinessCard
 RecommendationReviewPanel
 RecommendationCard
-ActionList
-ActionCard
+AlertCard
+ActionRow
 ```
 
 ---
 
-### Asset recommendation review
-
-```txt
-asset-recommendation-review.App.tsx
-```
+## Asset recommendation review
 
 Use this when the screen intent is:
 
@@ -186,186 +167,56 @@ Expected flow:
 ```txt
 Customer context
 → asset source facts
-→ Health signals
-→ Intelligence interpretation
+→ observed signals
+→ intelligence interpretation
 → service or communication risk
 → recommendation review
 → validation actions
 ```
 
-Key patterns:
+Key components and patterns:
 
 ```txt
-PageHeader
-CreateActionDialog
-CustomerStatusCard
+WorkspaceShell
+PageHeading
+FilterBar
+MasterDetailLayout
+ListContainer
+WorkspaceDetailPanel
 AssetIntelligenceSummary
 ServiceRiskSummary
 RecommendationReviewPanel
 RecommendationCard
-ActionList
-ActionCard
+ComponentHierarchy
+EvidenceRow
+ActionRow
 ```
 
 ---
 
-### QBR readiness
+## Removed examples
+
+The following examples were removed from the active v0.6.0 golden fixture set:
 
 ```txt
 qbr-readiness.App.tsx
+installed-base-explorer.App.tsx
 ```
 
-Use this when the screen intent is:
+Reason:
 
-```txt
-QBR readiness
-```
+- they are not part of the active v0.6.0 first-generation benchmark contract;
+- their reusable prompts were removed during prompts cleanup;
+- keeping them as golden fixtures would preserve an older broader example set.
 
-Main decision:
-
-```txt
-Decide whether the QBR is ready or which proof and recommendation gaps must be closed first.
-```
-
-Expected flow:
-
-```txt
-Customer context
-→ QBR readiness
-→ value proof readiness
-→ service risk status
-→ recommendation readiness
-→ blockers
-→ preparation actions
-```
-
-Key patterns:
-
-```txt
-PageHeader
-CreateActionDialog
-CustomerStatusCard
-CustomerReviewReadinessCard
-ValueProofCard
-ServiceRiskSummary
-RecommendationReviewPanel
-RecommendationCard
-PriorityList
-AlertCard
-ActionList
-ActionCard
-```
+They can be recreated later as v0.7.0 progressive disclosure examples if needed.
 
 ---
 
-## How Make should use golden examples
+## Storybook
 
-Use golden examples as reference outputs, not as copy-paste-only templates.
+The active golden examples are also rendered in Storybook.
 
-Make should preserve:
+If a golden example is removed, remove or update its Storybook story at the same time.
 
-- root package imports
-- single package CSS import
-- complete visible `App.tsx`
-- package components and business patterns
-- screen intent flow
-- evidence-first hierarchy
-- source context when trust matters
-- validation status when customer use is sensitive
-- owner, due date and priority for actions
-- recommendations grounded in visible facts
-- sober B2B visual style
-
-Make may adapt:
-
-- customer name
-- dates
-- owners
-- counts
-- proof points
-- recommendation copy
-- action titles
-- section labels when the intent remains clear
-
-Make should not adapt:
-
-- import strategy
-- package source
-- component vocabulary
-- business pattern hierarchy
-- screen intent flow
-- evidence and validation principles
-- visual style principles
-- approved Badge tones
-
----
-
-## Golden example quality criteria
-
-A golden example should be:
-
-- complete
-- visible
-- sober
-- B2B
-- readable
-- action-oriented
-- evidence-aware
-- imported only from `design-system-ai-lab`
-- styled through `design-system-ai-lab/styles.css`
-- free of local component wrappers
-- free of internal imports
-- free of local design system files
-- free of decorative dashboards
-- free of glassmorphism, gradients and decorative charts
-- faithful to the screen intent router
-- accompanied by a short `Why this is compliant` note
-
----
-
-## Common mistakes to avoid
-
-Do not use golden examples to justify:
-
-- creating local components
-- creating `packages/design-system-ai-lab`
-- importing from `dist/` or `src/`
-- rebuilding business patterns manually
-- adding generic dashboard cards
-- adding decorative charts
-- adding glassmorphism or gradients
-- hiding source weakness or validation context
-- presenting expected outcomes as proven value
-- presenting internal proof as customer-ready proof
-- presenting non-connected assets as live-monitored
-- claiming AI validation or automatic approval
-
----
-
-## Review instruction
-
-After Make generates a screen, compare it with the closest golden example.
-
-Check whether the generated screen preserves:
-
-```txt
-screen intent
-→ component hierarchy
-→ evidence hierarchy
-→ actionability
-→ visual sobriety
-→ package usage
-```
-
-If the generated screen drifts, use the relevant repair prompt from the matching
-prompt file.
-
----
-
-## Final principle
-
-Rules tell Make what to avoid.
-
-Golden examples show Make what good looks like.
-
-Use both.
+This prevents Storybook build failures caused by stale imports.
