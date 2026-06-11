@@ -2,9 +2,11 @@
 
 ## Purpose
 
-This folder groups the rules used to create full screens with the design system.
+This folder groups reference rules for full-screen structure.
 
-It consolidates the previous information architecture, composition and visualization guidance into one place so Figma Make can find the screen-generation rules quickly.
+It is not the default Figma Make runtime path.
+
+Use it only when `guidelines/runtime/generation-flow.md` is not specific enough.
 
 This folder answers:
 
@@ -22,16 +24,16 @@ Domain models remain separate because they define business objects and relations
 Use with:
 
 ```txt
+guidelines/runtime/generation-flow.md
+guidelines/runtime/component-selection.md
 guidelines/source/domain-models/
-guidelines/prompts/
-guidelines/examples/golden/
 guidelines/evaluation/review/
 guidelines/evaluation/repair/
 ```
 
 ---
 
-## Reading order
+## Reading order when screen architecture detail is needed
 
 ```txt
 1. screen-types.md
@@ -45,21 +47,21 @@ guidelines/evaluation/repair/
 9. screen-patterns.md
 ```
 
-Then read the relevant domain models and prompt file.
+Do not read this whole folder by default.
 
 ---
 
 ## Layer responsibility
 
 ```txt
-Screen architecture
-= choose screen type, navigation model, panel structure, disclosure depth and composition flow.
+Runtime
+= default generation rules and short operating flow.
+
+Screen architecture reference
+= deeper explanation of screen type, navigation model, panel structure, disclosure depth and composition flow.
 
 Domain models
 = define business objects, relationships, allowed statuses and evidence rules.
-
-Prompts
-= apply the right architecture and components to one generation task.
 
 Review and repair
 = detect and correct weak generations.
@@ -98,21 +100,6 @@ show facts before interpretation
 make source scope visible when trust matters
 make validation visible when customer use is sensitive
 avoid decorative dashboards
-avoid one-column card stacks when a workspace is needed
-use cards intentionally, not by default
-keep actions owned, dated and prioritized
+avoid card stacks
+keep next actions owned
 ```
-
----
-
-## Legacy paths
-
-The older folders below are kept only as compatibility redirects:
-
-```txt
-guidelines/ia/
-guidelines/composition/
-guidelines/visualization/
-```
-
-Do not maintain duplicate rules there. Update this folder instead.
