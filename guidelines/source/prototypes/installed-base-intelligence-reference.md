@@ -45,7 +45,7 @@ Purpose: global application navigation only.
 
 Required elements, in order:
 
-1. Schneider Electric Logo
+1. Reference Company Logo
 2. Product Name
 3. Global Search
 4. Help
@@ -139,7 +139,7 @@ Required values:
 
 - Health: Critical, Poor, Fair, Good, Excellent
 - Connectivity: Connected, Non-connected
-- Coverage: EcoCare Advanced, EcoCare Essential, Adv. Service Plan, No Coverage
+- Coverage: Premium Service Plan Advanced, Premium Service Plan Essential, Advanced Service Plan, No Coverage
 - DPP: With Digital Product Passport, Without Digital Product Passport
 - Status: Live Telemetry, Active Alert, Last Service Visit, No Record
 - Age: < 5 years, 5–9 years, 10+ years
@@ -228,54 +228,19 @@ Allowed values:
 - PDU
 - Battery System
 
-## Location column reference
+## Coverage and status references
 
-The Location column contains:
+Coverage values:
 
-- Building
-- Electrical Area
-- Room
-
-## Coverage column reference
-
-The Coverage column contains:
-
-- Service Coverage
-- DPP Status
-
-Service Coverage values:
-
-- EcoCare Advanced
-- EcoCare Essential
-- Adv. Service Plan
+- Premium Service Plan Advanced
+- Premium Service Plan Essential
+- Advanced Service Plan
 - No Coverage
 
 DPP values:
 
 - DPP Enabled
 - No DPP
-
-## Health column reference
-
-Allowed values:
-
-- Critical
-- Poor
-- Fair
-- Good
-- Excellent
-- Unknown
-
-No other health value is allowed.
-
-## Status column reference
-
-The Status column contains:
-
-- Status Label
-- Status Date
-
-The date is displayed below the status label.
 
 Allowed status labels and icons:
 
@@ -286,8 +251,6 @@ Allowed status labels and icons:
 | Connectivity issue | ⚠ |
 | Last service visit | ◷ |
 | No record | — |
-
-The icon color matches the label color.
 
 ## Third-party asset rule
 
@@ -313,12 +276,6 @@ The panel contains exactly four sections, in order:
 3. Tab Content
 4. Action Area
 
-Panel Header displays:
-
-- Location
-- Asset Name
-- Asset Description
-
 The panel contains exactly six tabs:
 
 1. Overview
@@ -327,8 +284,6 @@ The panel contains exactly six tabs:
 4. Passport
 5. History
 6. Documents
-
-The Action Area appears at the bottom of the panel and remains visible while panel content scrolls.
 
 Allowed actions:
 
@@ -341,8 +296,7 @@ No additional action is allowed.
 ## Interaction reference
 
 - Selecting an asset row opens the Asset Detail Panel.
-- When the Asset Detail Panel is open, background content does not scroll.
-- The Installed Base List does not scroll when the Asset Detail Panel is open.
+- Background content does not scroll when the Asset Detail Panel is open.
 - Only the Asset Detail Panel content scrolls.
 - Active View is preserved.
 - Active Filters are preserved.
@@ -353,11 +307,11 @@ No additional action is allowed.
 
 The prototype supports exactly six asset states:
 
-1. Connected Schneider Asset
-2. Connected Schneider Asset with Alert
-3. Connected Schneider Asset with Connectivity Issue
-4. Non-Connected Schneider Asset
-5. Non-Connected Schneider Asset with Service History
+1. Connected OEM Asset
+2. Connected OEM Asset with Alert
+3. Connected OEM Asset with Connectivity Issue
+4. Non-Connected OEM Asset
+5. Non-Connected OEM Asset with Service History
 6. Third-Party Asset
 
 ## Architectural principles
@@ -372,20 +326,9 @@ The prototype follows:
 
 ## Fact / Interpretation separation
 
-Health contains:
+Health contains facts, measurements, observations and current condition.
 
-- facts;
-- measurements;
-- observations;
-- current condition.
-
-Intelligence contains:
-
-- diagnosis;
-- interpretation;
-- benchmarking;
-- recommendations;
-- action plans.
+Intelligence contains diagnosis, interpretation, benchmarking, recommendations and action plans.
 
 Content must not be duplicated between Health and Intelligence.
 
