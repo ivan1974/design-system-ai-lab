@@ -57,10 +57,10 @@ It does not expand the component library.
 | G-018 | P1 | Progressive disclosure | Information overload is recognized but not yet encoded as a runtime blocker | Add short runtime principle and overload benchmark; defer full component refactor to v0.7.0 | Ready for review |
 | G-019 | P1 | Evidence and trust | Evidence rules are strong but spread across principles, domain models, guidelines and contracts | Consolidate active rules in `runtime/trust-action-rules.md` and align contracts | Ready for review |
 | G-020 | P1 | Action ownership | Action ownership rules must remain visible across runtime, registry, review and repair | Ensure ActionRow / ActionCard / AlertCard rules require owner, due date and priority when actionable | Ready for review |
-| G-021 | P2 | README | README may still describe previous v0.5.x reading order | Update README after runtime architecture is implemented | Open |
-| G-022 | P2 | Migration docs | Migration docs may remain useful but should not be Make-facing | Move or mark migrations as non-runtime | Open |
+| G-021 | P2 | README | README may still describe previous v0.5.x reading order | Update README after runtime architecture is implemented | Ready for review |
+| G-022 | P2 | Migration docs | Migration docs may remain useful but should not be Make-facing | Move or mark migrations as non-runtime | Closed |
 | G-023 | P2 | Golden examples | Golden examples must align with runtime rules and not deprecated values | Review after registry and contracts are created | Open |
-| G-024 | P2 | Prompt alignment | Prompts must reference the new runtime path, not broad documentation | Update prompts after runtime files are stable | Open |
+| G-024 | P2 | Prompt alignment | Prompts must reference the new runtime path, not broad documentation | Keep only the three active reusable prompts and align them to the v0.6.0 runtime path | Ready for review |
 | G-025 | P3 | Component redesign | Decision and pattern components need progressive disclosure modes | Defer full refactor to v0.7.0 | Deferred |
 | G-026 | P3 | Disclosure props | `disclosureMode` should be introduced for rich decision components | Defer to v0.7.0 | Deferred |
 | G-027 | P3 | Full UX testing | Human comprehension testing for decision overload would be valuable | Defer to v0.7.0 or later | Deferred |
@@ -130,7 +130,9 @@ P0 ready for review: 7
 P0 open: 0
 P1 ready for review: 6
 P1 open: 1
-P2 open: 4
+P2 ready for review: 2
+P2 open: 1
+P2 closed: 1
 P3 deferred: 3
 Release readiness: ready for P0 review
 ```
