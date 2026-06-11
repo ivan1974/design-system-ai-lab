@@ -14,6 +14,8 @@ This case starts from a valid recommendation review workspace.
 
 Change the selected recommendation priority from `medium` to `high` because the customer meeting has moved earlier.
 
+Use package components only from `design-system-ai-lab`.
+
 Do not add new telemetry.
 
 Do not add new citations.
