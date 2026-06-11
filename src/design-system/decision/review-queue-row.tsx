@@ -78,15 +78,15 @@ export const ReviewQueueRow = forwardRef<HTMLDivElement, ReviewQueueRowProps>(
           <div className="min-w-0 space-y-3">
             <div className="min-w-0 space-y-1.5">
               {eyebrow && (
-                <div className="text-[length:var(--ec-text-caption-size)] font-medium uppercase tracking-[0.08em] text-(--ec-color-text-muted)">
+                <div className="text-(length:--ec-text-caption-size) font-medium uppercase tracking-[0.08em] text-(--ec-color-text-muted)">
                   {eyebrow}
                 </div>
               )}
-              <div className="text-[length:var(--ec-title-subsection-size)] font-semibold leading-[var(--ec-title-subsection-line-height)] text-(--ec-color-text-primary)">
+              <div className="text-(length:--ec-title-subsection-size) font-semibold leading-(--ec-title-subsection-line-height) text-(--ec-color-text-primary)">
                 {title}
               </div>
               {description && (
-                <div className="max-w-2xl text-[length:var(--ec-text-body-size)] leading-[var(--ec-text-body-line-height)] text-(--ec-color-text-secondary)">
+                <div className="max-w-2xl text-(length:--ec-text-body-size) leading-(--ec-text-body-line-height) text-(--ec-color-text-secondary)">
                   {description}
                 </div>
               )}
@@ -108,7 +108,7 @@ export const ReviewQueueRow = forwardRef<HTMLDivElement, ReviewQueueRowProps>(
             <div className="grid grid-cols-2 gap-x-6 gap-y-2 text-right">
               {metrics.map((metric) => (
                 <div key={metric.label}>
-                  <div className="text-[length:var(--ec-text-caption-size)] font-medium leading-[var(--ec-text-caption-line-height)] text-(--ec-color-text-muted)">
+                  <div className="text-(length:--ec-text-caption-size) font-medium leading-(--ec-text-caption-line-height) text-(--ec-color-text-muted)">
                     {metric.label}
                   </div>
                   <div className="text-sm font-semibold leading-5 text-(--ec-color-text-primary)">
