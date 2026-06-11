@@ -1,9 +1,8 @@
 {
   "$schema": "./schema/generation-contract.schema.json",
   "name": "components",
-  "version": "0.5.1",
+  "version": "0.7.0-alpha.0",
   "sourceGuidelines": [
-    "guidelines/make-minimal-contract.md",
     "guidelines/setup.md",
     "guidelines/Guidelines.md"
   ],
@@ -62,6 +61,7 @@
       "DetailPanelFooter",
       "DetailPanelTabs",
       "StickyActionBar",
+      "SidePanel",
       "SectionStack",
       "SectionBlock"
     ],
@@ -70,7 +70,11 @@
       "ActionList",
       "ActionRow",
       "AlertCard",
+      "ConnectivityLabel",
+      "CoverageTag",
+      "DppTag",
       "EvidenceRow",
+      "HealthPill",
       "MetricGrid",
       "PriorityList",
       "PriorityPill",
@@ -81,7 +85,8 @@
       "SignalRow",
       "SourceStrengthPill",
       "StatusPill",
-      "StatusSummary"
+      "StatusSummary",
+      "StatusWithIcon"
     ],
     "businessPatterns": [
       "AssetIntelligenceSummary",
