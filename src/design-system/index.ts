@@ -134,6 +134,8 @@ export { StatusSummary } from "./decision/status-summary";
 export type { StatusSummaryBadge, StatusSummaryItem, StatusSummaryProps } from "./decision/status-summary";
 export { AllFiltersPanel } from "./patterns/all-filters-panel";
 export type { AllFiltersPanelProps } from "./patterns/all-filters-panel";
+export { AssetDetailAnalysisPanel } from "./patterns/asset-detail-analysis-panel";
+export type { AssetDetailAnalysisPanelProps, AssetDetailDocument, AssetDetailHistoryItem, AssetDetailRecommendation, AssetDetailTab } from "./patterns/asset-detail-analysis-panel";
 export { AssetInventoryRow } from "./patterns/asset-inventory-row";
 export type { AssetInventoryRowProps } from "./patterns/asset-inventory-row";
 export { AssetQueueRow } from "./patterns/asset-queue-row";
