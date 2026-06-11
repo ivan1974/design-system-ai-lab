@@ -20,7 +20,7 @@
     "AssetDetailAnalysisPanel"
   ],
   "requiredMainNavigationElements": [
-    "Schneider Electric Logo",
+    "Reference Company Logo",
     "Product Name",
     "Global Search",
     "Help",
@@ -100,7 +100,7 @@
   "filterValues": {
     "Health": ["Critical", "Poor", "Fair", "Good", "Excellent"],
     "Connectivity": ["Connected", "Non-connected"],
-    "Coverage": ["EcoCare Advanced", "EcoCare Essential", "Adv. Service Plan", "No Coverage"],
+    "Coverage": ["Premium Service Plan Advanced", "Premium Service Plan Essential", "Advanced Service Plan", "No Coverage"],
     "DPP": ["With Digital Product Passport", "Without Digital Product Passport"],
     "Status": ["Live Telemetry", "Active Alert", "Last Service Visit", "No Record"],
     "Age": ["< 5 years", "5–9 years", "10+ years"]
@@ -155,11 +155,11 @@
     "No record": "—"
   },
   "requiredAssetStates": [
-    "connected-schneider",
-    "connected-schneider-with-alert",
-    "connected-schneider-with-connectivity-issue",
-    "non-connected-schneider",
-    "non-connected-schneider-with-service-history",
+    "connected-oem",
+    "connected-oem-with-alert",
+    "connected-oem-with-connectivity-issue",
+    "non-connected-oem",
+    "non-connected-oem-with-service-history",
     "third-party"
   ],
   "thirdPartyAssetRules": {
