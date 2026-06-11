@@ -47,7 +47,7 @@ It does not expand the component library.
 | G-008 | P0 | Component status | Preferred, allowed, use-with-care, internal-only, deprecated and blocked components are not centrally enforced | Add `genAIStatus` and `allowedInRuntime` to the registry | Ready for review |
 | G-009 | P0 | Domain semantics | Critical semantic distinctions are not yet contractually enforced | Create `contracts/domain-model.contract.json` | Ready for review |
 | G-010 | P0 | Visual drift | Visual brand rules are long, old and not contract-backed | Move old visual brand to source, create `runtime/visual-rules.md`, harden `contracts/visual-rules.contract.json` and add `visual-rules.test.ts` | Closed |
-| G-011 | P0 | Story coverage | Story coverage is not yet registry-driven or sufficiently proof-based | Create `contracts/story-coverage.contract.json` and upgrade tests | Open |
+| G-011 | P0 | Story coverage | Story coverage is not yet registry-driven or sufficiently proof-based | Create `contracts/story-coverage.contract.json` and upgrade tests | Ready for review |
 | G-012 | P0 | Benchmarks | Benchmarks do not yet cover context drift and information overload | Add multi-turn and overload benchmark cases | Open |
 | G-013 | P0 | Repair routing | Repair prompts are not yet exposed through a minimal router | Create `guidelines/evaluation/repair/repair-router.md` | Open |
 | G-014 | P1 | Package files | Package may expose too much historical or non-runtime context | Review package `files` and classify Make-facing vs source vs archive content | Open |
@@ -76,7 +76,7 @@ G-004 runtime docs creation — ready for review
 G-007 component registry — ready for review
 G-008 central component status — ready for review
 G-009 domain model contract — ready for review
-G-011 story coverage contract — open
+G-011 story coverage contract — ready for review
 G-012 context drift and overload benchmarks — open
 G-013 repair router — open
 ```
@@ -126,8 +126,8 @@ A gap can be closed only when one of the following is true:
 
 ```txt
 P0 closed: 6
-P0 ready for review: 4
-P0 open: 3
+P0 ready for review: 5
+P0 open: 2
 P1 ready for review: 5
 P1 open: 2
 P2 open: 4
