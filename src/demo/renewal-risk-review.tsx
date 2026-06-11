@@ -41,12 +41,12 @@ export function RenewalRiskReview() {
         controls={
           <FilterBar
             title="Renewal preparation"
-            description="Focus on blockers that prevent confident customer discussion."
+            description="Focus on blockers that prevent confident discussion."
             resultCount="3 blockers · renewal window: 62 days"
             filters={
               <>
                 <SemanticTag tone="warning">Proof incomplete</SemanticTag>
-                <SemanticTag tone="danger">Customer use blocked</SemanticTag>
+                <SemanticTag tone="danger">Use blocked</SemanticTag>
               </>
             }
           />
@@ -69,9 +69,9 @@ export function RenewalRiskReview() {
                 overdueActions="3 high-priority actions"
                 renewalRiskReason="Value proof is incomplete and mitigation actions are overdue."
                 proofReadiness="internal-proof"
-                proofReadinessLabel="Internal proof, not customer-ready"
+                proofReadinessLabel="Internal proof"
                 validationStatus="internal-review-needed"
-                validationStatusLabel="Proof review needed before customer use"
+                validationStatusLabel="Proof review needed before use"
                 sourceContext="Closed service actions and recommendation history"
                 badges={[{ label: "Proof review needed", tone: "warning" }]}
               />
@@ -80,16 +80,16 @@ export function RenewalRiskReview() {
                 mode="section"
                 period="Last 90 days"
                 customerObjective="Make service value visible before renewal"
-                proofStatus="Customer-ready summary incomplete"
+                proofStatus="Summary incomplete"
                 proofReadiness="internal-proof"
-                proofReadinessLabel="Internal proof, not customer-ready"
+                proofReadinessLabel="Internal proof"
                 validationStatus="internal-review-needed"
                 validationStatusLabel="Proof review needed"
                 sourceContext="Closed service actions and recommendation history"
                 expectedOutcome="Stronger renewal discussion after proof consolidation"
                 proofPoints={[
-                  { label: "Closed actions", value: "12 service actions closed; customer-ready synthesis is pending." },
-                  { label: "Remaining proof gap", value: "Resolved risks need customer-ready language." },
+                  { label: "Closed actions", value: "12 service actions closed; synthesis is pending." },
+                  { label: "Remaining proof gap", value: "Resolved risks need clearer language." },
                 ]}
               />
 
@@ -106,8 +106,8 @@ export function RenewalRiskReview() {
           detail={
             <DetailPanel>
               <DetailPanelHeader
-                title="Customer-ready proof is incomplete"
-                description="The renewal conversation needs validated customer-facing proof."
+                title="Proof is incomplete"
+                description="The renewal conversation needs validated proof."
                 meta={<StatusPill tone="warning">Proof review needed</StatusPill>}
               />
               <DetailPanelTabs
@@ -122,11 +122,11 @@ export function RenewalRiskReview() {
                   <SectionBlock title="Main blocker">
                     <AlertCard
                       severity="critical"
-                      title="Value proof is not customer-ready"
+                      title="Value proof is not ready"
                       scope="Renewal preparation"
-                      description="Internal proof exists but cannot yet support the renewal discussion."
-                      recommendation="Prepare a customer-ready value proof summary before the renewal meeting."
-                      evidenceSummary="Internal proof exists, but validation is still needed before customer use."
+                      description="Internal proof exists but still needs review."
+                      recommendation="Prepare a validated value proof summary before the renewal meeting."
+                      evidenceSummary="Internal proof exists, but validation is still needed before use."
                       sourceScope="Closed service actions and recommendation history"
                       sourceStrength="partial"
                       freshness="Last 90 days"
@@ -140,25 +140,24 @@ export function RenewalRiskReview() {
                     reviewStatus="Proof and source review needed"
                     sourceContext="Closed service actions and recommendation history"
                     validationStatus="internal-review-needed"
-                    validationStatusLabel="Review before customer use"
+                    validationStatusLabel="Review before use"
                     customerReadiness="needs-review"
-                    customerReadinessLabel="Not customer-ready yet"
+                    customerReadinessLabel="Not ready yet"
                     proofReadiness="internal-proof"
-                    proofReadinessLabel="Internal proof, not customer-ready"
+                    proofReadinessLabel="Internal proof"
                   >
                     <RecommendationCard
-                      title="Prepare customer-ready value proof summary"
-                      recommendation="Prepare a customer-ready value proof summary before renewal."
+                      title="Prepare value proof summary"
+                      recommendation="Prepare a validated value proof summary before renewal."
                       priority="high"
                       readiness="needs_review"
-                      rationale="The renewal discussion needs customer-relevant outcomes, not internal activity only."
+                      rationale="The renewal discussion needs relevant outcomes, not internal activity only."
                       scope="Value proof"
-                      evidenceSummary="12 service actions were closed but not synthesized for customer use."
+                      evidenceSummary="12 service actions were closed but not synthesized for use."
                       source="Service action history"
                       sourceScope="Last 90 days"
                       sourceStrength="partial"
                       freshness="Last 90 days"
-                      proofStatus="Internal proof, not customer-ready"
                       validationStatus="internal-review-needed"
                     />
                   </RecommendationReviewPanel>
@@ -176,7 +175,7 @@ export function RenewalRiskReview() {
         />
 
         <SectionBlock title="Mitigation actions">
-          <ActionRow title="Prepare customer-ready value proof summary" owner="Account owner" dueDate="Before renewal meeting" priority="high" status="todo" context="Proof is internal and needs customer-ready synthesis." />
+          <ActionRow title="Prepare value proof summary" owner="Account owner" dueDate="Before renewal meeting" priority="high" status="todo" context="Proof needs synthesis." />
           <ActionRow title="Review recommendation readiness" owner="Service Manager" dueDate="Next 3 business days" priority="high" status="in_progress" context="Recommendations need source and proof review." />
         </SectionBlock>
       </WorkspaceShell>
