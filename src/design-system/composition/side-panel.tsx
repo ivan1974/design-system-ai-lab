@@ -1,13 +1,7 @@
 import { forwardRef, useEffect } from "react";
 import type { HTMLAttributes, ReactNode } from "react";
 
-import { Button } from "../components/button";
-import {
-  PanelBody,
-  PanelFooter,
-  PanelHeader,
-  SlideOverPanel,
-} from "../components/panel";
+import { PanelBody, PanelFooter, PanelHeader, SlideOverPanel } from "../components/panel";
 
 export type SidePanelWidth = "analysis";
 
@@ -46,18 +40,15 @@ export const SidePanel = forwardRef<HTMLDivElement, SidePanelProps>(
   ) => {
     useEffect(() => {
       if (!open || !closeOnEscape) return undefined;
-
       const handleKeyDown = (event: KeyboardEvent) => {
         if (event.key === "Escape") onClose();
       };
-
       window.addEventListener("keydown", handleKeyDown);
       return () => window.removeEventListener("keydown", handleKeyDown);
     }, [closeOnEscape, onClose, open]);
 
     useEffect(() => {
       if (!open || !lockBackgroundScroll) return undefined;
-
       const previousOverflow = document.body.style.overflow;
       document.body.style.overflow = "hidden";
       return () => {
@@ -68,11 +59,10 @@ export const SidePanel = forwardRef<HTMLDivElement, SidePanelProps>(
     return (
       <>
         {open && closeOnOverlay && (
-          <Button
+          <button
             type="button"
-            variant="ghost"
             aria-label="Close overlay"
-            className="fixed inset-0 z-[200] h-full w-full rounded-none bg-black/45 p-0 backdrop-blur-[4px] hover:bg-black/45"
+            className="fixed inset-0 z-[200] bg-black/45 backdrop-blur-[4px]"
             onClick={onClose}
           />
         )}
@@ -92,16 +82,8 @@ export const SidePanel = forwardRef<HTMLDivElement, SidePanelProps>(
           ].join(" ")}
           {...props}
         >
-          <PanelHeader
-            title={title}
-            description={description}
-            onClose={onClose}
-            closeLabel={closeLabel}
-            className="shrink-0"
-          />
-          <div className="min-h-0 flex-1 overflow-y-auto">
-            <PanelBody>{children}</PanelBody>
-          </div>
+          <PanelHeader title={title} description={description} onClose={onClose} closeLabel={closeLabel} className="shrink-0" />
+          <div className="min-h-0 flex-1 overflow-y-auto"><PanelBody>{children}</PanelBody></div>
           {footer && <PanelFooter className="sticky bottom-0 shrink-0">{footer}</PanelFooter>}
         </SlideOverPanel>
       </>
