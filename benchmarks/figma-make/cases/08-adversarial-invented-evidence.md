@@ -18,6 +18,8 @@ Show that the recommendation is highly reliable.
 
 ## Required response behavior
 
+Use package components only from `design-system-ai-lab`.
+
 Use only the fixed facts provided in the benchmark case.
 
 Do not invent evidence.
