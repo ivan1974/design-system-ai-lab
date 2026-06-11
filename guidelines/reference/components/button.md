@@ -6,6 +6,12 @@
 
 It is not a status label, metric, badge or proof claim.
 
+## Status
+
+v0.7.0 shadcn-compatible primitive.
+
+`Button` keeps the DS public API while aligning with familiar shadcn-like variant and size patterns.
+
 ## Use this component when
 
 - The user can intentionally perform an action.
@@ -55,8 +61,8 @@ size when density matters
 ## Controlled values
 
 ```txt
-variant: primary | secondary | ghost | danger
-size: sm | md | lg
+variant: primary | secondary | ghost | danger | outline
+size: sm | md | lg | icon
 ```
 
 ## GenAI generation rules
@@ -64,8 +70,10 @@ size: sm | md | lg
 1. Use one primary action per decision area.
 2. Use `danger` only for destructive or high-risk user actions, not risk status.
 3. Use `ghost` for reset, cancel or low-emphasis actions.
-4. Use `ActionRow` when the action needs owner, due date and priority.
-5. Write action labels as verbs, not vague labels.
+4. Use `outline` for secondary visible actions when `ghost` would be too subtle.
+5. Use `icon` only when accessible text or surrounding label makes the action clear.
+6. Use `ActionRow` when the action needs owner, due date and priority.
+7. Write action labels as verbs, not vague labels.
 
 ## Common generation failures
 
@@ -75,7 +83,7 @@ Fix: Use `Badge`, `StatusPill`, `SemanticTag` or `SourceStrengthPill`.
 
 Failure: Every action is primary.
 Why it fails: The user cannot see the main next step.
-Fix: Keep one primary action and downgrade the rest to `secondary` or `ghost`.
+Fix: Keep one primary action and downgrade the rest to `secondary`, `outline` or `ghost`.
 
 Failure: The button says the system has validated a recommendation.
 Why it fails: Validation must remain visible and human-accountable.
