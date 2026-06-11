@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { HealthPill } from "../../decision/health-pill";
 
 const meta = {
-  title: "Design System/Decision/HealthPill",
+  title: "Decision/HealthPill",
   component: HealthPill,
   parameters: { layout: "centered" },
   tags: ["autodocs"],
