@@ -45,7 +45,7 @@ Preserve the exact five primary layers:
 
 Preserve the exact Main Navigation elements:
 
-1. Schneider Electric Logo
+1. Reference Company Logo
 2. Product Name
 3. Global Search
 4. Help
@@ -84,9 +84,7 @@ Preserve the exact View & Filter Bar structure:
 - Left Zone: List, Geography, Electrical
 - Right Zone: Location, Asset Type, Contract Type, All Filters
 
-Do not add extra views.
-
-Do not add extra filters.
+Do not add extra views or filters.
 
 The All Filters Panel must contain exactly nine categories:
 
@@ -100,13 +98,7 @@ The All Filters Panel must contain exactly nine categories:
 8. Asset Type
 9. Contract Type
 
-Filter labels must be text only.
-
-Icons and emojis are prohibited in filter labels.
-
-Multiple values must be selectable.
-
-A Clear All action is required.
+Filter labels must be text only. Multiple values must be selectable. A Clear All action is required.
 
 Preserve the exact Installed Base List grouping:
 
@@ -130,11 +122,7 @@ Preserve the exact seven columns:
 6. Status
 7. Action
 
-Do not add extra columns.
-
-Do not replace the inventory list with card stacks.
-
-Do not transform the screen into a dashboard.
+Do not add extra columns. Do not replace the inventory list with card stacks. Do not transform the screen into a dashboard.
 
 The Asset column must contain exactly:
 
@@ -154,57 +142,29 @@ The Type column must use only these asset families:
 - PDU
 - Battery System
 
-The Coverage column must contain:
+The Coverage column must contain Service Coverage and DPP Status.
 
-- Service Coverage
-- DPP Status
+Coverage must use only:
 
-Health must use only:
+- Premium Service Plan Advanced
+- Premium Service Plan Essential
+- Advanced Service Plan
+- No Coverage
 
-- Critical
-- Poor
-- Fair
-- Good
-- Excellent
-- Unknown
+Health must use only Critical, Poor, Fair, Good, Excellent and Unknown.
 
-Status must use only:
-
-- Live telemetry
-- Active alert
-- Connectivity issue
-- Last service visit
-- No record
-
-Status labels must include their required icon:
-
-| Status | Icon |
-| --- | --- |
-| Live telemetry | ✓ |
-| Active alert | ⚠ |
-| Connectivity issue | ⚠ |
-| Last service visit | ◷ |
-| No record | — |
+Status must use only Live telemetry, Active alert, Connectivity issue, Last service visit and No record.
 
 The prototype must represent exactly these six asset states:
 
-1. connected-schneider
-2. connected-schneider-with-alert
-3. connected-schneider-with-connectivity-issue
-4. non-connected-schneider
-5. non-connected-schneider-with-service-history
+1. connected-oem
+2. connected-oem-with-alert
+3. connected-oem-with-connectivity-issue
+4. non-connected-oem
+5. non-connected-oem-with-service-history
 6. third-party
 
-A third-party asset must display:
-
-| Field | Value |
-| --- | --- |
-| Connectivity | Unknown |
-| Coverage | No Coverage |
-| Health | Unknown |
-| Status | No record |
-
-No exception is allowed.
+A third-party asset must display Unknown connectivity, No Coverage, Unknown health and No record status.
 
 Selecting an asset row must open the Asset Detail Panel.
 
@@ -224,8 +184,6 @@ The Asset Detail Panel must contain exactly six tabs:
 5. History
 6. Documents
 
-No additional tab is allowed.
-
 The Action Area must remain visible while panel content scrolls.
 
 The Action Area must contain exactly these actions:
@@ -236,26 +194,13 @@ The Action Area must contain exactly these actions:
 
 No additional action is allowed.
 
-When the panel is open:
+Preserve context during navigation: Active View, Active Filters, Selected Asset and Selected Tab.
 
-- background content must not scroll;
-- Installed Base List must not scroll;
-- only Asset Detail Panel content must scroll;
-- overlay click closes the panel;
-- close icon closes the panel;
-- Escape closes the panel.
+Keep Health and Intelligence separated.
 
-Preserve context during navigation:
+Health equals facts, measurements, observations, current condition, telemetry, alert facts, freshness and source.
 
-- Active View
-- Active Filters
-- Selected Asset
-- Selected Tab
-
-Keep Health and Intelligence separated:
-
-- Health = facts, measurements, observations, current condition, telemetry, alert facts, freshness, source.
-- Intelligence = diagnosis, interpretation, benchmarking, recommendations, expected outcome, proof readiness, source strength, validation, action plan.
+Intelligence equals diagnosis, interpretation, benchmarking, recommendations, expected outcome, proof readiness, source strength, validation and action plan.
 
 Do not duplicate content between Health and Intelligence.
 
@@ -271,89 +216,20 @@ Use this hierarchy:
 2. Decision — what should be done?
 3. Evidence — why should the user trust it?
 
-Apply operational intelligence visual density:
-
-- dense rows over repeated cards;
-- table-like alignment;
-- white-first surfaces;
-- subtle borders;
-- compact tags;
-- compact pills;
-- icon + label statuses;
-- no hero metrics;
-- no decorative gradients;
-- no local colored panels.
+Apply operational intelligence visual density: dense rows, table-like alignment, white-first surfaces, subtle borders, compact tags, compact pills and icon + label statuses.
 
 ## Scoring guide
 
 Total: 100 points.
 
-### 1. Architecture compliance — 15 points
-
-- exactly five primary layers: 5
-- correct layer order: 3
-- no additional primary layer: 3
-- Main Navigation and Page Header are separated: 2
-- no dashboard or marketing layer: 2
-
-### 2. Navigation and header compliance — 10 points
-
-- Main Navigation has exactly five elements: 3
-- product name and search placeholder are exact: 2
-- Main Navigation contains no forbidden content: 2
-- Page Header has exactly five elements: 2
-- Page Header contains no forbidden content: 1
-
-### 3. Filter compliance — 10 points
-
-- exactly three views: 2
-- exactly four quick filters: 2
-- exactly nine advanced filter categories: 3
-- Clear All exists: 1
-- multiple values selectable: 1
-- no extra filters/views: 1
-
-### 4. Installed base list/table compliance — 20 points
-
-- required grouping is used: 3
-- Attention required appears first: 3
-- exactly seven columns: 5
-- Asset column has four required elements: 3
-- Coverage and Status columns have required structure: 3
-- no card stack replacement: 3
-
-### 5. Asset state compliance — 15 points
-
-- all six asset states represented: 5
-- third-party mandatory values respected: 4
-- no unsupported asset family: 2
-- no unsupported health value: 2
-- no unsupported status or coverage value: 2
-
-### 6. Detail panel compliance — 15 points
-
-- row selection opens panel: 2
-- exactly four panel sections: 2
-- exactly six tabs: 3
-- exactly three actions: 2
-- action area is sticky: 2
-- overlay, close icon and Escape close behavior: 2
-- scroll lock behavior: 2
-
-### 7. Progressive decision disclosure — 10 points
-
-- signal visible first: 2
-- decision visible before deep evidence: 2
-- evidence progressively exposed: 2
-- Health and Intelligence separated: 2
-- source strength, validation and proof readiness placed near recommendations/outcomes: 2
-
-### 8. Visual density and DS compliance — 5 points
-
-- DS-only implementation: 2
-- dense table-first visual system: 1
-- white-first subtle surfaces: 1
-- no overbranding, gradients, hero metrics or local visual panels: 1
+1. Architecture compliance — 15
+2. Navigation and header compliance — 10
+3. Filter compliance — 10
+4. Installed base list/table compliance — 20
+5. Asset state compliance — 15
+6. Detail panel compliance — 15
+7. Progressive decision disclosure — 10
+8. Visual density and DS compliance — 5
 
 ## Blocking failures
 
