@@ -1,57 +1,76 @@
 :root {
+  /* v0.8 prototype-aligned visual system. Keep the --ec namespace as the only DS token namespace. */
   --ec-color-background: #ffffff;
-  --ec-color-background-subtle: #f7f8f7;
+  --ec-color-background-subtle: #f3f3f5;
   --ec-color-workspace: #ffffff;
 
   --ec-color-surface: #ffffff;
-  --ec-color-surface-muted: #f6f7f6;
-  --ec-color-surface-soft: #fafafa;
+  --ec-color-surface-muted: #f3f3f5;
+  --ec-color-surface-soft: #f8f8fa;
   --ec-color-surface-raised: #ffffff;
   --ec-color-surface-glass: #ffffff;
 
-  --ec-color-row-hover: rgba(0, 149, 59, 0.045);
-  --ec-color-row-selected: rgba(0, 149, 59, 0.075);
-  --ec-color-row-selected-border: rgba(0, 149, 59, 0.2);
+  --ec-color-row-hover: rgba(0, 0, 0, 0.035);
+  --ec-color-row-selected: #f0faf5;
+  --ec-color-row-selected-border: #b3e6d0;
 
-  --ec-color-text-primary: #111111;
-  --ec-color-text-secondary: #4b4b4b;
-  --ec-color-text-muted: #737373;
+  --ec-color-text-primary: #030213;
+  --ec-color-text-secondary: #52525b;
+  --ec-color-text-muted: #717182;
+  --ec-color-text-inverse: #ffffff;
 
-  --ec-color-border: #e5e5e5;
-  --ec-color-border-soft: #eeeeee;
-  --ec-color-border-strong: #d4d4d4;
+  --ec-color-border: rgba(0, 0, 0, 0.1);
+  --ec-color-border-soft: rgba(0, 0, 0, 0.06);
+  --ec-color-border-strong: rgba(0, 0, 0, 0.16);
 
-  --ec-color-primary: #00953b;
-  --ec-color-primary-hover: #007f32;
-  --ec-color-primary-active: #006b2b;
-  --ec-color-primary-soft: rgba(0, 149, 59, 0.075);
-  --ec-color-primary-border: rgba(0, 149, 59, 0.18);
+  --ec-color-input-background: #f3f3f5;
+  --ec-color-input-border: rgba(0, 0, 0, 0.1);
+  --ec-color-input-focus: #00985f;
+
+  --ec-color-primary: #00985f;
+  --ec-color-primary-hover: #007a4a;
+  --ec-color-primary-active: #006b3f;
+  --ec-color-primary-soft: #f0faf5;
+  --ec-color-primary-border: #b3e6d0;
   --ec-color-primary-foreground: #ffffff;
 
-  --ec-color-success: #168a46;
-  --ec-color-success-soft: rgba(22, 138, 70, 0.08);
-  --ec-color-warning: #c97908;
-  --ec-color-warning-soft: rgba(201, 121, 8, 0.09);
-  --ec-color-danger: #c92f2f;
-  --ec-color-danger-soft: rgba(201, 47, 47, 0.08);
+  --ec-color-success: #10b981;
+  --ec-color-success-soft: #ecfdf5;
+  --ec-color-success-border: #a7f3d0;
+  --ec-color-warning: #d97706;
+  --ec-color-warning-soft: #fffbeb;
+  --ec-color-warning-border: #fde68a;
+  --ec-color-danger: #dc2626;
+  --ec-color-danger-soft: #fef2f2;
+  --ec-color-danger-border: #fecaca;
+  --ec-color-info: #3b82f6;
+  --ec-color-info-soft: #eff6ff;
+  --ec-color-info-border: #bfdbfe;
+  --ec-color-neutral: #6b7280;
+  --ec-color-neutral-soft: #f3f4f6;
+  --ec-color-neutral-border: #e5e7eb;
 
+  --ec-font-family-sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --ec-font-size-root: 16px;
+  --ec-font-size-0: 0.6875rem;
   --ec-font-size-1: 0.75rem;
-  --ec-font-size-2: 0.875rem;
-  --ec-font-size-3: 1rem;
-  --ec-font-size-4: 1.125rem;
-  --ec-font-size-5: 1.25rem;
-  --ec-font-size-6: 1.5rem;
-  --ec-font-size-7: 1.875rem;
-  --ec-font-size-8: 2.5rem;
+  --ec-font-size-2: 0.8125rem;
+  --ec-font-size-3: 0.875rem;
+  --ec-font-size-4: 1rem;
+  --ec-font-size-5: 1.125rem;
+  --ec-font-size-6: 1.25rem;
+  --ec-font-size-7: 1.5rem;
+  --ec-font-size-8: 1.875rem;
 
+  --ec-line-height-0: 0.875rem;
   --ec-line-height-1: 1rem;
-  --ec-line-height-2: 1.375rem;
-  --ec-line-height-3: 1.625rem;
-  --ec-line-height-4: 1.75rem;
-  --ec-line-height-5: 1.875rem;
-  --ec-line-height-6: 2.125rem;
-  --ec-line-height-7: 2.375rem;
-  --ec-line-height-8: 3rem;
+  --ec-line-height-2: 1.125rem;
+  --ec-line-height-3: 1.25rem;
+  --ec-line-height-4: 1.5rem;
+  --ec-line-height-5: 1.625rem;
+  --ec-line-height-6: 1.75rem;
+  --ec-line-height-7: 2rem;
+  --ec-line-height-8: 2.25rem;
 
   --ec-letter-spacing-tight: -0.025em;
   --ec-letter-spacing-normal: 0em;
@@ -64,47 +83,68 @@
 
   --ec-title-page-size: var(--ec-font-size-8);
   --ec-title-page-line-height: var(--ec-line-height-8);
-  --ec-title-section-size: var(--ec-font-size-5);
-  --ec-title-section-line-height: var(--ec-line-height-5);
-  --ec-title-subsection-size: var(--ec-font-size-4);
-  --ec-title-subsection-line-height: var(--ec-line-height-4);
+  --ec-title-section-size: var(--ec-font-size-6);
+  --ec-title-section-line-height: var(--ec-line-height-6);
+  --ec-title-subsection-size: var(--ec-font-size-5);
+  --ec-title-subsection-line-height: var(--ec-line-height-5);
   --ec-text-body-size: var(--ec-font-size-3);
   --ec-text-body-line-height: var(--ec-line-height-3);
   --ec-text-caption-size: var(--ec-font-size-1);
   --ec-text-caption-line-height: var(--ec-line-height-1);
 
-  --ec-radius-sm: 8px;
-  --ec-radius-md: 14px;
-  --ec-radius-lg: 20px;
-  --ec-radius-xl: 24px;
+  --ec-radius-xs: 2px;
+  --ec-radius-sm: calc(var(--ec-radius-md) - 4px);
+  --ec-radius-md: 0.625rem;
+  --ec-radius-lg: var(--ec-radius-md);
+  --ec-radius-xl: calc(var(--ec-radius-md) + 4px);
   --ec-radius-pill: 999px;
 
+  --ec-spacing-2xs: 2px;
   --ec-spacing-xs: 4px;
   --ec-spacing-sm: 8px;
-  --ec-spacing-md: 18px;
-  --ec-spacing-lg: 28px;
-  --ec-spacing-xl: 40px;
-  --ec-spacing-2xl: 56px;
+  --ec-spacing-md: 12px;
+  --ec-spacing-lg: 16px;
+  --ec-spacing-xl: 20px;
+  --ec-spacing-2xl: 24px;
+  --ec-spacing-3xl: 32px;
+  --ec-spacing-4xl: 40px;
+  --ec-spacing-5xl: 56px;
+
+  --ec-density-control-height-sm: 30px;
+  --ec-density-control-height-md: 34px;
+  --ec-density-nav-height: 60px;
+  --ec-density-filter-bar-height: 46px;
+  --ec-density-row-height-sm: 44px;
+  --ec-density-row-height-md: 56px;
+  --ec-density-table-cell-x: 12px;
+  --ec-density-table-cell-y: 8px;
+  --ec-density-panel-width-sm: 360px;
+  --ec-density-panel-width-md: 500px;
+  --ec-density-panel-width-preferred: 30vw;
 
   --ec-shadow-card: none;
   --ec-shadow-surface: none;
-  --ec-shadow-panel: none;
-  --ec-shadow-popover: 0 16px 40px rgba(17, 17, 17, 0.1);
+  --ec-shadow-panel: -12px 0 28px rgba(0, 0, 0, 0.08);
+  --ec-shadow-popover: 0 12px 28px rgba(0, 0, 0, 0.1);
+  --ec-shadow-control: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --ec-shadow-nav: 0 1px 0 rgba(0, 0, 0, 0.06);
 
   --ec-transition-fast: 120ms ease;
   --ec-transition-base: 180ms ease;
   --ec-transition-panel: 240ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
+html {
+  font-size: var(--ec-font-size-root);
+}
+
 body {
   margin: 0;
   background: var(--ec-color-background);
   color: var(--ec-color-text-primary);
-  font-family:
-    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", sans-serif;
-  font-size: var(--ec-font-size-3);
-  line-height: var(--ec-line-height-3);
+  font-family: var(--ec-font-family-sans);
+  font-size: var(--ec-text-body-size);
+  line-height: var(--ec-text-body-line-height);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
