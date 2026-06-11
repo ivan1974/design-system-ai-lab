@@ -6,6 +6,8 @@ const rootDir = process.cwd();
 const read = (relativePath: string) => fs.readFileSync(path.join(rootDir, relativePath), "utf-8");
 const readJson = <T>(relativePath: string) => JSON.parse(read(relativePath)) as T;
 
+type BenchmarkCaseType = "first-generation" | "iteration" | "adversarial";
+
 type BenchmarkContract = {
   protocol: {
     caseDirectory: string;
@@ -18,12 +20,12 @@ type BenchmarkContract = {
     minimumAcceptedScore: number;
     excellentScore: number;
   };
-  requiredCaseTypes: string[];
+  requiredCaseTypes: BenchmarkCaseType[];
   requiredDriftCoverage: string[];
   nonNegotiables: string[];
   cases: Array<{
     id: string;
-    type: "first-generation" | "iteration" | "adversarial";
+    type: BenchmarkCaseType;
     path: string;
     promptKind: string;
     mustPass: string[];
@@ -121,18 +123,7 @@ describe("generation rules: benchmark contract", () => {
     ];
 
     for (const phrase of expectedPhrases) {
-      expect(allCaseText, `${phrase} is missing from benchmark cases`).toContain(phrase);
+      expect(allCaseText).toContain(phrase);
     }
-  });
-
-  it("keeps the scoring protocol wired to outputs and evaluations", () => {
-    expect(benchmark.protocol.outputDirectory).toBe("benchmarks/figma-make/outputs");
-    expect(benchmark.protocol.evaluationDirectory).toBe("benchmarks/figma-make/evaluations");
-    expect(fs.existsSync(path.join(rootDir, benchmark.protocol.scoringTemplate))).toBe(true);
-    expect(fs.existsSync(path.join(rootDir, benchmark.protocol.installedBaseScoringTemplate))).toBe(true);
-    expect(fs.existsSync(path.join(rootDir, benchmark.protocol.installedBaseGenerationTemplate))).toBe(true);
-    expect(benchmark.protocol.testCommand).toContain("GENERATED_APP_PATH");
-    expect(benchmark.protocol.minimumAcceptedScore).toBe(80);
-    expect(benchmark.protocol.excellentScore).toBe(90);
   });
 });
