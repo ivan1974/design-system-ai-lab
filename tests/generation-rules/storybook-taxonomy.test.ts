@@ -16,6 +16,7 @@ const allowedRoots = [
   "Golden Examples",
   "Patterns",
   "Screen Architecture",
+  "Screen Contracts",
 ];
 
 function walk(dir: string): string[] {
@@ -61,6 +62,7 @@ describe("generation rules: Storybook taxonomy", () => {
       foundations: "Foundations",
       patterns: "Patterns",
       "screen-architecture": "Screen Architecture",
+      "screen-contracts": "Screen Contracts",
     };
 
     for (const filePath of walk(storiesDir)) {
