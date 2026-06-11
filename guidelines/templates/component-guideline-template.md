@@ -4,7 +4,7 @@
 
 Use this template for GenAI-ready component and pattern guidelines.
 
-A guideline is not valid for `v0.5.1` if a generative AI cannot use it to choose, configure and reject a component without guessing.
+A guideline is not valid for `v0.6.0` if a generative AI cannot use it to choose, configure and reject a component without guessing.
 
 This template applies to:
 
@@ -142,7 +142,7 @@ guidelines/evaluation/repair/name.md
 If no repair prompt exists yet, write:
 
 ```txt
-No dedicated repair prompt yet. Use review/repair-routing.md.
+No dedicated repair prompt yet. Use guidelines/evaluation/repair/repair-router.md.
 ```
 
 ### Related stories section
@@ -163,7 +163,7 @@ List machine-readable contracts that must match this guideline.
 Use:
 
 ```txt
-contracts/components.contract.json
+contracts/component-registry.contract.json
 contracts/props.contract.json
 contracts/evidence-and-trust.contract.json
 contracts/generation-blockers.contract.json
@@ -173,7 +173,7 @@ contracts/generation-blockers.contract.json
 
 ## Quality bar
 
-A guideline fails the v0.5.1 standard if it:
+A guideline fails the v0.6.0 standard if it:
 
 - describes the component visually but not generatively
 - omits when not to use the component
