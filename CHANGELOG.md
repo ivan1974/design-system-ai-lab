@@ -1,5 +1,61 @@
 # Changelog
 
+## 0.7.0-alpha.0 — Installed Base Intelligence alpha
+
+Version `0.7.0-alpha.0` stabilizes the public alpha surface for the Installed Base Intelligence Make Kit.
+
+This release is public for experimentation and validation, but it is not production-ready.
+
+---
+
+## 0.7.0-alpha.0 Added
+
+- Installed Base domain model and controlled values.
+- Installed Base Intelligence closed screen contract.
+- Screen-level Storybook proof under `Screen Contracts/Installed Base Intelligence`.
+- Golden example app in `guidelines/examples/golden/installed-base-intelligence.App.tsx`.
+- Installed Base shell, filters, list and asset detail analysis panel patterns.
+- Six Installed Base asset states.
+- Third-party mandatory values: Unknown connectivity, No Coverage, Unknown health and No record status.
+- Health facts-only and Intelligence decision-oriented separation.
+- Benchmark cases 12–17 for Installed Base Intelligence.
+- Installed Base scoring rubric and generation template.
+- Installed Base repair prompts and router entries.
+- Storybook taxonomy guardrails for screen contracts and golden examples.
+
+---
+
+## 0.7.0-alpha.0 Changed
+
+- Updated public package version to `0.7.0-alpha.0`.
+- Updated `README.md` to position the current alpha around Installed Base Intelligence.
+- Updated `contracts/package.contract.json` for the `next` alpha publish surface.
+- Extended `contracts/benchmark.contract.json` from 11 to 17 cases.
+- Extended public exports with Installed Base screen-level patterns and types.
+- Aligned Storybook titles with the top-level taxonomy roots.
+- Aligned decision and pattern stories with controlled trust, proof, readiness and source-strength values.
+
+---
+
+## 0.7.0-alpha.0 Fixed
+
+- Removed obsolete `Design System/` Storybook roots.
+- Fixed Storybook taxonomy title detection to read the `const meta` title only.
+- Replaced non-canonical Tailwind class names in popover, tooltip, typography and review queue row components.
+- Fixed Fast Refresh lint violations in golden examples by keeping non-component fixtures local.
+
+---
+
+## 0.7.0-alpha.0 Known limitations
+
+- This package is not production-ready.
+- Public APIs and contracts may still change before a stable release.
+- Real Figma Make validation is still required.
+- Accessibility and visual regression review are not complete production gates yet.
+- Storybook production build can warn about large Storybook-generated chunks.
+
+---
+
 ## 0.6.0-alpha.0 — GenAI Runtime Optimization
 
 Version `0.6.0-alpha.0` prepares the project as a GenAI-first Make Kit runtime.
