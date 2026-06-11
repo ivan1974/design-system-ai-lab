@@ -56,7 +56,7 @@ function renderOverview(asset: InstalledBaseAsset) {
 function renderHealth(asset: InstalledBaseAsset) {
   return (
     <div className="grid gap-4">
-      <Text variant="caption">Facts only. This tab shows observed condition signals, not diagnosis or recommendations.</Text>
+      <Text variant="caption">Facts only. This tab shows observed condition signals and current recorded states.</Text>
       <KeyValueList columns={2}>
         <KeyValueRow label="Health" value={<HealthPill health={asset.health} />} />
         <KeyValueRow label="Connectivity" value={asset.connectivity} />
