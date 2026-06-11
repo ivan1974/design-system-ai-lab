@@ -17,20 +17,56 @@ Use it to avoid component stacking, generic dashboards and overloaded decision s
 Before generating, follow this order:
 
 ```txt
-1. Identify the primary user decision.
-2. Select the main domain object.
-3. Select the screen type.
-4. Select the workspace architecture.
-5. Use a business pattern first when one fits.
-6. Add decision components only where they support action.
-7. Add evidence and trust markers.
-8. Add owned next actions.
-9. Apply progressive disclosure.
-10. Apply visual rules.
-11. Run blockers before final answer.
+1. Identify whether a screen contract exists.
+2. If a screen contract exists, read it and preserve it exactly.
+3. Identify the primary user decision.
+4. Select the main domain object.
+5. Select the screen type.
+6. Select the workspace architecture only when no contract architecture exists.
+7. Use a business pattern first when one fits and the contract allows it.
+8. Add decision components only where they support action.
+9. Add evidence and trust markers.
+10. Add owned next actions.
+11. Apply progressive disclosure.
+12. Apply visual rules.
+13. Run blockers before final answer.
 ```
 
 Do not start by choosing random components.
+
+Do not start from the default architecture when a screen contract defines exact layers.
+
+---
+
+## 0. Screen contract check
+
+A screen contract is the highest-priority generation artifact.
+
+If a screen contract exists, it controls:
+
+```txt
+primary layers
+layer order
+zones
+views
+filters
+filter categories
+columns
+column internals
+grouping
+tabs
+actions
+asset states
+interactions
+context preservation
+forbidden content
+```
+
+Closed screen contracts do not allow undefined elements.
+
+Do not add extra filters, columns, tabs, metrics or actions to improve the screen.
+
+Improve hierarchy only inside allowed zones.
 
 ---
 
@@ -45,6 +81,7 @@ Review renewal risk and decide the next owned action.
 Validate an asset recommendation before customer sharing.
 Monitor service risk and assign follow-through.
 Prepare a customer review from validated proof points.
+Identify installed base assets that require attention and decide the next action.
 ```
 
 Bad decisions:
@@ -70,6 +107,7 @@ Risk
 Evidence
 Action
 Proof
+Installed Base
 ```
 
 If the object is unclear, choose the simplest screen that supports the user decision.
@@ -88,6 +126,7 @@ renewal risk review
 asset intelligence review
 customer readiness review
 installed base exploration
+operational inventory
 ```
 
 Do not generate a generic dashboard unless explicitly requested.
@@ -109,6 +148,8 @@ WorkspaceShell
 → ActionRow or StickyActionBar for follow-through
 ```
 
+If a screen contract exists, use the contract architecture instead of this default architecture.
+
 If list/detail is not needed, keep the screen simpler.
 
 ---
@@ -116,6 +157,8 @@ If list/detail is not needed, keep the screen simpler.
 ## 5. Business pattern first
 
 Use business patterns before rebuilding known sections manually.
+
+Only use a business pattern if it does not violate the screen contract.
 
 Examples:
 
@@ -145,7 +188,33 @@ decision context
 → owned action
 ```
 
+For v0.7.0 decision screens, prefer:
+
+```txt
+Signal → Decision → Evidence
+```
+
 Do not bury the next action below long evidence detail.
+
+Do not expose every proof point before the user understands the decision.
+
+---
+
+## 7. Operational inventory flow
+
+For operational inventory or installed base exploration:
+
+```txt
+1. show scope and screen context;
+2. show view and filter controls;
+3. show grouped operational rows;
+4. show attention-required items first when relevant;
+5. open detail without losing context;
+6. keep actions visible when action is available;
+7. move evidence, history and documents into detail.
+```
+
+Do not replace inventory rows with dashboard cards.
 
 ---
 
@@ -155,13 +224,15 @@ Before final answer, verify:
 
 ```txt
 one primary decision
+screen contract checked first when available
 public package imports only
 styles imported once
 no local design system
-business pattern used when available
+business pattern used when available and allowed
 facts before interpretation
 evidence not invented
 actions owned, dated and prioritized
 evidence available without overload
 visual rules respected
+no undefined contract layer, filter, column, tab or action
 ```
