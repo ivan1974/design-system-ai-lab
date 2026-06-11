@@ -47,11 +47,11 @@ No other asset family is allowed.
 
 Allowed values:
 
-- connected-schneider
-- connected-schneider-with-alert
-- connected-schneider-with-connectivity-issue
-- non-connected-schneider
-- non-connected-schneider-with-service-history
+- connected-oem
+- connected-oem-with-alert
+- connected-oem-with-connectivity-issue
+- non-connected-oem
+- non-connected-oem-with-service-history
 - third-party
 
 These six states are mandatory for the reference dataset and the golden example.
@@ -66,8 +66,8 @@ Allowed row display values:
 
 Rules:
 
-- Schneider Electric connected assets use Connected.
-- Schneider Electric non-connected assets use Not connected.
+- Reference company connected assets use Connected.
+- Reference company non-connected assets use Not connected.
 - Third-party assets always use Unknown.
 
 ## Connectivity filter values
@@ -96,9 +96,9 @@ No other health value is allowed.
 
 Allowed values:
 
-- EcoCare Advanced
-- EcoCare Essential
-- Adv. Service Plan
+- Premium Service Plan Advanced
+- Premium Service Plan Essential
+- Advanced Service Plan
 - No Coverage
 
 No other coverage value is allowed.
