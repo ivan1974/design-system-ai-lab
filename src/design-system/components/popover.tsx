@@ -1,5 +1,5 @@
-import * as PopoverPrimitive from "@radix-ui/react-popover";
-import type { ReactNode } from "react";
+import { cloneElement, isValidElement, useId, useState } from "react";
+import type { ReactElement, ReactNode } from "react";
 
 export type PopoverSide = "top" | "right" | "bottom" | "left";
 export type PopoverAlign = "start" | "center" | "end";
@@ -13,6 +13,19 @@ export type PopoverProps = {
   onOpenChange?: (open: boolean) => void;
 };
 
+const sideClasses: Record<PopoverSide, string> = {
+  top: "bottom-full mb-2",
+  right: "left-full ml-2 top-0",
+  bottom: "top-full mt-2",
+  left: "right-full mr-2 top-0",
+};
+
+const alignClasses: Record<PopoverAlign, string> = {
+  start: "left-0",
+  center: "left-1/2 -translate-x-1/2",
+  end: "right-0",
+};
+
 export function Popover({
   trigger,
   children,
@@ -21,19 +34,47 @@ export function Popover({
   open,
   onOpenChange,
 }: PopoverProps) {
+  const fallbackId = useId();
+  const [uncontrolledOpen, setUncontrolledOpen] = useState(false);
+  const isOpen = open ?? uncontrolledOpen;
+
+  function setOpen(nextOpen: boolean) {
+    onOpenChange?.(nextOpen);
+    if (open === undefined) {
+      setUncontrolledOpen(nextOpen);
+    }
+  }
+
+  const triggerProps = {
+    "aria-controls": fallbackId,
+    "aria-expanded": isOpen,
+    onClick: () => setOpen(!isOpen),
+  };
+
+  const renderedTrigger = isValidElement(trigger)
+    ? cloneElement(trigger as ReactElement, triggerProps)
+    : (
+      <button type="button" {...triggerProps}>
+        {trigger}
+      </button>
+    );
+
   return (
-    <PopoverPrimitive.Root open={open} onOpenChange={onOpenChange}>
-      <PopoverPrimitive.Trigger asChild>{trigger}</PopoverPrimitive.Trigger>
-      <PopoverPrimitive.Portal>
-        <PopoverPrimitive.Content
-          side={side}
-          align={align}
-          sideOffset={8}
-          className="z-[400] min-w-64 rounded-(--ec-radius-md) border border-(--ec-color-border) bg-(--ec-color-surface) p-4 text-sm text-(--ec-color-text-primary) shadow-md"
+    <span className="relative inline-flex">
+      {renderedTrigger}
+      {isOpen ? (
+        <span
+          id={fallbackId}
+          role="dialog"
+          className={[
+            "absolute z-[400] min-w-64 rounded-(--ec-radius-md) border border-(--ec-color-border) bg-(--ec-color-surface) p-4 text-sm text-(--ec-color-text-primary) shadow-md",
+            sideClasses[side],
+            side === "top" || side === "bottom" ? alignClasses[align] : "",
+          ].join(" ")}
         >
           {children}
-        </PopoverPrimitive.Content>
-      </PopoverPrimitive.Portal>
-    </PopoverPrimitive.Root>
+        </span>
+      ) : null}
+    </span>
   );
 }
