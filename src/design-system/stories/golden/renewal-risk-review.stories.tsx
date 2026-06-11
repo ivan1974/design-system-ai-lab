@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import RenewalRiskReview from "../../../../guidelines/examples/golden/renewal-risk-review.App";
 
 const meta = {
-  title: "Design System/Golden Examples/Renewal Risk Review",
+  title: "Golden Examples/Renewal Risk Review",
   parameters: { layout: "fullscreen" },
 } satisfies Meta;
 

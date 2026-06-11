@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import AssetRecommendationReview from "../../../../guidelines/examples/golden/asset-recommendation-review.App";
 
 const meta = {
-  title: "Design System/Golden Examples/Asset Recommendation Review",
+  title: "Golden Examples/Asset Recommendation Review",
   parameters: { layout: "fullscreen" },
 } satisfies Meta;
 

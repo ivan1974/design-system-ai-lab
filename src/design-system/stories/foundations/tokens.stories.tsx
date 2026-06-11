@@ -23,7 +23,7 @@ const TokenRow = ({
 );
 
 const meta = {
-  title: "Design System/Foundations/Tokens",
+  title: "Foundations/Tokens",
   parameters: {
     layout: "padded",
   },

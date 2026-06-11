@@ -23,7 +23,7 @@ const TypeRow = ({
 );
 
 const meta = {
-  title: "Design System/Foundations/Typography",
+  title: "Foundations/Typography",
   parameters: {
     layout: "padded",
   },
