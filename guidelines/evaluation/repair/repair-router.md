@@ -1,75 +1,40 @@
-# Repair Prompt Router v0.5.1
+# Repair router v0.6.0
 
 ## Purpose
 
-Use this file after a Figma Make generation fails review.
+Use this file when a generated screen fails review.
 
-It maps each failure category to the repair prompt that should be used first.
+Do not reread the full documentation.
 
-This file is written for a generative AI reviewer. Its job is routing, not explanation.
+Pick the matching repair family, read only the listed repair prompt, apply the fix, then rerun the blocking checklist.
 
----
-
-## Review loop
-
-Use this operational loop:
+## Repair loop
 
 ```txt
-1. Run review/blocking-checklist.md.
-2. If a blocker fails, stop and route to the matching repair prompt below.
-3. Re-run the blocking checklist.
-4. If blockers pass, run review/workspace-v2-checklist.md.
-5. Then run review/quality-checklist.md.
-6. Compare with the closest golden example.
+1. Identify the first blocking failure.
+2. Pick one repair family from the table.
+3. Read only the linked repair prompt.
+4. Fix the generated screen without changing the business intent.
+5. Rerun the failing test or checklist.
+6. Repeat only if another blocker remains.
 ```
 
----
+## Repair families
 
-## Severity levels
+| Failure family | Route first | Also use when needed | Repair rule |
+| --- | --- | --- | --- |
+| Import failure | `invalid-props-or-local-visual-components.md` | `raw-form-controls.md`, `no-inline-styled-inputs.md` | Restore public package imports and valid props. |
+| Local design system | `no-local-components.md` | `invalid-props-or-local-visual-components.md` | Replace local wrappers with package components. |
+| Generic dashboard | `generic-dashboard.md` | `weak-layout.md`, `too-many-metrics.md` | Restore a decision workspace, not a dashboard. |
+| Card stack | `card-saturation.md` | `poor-row-density.md`, `missing-list-container.md` | Replace equal cards with rows, sections and selected detail. |
+| Missing evidence | `missing-evidence.md` | `partial-visibility-overstated.md`, `missing-human-validation.md` | Show source, scope, freshness, validation and evidence. |
+| Invented evidence | `expected-outcomes-as-proven-value.md` | `ai-confidence-as-source-strength.md`, `partial-visibility-overstated.md` | Remove invented proof, telemetry, citations and overclaims. |
+| Missing ownership | `actions-without-ownership.md` | `raw-form-controls.md` | Every action needs owner, due date and priority. |
+| Visual drift | `overdecorated-surface.md` | `weak-typography-hierarchy.md`, `too-many-metrics.md` | Return to sober, white-first, evidence-aware UI. |
+| Information overload | `too-many-metrics.md` | `card-saturation.md`, `poor-row-density.md` | Keep decision first, evidence second, detail on demand. |
+| Context drift | `weak-layout.md` | `missing-detail-panel.md`, `missing-list-container.md` | Preserve the original decision, evidence, action ownership and layout after iteration. |
 
-```txt
-blocker = must repair before accepting first draft
-quality = valid draft, repair if time or score requires
-acceptance = final verification before handoff
-```
-
-Do not treat quality polish as a blocker unless it breaks package contract, trust, accessibility or actionability.
-
----
-
-## Repair routing table
-
-| Failure category | Severity | Use first | Use also when needed |
-| --- | ---: | --- | --- |
-| Package import contract broken | blocker | `invalid-props-or-local-visual-components.md` | `no-local-components.md` |
-| Local design system or local visual wrappers | blocker | `invalid-props-or-local-visual-components.md` | `no-local-components.md` |
-| Raw or unsafe form controls | blocker | `raw-form-controls.md` | `no-inline-styled-inputs.md` |
-| Unsupported prop or controlled value | blocker | `invalid-props-or-local-visual-components.md` | `missing-human-validation.md` when readiness or validation is involved |
-| Empty or non-visible screen | blocker | `weak-layout.md` | `missing-detail-panel.md` when selected detail is absent |
-| Generic dashboard drift | quality or blocker | `generic-dashboard.md` | `weak-layout.md`, `too-many-metrics.md` |
-| Long equal card stack | quality or blocker | `card-saturation.md` | `poor-row-density.md` |
-| Repeated objects not using rows | blocker when review list is central | `poor-row-density.md` | `missing-list-container.md` |
-| Rows not grouped in package list container | blocker | `missing-list-container.md` | `poor-row-density.md` |
-| Missing selected-item detail | blocker when user reviews list item | `missing-detail-panel.md` | `weak-layout.md` |
-| Weak screen structure or unclear decision path | quality | `weak-layout.md` | `weak-typography-hierarchy.md` |
-| Flat or confusing typography hierarchy | quality | `weak-typography-hierarchy.md` | `weak-layout.md` |
-| Decorative or over-styled UI | quality | `overdecorated-surface.md` | `card-saturation.md` |
-| Too many metrics or generic KPI dashboard | quality | `too-many-metrics.md` | `generic-dashboard.md` |
-| Missing evidence, source, freshness or validation | blocker when trust-sensitive | `missing-evidence.md` | `partial-visibility-overstated.md`, `missing-human-validation.md` |
-| AI confidence used as source strength | blocker | `ai-confidence-as-source-strength.md` | `missing-human-validation.md` |
-| Partial visibility overstated | blocker | `partial-visibility-overstated.md` | `missing-evidence.md` |
-| Expected outcome shown as proven value | blocker | `expected-outcomes-as-proven-value.md` | `missing-evidence.md` |
-| Missing human validation for critical decisions | blocker | `missing-human-validation.md` | `missing-evidence.md` |
-| Actions without owner, due date or priority | blocker | `actions-without-ownership.md` | `raw-form-controls.md` when action creation form is broken |
-| Button or form used for unclear data capture | blocker | `raw-form-controls.md` | `actions-without-ownership.md` |
-| Golden example drift | quality | `weak-layout.md` | route to the closest category above |
-| Accessibility failure in forms or labels | blocker | `raw-form-controls.md` | `no-inline-styled-inputs.md` |
-
----
-
-## Actual repair prompts in scope
-
-The router points to these repair prompts:
+## Existing repair prompts in scope
 
 ```txt
 ai-confidence-as-source-strength.md
@@ -93,25 +58,24 @@ weak-layout.md
 weak-typography-hierarchy.md
 ```
 
-If a repair prompt is missing, do not invent a new repair instruction inside the review checklist. Create the missing repair prompt or route to the closest existing category.
+## Do not do this
 
----
+```txt
+Do not rewrite the whole screen unless the layout is unrecoverable.
+Do not invent new evidence during repair.
+Do not upgrade source strength without a new source.
+Do not remove owner, due date or priority from actions.
+Do not create local components to fix layout.
+Do not add decorative branding to fix visual hierarchy.
+```
 
 ## Acceptance after repair
 
-A repair is complete only when:
-
 ```txt
-- the original failure is gone
-- package imports remain public
-- no local visual system is introduced
-- controlled values match contracts
-- source, validation, proof and actionability are still visible
-- the screen still supports the original user decision
+The original blocker is gone.
+Public package imports remain.
+No local design system is introduced.
+Evidence and validation are still visible when trust matters.
+Actions still include owner, due date and priority.
+The screen still supports the original user decision.
 ```
-
----
-
-## Final principle
-
-A repair prompt should preserve the original business intent while restoring package contract, trust integrity and actionability.
