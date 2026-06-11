@@ -2,14 +2,21 @@
 
 ## Purpose
 
-This file is a short CSS usage contract for Figma Make.
+This file is the v0.8 CSS usage contract for Figma Make.
 
-It is not the full visual strategy.
+The shared prototype defines the visual quality bar for all active design system components. Source references are anonymized, but the visual grammar is preserved.
 
 For active visual generation rules, read:
 
 ```txt
 runtime/visual-rules.md
+```
+
+For tokens, read:
+
+```txt
+guidelines/tokens.md
+contracts/tokens.contract.json
 ```
 
 ---
@@ -28,6 +35,60 @@ Do not replace package styles with local CSS.
 
 ---
 
+## Canonical CSS files
+
+Use:
+
+```txt
+src/design-system/styles.css
+src/design-system/foundations/tokens.css
+```
+
+Do not create:
+
+```txt
+src/design-system/tokens.css
+```
+
+`styles.css` owns Figma Make and shadcn-compatible aliases.
+
+`foundations/tokens.css` owns the `--ec-*` token values.
+
+---
+
+## v0.8 visual baseline
+
+Generated screens must use:
+
+```txt
+white-first surfaces
+neutral borders before shadows
+compact typography
+compact controls
+compact tags and pills
+dense rows
+subtle selected states
+table-first alignment for operational inventories
+right-side or inline panels with independent scroll
+sticky action areas when decisions need follow-through
+```
+
+The baseline values are:
+
+```txt
+body background: #ffffff
+surface: #ffffff
+muted surface: #f3f3f5
+text: #030213
+muted text: #717182
+border: rgba(0, 0, 0, 0.1)
+input background: #f3f3f5
+radius: 0.625rem
+accent: --ec-color-primary
+```
+
+---
+
 ## Use package styling first
 
 Use package components, patterns and forms before custom CSS.
@@ -40,14 +101,16 @@ PageHeading
 SectionHeading
 MasterDetailLayout
 WorkspaceDetailPanel
-Surface
+SidePanel
 ListContainer
+Table
+Tabs
 MetricStrip
 ActionRow
 EvidenceRow
 StatusPill
-SourceStrengthPill
-Business patterns
+SemanticTag
+Screen-contract patterns
 ```
 
 Do not recreate these with styled `div`s.
@@ -70,6 +133,8 @@ custom shadows
 custom gradients
 custom color palettes
 custom typography systems
+local shadcn themes
+local root themes
 ```
 
 Do not create local wrappers that compete with the package design system.
@@ -89,6 +154,7 @@ hide uncertainty
 make weak evidence look stronger
 style expected outcomes as proven value
 style internal proof as customer-ready proof
+expose source prototype labels
 ```
 
 ---
@@ -106,6 +172,8 @@ card-saturated layouts
 colored cards for every status
 local component styling systems
 visual treatments that hide uncertainty
+local token namespaces
+source prototype labels that were not anonymized
 ```
 
 ---
@@ -119,10 +187,11 @@ styles are imported once
 no local visual system is created
 package components provide hierarchy
 repeated objects use rows or lists
-business patterns are used before generic cards
+screen-contract patterns are used for contractual screens
 source scope, source strength, freshness and validation remain readable
 status is not communicated by color alone
 visual emphasis does not overstate trust
+source references are anonymized
 ```
 
 ---
