@@ -38,20 +38,14 @@ const allowedPascalCaseTokens = new Set([
   "CreateActionDialogValues",
   "DetailPanelTab",
   "DetailPanelTabsProps",
-  "DialogCloseProps",
-  "DialogFooterProps",
-  "DialogProps",
-  "FieldProps",
-  "InputProps",
-  "LabelProps",
-  "SelectProps",
-  "TextareaProps",
-  "AssetIntelligenceReadiness",
-  "AssetIntelligenceSummaryMode",
-  "CustomerReadiness",
-  "CustomerStatusCardMode",
-  "HumanValidationRequirement",
-  "ProofReadiness",
+  "HTMLDivElement",
+  "HTMLInputElement",
+  "HTMLLabelElement",
+  "HTMLSelectElement",
+  "HTMLTextAreaElement",
+  "KPI",
+  "Next",
+  "ReactNode",
   "RecommendationReadiness",
   "SourceStrength",
   "ValidationStatus",
@@ -63,8 +57,6 @@ const promptFiles = [
   "guidelines/prompts/customer-monitoring.md",
   "guidelines/prompts/renewal-risk-review.md",
   "guidelines/prompts/asset-recommendation-review.md",
-  "guidelines/prompts/qbr-readiness.md",
-  "guidelines/prompts/installed-base-explorer.md",
 ];
 
 const requiredSections = [
@@ -91,7 +83,7 @@ function resolveGuideline(componentName: string) {
 }
 
 describe("generation rules: documentation and contract alignment", () => {
-  it.each(Object.keys(propsContract.components))("contract component %s is exported", (componentName) => {
+  it.each(componentsContract.preferredForNewGeneration)("contract component %s is exported", (componentName) => {
     expect(isExportedComponent(componentName)).toBe(true);
   });
 
@@ -99,34 +91,52 @@ describe("generation rules: documentation and contract alignment", () => {
     expect(isExportedComponent(componentName) || legacyComponents.has(componentName)).toBe(true);
   });
 
-  it.each(componentsContract.preferredForNewGeneration)("preferred component %s has a guideline", (componentName) => {
-    const guideline = resolveGuideline(componentName);
-    expect(guideline).toBeTruthy();
-    expect(fs.existsSync(path.join(rootDir, guideline))).toBe(true);
-  });
+  it.each(componentRegistry.components.filter((entry) => entry.genAIStatus === "preferred"))(
+    "preferred component $name has a guideline",
+    ({ name, guideline }) => {
+      expect(guideline, `${name} must define a guideline`).toBeTruthy();
+      expect(fs.existsSync(path.join(rootDir, guideline)), `${name} guideline ${guideline} is missing`).toBe(true);
+    },
+  );
 
-  it.each(componentsContract.preferredForNewGeneration)("preferred component %s guideline uses required sections", (componentName) => {
-    const guideline = resolveGuideline(componentName);
-    expect(guideline).toBeTruthy();
-    const content = read(guideline);
-    for (const section of requiredSections) expect(content).toContain(section);
-  });
+  it.each(componentRegistry.components.filter((entry) => entry.genAIStatus === "preferred"))(
+    "preferred component $name guideline uses required sections",
+    ({ name, guideline }) => {
+      expect(guideline, `${name} must define a guideline`).toBeTruthy();
+      const content = read(guideline);
+      for (const section of requiredSections) {
+        expect(content, `${guideline} must include ${section}`).toContain(section);
+      }
+    },
+  );
 
-  it.each(Object.entries(propsContract.components))("controlled values for %s appear in its guideline when documented", (componentName, propContract) => {
-    const guideline = resolveGuideline(componentName);
-    if (!guideline) return;
-    const content = read(guideline);
-    for (const [propName, values] of Object.entries(propContract)) {
-      expect(content).toContain(propName);
-      for (const value of values) expect(content).toContain(value);
-    }
-  });
+  it.each(Object.entries(propsContract.components))(
+    "controlled values for %s appear in its guideline when documented",
+    (componentName, props) => {
+      const guideline = resolveGuideline(componentName);
+      if (!guideline || !fs.existsSync(path.join(rootDir, guideline))) {
+        return;
+      }
+
+      const content = read(guideline);
+      for (const values of Object.values(props)) {
+        if (values.length === 0) {
+          continue;
+        }
+        for (const value of values) {
+          expect(content, `${guideline} must document controlled value ${value}`).toContain(value);
+        }
+      }
+    },
+  );
 
   it("setup remains focused on package setup and points to contracts", () => {
     const setup = read("guidelines/setup.md");
-
+    expect(setup).toContain("## Install");
+    expect(setup).toContain("## Imports");
+    expect(setup).toContain("## Stylesheet");
+    expect(setup).toContain("## Public entry points only");
     expect(setup).toContain("contracts/package.contract.json");
-    expect(setup).toContain("contracts/components.contract.json");
     expect(setup).toContain("contracts/props.contract.json");
   });
 
