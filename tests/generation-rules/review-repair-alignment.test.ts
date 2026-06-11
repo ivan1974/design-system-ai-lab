@@ -17,6 +17,11 @@ const repairPrompts = [
   "card-saturation.md",
   "expected-outcomes-as-proven-value.md",
   "generic-dashboard.md",
+  "installed-base-extra-controls.md",
+  "installed-base-generic-dashboard.md",
+  "installed-base-health-intelligence-mixing.md",
+  "installed-base-local-components.md",
+  "installed-base-third-party-overclaim.md",
   "invalid-props-or-local-visual-components.md",
   "missing-detail-panel.md",
   "missing-evidence.md",
@@ -45,6 +50,11 @@ const repairFamilies = [
   "Visual drift",
   "Information overload",
   "Context drift",
+  "Installed Base local components",
+  "Installed Base generic dashboard",
+  "Installed Base third-party overclaim",
+  "Installed Base Health Intelligence mixing",
+  "Installed Base extra controls",
 ];
 
 function read(relativePath: string) {
@@ -77,7 +87,7 @@ describe("generation rules: review and repair alignment", () => {
     }
   });
 
-  it("repair router covers the v0.6.0 minimal repair families", () => {
+  it("repair router covers the v0.7.0 repair families", () => {
     const content = read("guidelines/evaluation/repair/repair-router.md");
 
     for (const family of repairFamilies) {
