@@ -133,9 +133,9 @@ describe("generation rules: documentation and contract alignment", () => {
   it("setup remains focused on package setup and points to contracts", () => {
     const setup = read("guidelines/setup.md");
     expect(setup).toContain("## Install");
-    expect(setup).toContain("## Imports");
-    expect(setup).toContain("## Stylesheet");
-    expect(setup).toContain("## Public entry points only");
+    expect(setup).toContain("## Required imports");
+    expect(setup).toContain("## Stylesheet import");
+    expect(setup).toContain("## Public entry points");
     expect(setup).toContain("contracts/package.contract.json");
     expect(setup).toContain("contracts/props.contract.json");
   });
