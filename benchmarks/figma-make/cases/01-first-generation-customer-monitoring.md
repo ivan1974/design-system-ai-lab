@@ -10,6 +10,12 @@ Generate a customer monitoring decision workspace from scratch.
 
 The user must understand which customer or asset needs attention, why it matters, what evidence exists and what action follows.
 
+## Related reusable prompt
+
+```txt
+guidelines/prompts/customer-monitoring.md
+```
+
 ## Prompt for Figma Make
 
 Create a React `App.tsx` screen for a B2B service team monitoring customer sites and connected assets.
