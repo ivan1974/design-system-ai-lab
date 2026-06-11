@@ -26,6 +26,8 @@ const meta = {
     closeOnOverlay: true,
     closeOnEscape: true,
     lockBackgroundScroll: true,
+    onClose: () => undefined,
+    children: null,
   },
 } satisfies Meta<typeof SidePanel>;
 
