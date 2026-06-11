@@ -25,7 +25,7 @@ Do not use one Card per fact, signal, action or proof point.
 Use WorkspaceShell for the screen shell.
 Use FilterBar for scope and filters when relevant.
 Use MasterDetailLayout when the user needs to compare a list and inspect a selected item.
-Use DetailPanel, DetailPanelTabs and StickyActionBar for selected item review when detail is needed.
+Use WorkspaceDetailPanel, Tabs and StickyActionBar for selected item review when detail is needed.
 Use SectionStack and SectionBlock for grouped content.
 Use KeyValueList and KeyValueRow for compact facts.
 Use MetricStrip and CompactMetric for secondary signals.
