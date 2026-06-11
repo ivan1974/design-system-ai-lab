@@ -1,11 +1,12 @@
 {
   "$schema": "./schema/generation-contract.schema.json",
   "name": "package",
-  "version": "0.5.0",
+  "version": "0.7.0-alpha.0",
   "sourceGuidelines": [
     "guidelines/Guidelines.md",
     "guidelines/setup.md",
-    "guidelines/evaluation/review/blocking-checklist.md"
+    "guidelines/evaluation/review/blocking-checklist.md",
+    "guidelines/reference/screen-contracts/installed-base-intelligence.md"
   ],
   "packageName": "design-system-ai-lab",
   "requiredStyleImport": "design-system-ai-lab/styles.css",
@@ -29,9 +30,15 @@
   ],
   "requiredAppFile": "App.tsx",
   "requiredExport": "default",
+  "release": {
+    "tag": "next",
+    "version": "0.7.0-alpha.0",
+    "publishCommand": "npm publish --tag next"
+  },
   "notes": [
     "Generated screens must use the public package root only.",
     "Generated screens must import the public stylesheet once.",
-    "Generated screens must not recreate a local design system."
+    "Generated screens must not recreate a local design system.",
+    "Installed Base Intelligence screen generation must preserve the public v0.7-alpha screen-level package surface."
   ]
 }
