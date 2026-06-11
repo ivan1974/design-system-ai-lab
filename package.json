@@ -1,7 +1,7 @@
 {
   "name": "design-system-ai-lab",
   "private": false,
-  "version": "0.6.0-alpha.0",
+  "version": "0.7.0-alpha.0",
   "type": "module",
   "description": "A GenAI-ready React design system lab and Make Kit for controlled AI-assisted interface generation.",
   "main": "./dist/index.js",
