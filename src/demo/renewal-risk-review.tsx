@@ -62,13 +62,16 @@ export function RenewalRiskReview() {
                 contract="#CR-2024-441"
                 renewalWindow="62 days"
                 renewalDate="Aug 5, 2026"
-                renewalReadiness="Medium"
+                renewalReadiness="needs-review"
+                renewalReadinessLabel="Medium"
                 valueProofStatus="Incomplete"
                 recommendationsReviewed="42%"
                 overdueActions="3 high-priority actions"
                 renewalRiskReason="Value proof is incomplete and mitigation actions are overdue."
-                proofReadiness="Internal proof, not customer-ready"
-                validationStatus="Proof review needed before customer use"
+                proofReadiness="internal-proof"
+                proofReadinessLabel="Internal proof, not customer-ready"
+                validationStatus="internal-review-needed"
+                validationStatusLabel="Proof review needed before customer use"
                 sourceContext="Closed service actions and recommendation history"
                 badges={[{ label: "Proof review needed", tone: "warning" }]}
               />
@@ -78,8 +81,10 @@ export function RenewalRiskReview() {
                 period="Last 90 days"
                 customerObjective="Make service value visible before renewal"
                 proofStatus="Customer-ready summary incomplete"
-                proofReadiness="Internal proof, not customer-ready"
-                validationStatus="Proof review needed"
+                proofReadiness="internal-proof"
+                proofReadinessLabel="Internal proof, not customer-ready"
+                validationStatus="internal-review-needed"
+                validationStatusLabel="Proof review needed"
                 sourceContext="Closed service actions and recommendation history"
                 expectedOutcome="Stronger renewal discussion after proof consolidation"
                 proofPoints={[
@@ -125,7 +130,7 @@ export function RenewalRiskReview() {
                       sourceScope="Closed service actions and recommendation history"
                       sourceStrength="partial"
                       freshness="Last 90 days"
-                      validationStatus="Proof review needed"
+                      validationStatus="internal-review-needed"
                     />
                   </SectionBlock>
 
@@ -134,9 +139,12 @@ export function RenewalRiskReview() {
                     reviewScope="Renewal preparation"
                     reviewStatus="Proof and source review needed"
                     sourceContext="Closed service actions and recommendation history"
-                    validationStatus="Review before customer use"
-                    customerReadiness="Not customer-ready yet"
-                    proofContext="Internal proof, not customer-ready"
+                    validationStatus="internal-review-needed"
+                    validationStatusLabel="Review before customer use"
+                    customerReadiness="needs-review"
+                    customerReadinessLabel="Not customer-ready yet"
+                    proofReadiness="internal-proof"
+                    proofReadinessLabel="Internal proof, not customer-ready"
                   >
                     <RecommendationCard
                       title="Prepare customer-ready value proof summary"
@@ -151,7 +159,7 @@ export function RenewalRiskReview() {
                       sourceStrength="partial"
                       freshness="Last 90 days"
                       proofStatus="Internal proof, not customer-ready"
-                      validationStatus="Proof review needed"
+                      validationStatus="internal-review-needed"
                     />
                   </RecommendationReviewPanel>
                 </SectionStack>
