@@ -22,7 +22,7 @@ Use it to give the screen a stable frame before adding navigation, filters, list
 
 ## Prefer this component over
 
-- Local `AppShell`, `DashboardShell`, `PageWrapper` or `Layout` components.
+- Local app shell, dashboard shell, page wrapper or layout components.
 - Raw `main` / `section` scaffolding used as a local design system.
 
 ## Never generate
