@@ -1,0 +1,140 @@
+{
+  "$schema": "./schema/benchmark.contract.schema.json",
+  "name": "benchmark",
+  "version": "0.6.0",
+  "purpose": "Define fixed Figma Make benchmark cases for first generation, iteration drift and adversarial drift.",
+  "protocol": {
+    "caseDirectory": "benchmarks/figma-make/cases",
+    "outputDirectory": "benchmarks/figma-make/outputs",
+    "evaluationDirectory": "benchmarks/figma-make/evaluations",
+    "scoringTemplate": "benchmarks/figma-make/scoring/scoring-template.md",
+    "testCommand": "GENERATED_APP_PATH=benchmarks/figma-make/outputs/<case>.App.tsx npm run test:generation",
+    "minimumAcceptedScore": 80,
+    "excellentScore": 90
+  },
+  "requiredCaseTypes": [
+    "first-generation",
+    "iteration",
+    "adversarial"
+  ],
+  "requiredDriftCoverage": [
+    "context-drift",
+    "information-overload",
+    "visual-overbranding",
+    "local-components",
+    "invented-evidence",
+    "card-stack",
+    "priority-change-without-evidence-drift"
+  ],
+  "nonNegotiables": [
+    "use-package-imports-only",
+    "no-internal-imports",
+    "no-local-design-system",
+    "no-invented-evidence",
+    "no-expected-outcome-as-proven-value",
+    "actions-have-owner-due-date-priority",
+    "no-visual-overbranding",
+    "no-information-overload-at-first-level"
+  ],
+  "cases": [
+    {
+      "id": "01-first-generation-customer-monitoring",
+      "type": "first-generation",
+      "path": "benchmarks/figma-make/cases/01-first-generation-customer-monitoring.md",
+      "promptKind": "customer-monitoring",
+      "mustPass": ["workspace-architecture", "business-pattern-selection", "evidence-and-trust", "actionability"],
+      "driftRisks": ["generic-dashboard", "card-stack", "partial-scope-hidden"],
+      "iterationNumber": 0
+    },
+    {
+      "id": "02-first-generation-renewal-risk",
+      "type": "first-generation",
+      "path": "benchmarks/figma-make/cases/02-first-generation-renewal-risk.md",
+      "promptKind": "renewal-risk-review",
+      "mustPass": ["renewal-risk-patterns", "proof-readiness", "actionability", "expected-outcome-not-proven-value"],
+      "driftRisks": ["invented-proof", "proof-overstatement", "unowned-actions"],
+      "iterationNumber": 0
+    },
+    {
+      "id": "03-first-generation-asset-recommendation",
+      "type": "first-generation",
+      "path": "benchmarks/figma-make/cases/03-first-generation-asset-recommendation.md",
+      "promptKind": "asset-recommendation-review",
+      "mustPass": ["asset-intelligence", "source-scope", "human-validation", "actionability"],
+      "driftRisks": ["asset-health-as-intelligence", "ai-confidence-as-source-strength", "invented-telemetry"],
+      "iterationNumber": 0
+    },
+    {
+      "id": "04-iteration-add-filter-without-breaking-layout",
+      "type": "iteration",
+      "path": "benchmarks/figma-make/cases/04-iteration-add-filter-without-breaking-layout.md",
+      "promptKind": "iteration-add-filter",
+      "mustPass": ["layout-stability", "filterbar-scope", "no-local-controls"],
+      "driftRisks": ["layout-collapse", "raw-form-controls", "scope-hidden"],
+      "iterationNumber": 1
+    },
+    {
+      "id": "05-iteration-add-detail-panel-without-card-stack",
+      "type": "iteration",
+      "path": "benchmarks/figma-make/cases/05-iteration-add-detail-panel-without-card-stack.md",
+      "promptKind": "iteration-add-detail-panel",
+      "mustPass": ["master-detail-layout", "workspace-detail-panel", "rows-over-card-stacks"],
+      "driftRisks": ["card-stack", "missing-selected-detail", "duplicated-detail"],
+      "iterationNumber": 2
+    },
+    {
+      "id": "06-iteration-change-priority-without-inventing-evidence",
+      "type": "iteration",
+      "path": "benchmarks/figma-make/cases/06-iteration-change-priority-without-inventing-evidence.md",
+      "promptKind": "iteration-change-priority",
+      "mustPass": ["priority-update", "evidence-unchanged", "actionability"],
+      "driftRisks": ["invented-evidence", "priority-without-rationale", "changed-source-scope"],
+      "iterationNumber": 3
+    },
+    {
+      "id": "07-adversarial-local-components",
+      "type": "adversarial",
+      "path": "benchmarks/figma-make/cases/07-adversarial-local-components.md",
+      "promptKind": "adversarial-local-components",
+      "mustPass": ["no-local-design-system", "package-components-only"],
+      "driftRisks": ["local-components", "local-wrapper", "internal-imports"],
+      "iterationNumber": 0
+    },
+    {
+      "id": "08-adversarial-invented-evidence",
+      "type": "adversarial",
+      "path": "benchmarks/figma-make/cases/08-adversarial-invented-evidence.md",
+      "promptKind": "adversarial-invented-evidence",
+      "mustPass": ["no-invented-evidence", "source-scope-visible", "proof-readiness-visible"],
+      "driftRisks": ["invented-evidence", "invented-benchmarks", "invented-citations"],
+      "iterationNumber": 0
+    },
+    {
+      "id": "09-adversarial-visual-overbranding",
+      "type": "adversarial",
+      "path": "benchmarks/figma-make/cases/09-adversarial-visual-overbranding.md",
+      "promptKind": "adversarial-visual-overbranding",
+      "mustPass": ["visual-rules", "white-first", "no-glassmorphism", "no-gradient-heavy-layout"],
+      "driftRisks": ["visual-overbranding", "green-decoration", "shadow-heavy-card"],
+      "iterationNumber": 0
+    },
+    {
+      "id": "10-adversarial-context-drift-after-3-adjustments",
+      "type": "adversarial",
+      "path": "benchmarks/figma-make/cases/10-adversarial-context-drift-after-3-adjustments.md",
+      "promptKind": "adversarial-context-drift-after-3-adjustments",
+      "mustPass": ["context-drift", "runtime-rules-retained", "three-iteration-stability"],
+      "driftRisks": ["context-drift", "lost-evidence-rules", "lost-action-ownership"],
+      "iterationNumber": 3
+    },
+    {
+      "id": "11-adversarial-information-overload",
+      "type": "adversarial",
+      "path": "benchmarks/figma-make/cases/11-adversarial-information-overload.md",
+      "promptKind": "adversarial-information-overload",
+      "mustPass": ["progressive-disclosure", "information-density", "decision-first"],
+      "driftRisks": ["information-overload", "all-evidence-visible", "all-cards-same-hierarchy"],
+      "iterationNumber": 0
+    }
+  ]
+}
