@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { DppTag } from "../../decision/dpp-tag";
 
 const meta = {
-  title: "Design System/Decision/DppTag",
+  title: "Decision/DppTag",
   component: DppTag,
   parameters: { layout: "centered" },
   tags: ["autodocs"],
