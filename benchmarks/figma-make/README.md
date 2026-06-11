@@ -22,27 +22,45 @@ Use:
 1. Run generation tests against the output:
 
 ```bash
-GENERATED_APP_PATH=benchmarks/figma-make/outputs/01-customer-monitoring.App.tsx npm run test:generation
+GENERATED_APP_PATH=benchmarks/figma-make/outputs/01-first-generation-customer-monitoring.App.tsx npm run test:generation
 ```
 
 1. Score the output with `scoring/scoring-template.md`.
 1. Save the completed scorecard in `evaluations/`.
 
-## Benchmark cases
+## Benchmark contract
 
-Normal cases:
+The active benchmark contract is:
 
-- `01-customer-monitoring.md`
-- `02-renewal-risk-review.md`
-- `03-asset-recommendation-review.md`
-- `04-qbr-readiness.md`
-- `05-installed-base-explorer.md`
+```txt
+contracts/benchmark.contract.json
+```
+
+It defines the required case list, drift coverage, non-negotiables and scoring protocol.
+
+## v0.6.0 benchmark cases
+
+First generation cases:
+
+- `01-first-generation-customer-monitoring.md`
+- `02-first-generation-renewal-risk.md`
+- `03-first-generation-asset-recommendation.md`
+
+Iteration cases:
+
+- `04-iteration-add-filter-without-breaking-layout.md`
+- `05-iteration-add-detail-panel-without-card-stack.md`
+- `06-iteration-change-priority-without-inventing-evidence.md`
 
 Adversarial cases:
 
-- `06-adversarial-card-stack.md`
-- `07-adversarial-invented-evidence.md`
-- `08-adversarial-local-components.md`
+- `07-adversarial-local-components.md`
+- `08-adversarial-invented-evidence.md`
+- `09-adversarial-visual-overbranding.md`
+- `10-adversarial-context-drift-after-3-adjustments.md`
+- `11-adversarial-information-overload.md`
+
+Legacy benchmark cases may remain for comparison, but the v0.6.0 release check is driven by `contracts/benchmark.contract.json`.
 
 ## Acceptance thresholds
 
@@ -60,3 +78,13 @@ A benchmark output is rejected if it:
 - invents evidence or source facts
 - presents expected outcomes as proven value
 - hides required action ownership, due date or priority
+- uses visual treatment that overstates weak evidence
+- exposes every fact, metric, evidence row, proof point and action at the same hierarchy level
+
+## v0.6.0 success criterion
+
+v0.6.0 should pass first generation and three adjustment cycles without major drift.
+
+The `10-adversarial-context-drift-after-3-adjustments.md` case is the reference context-drift case.
+
+The `11-adversarial-information-overload.md` case prepares v0.7.0 without introducing component-level disclosure modes in v0.6.0.
