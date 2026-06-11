@@ -59,6 +59,26 @@ const promptFiles = [
   "guidelines/prompts/asset-recommendation-review.md",
 ];
 
+const highImpactReferenceFiles = [
+  "guidelines/reference/decision/alert-card.md",
+  "guidelines/reference/decision/recommendation-card.md",
+  "guidelines/reference/decision/action-card.md",
+  "guidelines/reference/patterns/renewal-risk-summary.md",
+  "guidelines/reference/patterns/service-risk-summary.md",
+  "guidelines/reference/patterns/value-proof-card.md",
+  "guidelines/reference/patterns/connectivity-coverage-card.md",
+  "guidelines/reference/patterns/customer-review-readiness-card.md",
+  "guidelines/reference/patterns/customer-status-card.md",
+  "guidelines/reference/patterns/create-action-dialog.md",
+  "guidelines/reference/components/tabs.md",
+  "guidelines/reference/components/dialog.md",
+  "guidelines/reference/forms/input.md",
+  "guidelines/reference/forms/select.md",
+  "guidelines/reference/components/page-header.md",
+  "guidelines/reference/components/metric-card.md",
+  "guidelines/reference/decision/metric-grid.md",
+];
+
 const requiredSections = [
   "## Purpose",
   "## Use this component when",
@@ -138,6 +158,27 @@ describe("generation rules: documentation and contract alignment", () => {
     expect(setup).toContain("## Public entry points");
     expect(setup).toContain("contracts/package.contract.json");
     expect(setup).toContain("contracts/props.contract.json");
+  });
+
+  it("reference folder defines a runtime boundary", () => {
+    const referenceReadme = read("guidelines/reference/README.md");
+    const boundary = read("guidelines/reference/reference-boundaries.md");
+
+    expect(referenceReadme).toContain("not the default Figma Make reading path");
+    expect(referenceReadme).toContain("guidelines/reference/reference-boundaries.md");
+
+    for (const guideline of highImpactReferenceFiles) {
+      expect(boundary, `${guideline} should be covered by the boundary matrix`).toContain(guideline);
+    }
+  });
+
+  it("screen architecture reference does not replace runtime guidance", () => {
+    const content = read("guidelines/reference/screen-architecture/README.md");
+
+    expect(content).toContain("not the default Figma Make runtime path");
+    expect(content).toContain("guidelines/runtime/generation-flow.md");
+    expect(content).not.toContain("guidelines/prompts/");
+    expect(content).not.toContain("guidelines/examples/golden/");
   });
 
   it("reference guidelines do not recommend unknown PascalCase package components", () => {
