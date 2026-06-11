@@ -1,0 +1,58 @@
+{
+  "$schema": "./schema/generation-contract.schema.json",
+  "name": "primitive-architecture",
+  "version": "0.7.0-alpha.0",
+  "status": "active",
+  "implementationModel": "shadcn-compatible",
+  "publicGenerationSurface": "design-system-ai-lab",
+  "internalPrimitiveStrategy": "Radix and Tailwind implementation patterns may be used internally, but generated screens must use public DS exports.",
+  "allowedImplementationInfluences": [
+    "shadcn-compatible patterns",
+    "Radix UI primitives",
+    "Tailwind utility patterns"
+  ],
+  "allowedImplementationDependencies": [
+    "@radix-ui/*",
+    "class-variance-authority",
+    "tailwind-merge",
+    "lucide-react"
+  ],
+  "forbiddenGeneratedImports": [
+    "@radix-ui/*",
+    "@/components/ui",
+    "./components/ui",
+    "components/ui",
+    "src/design-system/internal",
+    "src/design-system/primitives",
+    "design-system-ai-lab/src",
+    "design-system-ai-lab/dist"
+  ],
+  "requiredGeneratedImports": [
+    "design-system-ai-lab",
+    "design-system-ai-lab/styles.css"
+  ],
+  "rules": [
+    "shadcn-compatible internally",
+    "design-system-ai-lab externally",
+    "DS tokens remain the visual source of truth",
+    "props contracts remain the public API source of truth",
+    "screen contracts override primitive defaults",
+    "business components wrap primitives",
+    "generated examples never create local components/ui primitives"
+  ],
+  "migrationCandidates": [
+    "Button",
+    "Badge",
+    "Dialog",
+    "SidePanel",
+    "Tabs",
+    "Select",
+    "Input",
+    "Checkbox",
+    "Table",
+    "ScrollArea",
+    "Tooltip",
+    "Popover",
+    "Command"
+  ]
+}
