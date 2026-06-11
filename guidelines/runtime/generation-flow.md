@@ -36,6 +36,8 @@ Do not start by choosing random components.
 
 Do not start from the default architecture when a screen contract defines exact layers.
 
+Do not start by recreating local shadcn primitives.
+
 ---
 
 ## 0. Screen contract check
@@ -67,6 +69,29 @@ Closed screen contracts do not allow undefined elements.
 Do not add extra filters, columns, tabs, metrics or actions to improve the screen.
 
 Improve hierarchy only inside allowed zones.
+
+---
+
+## 0.5 Primitive implementation boundary
+
+Internal DS primitives may be shadcn-compatible.
+
+Generated screens must still use public `design-system-ai-lab` imports only.
+
+Forbidden generated imports:
+
+```txt
+@radix-ui/*
+@/components/ui
+./components/ui
+components/ui
+src/design-system/internal
+src/design-system/primitives
+design-system-ai-lab/src
+design-system-ai-lab/dist
+```
+
+If a public DS component is missing, report the missing DS capability instead of creating local primitive files.
 
 ---
 
@@ -218,21 +243,17 @@ Do not replace inventory rows with dashboard cards.
 
 ---
 
-## Final blocker check
+## 8. Final blockers
 
-Before final answer, verify:
+Before final output, verify:
 
 ```txt
-one primary decision
-screen contract checked first when available
-public package imports only
-styles imported once
-no local design system
-business pattern used when available and allowed
-facts before interpretation
-evidence not invented
-actions owned, dated and prioritized
-evidence available without overload
-visual rules respected
-no undefined contract layer, filter, column, tab or action
+screen contract preserved when present
+public DS package imports only
+stylesheet import present
+no components/ui imports
+no @radix-ui direct imports
+no internal primitive imports
+no local DS recreated
+no unsupported enum-like values
 ```
