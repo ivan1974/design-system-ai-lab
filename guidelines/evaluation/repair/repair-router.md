@@ -1,4 +1,4 @@
-# Repair router v0.6.0
+# Repair router v0.7.0
 
 ## Purpose
 
@@ -33,6 +33,11 @@ Pick the matching repair family, read only the listed repair prompt, apply the f
 | Visual drift | `overdecorated-surface.md` | `weak-typography-hierarchy.md`, `too-many-metrics.md` | Return to sober, white-first, evidence-aware UI. |
 | Information overload | `too-many-metrics.md` | `card-saturation.md`, `poor-row-density.md` | Keep decision first, evidence second, detail on demand. |
 | Context drift | `weak-layout.md` | `missing-detail-panel.md`, `missing-list-container.md` | Preserve the original decision, evidence, action ownership and layout after iteration. |
+| Installed Base local components | `installed-base-local-components.md` | `no-local-components.md`, `invalid-props-or-local-visual-components.md` | Restore package Installed Base patterns. |
+| Installed Base generic dashboard | `installed-base-generic-dashboard.md` | `card-saturation.md`, `poor-row-density.md` | Restore the asset inventory and hierarchy. |
+| Installed Base third-party overclaim | `installed-base-third-party-overclaim.md` | `partial-visibility-overstated.md`, `expected-outcomes-as-proven-value.md` | Apply third-party mandatory Unknown / No Coverage / Unknown / No record. |
+| Installed Base Health Intelligence mixing | `installed-base-health-intelligence-mixing.md` | `missing-evidence.md`, `missing-human-validation.md` | Restore facts-only Health and decision-oriented Intelligence. |
+| Installed Base extra controls | `installed-base-extra-controls.md` | `weak-layout.md` | Remove non-contract views, filters, columns, tabs and actions. |
 
 ## Existing repair prompts in scope
 
@@ -42,6 +47,11 @@ actions-without-ownership.md
 card-saturation.md
 expected-outcomes-as-proven-value.md
 generic-dashboard.md
+installed-base-extra-controls.md
+installed-base-generic-dashboard.md
+installed-base-health-intelligence-mixing.md
+installed-base-local-components.md
+installed-base-third-party-overclaim.md
 invalid-props-or-local-visual-components.md
 missing-detail-panel.md
 missing-evidence.md
@@ -67,6 +77,7 @@ Do not upgrade source strength without a new source.
 Do not remove owner, due date or priority from actions.
 Do not create local components to fix layout.
 Do not add decorative branding to fix visual hierarchy.
+Do not add extra Installed Base filters, columns, tabs or actions during repair.
 ```
 
 ## Acceptance after repair
@@ -78,4 +89,5 @@ No local design system is introduced.
 Evidence and validation are still visible when trust matters.
 Actions still include owner, due date and priority.
 The screen still supports the original user decision.
+Installed Base screens still preserve exact layers, columns, tabs, actions and third-party rules.
 ```
