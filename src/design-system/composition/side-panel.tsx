@@ -62,7 +62,7 @@ export const SidePanel = forwardRef<HTMLDivElement, SidePanelProps>(
           <button
             type="button"
             aria-label="Close overlay"
-            className="fixed inset-0 z-[200] bg-black/45 backdrop-blur-[4px]"
+            className="fixed inset-0 z-200 bg-black/45 backdrop-blur-xs"
             onClick={onClose}
           />
         )}
@@ -76,8 +76,8 @@ export const SidePanel = forwardRef<HTMLDivElement, SidePanelProps>(
           size="lg"
           data-width={width}
           className={[
-            "z-[300] flex h-dvh w-[30vw] min-w-[360px] max-w-[500px] flex-col",
-            "transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]",
+            "z-300 flex h-dvh w-[30vw] min-w-90 max-w-125 flex-col",
+            "transition-transform duration-300 ease-in-out",
             className,
           ].join(" ")}
           {...props}
