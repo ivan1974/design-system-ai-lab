@@ -1,11 +1,13 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "name": "visual-rules",
-  "version": "0.6.0",
+  "version": "0.7.0-alpha.0",
   "status": "active-runtime-contract",
   "purpose": "Prevent GenAI visual drift in generated screens by turning visual rules into testable blockers.",
   "sourceGuidelines": [
     "guidelines/runtime/visual-rules.md",
+    "guidelines/runtime/operational-intelligence-visual-rules.md",
+    "guidelines/reference/screen-architecture/operational-density.md",
     "guidelines/styles.md",
     "guidelines/tokens.md",
     "guidelines/source/visual-brand/visual-brand-v0.4.md"
@@ -27,7 +29,10 @@
     "status-not-color-only",
     "evidence-strength-not-overstated",
     "uncertainty-remains-readable",
-    "no-local-visual-system"
+    "no-local-visual-system",
+    "screen-contract-before-generic-layout",
+    "operational-density-table-first",
+    "progressive-disclosure-before-evidence-expansion"
   ],
   "forbiddenVisualPatterns": [
     "glassmorphism",
@@ -44,7 +49,10 @@
     "colored-cards-for-every-status",
     "green-used-as-decoration",
     "visual-emphasis-overstates-weak-evidence",
-    "local-visual-system"
+    "local-visual-system",
+    "hero-dashboard-for-inventory",
+    "card-grid-replacing-operational-rows",
+    "all-rows-expanded-with-full-evidence"
   ],
   "forbiddenLocalWrapperNames": [
     "PremiumCard",
@@ -69,7 +77,9 @@
     "make weak evidence look validated",
     "hide uncertainty visually",
     "create a local visual system",
-    "create custom brand panels"
+    "create custom brand panels",
+    "replace the inventory with dashboard cards",
+    "expand all evidence by default"
   ],
   "forbiddenGeneratedCodePatterns": [
     "backdrop-blur",
@@ -118,6 +128,44 @@
       ]
     }
   },
+  "operationalIntelligenceScreens": {
+    "density": "high",
+    "surface": "white-first",
+    "layout": "table-first",
+    "firstViewShows": [
+      "object-identity",
+      "operational-status",
+      "health-or-priority",
+      "coverage-or-readiness",
+      "next-contextual-action"
+    ],
+    "preferredPatterns": [
+      "dense-rows",
+      "table-alignment",
+      "grouped-list-sections",
+      "sticky-action-area",
+      "subtle-borders",
+      "compact-tags",
+      "compact-pills",
+      "icon-plus-label-statuses"
+    ],
+    "forbidden": [
+      "hero-dashboard-for-inventory",
+      "card-grid-replacing-operational-rows",
+      "decorative-gradients",
+      "local-colored-panels",
+      "oversized-metrics",
+      "all-rows-expanded-with-full-evidence"
+    ],
+    "panel": {
+      "minWidth": "360px",
+      "maxWidth": "500px",
+      "preferredWidth": "30vw",
+      "surface": "white",
+      "stickyActionArea": true,
+      "independentScroll": true
+    }
+  },
   "trustVisibilityRules": [
     "source-scope-readable-when-relevant",
     "source-strength-readable-when-relevant",
@@ -129,7 +177,9 @@
   "informationDensityRules": [
     "do-not-make-every-fact-signal-proof-point-and-action-visually-equal",
     "show-decision-critical-summary-first",
-    "move-supporting-evidence-to-secondary-level-when-possible"
+    "move-supporting-evidence-to-secondary-level-when-possible",
+    "use-density-for-comparison-not-explanation",
+    "do-not-expand-all-evidence-by-default"
   ],
   "filesToScanForGeneratedVisualDrift": [
     "guidelines/examples/golden",
@@ -142,6 +192,8 @@
     "uncertainty-hidden-through-low-contrast-or-visual-treatment",
     "local-visual-system-created",
     "decorative-gradient-or-glass-treatment-created",
-    "green-used-as-decoration"
+    "green-used-as-decoration",
+    "operational-inventory-rendered-as-dashboard",
+    "evidence-expanded-before-decision-context"
   ]
 }
