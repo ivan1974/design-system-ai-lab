@@ -4,7 +4,12 @@ import { describe, expect, it } from "vitest";
 
 const rootDir = process.cwd();
 const packageJson = JSON.parse(fs.readFileSync(path.join(rootDir, "package.json"), "utf-8")) as {
+  version: string;
   files: string[];
+};
+const packageContract = JSON.parse(fs.readFileSync(path.join(rootDir, "contracts/package.contract.json"), "utf-8")) as {
+  version: string;
+  release: { tag: string; version: string; publishCommand: string };
 };
 
 const requiredPackageFiles = [
@@ -40,8 +45,16 @@ const forbiddenPackageFiles = [
 ];
 
 describe("generation rules: published package surface", () => {
-  it("publishes the v0.6.0 Make Kit surface", () => {
+  it("publishes the v0.7.0-alpha.0 Make Kit surface", () => {
+    expect(packageJson.version).toBe("0.7.0-alpha.0");
     expect(packageJson.files).toEqual(requiredPackageFiles);
+  });
+
+  it("aligns the package contract release metadata", () => {
+    expect(packageContract.version).toBe("0.7.0-alpha.0");
+    expect(packageContract.release.version).toBe("0.7.0-alpha.0");
+    expect(packageContract.release.tag).toBe("next");
+    expect(packageContract.release.publishCommand).toBe("npm publish --tag next");
   });
 
   it("does not publish legacy or historical guidance paths", () => {
