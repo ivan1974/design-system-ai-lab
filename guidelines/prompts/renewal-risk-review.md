@@ -107,7 +107,7 @@ repair-prompts/actions-without-ownership.md
 Related fixed benchmark case:
 
 ```txt
-benchmarks/figma-make/cases/02-renewal-risk-review.md
+benchmarks/figma-make/cases/02-first-generation-renewal-risk.md
 ```
 
 Benchmark cases are stable scoring scenarios. Do not rewrite benchmark facts unless the scoring objective changes.
