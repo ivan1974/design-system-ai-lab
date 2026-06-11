@@ -25,6 +25,12 @@ Geography
 Electrical
 ```
 
+## Controlled values
+
+```txt
+activeView: list | geography | electrical
+```
+
 ## Right Zone
 
 The right zone contains exactly the quick filter triggers:
