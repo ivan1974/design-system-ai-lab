@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Breadcrumbs, PageHeading, Surface } from "../../index";
 
 const meta = {
-  title: "Design System/Components/Breadcrumbs",
+  title: "Components/Breadcrumbs",
   parameters: { layout: "padded" },
 } satisfies Meta;
 
