@@ -18,9 +18,11 @@ Use density for comparison. Use progressive disclosure for explanation.
 
 A dense screen should make the next decision clearer, not expose every fact at once.
 
+Operational density is table-first, white-first and evidence-aware.
+
 ## Layout model
 
-Prefer this structure for operational inventories:
+Prefer this table-first structure for operational inventories:
 
 ```txt
 screen context
@@ -54,6 +56,7 @@ Move long explanation, full evidence, history and documents into detail.
 Prefer:
 
 - white-first surfaces;
+- table-first alignment;
 - subtle borders;
 - muted separators;
 - compact tags;
