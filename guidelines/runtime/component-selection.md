@@ -14,6 +14,32 @@ If no component fits, simplify the screen instead of creating a local design sys
 
 ---
 
+## Screen contract selection rule
+
+When a screen contract exists, component selection is contract-led.
+
+Use only components mapped or allowed by the screen contract.
+
+Do not replace a required screen-specific component with a local substitute.
+
+If a mapped component does not exist yet, report a missing DS capability instead of inventing `components/ui` or local wrappers.
+
+For Installed Base Intelligence, the contract-led mapping is:
+
+| Screen zone | Required component |
+| --- | --- |
+| Main Navigation | `MainNavigation` |
+| Page Header | `InstalledBaseHeader` |
+| View & Filter Bar | `InstalledBaseViewFilterBar` |
+| All Filters Panel | `AllFiltersPanel` |
+| Installed Base List | `InstalledBaseList` |
+| Asset Row | `AssetInventoryRow` |
+| Asset Detail Panel | `AssetDetailAnalysisPanel` |
+
+These components are target v0.7.0 components. Until implemented, they are blockers, not permission to create local substitutes.
+
+---
+
 ## Preferred selection table
 
 | Need | Prefer |
@@ -38,6 +64,7 @@ If no component fits, simplify the screen instead of creating a local design sys
 | Highlighted risk | `AlertCard` with recommendation |
 | Recommendation review | `RecommendationReviewPanel` |
 | Known customer/service section | Business pattern first |
+| Operational inventory | approved list/table pattern + approved row component |
 
 ---
 
@@ -60,6 +87,8 @@ If no component fits, simplify the screen instead of creating a local design sys
 | Recommendation queue | `RecommendationQueueRow` |
 | Review queue | `ReviewQueueRow` |
 
+Use business patterns only when they do not violate screen-contract structure.
+
 ---
 
 ## Use with care
@@ -68,8 +97,8 @@ Use only with a specific reason:
 
 | Component | Prefer instead | Reason |
 | --- | --- | --- |
-| `PageHeader` | `PageHeading` | Legacy page header |
-| `DetailPanel` | `WorkspaceDetailPanel` | Lower-level primitive |
+| `PageHeader` | `PageHeading` or screen-specific header | Legacy page header |
+| `DetailPanel` | `WorkspaceDetailPanel` or screen-specific panel | Lower-level primitive |
 | `ComponentHierarchyItem` | `ComponentHierarchy` | Internal item |
 | `Card` | Pattern, row, `Surface` or `ListContainer` | Emphasis container only |
 | `MetricCard` | `MetricStrip` + `CompactMetric` | Avoid metric card stacks |
@@ -94,6 +123,7 @@ panels
 business patterns
 buttons
 selects
+screen-contract components
 ```
 
 ---
@@ -103,8 +133,11 @@ selects
 Before final answer, verify:
 
 ```txt
+screen contract checked first when available
+mapped screen components used when available
+missing target components reported instead of locally recreated
 preferred component used when available
-business pattern used when intent matches
+business pattern used when intent matches and contract allows it
 legacy component avoided unless justified
 repeated objects use rows and lists, not cards
 trust-sensitive content uses evidence and validation markers
