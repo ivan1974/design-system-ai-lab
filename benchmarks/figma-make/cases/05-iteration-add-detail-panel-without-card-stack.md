@@ -16,6 +16,8 @@ Add a selected detail area for the highest priority item.
 
 Use `WorkspaceDetailPanel` inside `MasterDetailLayout`.
 
+Use package components only from `design-system-ai-lab`.
+
 Do not create a grid of detail cards.
 
 ## Required change
