@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { ConnectivityLabel } from "../../decision/connectivity-label";
 
 const meta = {
-  title: "Design System/Decision/ConnectivityLabel",
+  title: "Decision/ConnectivityLabel",
   component: ConnectivityLabel,
   parameters: { layout: "centered" },
   tags: ["autodocs"],
