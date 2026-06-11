@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button, PanelBody, PanelFooter, PanelHeader, SlideOverPanel, Text } from "../../index";
 
 const meta = {
-  title: "Design System/Components/SlideOverPanel",
+  title: "Components/SlideOverPanel",
   parameters: { layout: "fullscreen" },
 } satisfies Meta;
 

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Surface, Tabs, Text } from "../../index";
 
 const meta = {
-  title: "Design System/Components/Tabs",
+  title: "Components/Tabs",
   parameters: { layout: "padded" },
 } satisfies Meta;
 

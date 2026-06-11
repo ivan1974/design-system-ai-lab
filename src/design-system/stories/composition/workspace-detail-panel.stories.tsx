@@ -16,7 +16,7 @@ import {
 } from "../../index";
 
 const meta = {
-  title: "Design System/Composition/WorkspaceDetailPanel",
+  title: "Composition/WorkspaceDetailPanel",
   parameters: { layout: "fullscreen" },
 } satisfies Meta;
 

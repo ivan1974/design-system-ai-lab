@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { AlertCard, Button, PriorityList } from "../../index";
 
 const meta = {
-  title: "Design System/Decision/PriorityList",
+  title: "Decision/PriorityList",
   component: PriorityList,
   parameters: {
     layout: "padded",

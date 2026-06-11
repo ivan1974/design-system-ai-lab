@@ -4,7 +4,7 @@ import { useState } from "react";
 import { HeaderTabs, PageHeading, Surface } from "../../index";
 
 const meta = {
-  title: "Design System/Components/HeaderTabs",
+  title: "Components/HeaderTabs",
   parameters: { layout: "padded" },
 } satisfies Meta;
 

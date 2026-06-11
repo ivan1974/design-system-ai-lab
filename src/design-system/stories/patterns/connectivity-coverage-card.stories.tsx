@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { ConnectivityCoverageCard } from "../../index";
 
 const meta = {
-  title: "Design System/Patterns/ConnectivityCoverageCard",
+  title: "Patterns/ConnectivityCoverageCard",
   component: ConnectivityCoverageCard,
   parameters: {
     layout: "padded",

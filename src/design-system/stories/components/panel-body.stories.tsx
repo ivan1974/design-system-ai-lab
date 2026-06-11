@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { PanelBody, SectionBlock, Text } from "../../index";
 
 const meta = {
-  title: "Design System/Components/PanelBody",
+  title: "Components/PanelBody",
   parameters: { layout: "padded" },
 } satisfies Meta;
 

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { RenewalRiskSummary } from "../../index";
 
 const meta = {
-  title: "Design System/Patterns/RenewalRiskSummary",
+  title: "Patterns/RenewalRiskSummary",
   component: RenewalRiskSummary,
   parameters: {
     layout: "padded",

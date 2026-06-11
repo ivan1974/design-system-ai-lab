@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { PanelClose, Surface, Text } from "../../index";
 
 const meta = {
-  title: "Design System/Components/PanelClose",
+  title: "Components/PanelClose",
   component: PanelClose,
   parameters: { layout: "padded" },
 } satisfies Meta<typeof PanelClose>;

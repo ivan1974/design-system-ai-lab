@@ -13,7 +13,7 @@ import {
 } from "../../index";
 
 const meta = {
-  title: "Design System/Components/Surface primitives",
+  title: "Components/Surface primitives",
   parameters: {
     layout: "padded",
   },

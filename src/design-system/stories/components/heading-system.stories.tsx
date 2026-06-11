@@ -10,7 +10,7 @@ import {
 } from "../../index";
 
 const meta = {
-  title: "Design System/Components/Heading system",
+  title: "Components/Heading system",
   parameters: {
     layout: "padded",
   },

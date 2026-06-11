@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { CustomerStatusCard } from "../../index";
 
 const meta = {
-  title: "Design System/Patterns/CustomerStatusCard",
+  title: "Patterns/CustomerStatusCard",
   component: CustomerStatusCard,
   parameters: {
     layout: "padded",

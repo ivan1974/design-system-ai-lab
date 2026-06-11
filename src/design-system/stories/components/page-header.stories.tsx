@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Button, PageHeader } from "../../index";
 
 const meta = {
-  title: "Design System/Components/PageHeader",
+  title: "Components/PageHeader",
   component: PageHeader,
   parameters: {
     layout: "padded",

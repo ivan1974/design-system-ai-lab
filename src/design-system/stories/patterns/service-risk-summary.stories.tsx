@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { ServiceRiskSummary } from "../../index";
 
 const meta = {
-  title: "Design System/Patterns/ServiceRiskSummary",
+  title: "Patterns/ServiceRiskSummary",
   component: ServiceRiskSummary,
   parameters: {
     layout: "padded",

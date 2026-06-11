@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { ValueProofCard } from "../../index";
 
 const meta = {
-  title: "Design System/Patterns/ValueProofCard",
+  title: "Patterns/ValueProofCard",
   component: ValueProofCard,
   parameters: {
     layout: "padded",

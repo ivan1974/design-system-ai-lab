@@ -6,7 +6,7 @@ import {
 } from "../../index";
 
 const meta = {
-  title: "Design System/Patterns/RecommendationReviewPanel",
+  title: "Patterns/RecommendationReviewPanel",
   component: RecommendationReviewPanel,
   parameters: {
     layout: "padded",

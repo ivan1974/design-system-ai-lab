@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { AssetIntelligenceSummary } from "../../index";
 
 const meta = {
-  title: "Design System/Patterns/AssetIntelligenceSummary",
+  title: "Patterns/AssetIntelligenceSummary",
   component: AssetIntelligenceSummary,
   parameters: {
     layout: "padded",

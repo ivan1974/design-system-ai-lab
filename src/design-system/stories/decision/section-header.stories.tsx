@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Button, SectionHeader } from "../../index";
 
 const meta = {
-  title: "Design System/Decision/SectionHeader",
+  title: "Decision/SectionHeader",
   component: SectionHeader,
   parameters: {
     layout: "padded",

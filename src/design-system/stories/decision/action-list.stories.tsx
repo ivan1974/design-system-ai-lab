@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { ActionCard, ActionList, Button } from "../../index";
 
 const meta = {
-  title: "Design System/Decision/ActionList",
+  title: "Decision/ActionList",
   component: ActionList,
   parameters: {
     layout: "padded",

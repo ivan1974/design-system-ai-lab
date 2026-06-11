@@ -4,7 +4,7 @@ import { useState } from "react";
 import { SecondaryNavigation, Surface, Text } from "../../index";
 
 const meta = {
-  title: "Design System/Components/SecondaryNavigation",
+  title: "Components/SecondaryNavigation",
   parameters: { layout: "padded" },
 } satisfies Meta;
 

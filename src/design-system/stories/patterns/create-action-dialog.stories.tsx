@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Button, CreateActionDialog } from "../../index";
 
 const meta = {
-  title: "Design System/Patterns/CreateActionDialog",
+  title: "Patterns/CreateActionDialog",
   component: CreateActionDialog,
   parameters: {
     layout: "centered",

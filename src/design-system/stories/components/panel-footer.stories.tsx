@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Button, PanelFooter, Text } from "../../index";
 
 const meta = {
-  title: "Design System/Components/PanelFooter",
+  title: "Components/PanelFooter",
   parameters: { layout: "padded" },
 } satisfies Meta;
 

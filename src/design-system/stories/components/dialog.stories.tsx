@@ -11,7 +11,7 @@ import {
 } from "../../index";
 
 const meta = {
-  title: "Design System/Components/Dialog",
+  title: "Components/Dialog",
   component: Dialog,
   parameters: {
     layout: "centered",

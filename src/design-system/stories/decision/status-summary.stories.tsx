@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Badge, StatusSummary } from "../../index";
 
 const meta = {
-  title: "Design System/Decision/StatusSummary",
+  title: "Decision/StatusSummary",
   component: StatusSummary,
   parameters: {
     layout: "padded",

@@ -17,7 +17,7 @@ import {
 } from "../../index";
 
 const meta = {
-  title: "Design System/Composition/Workspace Layouts",
+  title: "Composition/Workspace Layouts",
   component: MasterDetailLayout,
   parameters: {
     layout: "fullscreen",

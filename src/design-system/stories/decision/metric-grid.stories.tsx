@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { MetricCard, MetricGrid } from "../../index";
 
 const meta = {
-  title: "Design System/Decision/MetricGrid",
+  title: "Decision/MetricGrid",
   component: MetricGrid,
   parameters: {
     layout: "padded",

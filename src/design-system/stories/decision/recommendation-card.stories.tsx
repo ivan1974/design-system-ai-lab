@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Button, RecommendationCard } from "../../index";
 
 const meta = {
-  title: "Design System/Decision/RecommendationCard",
+  title: "Decision/RecommendationCard",
   component: RecommendationCard,
   parameters: {
     layout: "centered",

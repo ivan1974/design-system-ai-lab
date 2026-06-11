@@ -14,7 +14,7 @@ import {
 } from "../../index";
 
 const meta = {
-  title: "Design System/Components/Queue rows",
+  title: "Components/Queue rows",
   parameters: {
     layout: "padded",
   },

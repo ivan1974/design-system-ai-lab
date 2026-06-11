@@ -4,7 +4,7 @@ import { useState } from "react";
 import { SegmentedControl, Surface, Text } from "../../index";
 
 const meta = {
-  title: "Design System/Components/SegmentedControl",
+  title: "Components/SegmentedControl",
   parameters: { layout: "padded" },
 } satisfies Meta;
 

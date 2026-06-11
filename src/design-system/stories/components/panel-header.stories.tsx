@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Button, PanelHeader, StatusPill } from "../../index";
 
 const meta = {
-  title: "Design System/Components/PanelHeader",
+  title: "Components/PanelHeader",
   parameters: { layout: "padded" },
 } satisfies Meta;
 
