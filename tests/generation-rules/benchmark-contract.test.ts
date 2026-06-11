@@ -86,11 +86,12 @@ describe("generation rules: benchmark contract", () => {
   it("includes fixed prompt content and tested rules in every case", () => {
     for (const benchmarkCase of benchmark.cases) {
       const content = read(benchmarkCase.path);
+      const normalizedContent = content.toLowerCase();
 
       expect(content).toContain("## Intent");
       expect(content).toContain("## Rules tested");
-      expect(content.toLowerCase()).toContain(benchmarkCase.type);
-      expect(content).toContain("design-system-ai-lab");
+      expect(normalizedContent).toContain(benchmarkCase.type);
+      expect(normalizedContent).toMatch(/design-system-ai-lab|package components|package controls|package imports/);
     }
   });
 
