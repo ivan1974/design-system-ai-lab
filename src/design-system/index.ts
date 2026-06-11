@@ -93,6 +93,9 @@ export type {
   SlideOverPanelProps,
 } from "./components/panel";
 
+export { Popover } from "./components/popover";
+export type { PopoverAlign, PopoverProps, PopoverSide } from "./components/popover";
+
 export { ScrollArea } from "./components/scroll-area";
 export type { ScrollAreaMaxHeight, ScrollAreaProps } from "./components/scroll-area";
 
@@ -141,6 +144,9 @@ export type {
   SectionHeadingProps,
   TextProps,
 } from "./components/typography";
+
+export { Tooltip } from "./components/tooltip";
+export type { TooltipAlign, TooltipProps, TooltipSide } from "./components/tooltip";
 
 export { Well } from "./components/well";
 export type { WellPadding, WellProps, WellTone } from "./components/well";
@@ -380,6 +386,6 @@ export { ValueProofCard } from "./patterns/value-proof-card";
 export type {
   ValueProofBadge,
   ValueProofCardMode,
-  ValueProofCardProps,
+  ValueProofProps,
   ValueProofPoint,
 } from "./patterns/value-proof-card";
