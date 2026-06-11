@@ -9,6 +9,7 @@ It explores how a coded design system can become a **Make Kit** for tools such a
 ```txt
 Public package.
 Active development.
+v0.7.0-alpha.0.
 Not production-ready.
 Do not use this package as a finished production design system.
 ```
@@ -31,6 +32,7 @@ The goal is to help AI compose first drafts from a governed system of:
 - business patterns
 - design tokens
 - screen architecture rules
+- screen contracts
 - machine-readable contracts
 - review and repair loops
 - benchmark cases
@@ -48,15 +50,32 @@ A Make Kit is a controlled operating system for generation.
 ## Current roadmap position
 
 ```txt
-v0.6.0 builds the operating system.
-v0.7.0 improves the decision experience.
+v0.6.0 built the GenAI operating system.
+v0.7.0-alpha.0 adds Installed Base Intelligence as a closed screen contract.
 ```
+
+### v0.7.0-alpha.0 — Installed Base Intelligence alpha
+
+The current alpha stabilizes a screen-level contract for Installed Base Intelligence.
+
+It includes:
+
+- Installed Base domain model and controlled values
+- screen contract for the five-layer Installed Base Intelligence experience
+- screen-level Storybook proof
+- golden example app
+- asset list, filter panel and asset detail analysis panel patterns
+- six asset states
+- third-party mandatory value rules
+- Health facts-only and Intelligence decision-oriented separation
+- benchmark cases 12–17
+- Installed Base repair prompts
 
 ### v0.6.0 — GenAI Runtime Optimization
 
-The current workstream makes the kit shorter, clearer and more testable for GenAI.
+v0.6.0 made the kit shorter, clearer and more testable for GenAI.
 
-It focuses on:
+It focused on:
 
 - mandatory Make entry files
 - runtime generation rules
@@ -67,18 +86,6 @@ It focuses on:
 - benchmark cases
 - repair routing
 - machine-readable contracts
-
-It does **not** refactor the full component library or introduce deep progressive disclosure component APIs.
-
-### v0.7.0 — Decision Progressive Disclosure
-
-The next workstream should improve decision-heavy components and patterns with:
-
-- decision-first layouts
-- evidence second
-- detail on demand
-- information density tests
-- progressive disclosure modes where needed
 
 ---
 
@@ -101,12 +108,12 @@ Import components from the public package root only:
 ```tsx
 import {
   WorkspaceShell,
-  PageHeading,
-  FilterBar,
-  MasterDetailLayout,
-  WorkspaceDetailPanel,
-  ListContainer,
-  ActionRow,
+  MainNavigation,
+  InstalledBaseHeader,
+  InstalledBaseViewFilterBar,
+  InstalledBaseList,
+  AllFiltersPanel,
+  AssetDetailAnalysisPanel,
 } from "design-system-ai-lab";
 ```
 
@@ -128,7 +135,7 @@ import { Button } from "design-system-ai-lab/src/design-system/components/button
 
 ## Figma Make reading order
 
-For v0.6.0, Figma Make should read little and always start from the same active runtime path.
+Figma Make should read little and always start from the same active runtime path.
 
 Default reading order:
 
@@ -143,6 +150,15 @@ guidelines/runtime/component-selection.md
 guidelines/runtime/trust-action-rules.md
 guidelines/runtime/visual-rules.md
 guidelines/runtime/progressive-decision-disclosure.md
+```
+
+For Installed Base Intelligence, also read:
+
+```txt
+guidelines/reference/screen-contracts/installed-base-intelligence.md
+guidelines/source/domain-models/installed-base.md
+contracts/installed-base-domain.contract.json
+contracts/screen-contracts/installed-base-intelligence.contract.json
 ```
 
 Use reference files only when the task requires a specific component, pattern or screen architecture detail.
@@ -186,6 +202,7 @@ benchmarks/figma-make/
   outputs/
   evaluations/
   scoring/
+  templates/
 
 docs/
   audit/
@@ -219,8 +236,6 @@ docs/archive/
 
 ---
 
-## What not to read by default
-
 Figma Make should not read the whole repository.
 
 Do not use these as default generation context:
@@ -245,7 +260,7 @@ Active fixed benchmark cases live in:
 benchmarks/figma-make/cases/
 ```
 
-The active v0.6.0 case set covers:
+The active v0.7.0-alpha.0 case set covers:
 
 ```txt
 01-first-generation-customer-monitoring.md
@@ -259,6 +274,12 @@ The active v0.6.0 case set covers:
 09-adversarial-visual-overbranding.md
 10-adversarial-context-drift-after-3-adjustments.md
 11-adversarial-information-overload.md
+12-installed-base-intelligence-closed-spec.md
+13-adversarial-installed-base-local-components.md
+14-adversarial-installed-base-generic-dashboard.md
+15-adversarial-installed-base-third-party-overclaim.md
+16-adversarial-installed-base-health-intelligence-mixing.md
+17-adversarial-installed-base-extra-actions-filters-tabs.md
 ```
 
 Benchmark outputs should be saved in:
@@ -270,7 +291,7 @@ benchmarks/figma-make/outputs/
 Run a generated benchmark output through the generation checks:
 
 ```bash
-GENERATED_APP_PATH=benchmarks/figma-make/outputs/01-first-generation-customer-monitoring.App.tsx npm run test:generation
+GENERATED_APP_PATH=benchmarks/figma-make/outputs/12-installed-base-intelligence-closed-spec.App.tsx npm run test:generation
 ```
 
 ---
@@ -293,6 +314,16 @@ guidelines/evaluation/repair/repair-router.md
 
 The repair router is intentionally short. It helps GenAI repair a specific failure without rereading the full documentation.
 
+Installed Base repair prompts cover:
+
+```txt
+installed-base-local-components.md
+installed-base-generic-dashboard.md
+installed-base-third-party-overclaim.md
+installed-base-health-intelligence-mixing.md
+installed-base-extra-controls.md
+```
+
 ---
 
 ## Golden examples
@@ -303,13 +334,15 @@ Golden examples live in:
 guidelines/examples/golden/
 ```
 
-They are test fixtures for generation rules. They should represent valid package usage and current v0.6.0 constraints.
+They are test fixtures for generation rules. They should represent valid package usage and current v0.7.0-alpha.0 constraints.
 
-Current cleanup status:
+Current active golden examples:
 
 ```txt
-Golden examples are still under Phase 12 review.
-Some examples may be removed or reduced before v0.6.0 is finalized.
+customer-monitoring.App.tsx
+renewal-risk-review.App.tsx
+asset-recommendation-review.App.tsx
+installed-base-intelligence.App.tsx
 ```
 
 ---
@@ -358,6 +391,12 @@ Inspect the package contents before publishing:
 npm pack --dry-run
 ```
 
+Publish the alpha package with the `next` tag:
+
+```bash
+npm publish --tag next
+```
+
 ---
 
 ## Package surface
@@ -395,24 +434,24 @@ Known limitations:
 - no visual regression setup yet
 - accessibility is supported by component choices but not fully audited
 - Figma Make integration still requires real Make validation
-- business patterns are intentionally focused on service and customer monitoring examples
-- some Phase 12 cleanup is still in progress before v0.7.0 starts
+- business patterns are intentionally focused on service, customer monitoring and Installed Base Intelligence examples
+- Storybook chunk-size warnings are not yet optimized
 
 ---
 
 ## Release intent
 
-The v0.6.0 target is a clean GenAI runtime operating system.
+The v0.7.0-alpha.0 target is a public alpha of the Installed Base Intelligence Make Kit surface.
 
-The project is ready for experimentation when:
+The project is ready for alpha publication when:
 
 ```txt
 npm run check passes
-benchmarks are aligned with contracts
-README reflects v0.6.0
-legacy prompts and examples are cleaned
-source files are clearly non-runtime
-deprecated generated values are blocked
+npm run build-storybook passes
+npm pack --dry-run has the expected surface
+README reflects v0.7.0-alpha.0
+contracts reflect v0.7.0-alpha.0
+Installed Base screen contract is benchmarked and repairable
 ```
 
 It should become production-consumable only after explicit release hardening, API stability review, accessibility review and real integration validation.
