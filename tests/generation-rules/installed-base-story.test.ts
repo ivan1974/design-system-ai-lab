@@ -45,7 +45,7 @@ describe("generation rules: Installed Base Intelligence Storybook proof", () => 
 
   it("maps story variants to all required scenarios", () => {
     for (const scenario of requiredScenarios) {
-      expect(story).toContain(`scenario: \"${scenario}\"`);
+      expect(story).toContain(`scenario: "${scenario}"`);
     }
   });
 
