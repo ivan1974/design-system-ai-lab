@@ -93,6 +93,9 @@ export type {
   SlideOverPanelProps,
 } from "./components/panel";
 
+export { ScrollArea } from "./components/scroll-area";
+export type { ScrollAreaMaxHeight, ScrollAreaProps } from "./components/scroll-area";
+
 export { SecondaryNavigation } from "./components/secondary-navigation";
 export type {
   SecondaryNavigationItem,
@@ -111,6 +114,16 @@ export type {
   SurfaceProps,
   SurfaceVariant,
 } from "./components/surface";
+
+export { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "./components/table";
+export type {
+  TableCellProps,
+  TableDensity,
+  TableHeadProps,
+  TableProps,
+  TableRowProps,
+  TableSectionProps,
+} from "./components/table";
 
 export { Tabs } from "./components/tabs";
 export type { TabItem, TabsProps, TabsSize, TabsVariant } from "./components/tabs";
@@ -133,6 +146,9 @@ export { Well } from "./components/well";
 export type { WellPadding, WellProps, WellTone } from "./components/well";
 
 // Forms
+export { Checkbox } from "./forms/checkbox";
+export type { CheckboxProps, CheckboxSize } from "./forms/checkbox";
+
 export { Field } from "./forms/field";
 export type { FieldProps } from "./forms/field";
 
