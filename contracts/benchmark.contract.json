@@ -88,7 +88,7 @@
       "path": "benchmarks/figma-make/cases/06-iteration-change-priority-without-inventing-evidence.md",
       "promptKind": "iteration-change-priority",
       "mustPass": ["priority-update", "evidence-unchanged", "actionability"],
-      "driftRisks": ["invented-evidence", "priority-without-rationale", "changed-source-scope"],
+      "driftRisks": ["priority-change-without-evidence-drift", "invented-evidence", "priority-without-rationale", "changed-source-scope"],
       "iterationNumber": 3
     },
     {
