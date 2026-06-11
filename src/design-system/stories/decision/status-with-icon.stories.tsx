@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { StatusWithIcon } from "../../decision/status-with-icon";
 
 const meta = {
-  title: "Design System/Decision/StatusWithIcon",
+  title: "Decision/StatusWithIcon",
   component: StatusWithIcon,
   parameters: {
     layout: "centered",
