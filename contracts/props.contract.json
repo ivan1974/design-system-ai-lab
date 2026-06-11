@@ -1,387 +1,141 @@
 {
   "$schema": "./schema/generation-contract.schema.json",
   "name": "props",
-  "version": "0.5.1",
+  "version": "0.7.0-alpha.0",
   "sourceGuidelines": [
-    "guidelines/make-minimal-contract.md",
     "guidelines/setup.md",
     "guidelines/source/domain-models",
     "guidelines/reference/components",
     "guidelines/reference/decision",
-    "guidelines/reference/patterns"
+    "guidelines/reference/patterns",
+    "guidelines/reference/screen-architecture"
   ],
   "components": {
     "Button": {
-      "variant": [
-        "primary",
-        "secondary",
-        "ghost",
-        "danger"
-      ],
-      "size": [
-        "sm",
-        "md",
-        "lg"
+      "variant": ["primary", "secondary", "ghost", "danger"],
+      "size": ["sm", "md", "lg"]
+    },
+    "SidePanel": {
+      "width": ["analysis"],
+      "closeOnOverlay": ["true", "false"],
+      "closeOnEscape": ["true", "false"],
+      "lockBackgroundScroll": ["true", "false"]
+    },
+    "StatusWithIcon": {
+      "status": ["live-telemetry", "active-alert", "connectivity-issue", "last-service-visit", "no-record"]
+    },
+    "HealthPill": {
+      "health": ["critical", "poor", "fair", "good", "excellent", "unknown"]
+    },
+    "ConnectivityLabel": {
+      "value": ["connected", "not-connected", "unknown"]
+    },
+    "CoverageTag": {
+      "coverage": [
+        "premium-service-plan-advanced",
+        "premium-service-plan-essential",
+        "advanced-service-plan",
+        "no-coverage"
       ]
+    },
+    "DppTag": {
+      "value": ["dpp-enabled", "no-dpp"]
     },
     "MasterDetailLayout": {
-      "detailMode": [
-        "inline",
-        "overlay"
-      ],
-      "detailWidth": [
-        "sm",
-        "md",
-        "lg"
-      ]
-    },
-    "RecommendationReviewPanel": {
-      "mode": [
-        "card",
-        "section",
-        "drawer"
-      ],
-      "validationStatus": [
-        "not-reviewed",
-        "internal-review-needed",
-        "internally-validated",
-        "customer-ready",
-        "blocked"
-      ],
-      "customerReadiness": [
-        "internal",
-        "needs-review",
-        "customer-ready",
-        "needs_review",
-        "customer_ready"
-      ],
-      "proofReadiness": [
-        "not-available",
-        "expected-only",
-        "internal-proof",
-        "customer-ready-proof"
-      ],
-      "humanValidation": [
-        "not-required",
-        "recommended",
-        "required"
-      ]
+      "detailMode": ["inline", "overlay"],
+      "detailWidth": ["sm", "md", "lg"]
     },
     "WorkspaceDetailPanel": {
-      "mode": [
-        "inline",
-        "overlay",
-        "section"
-      ]
+      "mode": ["inline", "overlay", "section"]
     },
     "StatusPill": {
-      "tone": [
-        "neutral",
-        "success",
-        "warning",
-        "danger",
-        "info"
-      ]
+      "tone": ["neutral", "success", "warning", "danger", "info"]
     },
     "PriorityPill": {
-      "priority": [
-        "low",
-        "medium",
-        "high",
-        "critical"
-      ]
+      "priority": ["low", "medium", "high", "critical"]
     },
     "SourceStrengthPill": {
-      "strength": [
-        "unknown",
-        "partial",
-        "single-source",
-        "multi-source",
-        "validated"
-      ]
+      "strength": ["unknown", "partial", "single-source", "multi-source", "validated"]
     },
     "SemanticTag": {
-      "tone": [
-        "neutral",
-        "info",
-        "success",
-        "warning",
-        "danger"
-      ]
+      "tone": ["neutral", "info", "success", "warning", "danger"]
     },
     "ActionRow": {
-      "priority": [
-        "low",
-        "medium",
-        "high",
-        "critical"
-      ],
-      "status": [
-        "todo",
-        "in-progress",
-        "blocked",
-        "done",
-        "in_progress"
-      ]
+      "priority": ["low", "medium", "high", "critical"],
+      "status": ["todo", "in-progress", "blocked", "done", "in_progress"]
     },
     "ActionCard": {
-      "priority": [
-        "low",
-        "medium",
-        "high",
-        "critical"
-      ],
-      "status": [
-        "todo",
-        "in-progress",
-        "blocked",
-        "done",
-        "in_progress"
-      ]
+      "priority": ["low", "medium", "high", "critical"],
+      "status": ["todo", "in-progress", "blocked", "done", "in_progress"]
     },
     "AlertCard": {
-      "severity": [
-        "critical",
-        "warning",
-        "info"
-      ],
-      "sourceStrength": [
-        "unknown",
-        "partial",
-        "single-source",
-        "multi-source",
-        "validated"
-      ],
-      "validationStatus": [
-        "not-reviewed",
-        "internal-review-needed",
-        "internally-validated",
-        "customer-ready",
-        "blocked"
-      ]
+      "severity": ["critical", "warning", "info"],
+      "sourceStrength": ["unknown", "partial", "single-source", "multi-source", "validated"],
+      "validationStatus": ["not-reviewed", "internal-review-needed", "internally-validated", "customer-ready", "blocked"]
+    },
+    "RecommendationReviewPanel": {
+      "mode": ["card", "section", "drawer"],
+      "validationStatus": ["not-reviewed", "internal-review-needed", "internally-validated", "customer-ready", "blocked"],
+      "customerReadiness": ["internal", "needs-review", "customer-ready", "needs_review", "customer_ready"],
+      "proofReadiness": ["not-available", "expected-only", "internal-proof", "customer-ready-proof"],
+      "humanValidation": ["not-required", "recommended", "required"]
     },
     "RecommendationCard": {
-      "priority": [
-        "low",
-        "medium",
-        "high",
-        "critical"
-      ],
-      "readiness": [
-        "internal",
-        "needs-review",
-        "customer-ready",
-        "needs_review",
-        "customer_ready"
-      ],
-      "proofReadiness": [
-        "not-available",
-        "expected-only",
-        "internal-proof",
-        "customer-ready-proof"
-      ],
-      "sourceStrength": [
-        "unknown",
-        "partial",
-        "single-source",
-        "multi-source",
-        "validated"
-      ],
-      "validationStatus": [
-        "not-reviewed",
-        "internal-review-needed",
-        "internally-validated",
-        "customer-ready",
-        "blocked"
-      ]
+      "priority": ["low", "medium", "high", "critical"],
+      "readiness": ["internal", "needs-review", "customer-ready", "needs_review", "customer_ready"],
+      "proofReadiness": ["not-available", "expected-only", "internal-proof", "customer-ready-proof"],
+      "sourceStrength": ["unknown", "partial", "single-source", "multi-source", "validated"],
+      "validationStatus": ["not-reviewed", "internal-review-needed", "internally-validated", "customer-ready", "blocked"]
     },
     "Tabs": {
-      "variant": [
-        "underline",
-        "contained"
-      ],
-      "size": [
-        "sm",
-        "md"
-      ]
+      "variant": ["underline", "contained"],
+      "size": ["sm", "md"]
     },
     "Surface": {
-      "variant": [
-        "plain",
-        "bordered",
-        "muted",
-        "selected"
-      ],
-      "padding": [
-        "none",
-        "sm",
-        "md",
-        "lg"
-      ]
+      "variant": ["plain", "bordered", "muted", "selected"],
+      "padding": ["none", "sm", "md", "lg"]
     },
     "Well": {
-      "tone": [
-        "neutral",
-        "primary",
-        "warning",
-        "danger",
-        "success"
-      ],
-      "padding": [
-        "sm",
-        "md",
-        "lg"
-      ]
+      "tone": ["neutral", "primary", "warning", "danger", "success"],
+      "padding": ["sm", "md", "lg"]
     },
     "ListContainer": {
-      "spacing": [
-        "compact",
-        "comfortable",
-        "spacious"
-      ]
+      "spacing": ["compact", "comfortable", "spacious"]
     },
     "ReviewQueueRow": {
-      "density": [
-        "comfortable",
-        "spacious"
-      ],
-      "priority": [
-        "low",
-        "medium",
-        "high",
-        "critical"
-      ],
-      "sourceStrength": [
-        "unknown",
-        "partial",
-        "single-source",
-        "multi-source",
-        "validated"
-      ]
+      "density": ["comfortable", "spacious"],
+      "priority": ["low", "medium", "high", "critical"],
+      "sourceStrength": ["unknown", "partial", "single-source", "multi-source", "validated"]
     },
     "ConnectivityCoverageCard": {
-      "mode": [
-        "card",
-        "section",
-        "compact"
-      ],
-      "sourceStrength": [
-        "unknown",
-        "partial",
-        "single-source",
-        "multi-source",
-        "validated"
-      ],
-      "validationStatus": [
-        "not-reviewed",
-        "internal-review-needed",
-        "internally-validated",
-        "customer-ready",
-        "blocked"
-      ]
+      "mode": ["card", "section", "compact"],
+      "sourceStrength": ["unknown", "partial", "single-source", "multi-source", "validated"],
+      "validationStatus": ["not-reviewed", "internal-review-needed", "internally-validated", "customer-ready", "blocked"]
     },
     "CustomerStatusCard": {
-      "mode": [
-        "card",
-        "section",
-        "compact"
-      ]
+      "mode": ["card", "section", "compact"]
     },
     "AssetIntelligenceSummary": {
-      "mode": [
-        "card",
-        "section",
-        "compact"
-      ],
-      "readiness": [
-        "internal",
-        "needs-review",
-        "customer-ready",
-        "needs_review",
-        "customer_ready"
-      ],
-      "sourceStrength": [
-        "unknown",
-        "partial",
-        "single-source",
-        "multi-source",
-        "validated"
-      ],
-      "validationStatus": [
-        "not-reviewed",
-        "internal-review-needed",
-        "internally-validated",
-        "customer-ready",
-        "blocked"
-      ]
+      "mode": ["card", "section", "compact"],
+      "readiness": ["internal", "needs-review", "customer-ready", "needs_review", "customer_ready"],
+      "sourceStrength": ["unknown", "partial", "single-source", "multi-source", "validated"],
+      "validationStatus": ["not-reviewed", "internal-review-needed", "internally-validated", "customer-ready", "blocked"]
     },
     "RenewalRiskSummary": {
-      "renewalReadiness": [
-        "internal",
-        "needs-review",
-        "customer-ready",
-        "needs_review",
-        "customer_ready"
-      ],
-      "proofReadiness": [
-        "not-available",
-        "expected-only",
-        "internal-proof",
-        "customer-ready-proof"
-      ],
-      "validationStatus": [
-        "not-reviewed",
-        "internal-review-needed",
-        "internally-validated",
-        "customer-ready",
-        "blocked"
-      ]
+      "renewalReadiness": ["internal", "needs-review", "customer-ready", "needs_review", "customer_ready"],
+      "proofReadiness": ["not-available", "expected-only", "internal-proof", "customer-ready-proof"],
+      "validationStatus": ["not-reviewed", "internal-review-needed", "internally-validated", "customer-ready", "blocked"]
     },
     "ServiceRiskSummary": {
-      "mode": [
-        "card",
-        "section",
-        "compact"
-      ],
-      "riskLevel": [
-        "critical",
-        "warning",
-        "info"
-      ],
-      "sourceStrength": [
-        "unknown",
-        "partial",
-        "single-source",
-        "multi-source",
-        "validated"
-      ],
-      "validationStatus": [
-        "not-reviewed",
-        "internal-review-needed",
-        "internally-validated",
-        "customer-ready",
-        "blocked"
-      ]
+      "mode": ["card", "section", "compact"],
+      "riskLevel": ["critical", "warning", "info"],
+      "sourceStrength": ["unknown", "partial", "single-source", "multi-source", "validated"],
+      "validationStatus": ["not-reviewed", "internal-review-needed", "internally-validated", "customer-ready", "blocked"]
     },
     "ValueProofCard": {
-      "mode": [
-        "card",
-        "section",
-        "compact"
-      ],
-      "proofReadiness": [
-        "not-available",
-        "expected-only",
-        "internal-proof",
-        "customer-ready-proof"
-      ],
-      "validationStatus": [
-        "not-reviewed",
-        "internal-review-needed",
-        "internally-validated",
-        "customer-ready",
-        "blocked"
-      ]
+      "mode": ["card", "section", "compact"],
+      "proofReadiness": ["not-available", "expected-only", "internal-proof", "customer-ready-proof"],
+      "validationStatus": ["not-reviewed", "internal-review-needed", "internally-validated", "customer-ready", "blocked"]
     }
   },
   "generationPreference": {
@@ -389,7 +143,8 @@
       "values that change component meaning",
       "values that affect trust or evidence interpretation",
       "values that affect action priority",
-      "values that affect layout mode or density"
+      "values that affect layout mode or density",
+      "values that affect operational status, health, coverage, connectivity or DPP state"
     ],
     "doNotDocumentByDefault": [
       "plain React children",
@@ -414,13 +169,19 @@
       "sourceStrength",
       "customerReadiness",
       "humanValidation",
-      "density"
+      "density",
+      "health",
+      "coverage",
+      "connectivity",
+      "value",
+      "width"
     ],
     "fallback": "If uncertain, simplify the component usage or choose a documented value."
   },
   "notes": [
-    "This contract covers props that affect generation quality, evidence, trust, actionability or layout choice.",
+    "This contract covers props that affect generation quality, evidence, trust, actionability, operational state or layout choice.",
     "It intentionally does not list every React prop.",
-    "Deprecated underscore aliases remain listed only because the source types still accept them. New documentation should prefer hyphenated values."
+    "Deprecated underscore aliases remain listed only because the source types still accept them. New documentation should prefer hyphenated values.",
+    "Operational primitives use anonymized service-plan names and must not expose proprietary brands or offer names."
   ]
 }
