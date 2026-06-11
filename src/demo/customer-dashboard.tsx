@@ -142,7 +142,7 @@ export function CustomerDashboard() {
                       sourceScope="Monitoring platform and known installed base"
                       sourceStrength="partial"
                       freshness="18 hours ago"
-                      validationStatus="Review before customer communication"
+                      validationStatus="internal-review-needed"
                     />
                   </SectionBlock>
                 </SectionStack>
