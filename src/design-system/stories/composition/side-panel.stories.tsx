@@ -5,7 +5,7 @@ import { Button } from "../../components/button";
 import { SidePanel } from "../../composition/side-panel";
 
 const meta = {
-  title: "Design System/Composition/SidePanel",
+  title: "Composition/SidePanel",
   component: SidePanel,
   parameters: {
     layout: "fullscreen",
