@@ -99,4 +99,4 @@ The repaired screen is acceptable only if:
 - package imports remain from `design-system-ai-lab`
 - package CSS is imported once
 - forms use package form components when forms are needed
-- the screen still uses the workspace v0.5.1 structure when relevant
+- the screen still uses the v0.6.0 runtime workspace structure when relevant
