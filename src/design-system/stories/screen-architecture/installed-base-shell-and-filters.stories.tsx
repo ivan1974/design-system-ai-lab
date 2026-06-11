@@ -21,6 +21,28 @@ const filterGroups: InstalledBaseFilterGroup[] = [
   { category: "Contract Type", options: ["Premium Service Plan Advanced", "No Coverage"].map((label) => ({ label, value: label })) },
 ];
 
+function InstalledBaseShellAndFiltersExample() {
+  const [view, setView] = useState<InstalledBaseView>("list");
+  const [filtersOpen, setFiltersOpen] = useState(false);
+
+  function handleFilterSelect(filter: InstalledBaseFilterTrigger) {
+    if (filter === "all-filters") {
+      setFiltersOpen(true);
+    }
+  }
+
+  return (
+    <WorkspaceShell>
+      <MainNavigation />
+      <div className="grid gap-6 p-6">
+        <InstalledBaseHeader buildingCount={3} electricalRoomCount={14} />
+        <InstalledBaseViewFilterBar activeView={view} onViewChange={setView} onFilterSelect={handleFilterSelect} />
+      </div>
+      <AllFiltersPanel open={filtersOpen} onClose={() => setFiltersOpen(false)} filterGroups={filterGroups} />
+    </WorkspaceShell>
+  );
+}
+
 const meta = {
   title: "Screen Architecture/Installed Base Shell And Filters",
   component: InstalledBaseViewFilterBar,
@@ -31,25 +53,5 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const ShellAndFilters: Story = {
-  render: () => {
-    const [view, setView] = useState<InstalledBaseView>("list");
-    const [filtersOpen, setFiltersOpen] = useState(false);
-
-    function handleFilterSelect(filter: InstalledBaseFilterTrigger) {
-      if (filter === "all-filters") {
-        setFiltersOpen(true);
-      }
-    }
-
-    return (
-      <WorkspaceShell>
-        <MainNavigation />
-        <div className="grid gap-6 p-6">
-          <InstalledBaseHeader buildingCount={3} electricalRoomCount={14} />
-          <InstalledBaseViewFilterBar activeView={view} onViewChange={setView} onFilterSelect={handleFilterSelect} />
-        </div>
-        <AllFiltersPanel open={filtersOpen} onClose={() => setFiltersOpen(false)} filterGroups={filterGroups} />
-      </WorkspaceShell>
-    );
-  },
+  render: () => <InstalledBaseShellAndFiltersExample />,
 };
