@@ -10,6 +10,12 @@ Generate an asset recommendation review workspace from scratch.
 
 The user must review an asset, evidence, recommendation rationale, validation status and next action before customer use.
 
+## Related reusable prompt
+
+```txt
+guidelines/prompts/asset-recommendation-review.md
+```
+
 ## Prompt for Figma Make
 
 Create a React `App.tsx` screen for a service expert reviewing asset recommendations.
