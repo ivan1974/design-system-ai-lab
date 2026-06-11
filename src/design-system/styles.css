@@ -3,6 +3,7 @@
 
 :root {
   /* Compatibility aliases for Figma Make / shadcn-like generators. */
+  --font-size: var(--ec-font-size-root);
   --background: var(--ec-color-background);
   --foreground: var(--ec-color-text-primary);
 
@@ -12,7 +13,7 @@
   --popover: var(--ec-color-surface-raised);
   --popover-foreground: var(--ec-color-text-primary);
 
-  --primary: var(--ec-color-primary);
+  --primary: var(--ec-color-text-primary);
   --primary-foreground: var(--ec-color-primary-foreground);
 
   --secondary: var(--ec-color-surface-muted);
@@ -28,15 +29,19 @@
   --destructive-foreground: var(--ec-color-primary-foreground);
 
   --border: var(--ec-color-border);
-  --input: var(--ec-color-border);
-  --input-background: var(--ec-color-surface);
+  --input: transparent;
+  --input-background: var(--ec-color-input-background);
+  --switch-background: #cbced4;
   --ring: var(--ec-color-primary);
 
-  --radius-sm: var(--ec-radius-sm);
-  --radius-md: var(--ec-radius-md);
-  --radius-lg: var(--ec-radius-lg);
-  --radius-xl: var(--ec-radius-xl);
   --radius: var(--ec-radius-md);
+  --radius-sm: var(--ec-radius-sm);
+  --radius-md: calc(var(--ec-radius-md) - 2px);
+  --radius-lg: var(--ec-radius-md);
+  --radius-xl: var(--ec-radius-xl);
+
+  --font-weight-normal: var(--ec-font-weight-regular);
+  --font-weight-medium: var(--ec-font-weight-medium);
 
   --text-primary: var(--ec-color-text-primary);
   --text-secondary: var(--ec-color-text-secondary);
@@ -48,4 +53,75 @@
   --row-selected: var(--ec-color-row-selected);
   --shadow-card: var(--ec-shadow-card);
   --shadow-panel: var(--ec-shadow-panel);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-ring: var(--ring);
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  label,
+  button {
+    font-weight: var(--ec-font-weight-medium);
+    line-height: 1.5;
+  }
+
+  h1 {
+    font-size: var(--ec-font-size-8);
+  }
+
+  h2 {
+    font-size: var(--ec-font-size-7);
+  }
+
+  h3 {
+    font-size: var(--ec-font-size-6);
+  }
+
+  h4,
+  label,
+  button,
+  input {
+    font-size: var(--ec-font-size-4);
+  }
+
+  input {
+    font-weight: var(--ec-font-weight-regular);
+    line-height: 1.5;
+  }
 }
