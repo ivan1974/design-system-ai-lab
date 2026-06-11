@@ -2,125 +2,15 @@
 
 ## Purpose
 
-Queue rows are first-class decision-list objects.
+Queue rows are first-class decision-list objects for repeated customers, assets, risks and recommendations.
 
-Use them when the user needs to review, select, compare or triage customers, assets, risks or recommendations.
+They prevent Figma Make from creating local styled row wrappers around generic content.
 
-They replace generic row wrappers and prevent Figma Make from creating local styled divs around `SignalRow`.
+## Use this component when
 
----
+Use queue rows when the user must review, select, compare or triage repeated business objects.
 
-## Components
-
-Use:
-
-```tsx
-<ReviewQueueRow />
-<CustomerQueueRow />
-<AssetQueueRow />
-<RiskQueueRow />
-<RecommendationQueueRow />
-```
-
-`ReviewQueueRow` lives in the decision layer.
-
-Business-specific queue rows live in the patterns layer because they map to CompanyName-like review objects.
-
----
-
-## When to use ReviewQueueRow
-
-Use `ReviewQueueRow` when no specific business row fits.
-
-```tsx
-<ReviewQueueRow
-  eyebrow="Monitoring review"
-  title="Main switchboard requires review"
-  description="Visibility is partial and source freshness should be checked before customer communication."
-  status="Review needed"
-  statusTone="warning"
-  priority="high"
-  sourceStrength="partial"
-  metrics={[{ label: "Coverage", value: "68%" }]}
-/>
-```
-
----
-
-## When to use business rows
-
-Use `CustomerQueueRow` for customer queues.
-
-Use `AssetQueueRow` for asset queues.
-
-Use `RiskQueueRow` for operational or service risk queues.
-
-Use `RecommendationQueueRow` for recommendation review queues.
-
-Preferred:
-
-```tsx
-<CustomerQueueRow
-  customerName="Northstar Manufacturing"
-  plan="CompanyName Advanced"
-  description="QBR in 6 days · service visibility needs review"
-  riskLabel="Critical monitoring gap"
-  riskTone="danger"
-  priority="high"
-  sourceStrength="partial"
-  coverage="54%"
-  openActions="4"
-/>
-```
-
----
-
-## List composition
-
-Place queue rows inside `ListContainer`.
-
-Preferred:
-
-```tsx
-<ListContainer>
-  <CustomerQueueRow ... />
-  <CustomerQueueRow ... />
-</ListContainer>
-```
-
-Avoid:
-
-```tsx
-<div className="divide-y rounded-lg border bg-white">
-  <div className="px-4 py-4 hover:bg-gray-50">...</div>
-</div>
-```
-
----
-
-## Visual behavior
-
-Queue rows support:
-
-- selected state
-- hover state
-- title hierarchy
-- metadata hierarchy
-- status pills
-- priority pills
-- source strength pills
-- compact metrics
-- trailing action or indicator
-
-Use these props instead of creating local wrappers.
-
----
-
-## Make guidance
-
-When generating customer, asset, risk or recommendation lists, Make should choose the most specific queue row available.
-
-Use:
+Use the most specific row available:
 
 ```txt
 CustomerQueueRow for customers
@@ -130,55 +20,136 @@ RecommendationQueueRow for recommendations
 ReviewQueueRow for generic review queues
 ```
 
-Do not create local components named:
+Place queue rows inside `ListContainer`.
+
+## Do not use this component when
+
+Do not use queue rows for standalone summaries, metrics or long-form explanation.
+
+Do not use generic custom rows when a specific package row exists.
+
+Do not wrap `SignalRow` in a custom selected-state container to simulate a queue row.
+
+## Prefer this component over
+
+Prefer queue rows over:
 
 ```txt
-CustomerRow
-AssetRow
-RiskRow
-RecommendationRow
-QueueItem
-ListItem
+local CustomerRow
+local AssetRow
+local RiskRow
+local RecommendationRow
+local QueueItem
+local ListItem
+local selected div wrappers
 ```
 
-unless they only map data into approved queue row components and do not define styles.
+Prefer `ReviewQueueRow` only when no specific business row fits.
 
----
+## Never generate
 
-## Anti-patterns
+Never generate local visual row components.
 
-Avoid creating a generic dashboard row with custom classes:
+Never generate queue rows outside a clear list or review context.
 
-```tsx
-<div className="flex items-center justify-between rounded-lg border bg-white p-4 hover:bg-gray-50">
-  ...
-</div>
+Never hide priority, status or source strength when they are needed for the decision.
+
+Never create custom selected, hover, status or priority styling around package rows.
+
+## Required props
+
+Use the props required by the selected queue row type.
+
+For all queue rows, provide enough content to identify the object and decision state:
+
+```txt
+title or business object name
+description or reason for attention
+status or risk label when relevant
+priority when the item is actionable
+sourceStrength when trust matters
+selected when the row is the active detail item
 ```
 
-Avoid wrapping `SignalRow` in custom selected-state containers:
+## Controlled values
 
-```tsx
-<div className={selected ? "bg-green-50" : ""}>
-  <SignalRow ... />
-</div>
+Use documented controlled values from `contracts/props.contract.json`.
+
+Common values include:
+
+```txt
+priority: low, medium, high, critical
+statusTone: neutral, info, success, warning, danger
+riskTone: neutral, info, success, warning, danger
+sourceStrength: unknown, partial, single-source, multi-source, validated
 ```
 
-Prefer:
+Do not invent values.
 
-```tsx
-<CustomerQueueRow selected ... />
+## GenAI generation rules
+
+Use queue rows for repeated review objects in a decision workspace.
+
+Use `ListContainer` as the parent.
+
+Use `WorkspaceDetailPanel` for the selected item detail.
+
+Keep repeated objects dense and scannable.
+
+Show facts before interpretation.
+
+Use package-provided selected and hover states.
+
+## Common generation failures
+
+Failure: The generated screen uses custom div rows.
+
+Why it fails: It creates a local design system and loses package states.
+
+Fix: Replace custom rows with the most specific queue row.
+
+Failure: The generated screen uses many equal cards for repeated objects.
+
+Why it fails: It creates card saturation and weak list density.
+
+Fix: Use `ListContainer` with queue rows.
+
+Failure: The selected row does not match the detail panel.
+
+Why it fails: It breaks the master/detail relationship.
+
+Fix: Mark the selected row and align the detail panel content.
+
+## Repair prompt
+
+Use:
+
+```txt
+guidelines/evaluation/repair/missing-list-container.md
+guidelines/evaluation/repair/poor-row-density.md
+guidelines/evaluation/repair/no-local-components.md
 ```
 
----
+If the issue is unclear, use:
 
-## Acceptance criteria
+```txt
+guidelines/evaluation/repair/repair-router.md
+```
 
-A generated screen is better if:
+## Related stories
 
-- repeated review objects use queue rows
-- queue rows are inside `ListContainer`
-- selected and hover states are package-provided
-- priority and source strength use documented props
-- row titles, descriptions and metadata are visually distinct
-- customer, asset, risk and recommendation rows do not look identical
-- Make does not create local visual row wrappers
+```txt
+src/design-system/stories/decision/queue-rows.stories.tsx
+src/design-system/stories/patterns/customer-queue-row.stories.tsx
+src/design-system/stories/patterns/asset-queue-row.stories.tsx
+src/design-system/stories/patterns/recommendation-queue-row.stories.tsx
+src/design-system/stories/patterns/risk-queue-row.stories.tsx
+```
+
+## Related contracts
+
+```txt
+contracts/component-registry.contract.json
+contracts/props.contract.json
+contracts/story-coverage.contract.json
+```
