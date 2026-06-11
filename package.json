@@ -1,9 +1,9 @@
 {
   "name": "design-system-ai-lab",
   "private": false,
-  "version": "0.5.1",
+  "version": "0.6.0-alpha.0",
   "type": "module",
-  "description": "A promptable React design system lab for controlled AI-assisted interface generation.",
+  "description": "A GenAI-ready React design system lab and Make Kit for controlled AI-assisted interface generation.",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -52,6 +52,7 @@
     "figma",
     "figma-make",
     "ai",
+    "make-kit",
     "promptable-ui",
     "controlled-generation",
     "storybook"
