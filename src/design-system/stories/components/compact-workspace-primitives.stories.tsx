@@ -23,7 +23,7 @@ import {
 } from "../../index";
 
 const meta = {
-  title: "Design System/Components/Compact Workspace Primitives",
+  title: "Components/Compact Workspace Primitives",
   parameters: { layout: "padded" },
   tags: ["autodocs"],
 } satisfies Meta;
