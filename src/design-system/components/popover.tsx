@@ -67,7 +67,7 @@ export function Popover({
           id={fallbackId}
           role="dialog"
           className={[
-            "absolute z-[400] min-w-64 rounded-(--ec-radius-md) border border-(--ec-color-border) bg-(--ec-color-surface) p-4 text-sm text-(--ec-color-text-primary) shadow-md",
+            "absolute z-400 min-w-64 rounded-(--ec-radius-md) border border-(--ec-color-border) bg-(--ec-color-surface) p-4 text-sm text-(--ec-color-text-primary) shadow-md",
             sideClasses[side],
             side === "top" || side === "bottom" ? alignClasses[align] : "",
           ].join(" ")}
