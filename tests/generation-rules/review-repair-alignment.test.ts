@@ -34,6 +34,19 @@ const repairPrompts = [
   "weak-typography-hierarchy.md",
 ];
 
+const repairFamilies = [
+  "Import failure",
+  "Local design system",
+  "Generic dashboard",
+  "Card stack",
+  "Missing evidence",
+  "Invented evidence",
+  "Missing ownership",
+  "Visual drift",
+  "Information overload",
+  "Context drift",
+];
+
 function read(relativePath: string) {
   return fs.readFileSync(path.join(rootDir, relativePath), "utf-8");
 }
@@ -62,6 +75,17 @@ describe("generation rules: review and repair alignment", () => {
     for (const fileName of repairPrompts.filter((fileName) => fileName !== "repair-router.md")) {
       expect(content).toContain(fileName);
     }
+  });
+
+  it("repair router covers the v0.6.0 minimal repair families", () => {
+    const content = read("guidelines/evaluation/repair/repair-router.md");
+
+    for (const family of repairFamilies) {
+      expect(content).toContain(family);
+    }
+
+    expect(content).toContain("Do not reread the full documentation.");
+    expect(content).toContain("Read only the linked repair prompt.");
   });
 
   it("review docs route to actual repair prompt files", () => {
