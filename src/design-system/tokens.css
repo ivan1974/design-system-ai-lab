@@ -23,4 +23,20 @@
   --ec-color-primary-soft: #f0faf5;
   --ec-color-primary-border: #b3e6d0;
   --ec-color-primary-foreground: #ffffff;
+  --ec-font-size-0: 0.6875rem;
+  --ec-font-size-1: 0.75rem;
+  --ec-font-size-2: 0.8125rem;
+  --ec-font-size-3: 0.875rem;
+  --ec-font-size-4: 1rem;
+  --ec-font-size-5: 1.125rem;
+  --ec-font-size-6: 1.25rem;
+  --ec-font-size-7: 1.5rem;
+  --ec-line-height-0: 0.875rem;
+  --ec-line-height-1: 1rem;
+  --ec-line-height-2: 1.125rem;
+  --ec-line-height-3: 1.25rem;
+  --ec-line-height-4: 1.5rem;
+  --ec-line-height-5: 1.625rem;
+  --ec-line-height-6: 1.75rem;
+  --ec-line-height-7: 2rem;
 }
