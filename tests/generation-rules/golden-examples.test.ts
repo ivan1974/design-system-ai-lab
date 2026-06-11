@@ -7,8 +7,6 @@ const expectedGoldenExamples = [
   "guidelines/examples/golden/customer-monitoring.App.tsx",
   "guidelines/examples/golden/renewal-risk-review.App.tsx",
   "guidelines/examples/golden/asset-recommendation-review.App.tsx",
-  "guidelines/examples/golden/qbr-readiness.App.tsx",
-  "guidelines/examples/golden/installed-base-explorer.App.tsx",
 ];
 
 const forbiddenGoldenExampleSnippets = [
@@ -49,7 +47,7 @@ const requiredDecisionSignals = [
 ];
 
 describe("generation rules: golden examples", () => {
-  it("uses guidelines examples directly as the golden fixtures", () => {
+  it("uses active v0.6.0 examples directly as the golden fixtures", () => {
     expect(defaultTargetPaths).toEqual(expectedGoldenExamples);
   });
 
