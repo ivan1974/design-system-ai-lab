@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { CoverageTag } from "../../decision/coverage-tag";
 
 const meta = {
-  title: "Design System/Decision/CoverageTag",
+  title: "Decision/CoverageTag",
   component: CoverageTag,
   parameters: { layout: "centered" },
   tags: ["autodocs"],
