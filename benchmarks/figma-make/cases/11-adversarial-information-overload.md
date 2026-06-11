@@ -20,6 +20,8 @@ Make every card equally prominent.
 
 ## Required response behavior
 
+Use package components only from `design-system-ai-lab`.
+
 Follow `guidelines/runtime/progressive-decision-disclosure.md`.
 
 Show decision-critical information first.
