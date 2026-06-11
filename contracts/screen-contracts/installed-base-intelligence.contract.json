@@ -1,0 +1,313 @@
+{
+  "$schema": "../schema/screen-contract.contract.schema.json",
+  "screen": "InstalledBaseIntelligence",
+  "version": "0.7.0-alpha.0",
+  "status": "target",
+  "complianceMode": "closed",
+  "undefinedElementsAllowed": false,
+  "sources": {
+    "referenceAnalysis": "docs/audit/v0.7.0-installed-base-reference-analysis.md",
+    "prototypeReference": "guidelines/source/prototypes/installed-base-intelligence-reference.md",
+    "domainGuideline": "guidelines/source/domain-models/installed-base.md",
+    "domainContract": "contracts/installed-base-domain.contract.json",
+    "screenGuideline": "guidelines/reference/screen-contracts/installed-base-intelligence.md"
+  },
+  "requiredLayers": [
+    "MainNavigation",
+    "InstalledBaseHeader",
+    "InstalledBaseViewFilterBar",
+    "InstalledBaseList",
+    "AssetDetailAnalysisPanel"
+  ],
+  "requiredMainNavigationElements": [
+    "Schneider Electric Logo",
+    "Product Name",
+    "Global Search",
+    "Help",
+    "User Menu"
+  ],
+  "mainNavigationText": {
+    "productName": "Installed Base Intelligence",
+    "searchPlaceholder": "Search assets, sites, documents",
+    "userMenu": "User Avatar User Name"
+  },
+  "mainNavigationForbidden": [
+    "Site information",
+    "Customer information",
+    "Campus information",
+    "Portfolio information",
+    "Asset information",
+    "Filters",
+    "View selectors",
+    "KPIs",
+    "Marketing navigation",
+    "Public website navigation"
+  ],
+  "requiredHeaderElements": [
+    "Context Pill",
+    "Site Context",
+    "Portfolio Title",
+    "Portfolio Scope Summary",
+    "Asset Intelligence"
+  ],
+  "headerInconsistencyResolution": {
+    "sourceIssue": "Reference specification says exactly four Page Header elements but lists five.",
+    "decision": "v0.7.0 requires exactly five Page Header elements.",
+    "reason": "Asset Intelligence is explicitly listed and carries the screen-specific promise."
+  },
+  "headerText": {
+    "contextPill": "Reference Campus",
+    "siteContext": "Demo Data Center — DC-WE01",
+    "portfolioTitle": "Asset Portfolio",
+    "portfolioScopeSummaryPattern": "[#] Buildings · [#] Electrical Rooms",
+    "assetIntelligence": "Component hierarchy + intelligence enabled"
+  },
+  "headerForbidden": [
+    "Filters",
+    "Asset information",
+    "Tab navigation",
+    "Actions",
+    "Recommendations",
+    "Health information",
+    "KPIs"
+  ],
+  "requiredViewFilterBarZones": [
+    "Left Zone",
+    "Right Zone"
+  ],
+  "requiredViews": [
+    "List",
+    "Geography",
+    "Electrical"
+  ],
+  "requiredFilterTriggers": [
+    "Location",
+    "Asset Type",
+    "Contract Type",
+    "All Filters"
+  ],
+  "requiredAdvancedFilters": [
+    "Health",
+    "Connectivity",
+    "Coverage",
+    "DPP",
+    "Status",
+    "Age",
+    "Location",
+    "Asset Type",
+    "Contract Type"
+  ],
+  "filterValues": {
+    "Health": ["Critical", "Poor", "Fair", "Good", "Excellent"],
+    "Connectivity": ["Connected", "Non-connected"],
+    "Coverage": ["EcoCare Advanced", "EcoCare Essential", "Adv. Service Plan", "No Coverage"],
+    "DPP": ["With Digital Product Passport", "Without Digital Product Passport"],
+    "Status": ["Live Telemetry", "Active Alert", "Last Service Visit", "No Record"],
+    "Age": ["< 5 years", "5–9 years", "10+ years"]
+  },
+  "filterRules": {
+    "labels": "text-only",
+    "iconsAllowed": false,
+    "emojisAllowed": false,
+    "multipleValuesSelectable": true,
+    "clearAllRequired": true
+  },
+  "requiredGrouping": [
+    "Building",
+    "Electrical Area",
+    "Room",
+    "Asset"
+  ],
+  "requiredAttentionGroup": "Attention required",
+  "requiredColumns": [
+    "Asset",
+    "Type",
+    "Location",
+    "Coverage",
+    "Health",
+    "Status",
+    "Action"
+  ],
+  "requiredAssetColumnElements": [
+    "Connectivity Label",
+    "Asset Name",
+    "Asset Reference",
+    "Asset Description"
+  ],
+  "requiredLocationElements": [
+    "Building",
+    "Electrical Area",
+    "Room"
+  ],
+  "requiredCoverageElements": [
+    "Service Coverage",
+    "DPP Status"
+  ],
+  "requiredStatusElements": [
+    "Status Label",
+    "Status Date"
+  ],
+  "requiredStatusIcons": {
+    "Live telemetry": "✓",
+    "Active alert": "⚠",
+    "Connectivity issue": "⚠",
+    "Last service visit": "◷",
+    "No record": "—"
+  },
+  "requiredAssetStates": [
+    "connected-schneider",
+    "connected-schneider-with-alert",
+    "connected-schneider-with-connectivity-issue",
+    "non-connected-schneider",
+    "non-connected-schneider-with-service-history",
+    "third-party"
+  ],
+  "thirdPartyAssetRules": {
+    "connectivity": "Unknown",
+    "coverage": "No Coverage",
+    "health": "Unknown",
+    "status": "No record",
+    "exceptionsAllowed": false
+  },
+  "requiredPanelSections": [
+    "Panel Header",
+    "Tab Navigation",
+    "Tab Content",
+    "Action Area"
+  ],
+  "requiredPanelHeaderFields": [
+    "Location",
+    "Asset Name",
+    "Asset Description"
+  ],
+  "requiredTabs": [
+    "Overview",
+    "Health",
+    "Intelligence",
+    "Passport",
+    "History",
+    "Documents"
+  ],
+  "tabRoles": {
+    "Overview": "What is this asset?",
+    "Health": "What is the current condition?",
+    "Intelligence": "What should be done?",
+    "Passport": "What is officially known about this product?",
+    "History": "What happened over time?",
+    "Documents": "What supporting evidence exists?"
+  },
+  "allowedPanelActions": [
+    "Schedule Service",
+    "Download Report",
+    "Contact Expert"
+  ],
+  "overlayPanelBehavior": {
+    "overlay": "full-screen fixed",
+    "overlayColor": "rgba(0, 0, 0, 0.45)",
+    "backgroundBlur": "4px",
+    "overlayZIndex": 200,
+    "panelZIndex": 300,
+    "panelWidth": "30vw",
+    "panelMinWidth": "360px",
+    "panelMaxWidth": "500px",
+    "slideDirection": "right",
+    "duration": "300ms",
+    "easing": "cubic-bezier(0.4, 0, 0.2, 1)",
+    "closeIconRequired": true,
+    "overlayClickCloses": true,
+    "escapeCloses": true
+  },
+  "requiredInteractions": [
+    "asset-row-selection-opens-detail-panel",
+    "overlay-click-closes-panel",
+    "close-icon-closes-panel",
+    "escape-closes-panel",
+    "background-scroll-locked-when-panel-open",
+    "installed-base-list-does-not-scroll-when-detail-panel-open",
+    "panel-content-scrolls-independently",
+    "action-area-remains-sticky",
+    "clear-all-clears-filter-values",
+    "multiple-filter-values-selectable"
+  ],
+  "requiredContextPreservation": [
+    "Active View",
+    "Active Filters",
+    "Selected Asset",
+    "Selected Tab"
+  ],
+  "factInterpretationSeparation": {
+    "Health": [
+      "facts",
+      "measurements",
+      "observations",
+      "current condition",
+      "telemetry",
+      "alert facts",
+      "freshness",
+      "source"
+    ],
+    "Intelligence": [
+      "diagnosis",
+      "interpretation",
+      "benchmarking",
+      "recommendations",
+      "expected outcome",
+      "proof readiness",
+      "source strength",
+      "validation",
+      "action plan"
+    ],
+    "duplicationAllowed": false
+  },
+  "progressiveDecisionDisclosure": {
+    "principle": "Generated decision screens must reveal decision-critical information first, then expose evidence and explanation progressively.",
+    "levels": [
+      "signal",
+      "decision",
+      "evidence"
+    ],
+    "defaultDisclosure": "signal-first",
+    "sourceStrengthNearRecommendation": true,
+    "validationNearRecommendation": true,
+    "proofReadinessVisibleWhenExpectedOutcomeDisplayed": true,
+    "actionOwnershipVisibleWhenActionAvailable": true
+  },
+  "componentMapping": {
+    "Main Navigation": "MainNavigation",
+    "Page Header": "InstalledBaseHeader",
+    "View & Filter Bar": "InstalledBaseViewFilterBar",
+    "All Filters Panel": "AllFiltersPanel",
+    "Installed Base List": "InstalledBaseList",
+    "Asset Row": "AssetInventoryRow",
+    "Asset Detail Panel": "AssetDetailAnalysisPanel"
+  },
+  "visualRules": {
+    "density": "high",
+    "surface": "white-first",
+    "layout": "table-first",
+    "listWidth": "controlled-centered",
+    "forbidden": [
+      "hero dashboards",
+      "card stacks replacing inventory tables",
+      "decorative gradients",
+      "local colored panels",
+      "oversized metrics",
+      "visual overbranding"
+    ]
+  },
+  "forbidden": {
+    "global": [
+      "local components",
+      "inline visual components",
+      "raw form controls",
+      "additional primary layers",
+      "additional views",
+      "additional filters",
+      "additional columns",
+      "additional tabs",
+      "additional actions",
+      "dashboard hero metrics",
+      "card-grid replacement for inventory table"
+    ]
+  }
+}
