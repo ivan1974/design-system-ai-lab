@@ -1,12 +1,12 @@
-# Case 12 — Installed Base Intelligence closed specification
+# 12 — Installed Base Intelligence closed specification
 
-## Status
+## Type
 
-v0.7.0 Sprint 1 benchmark case.
+first-generation
 
-## Purpose
+## Intent
 
-Evaluate whether Figma Make can generate an Installed Base Intelligence screen using only `design-system-ai-lab` components and following the Installed Base Intelligence screen contract.
+Evaluate whether Figma Make can generate an Installed Base Intelligence screen using only package components from `design-system-ai-lab` and following the closed Installed Base Intelligence screen contract.
 
 This is a closed-spec benchmark. The goal is not to produce a visually similar dashboard. The goal is strict compliance with the screen contract.
 
@@ -23,7 +23,7 @@ Before generation, read:
 
 ## Prompt
 
-Generate an Installed Base Intelligence prototype using only `design-system-ai-lab` components.
+Generate an Installed Base Intelligence prototype using only package imports from `design-system-ai-lab`.
 
 Do not create local components.
 
@@ -142,8 +142,6 @@ The Type column must use only these asset families:
 - PDU
 - Battery System
 
-The Coverage column must contain Service Coverage and DPP Status.
-
 Coverage must use only:
 
 - Premium Service Plan Advanced
@@ -218,7 +216,9 @@ Use this hierarchy:
 
 Apply operational intelligence visual density: dense rows, table-like alignment, white-first surfaces, subtle borders, compact tags, compact pills and icon + label statuses.
 
-## Scoring guide
+## Scoring
+
+Use `benchmarks/figma-make/scoring/installed-base-intelligence-scoring.md`.
 
 Total: 100 points.
 
@@ -242,6 +242,21 @@ The generation fails regardless of score if any of the following is true:
 - third-party asset mandatory values are violated;
 - Health and Intelligence content are mixed or duplicated;
 - the screen is transformed into a generic dashboard.
+
+## Rules tested
+
+- first-generation
+- use package components
+- no internal imports
+- no local components
+- installed base screen contract
+- installed base domain contract
+- seven columns
+- six asset states
+- third-party mandatory values
+- Health and Intelligence separation
+- progressive decision disclosure
+- operational density
 
 ## Expected output
 
