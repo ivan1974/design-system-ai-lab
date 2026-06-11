@@ -22,11 +22,11 @@
     "Battery System"
   ],
   "assetStates": [
-    "connected-schneider",
-    "connected-schneider-with-alert",
-    "connected-schneider-with-connectivity-issue",
-    "non-connected-schneider",
-    "non-connected-schneider-with-service-history",
+    "connected-oem",
+    "connected-oem-with-alert",
+    "connected-oem-with-connectivity-issue",
+    "non-connected-oem",
+    "non-connected-oem-with-service-history",
     "third-party"
   ],
   "connectivityValues": [
@@ -47,9 +47,9 @@
     "Unknown"
   ],
   "coverageValues": [
-    "EcoCare Advanced",
-    "EcoCare Essential",
-    "Adv. Service Plan",
+    "Premium Service Plan Advanced",
+    "Premium Service Plan Essential",
+    "Advanced Service Plan",
     "No Coverage"
   ],
   "dppValues": [
