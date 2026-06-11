@@ -36,11 +36,13 @@ Read in this order:
 3. tokens.md
 4. styles.md
 5. runtime/generation-contract.md
-6. runtime/generation-flow.md
-7. runtime/component-selection.md
-8. runtime/trust-action-rules.md
-9. runtime/visual-rules.md
-10. runtime/progressive-decision-disclosure.md
+6. runtime/screen-contract-generation.md
+7. runtime/generation-flow.md
+8. runtime/component-selection.md
+9. runtime/trust-action-rules.md
+10. runtime/visual-rules.md
+11. runtime/operational-intelligence-visual-rules.md
+12. runtime/progressive-decision-disclosure.md
 ```
 
 Only read detailed files when the task requires them:
@@ -51,6 +53,10 @@ source/ = research, principles, domain models and historical visual brand
 evaluation/ = review, repair and benchmark guidance
 contracts/ = machine-readable checks
 ```
+
+If the requested screen has a screen contract, read it before component reference documentation.
+
+Screen contracts override generic workspace suggestions when they define exact layers, zones, filters, columns, tabs, actions or prohibited content.
 
 ---
 
@@ -64,10 +70,12 @@ Always:
 4. Use public package components and business patterns first.
 5. Generate one decision-oriented screen, not a generic dashboard.
 6. Prefer workspace structure over long card stacks.
-7. Show facts before interpretation.
-8. Show the minimum decision-critical information first.
-9. Keep evidence, source scope and validation available but not overwhelming.
-10. Every actionable item must have owner, due date and priority.
+7. Read a matching screen contract before selecting components.
+8. Preserve exact screen-contract layers, zones, filters, columns, tabs and actions.
+9. Show facts before interpretation.
+10. Show the minimum decision-critical information first.
+11. Keep evidence, source scope and validation available but not overwhelming.
+12. Every actionable item must have owner, due date and priority.
 
 Never:
 
@@ -79,6 +87,7 @@ Never:
 6. Hide human validation for sensitive decisions.
 7. Use visual emphasis to make weak evidence look stronger.
 8. Expose every fact, proof point and action at the same hierarchy level.
+9. Add undefined filters, columns, tabs, actions or primary layers when a screen contract exists.
 
 ---
 
@@ -87,16 +96,18 @@ Never:
 Use this flow before selecting components:
 
 ```txt
-1. Identify the primary user decision.
-2. Select the main domain object.
-3. Select the screen type.
-4. Use the default workspace architecture.
-5. Use business patterns before low-level components.
-6. Add decision components only where they support action.
-7. Add evidence and trust markers.
-8. Add owned next actions.
-9. Apply visual rules.
-10. Run blockers before final answer.
+1. Identify whether a screen contract exists.
+2. If yes, read and preserve the screen contract first.
+3. Identify the primary user decision.
+4. Select the main domain object.
+5. Select the screen type.
+6. Use the default workspace architecture only when no screen contract defines one.
+7. Use business patterns before low-level components.
+8. Add decision components only where they support action.
+9. Add evidence and trust markers.
+10. Add owned next actions.
+11. Apply visual rules.
+12. Run blockers before final answer.
 ```
 
 Default workspace architecture:
@@ -112,6 +123,8 @@ WorkspaceShell
 → ActionRow or StickyActionBar for follow-through
 ```
 
+When a screen contract exists, use the contract architecture instead of the default architecture.
+
 ---
 
 ## Task router
@@ -124,7 +137,8 @@ Use one primary decision per screen.
 | Renewal risk review | `RenewalRiskSummary`, `CustomerReviewReadinessCard`, `ValueProofCard`, `RecommendationReviewPanel`, `RiskQueueRow` |
 | Asset recommendation review | `AssetIntelligenceSummary`, `ServiceRiskSummary`, `RecommendationReviewPanel`, `RecommendationQueueRow`, `EvidenceRow` |
 | QBR or customer readiness | `CustomerReviewReadinessCard`, `ValueProofCard`, `ServiceRiskSummary`, `RecommendationReviewPanel` |
-| Installed base exploration | `AssetQueueRow`, `ComponentHierarchy`, `ConnectivityCoverageCard`, `MetricStrip`, `EvidenceRow` |
+| Installed base exploration | read `reference/screen-contracts/installed-base-intelligence.md` when the requested screen is Installed Base Intelligence |
+| Operational inventory | `ListContainer`, approved row component, detail panel, operational density rules |
 | Action follow-through | `ActionRow`, `ActionCard`, `StickyActionBar` |
 | Evidence review | `EvidenceRow`, `SourceStrengthPill`, `KeyValueList`, `RecommendationReviewPanel` |
 
@@ -156,6 +170,8 @@ hidden validation for sensitive decisions
 unsupported enum-like prop values
 decorative gradients, glassmorphism or heavy shadows
 all evidence and actions exposed at the same level
+screen contract ignored
+undefined screen-contract layer, filter, column, tab or action
 ```
 
 ---
