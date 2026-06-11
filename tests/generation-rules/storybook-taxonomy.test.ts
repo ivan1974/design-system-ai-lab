@@ -13,6 +13,7 @@ const allowedRoots = [
   "Decision",
   "Forms",
   "Foundations",
+  "Golden Examples",
   "Patterns",
   "Screen Architecture",
 ];
