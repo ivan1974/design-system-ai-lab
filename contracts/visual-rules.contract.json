@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "name": "visual-rules",
-  "version": "0.7.0-alpha.0",
+  "version": "0.8.0-alpha.0",
   "status": "active-runtime-contract",
   "purpose": "Prevent GenAI visual drift in generated screens by turning visual rules into testable blockers.",
   "sourceGuidelines": [
@@ -12,6 +12,17 @@
     "guidelines/tokens.md",
     "guidelines/source/visual-brand/visual-brand-v0.4.md"
   ],
+  "tokenContract": "contracts/tokens.contract.json",
+  "prototypeAlignment": {
+    "scope": "all-active-ds-surface",
+    "references": "anonymized",
+    "visualGrammar": "preserved",
+    "surface": "white-first",
+    "radius": "0.625rem",
+    "border": "rgba(0, 0, 0, 0.1)",
+    "inputBackground": "#f3f3f5",
+    "accentToken": "--ec-color-primary"
+  },
   "coreDirection": [
     "white-first",
     "sober",
@@ -32,7 +43,8 @@
     "no-local-visual-system",
     "screen-contract-before-generic-layout",
     "operational-density-table-first",
-    "progressive-disclosure-before-evidence-expansion"
+    "progressive-disclosure-before-evidence-expansion",
+    "all-active-components-use-v08-token-grammar"
   ],
   "forbiddenVisualPatterns": [
     "glassmorphism",
@@ -52,7 +64,9 @@
     "local-visual-system",
     "hero-dashboard-for-inventory",
     "card-grid-replacing-operational-rows",
-    "all-rows-expanded-with-full-evidence"
+    "all-rows-expanded-with-full-evidence",
+    "parallel-token-namespace",
+    "component-specific-visual-scale"
   ],
   "forbiddenLocalWrapperNames": [
     "PremiumCard",
@@ -101,6 +115,7 @@
   ],
   "colorRules": {
     "primaryGreen": {
+      "token": "--ec-color-primary",
       "allowedUses": [
         "primary-actions",
         "selected-states",
@@ -194,6 +209,7 @@
     "decorative-gradient-or-glass-treatment-created",
     "green-used-as-decoration",
     "operational-inventory-rendered-as-dashboard",
-    "evidence-expanded-before-decision-context"
+    "evidence-expanded-before-decision-context",
+    "local-token-system-created"
   ]
 }
