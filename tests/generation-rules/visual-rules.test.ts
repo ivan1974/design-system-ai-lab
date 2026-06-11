@@ -24,6 +24,22 @@ type VisualRulesContract = {
       forbiddenUses: string[];
     };
   };
+  operationalIntelligenceScreens: {
+    density: string;
+    surface: string;
+    layout: string;
+    firstViewShows: string[];
+    preferredPatterns: string[];
+    forbidden: string[];
+    panel: {
+      minWidth: string;
+      maxWidth: string;
+      preferredWidth: string;
+      surface: string;
+      stickyActionArea: boolean;
+      independentScroll: boolean;
+    };
+  };
   trustVisibilityRules: string[];
   informationDensityRules: string[];
   filesToScanForGeneratedVisualDrift: string[];
@@ -95,6 +111,31 @@ describe("generation rules: visual rules contract", () => {
     );
   });
 
+  it("defines operational intelligence visual density", () => {
+    expect(contract.operationalIntelligenceScreens).toEqual(
+      expect.objectContaining({
+        density: "high",
+        surface: "white-first",
+        layout: "table-first",
+      }),
+    );
+    expect(contract.operationalIntelligenceScreens.preferredPatterns).toEqual(
+      expect.arrayContaining(["dense-rows", "table-alignment", "grouped-list-sections", "sticky-action-area"]),
+    );
+    expect(contract.operationalIntelligenceScreens.forbidden).toEqual(
+      expect.arrayContaining(["hero-dashboard-for-inventory", "card-grid-replacing-operational-rows"]),
+    );
+    expect(contract.operationalIntelligenceScreens.panel).toEqual(
+      expect.objectContaining({
+        minWidth: "360px",
+        maxWidth: "500px",
+        preferredWidth: "30vw",
+        stickyActionArea: true,
+        independentScroll: true,
+      }),
+    );
+  });
+
   it("keeps the runtime visual rules document aligned with the contract", () => {
     const runtimeRules = read("guidelines/runtime/visual-rules.md").toLowerCase();
 
@@ -104,6 +145,16 @@ describe("generation rules: visual rules contract", () => {
 
     for (const blocker of ["glassmorphism", "decorative gradients", "heavy shadows", "colored cards for every status", "custom visual system"]) {
       expect(runtimeRules).toContain(blocker);
+    }
+  });
+
+  it("keeps operational density guidance aligned with the contract", () => {
+    const runtime = read("guidelines/runtime/operational-intelligence-visual-rules.md").toLowerCase();
+    const reference = read("guidelines/reference/screen-architecture/operational-density.md").toLowerCase();
+
+    for (const term of ["dense", "table-first", "white-first", "grouped", "sticky", "evidence"]) {
+      expect(runtime).toContain(term);
+      expect(reference).toContain(term);
     }
   });
 
