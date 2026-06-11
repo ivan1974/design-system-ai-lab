@@ -1,273 +1,102 @@
 # Design System AI Lab
 
-Design System AI Lab is a React / TypeScript design system package for AI-assisted interface generation.
+Design System AI Lab is a React and TypeScript design system package for controlled AI-assisted interface generation.
 
-It demonstrates how a coded design system can become a controlled generation framework for tools such as Figma Make.
+It explores how a coded design system can become a **Make Kit** for tools such as Figma Make: a small, governed operating system that helps GenAI compose useful interface drafts from package components, runtime rules, contracts, benchmarks and repair prompts.
 
-The goal is not to let AI invent interfaces from scratch.
-
-The goal is to help AI compose useful first drafts from a governed system of:
-
-- components
-- composition primitives
-- decision components
-- business patterns
-- design tokens
-- screen architecture rules
-- machine-readable generation contracts
-- Make-ready prompts and benchmark cases
-- acceptance and repair checklists
-- tested golden examples
-
-The designer remains responsible for UX judgment, hierarchy, validation and final quality.
-
----
-
-## What is new in v0.5.0
-
-Version `0.5.0` introduces the **Controlled Generation Standard**.
-
-The project now includes:
-
-- machine-readable generation contracts
-- stricter critical component props
-- tested golden examples
-- Figma Make benchmark cases
-- generation scoring model
-- repair routing
-- Make Minimal Contract
-
-The new standard makes generated screens easier to review, test, repair and reject when they break trust, evidence, package or actionability rules.
-
-The core release idea is:
+## Status
 
 ```txt
-Prompt
-→ controlled generation
-→ blocking review
-→ scoring
-→ repair routing
-→ revised generation
-→ final decision
+Public package.
+Active development.
+Not production-ready.
+Do not use this package as a finished production design system.
 ```
 
----
+This project is currently a design system lab and Make Kit workbench. APIs, contracts, prompts, examples and guidance may still change before a production-ready release.
 
-## What changed from v0.4 to v0.5
-
-v0.5 moves the project from documented guidance to testable generation governance.
-
-Key changes:
-
-- `contracts/` contains machine-readable generation rules.
-- critical props now use stricter shared TypeScript types.
-- `guidelines/make-minimal-contract.md` is the first Make reading target.
-- golden examples are tested as compliance fixtures.
-- `benchmarks/figma-make/` defines benchmark cases and scoring.
-- `guidelines/evaluation/review/repair-routing.md` maps failures to repair prompts.
-- free-text statuses are deprecated for trust, proof, validation and action-critical fields.
-
-Migration details live in:
-
-```txt
-guidelines/migration/v0.4-to-v0.5.md
-```
-
----
-
-## What v0.5.1 hardens
-
-The `v0.5.1` workstream hardens documentation for generative AI.
-
-The goal is stricter alignment between:
-
-```txt
-exports
-→ component contracts
-→ props contracts
-→ guidelines
-→ README guidance
-```
-
-Preferred generation vocabulary:
-
-```txt
-Page intent → PageHeading
-Selected item detail → WorkspaceDetailPanel
-Compact signal group → MetricStrip with CompactMetric
-Asset hierarchy → ComponentHierarchy
-Repeated review objects → ListContainer with approved row components
-Follow-through actions → ActionRow or StickyActionBar
-```
-
-Use with care:
-
-```txt
-PageHeader → legacy page header, not the default for new decision workspaces
-DetailPanel → lower-level primitive, not the default selected-item detail panel
-ComponentHierarchyItem → use only inside ComponentHierarchy
-Card → emphasis container, not the default repeated-object layout
-```
-
-Current audit:
-
-```txt
-docs/archive/v0.5.1-hardening/v0.5.1-guidelines-alignment-audit.md
-```
-
----
-
-## What this project demonstrates
-
-This project demonstrates the full chain:
-
-```txt
-Design foundations
-→ React component package
-→ Storybook documentation
-→ screen architecture rules
-→ Make-ready guidelines
-→ machine-readable contracts
-→ tested golden examples
-→ benchmark and repair loop
-→ controlled AI-assisted screen generation
-```
-
-It includes:
-
-- a coded React design system
-- CSS design tokens
-- Radix UI primitives for accessible interactions
-- Storybook documentation
-- form components for generated dialogs
-- composition components for decision workspaces
-- compact primitives for dense B2B screens
-- decision components for risks, recommendations, signals and actions
-- business patterns for service / customer monitoring use cases
-- Make-ready guidelines and prompts
-- repair prompts for common generation failures
-- golden examples rendered in Storybook and tested by generation rules
-- a package build consumable by another React app or Make file
+The package is public so the system can be tested, inspected and reused experimentally, but it should not be treated as a stable product dependency for production applications.
 
 ---
 
 ## Core idea
 
-A design system is not only a visual library.
+The goal is not to let AI invent interfaces from scratch.
 
-It can become a **generation framework** for AI-assisted product interface creation.
+The goal is to help AI compose first drafts from a governed system of:
 
-In this model:
+- package components
+- composition primitives
+- decision components
+- business patterns
+- design tokens
+- screen architecture rules
+- machine-readable contracts
+- review and repair loops
+- benchmark cases
+- tested examples
 
-- the designer defines the system
-- the design system defines the vocabulary
-- component contracts define usage rules
-- screen architecture rules define layout choices
-- prompts define the screen objective and constraints
-- machine-readable contracts define testable boundaries
-- AI tools compose first drafts
-- designers review, repair and validate the result
-
-The AI should not generate from imagination.
-
-It should generate from a governed system.
-
----
-
-## Figma Make reading order
-
-Use this order when giving context to Figma Make:
+The designer remains responsible for UX judgment, hierarchy, validation and final quality.
 
 ```txt
-guidelines/make-minimal-contract.md
-guidelines/Guidelines.md
-guidelines/setup.md
-guidelines/reference/screen-architecture/README.md
-guidelines/evaluation/review/blocking-checklist.md
-```
-
-Use contracts for automated checks and future tooling:
-
-```txt
-contracts/package.contract.json
-contracts/components.contract.json
-contracts/props.contract.json
-contracts/screen-architecture.contract.json
-contracts/business-patterns.contract.json
-contracts/evidence-and-trust.contract.json
-contracts/generation-blockers.contract.json
+A Make Kit is not a documentation website.
+A Make Kit is a controlled operating system for generation.
 ```
 
 ---
 
-## Project structure
+## Current roadmap position
 
 ```txt
-src/
-  design-system/
-    components/
-    composition/
-    decision/
-    forms/
-    patterns/
-    stories/
-    types/
-    index.ts
-    styles.css
-
-guidelines/
-  make-minimal-contract.md
-  Guidelines.md
-  setup.md
-  migration/
-  prompts/
-  repair-prompts/
-  review/
-  examples/golden/
-  knowledge/
-
-contracts/
-  *.contract.json
-
-benchmarks/
-  figma-make/
-    cases/
-    outputs/
-    evaluations/
-    scoring/
-
-docs/
-  audit/
-  release/
+v0.6.0 builds the operating system.
+v0.7.0 improves the decision experience.
 ```
 
-Important distinction:
+### v0.6.0 — GenAI Runtime Optimization
 
-```txt
-src/design-system/
-= package source code
+The current workstream makes the kit shorter, clearer and more testable for GenAI.
 
-guidelines/
-= active Make-ready governance and AI-facing source of truth
+It focuses on:
 
-contracts/
-= machine-readable form of the active rules
+- mandatory Make entry files
+- runtime generation rules
+- component selection rules
+- evidence and trust rules
+- visual drift prevention
+- package surface cleanup
+- benchmark cases
+- repair routing
+- machine-readable contracts
 
-benchmarks/figma-make/
-= measurement harness, not reusable prompt guidance
+It does **not** refactor the full component library or introduce deep progressive disclosure component APIs.
 
-docs/audit/
-= alignment audits and hardening backlog
+### v0.7.0 — Decision Progressive Disclosure
 
-docs/release/
-= release operations and publication checklist
-```
+The next workstream should improve decision-heavy components and patterns with:
+
+- decision-first layouts
+- evidence second
+- detail on demand
+- information density tests
+- progressive disclosure modes where needed
 
 ---
 
-## Package public API
+## Package usage
 
-Import components from the package root:
+Install dependencies locally:
+
+```bash
+npm install
+```
+
+Build the package:
+
+```bash
+npm run build:ds
+```
+
+Import components from the public package root only:
 
 ```tsx
 import {
@@ -278,8 +107,6 @@ import {
   WorkspaceDetailPanel,
   ListContainer,
   ActionRow,
-  ConnectivityCoverageCard,
-  ServiceRiskSummary,
 } from "design-system-ai-lab";
 ```
 
@@ -289,19 +116,182 @@ Import styles once near the root of the consuming app:
 import "design-system-ai-lab/styles.css";
 ```
 
-Do not import from internal package paths.
-
-Allowed:
+Do not import from internal package paths:
 
 ```tsx
-import { Button } from "design-system-ai-lab";
-```
-
-Not allowed:
-
-```tsx
+// Do not do this.
 import { Button } from "design-system-ai-lab/dist/components/button";
+import { Button } from "design-system-ai-lab/src/design-system/components/button";
 ```
+
+---
+
+## Figma Make reading order
+
+For v0.6.0, Figma Make should read little and always start from the same active runtime path.
+
+Default reading order:
+
+```txt
+guidelines/Guidelines.md
+guidelines/setup.md
+guidelines/tokens.md
+guidelines/styles.md
+guidelines/runtime/generation-contract.md
+guidelines/runtime/generation-flow.md
+guidelines/runtime/component-selection.md
+guidelines/runtime/trust-action-rules.md
+guidelines/runtime/visual-rules.md
+guidelines/runtime/progressive-decision-disclosure.md
+```
+
+Use reference files only when the task requires a specific component, pattern or screen architecture detail.
+
+Use evaluation files only when reviewing or repairing a generated screen.
+
+Use contracts for automated checks and future tooling.
+
+---
+
+## Active project structure
+
+```txt
+src/design-system/
+  components/
+  composition/
+  decision/
+  forms/
+  patterns/
+  stories/
+  types/
+  index.ts
+  styles.css
+
+guidelines/
+  Guidelines.md
+  setup.md
+  tokens.md
+  styles.md
+  runtime/
+  reference/
+  evaluation/
+  source/
+  examples/golden/
+
+contracts/
+  *.contract.json
+
+benchmarks/figma-make/
+  cases/
+  outputs/
+  evaluations/
+  scoring/
+
+docs/
+  audit/
+  archive/
+```
+
+Important distinction:
+
+```txt
+guidelines/runtime/
+= active GenAI operating rules
+
+guidelines/reference/
+= component, pattern and architecture guidance
+
+guidelines/evaluation/
+= review and repair guidance
+
+guidelines/source/
+= non-runtime rationale, domain models, principles and source knowledge
+
+contracts/
+= machine-readable rules and package boundaries
+
+benchmarks/figma-make/
+= fixed scoring cases and evaluation protocol
+
+docs/archive/
+= historical material, not active guidance
+```
+
+---
+
+## What not to read by default
+
+Figma Make should not read the whole repository.
+
+Do not use these as default generation context:
+
+```txt
+docs/archive/
+docs/audit/
+guidelines/source/
+src/design-system/stories/
+src/demo/
+```
+
+Read `guidelines/source/` only when a human explicitly needs rationale, source knowledge or domain-model background.
+
+---
+
+## Benchmarks
+
+Active fixed benchmark cases live in:
+
+```txt
+benchmarks/figma-make/cases/
+```
+
+The active v0.6.0 case set covers:
+
+```txt
+01-first-generation-customer-monitoring.md
+02-first-generation-renewal-risk.md
+03-first-generation-asset-recommendation.md
+04-iteration-add-filter-without-breaking-layout.md
+05-iteration-add-detail-panel-without-card-stack.md
+06-iteration-change-priority-without-inventing-evidence.md
+07-adversarial-local-components.md
+08-adversarial-invented-evidence.md
+09-adversarial-visual-overbranding.md
+10-adversarial-context-drift-after-3-adjustments.md
+11-adversarial-information-overload.md
+```
+
+Benchmark outputs should be saved in:
+
+```txt
+benchmarks/figma-make/outputs/
+```
+
+Run a generated benchmark output through the generation checks:
+
+```bash
+GENERATED_APP_PATH=benchmarks/figma-make/outputs/01-first-generation-customer-monitoring.App.tsx npm run test:generation
+```
+
+---
+
+## Review and repair
+
+Generated screens should be rejected and repaired when they break core rules.
+
+Start with:
+
+```txt
+guidelines/evaluation/review/blocking-checklist.md
+```
+
+Route repairs through:
+
+```txt
+guidelines/evaluation/repair/repair-router.md
+```
+
+The repair router is intentionally short. It helps GenAI repair a specific failure without rereading the full documentation.
 
 ---
 
@@ -313,121 +303,41 @@ Golden examples live in:
 guidelines/examples/golden/
 ```
 
-Current golden examples:
+They are test fixtures for generation rules. They should represent valid package usage and current v0.6.0 constraints.
+
+Current cleanup status:
 
 ```txt
-customer-monitoring.App.tsx
-renewal-risk-review.App.tsx
-asset-recommendation-review.App.tsx
-qbr-readiness.App.tsx
-installed-base-explorer.App.tsx
-```
-
-They are tested by the generation rule suite and rendered in Storybook under:
-
-```txt
-Design System / Golden Examples
+Golden examples are still under Phase 12 review.
+Some examples may be removed or reduced before v0.6.0 is finalized.
 ```
 
 ---
 
-## Figma Make benchmark
+## Main commands
 
-Benchmark cases live in:
-
-```txt
-benchmarks/figma-make/cases/
-```
-
-The scoring model lives in:
-
-```txt
-benchmarks/figma-make/scoring/scoring-model.md
-```
-
-Use benchmark outputs to measure whether Figma Make follows the Controlled Generation Standard in normal and adversarial prompts.
-
----
-
-## Release documentation
-
-Release and migration documents:
-
-```txt
-CHANGELOG.md
-guidelines/migration/v0.4-to-v0.5.md
-docs/release/v0.5.0-release-checklist.md
-```
-
----
-
-## Tech stack
-
-- React
-- TypeScript
-- Vite
-- Tailwind CSS
-- Radix UI
-- Storybook
-- Vitest generation checks
-- explicit TypeScript declaration generation for the package build
-
----
-
-## Install
-
-```bash
-npm install
-```
-
----
-
-## Run the app
+Run the local app:
 
 ```bash
 npm run dev
 ```
 
----
-
-## Run Storybook
+Run Storybook:
 
 ```bash
 npm run storybook
 ```
 
----
-
-## Build Storybook
+Build Storybook:
 
 ```bash
 npm run build-storybook
 ```
 
----
-
-## Build the design system package
+Build the package:
 
 ```bash
 npm run build:ds
-```
-
-This builds the reusable design system package into `dist/`.
-
-The package exposes:
-
-- `dist/index.js` for JavaScript
-- `dist/index.d.ts` for TypeScript declarations
-- `dist/styles.css` for styles and tokens
-
----
-
-## Test and validate
-
-Run the full local check:
-
-```bash
-npm run check
 ```
 
 Run generation tests:
@@ -436,86 +346,73 @@ Run generation tests:
 npm run test:generation
 ```
 
-Run a generated benchmark output through the generation checks:
+Run the full local check:
 
 ```bash
-GENERATED_APP_PATH=benchmarks/figma-make/outputs/01-customer-monitoring.App.tsx npm run test:generation
-```
-
----
-
-## Test the package locally
-
-First build the design system:
-
-```bash
-npm run build:ds
-```
-
-Then check the package contents:
-
-```bash
-npm pack --dry-run
-```
-
-Create the local tarball:
-
-```bash
-npm pack
-```
-
-Install it in another local React app:
-
-```bash
-npm install ../design-system-ai-lab/design-system-ai-lab-0.5.0.tgz
-```
-
-Then import from the package root:
-
-```tsx
-import { Button, WorkspaceShell } from "design-system-ai-lab";
-import "design-system-ai-lab/styles.css";
-```
-
----
-
-## Main commands
-
-```bash
-npm install
-npm run dev
-npm run storybook
-npm run build-storybook
-npm run build
-npm run build:ds
-npm run test
 npm run check
+```
+
+Inspect the package contents before publishing:
+
+```bash
 npm pack --dry-run
-npm pack
 ```
 
 ---
 
-## Current status
+## Package surface
 
-This project is still a design system lab, but v0.5.0 now covers the core controlled generation workflow:
+The package intentionally publishes a limited Make Kit surface:
 
 ```txt
-coded design system
-→ Make-ready guidelines
-→ machine-readable contracts
-→ strict critical props
-→ tested golden examples
-→ benchmark cases
-→ scoring model
-→ repair routing
-→ controlled AI-assisted screen composition
+dist
+README.md
+CHANGELOG.md
+contracts
+benchmarks/figma-make
+guidelines/Guidelines.md
+guidelines/setup.md
+guidelines/tokens.md
+guidelines/styles.md
+guidelines/runtime
+guidelines/reference
+guidelines/evaluation
+guidelines/source
 ```
 
-Current limitations:
+Historical docs, release checklists and archived audits are not part of the package surface.
 
-- there is no formal visual regression setup yet
+---
+
+## Current limitations
+
+This project is not production-ready.
+
+Known limitations:
+
+- no formal production support policy
+- no semantic versioning guarantee yet
+- no visual regression setup yet
 - accessibility is supported by component choices but not fully audited
 - Figma Make integration still requires real Make validation
-- business patterns are intentionally focused on service / customer monitoring examples
-- golden examples are reference outputs, not production screens
+- business patterns are intentionally focused on service and customer monitoring examples
+- some Phase 12 cleanup is still in progress before v0.7.0 starts
+
+---
+
+## Release intent
+
+The v0.6.0 target is a clean GenAI runtime operating system.
+
+The project is ready for experimentation when:
+
+```txt
+npm run check passes
+benchmarks are aligned with contracts
+README reflects v0.6.0
+legacy prompts and examples are cleaned
+source files are clearly non-runtime
+deprecated generated values are blocked
+```
+
+It should become production-consumable only after explicit release hardening, API stability review, accessibility review and real integration validation.
