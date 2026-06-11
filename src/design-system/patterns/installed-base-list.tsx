@@ -1,4 +1,4 @@
-import { forwardRef } from "react";
+import { Fragment, forwardRef } from "react";
 import type { HTMLAttributes } from "react";
 import { Table, TableBody, TableHead, TableHeader, TableRow } from "../components/table";
 import { AssetInventoryRow } from "./asset-inventory-row";
@@ -22,32 +22,30 @@ export const InstalledBaseList = forwardRef<HTMLDivElement, InstalledBaseListPro
       <div ref={ref} className={["mx-auto w-4/5 min-w-0", className].join(" ")} {...props}>
         <Table density="compact">
           <TableHeader>
-            <TableRow>
-              {installedBaseColumns.map((column) => <TableHead key={column}>{column}</TableHead>)}
-            </TableRow>
+            <TableRow>{installedBaseColumns.map((column) => <TableHead key={column}>{column}</TableHead>)}</TableRow>
           </TableHeader>
           <TableBody>
             {attentionAssets.length > 0 ? (
-              <>
+              <Fragment>
                 <tr><td colSpan={7} className="bg-amber-50 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-(--ec-color-warning)">Attention required</td></tr>
                 {attentionAssets.map((asset) => <AssetInventoryRow key={`attention-${asset.id}`} asset={{ ...asset, attentionRequired: true }} onSelectAsset={onSelectAsset} />)}
-              </>
+              </Fragment>
             ) : null}
             {groups.map((building) => (
-              <>
-                <tr key={`${building.building}-building`}><td colSpan={7} className="bg-(--ec-color-surface-muted) px-4 py-2 text-sm font-semibold text-(--ec-color-text-primary)">{building.building}</td></tr>
+              <Fragment key={building.building}>
+                <tr><td colSpan={7} className="bg-(--ec-color-surface-muted) px-4 py-2 text-sm font-semibold text-(--ec-color-text-primary)">{building.building}</td></tr>
                 {building.electricalAreas.map((area) => (
-                  <>
-                    <tr key={`${building.building}-${area.electricalArea}-area`}><td colSpan={7} className="px-4 py-2 text-xs font-semibold uppercase tracking-wide text-(--ec-color-text-secondary)">{area.electricalArea}</td></tr>
+                  <Fragment key={`${building.building}-${area.electricalArea}`}>
+                    <tr><td colSpan={7} className="px-4 py-2 text-xs font-semibold uppercase tracking-wide text-(--ec-color-text-secondary)">{area.electricalArea}</td></tr>
                     {area.rooms.map((room) => (
-                      <>
-                        <tr key={`${building.building}-${area.electricalArea}-${room.room}-room`}><td colSpan={7} className="px-4 py-2 text-xs text-(--ec-color-text-secondary)">{room.room}</td></tr>
+                      <Fragment key={`${building.building}-${area.electricalArea}-${room.room}`}>
+                        <tr><td colSpan={7} className="px-4 py-2 text-xs text-(--ec-color-text-secondary)">{room.room}</td></tr>
                         {room.assets.map((asset) => <AssetInventoryRow key={asset.id} asset={asset} onSelectAsset={onSelectAsset} />)}
-                      </>
+                      </Fragment>
                     ))}
-                  </>
+                  </Fragment>
                 ))}
-              </>
+              </Fragment>
             ))}
           </TableBody>
         </Table>
