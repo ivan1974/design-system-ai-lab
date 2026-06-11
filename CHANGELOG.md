@@ -1,5 +1,75 @@
 # Changelog
 
+## 0.6.0-alpha.0 — GenAI Runtime Optimization
+
+Version `0.6.0-alpha.0` prepares the project as a GenAI-first Make Kit runtime.
+
+This release is public for experimentation and validation, but it is not production-ready.
+
+---
+
+## 0.6.0-alpha.0 Added
+
+- v0.6.0 runtime operating path in `guidelines/runtime/`.
+- Short Figma Make reading order in `README.md`.
+- Component registry contract in `contracts/component-registry.contract.json`.
+- Domain model contract in `contracts/domain-model.contract.json`.
+- Visual rules contract in `contracts/visual-rules.contract.json`.
+- Benchmark contract and active fixed benchmark cases in `benchmarks/figma-make/`.
+- Reduced package surface test in `tests/generation-rules/package-surface.test.ts`.
+- README alignment test for the v0.6.0 public package status.
+- Reference boundary guidance in `guidelines/reference/README.md` and `guidelines/reference/reference-boundaries.md`.
+- Storybook alignment test for active golden examples.
+
+---
+
+## 0.6.0-alpha.0 Changed
+
+- Rewrote `README.md` as a v0.6.0 entry point.
+- Declared the package public, active-development and not production-ready.
+- Reduced the active prompt set to three reusable prompts:
+  - `guidelines/prompts/customer-monitoring.md`
+  - `guidelines/prompts/renewal-risk-review.md`
+  - `guidelines/prompts/asset-recommendation-review.md`
+- Reduced golden examples to three active first-generation fixtures:
+  - `guidelines/examples/golden/customer-monitoring.App.tsx`
+  - `guidelines/examples/golden/renewal-risk-review.App.tsx`
+  - `guidelines/examples/golden/asset-recommendation-review.App.tsx`
+- Aligned reference guidance so full component-template enforcement applies to preferred components only.
+- Added boundary guidance for allowed, use-with-care, deprecated, blocked and internal reference files.
+- Reduced the published package surface to runtime, reference, evaluation, source, contracts and benchmarks.
+
+---
+
+## 0.6.0-alpha.0 Removed
+
+- Legacy `guidelines/make-minimal-contract.md`.
+- Legacy migration notes under `guidelines/migration/`.
+- Obsolete handoff guides under `guidelines/handoff/`.
+- Obsolete release checklists under `docs/release/`.
+- Obsolete reusable prompts:
+  - `guidelines/prompts/qbr-readiness.md`
+  - `guidelines/prompts/installed-base-explorer.md`
+  - `guidelines/prompts/overview.md`
+  - `guidelines/prompts/template.md`
+  - `guidelines/prompts/workspace-v2.md`
+- Obsolete golden examples:
+  - `guidelines/examples/golden/qbr-readiness.App.tsx`
+  - `guidelines/examples/golden/installed-base-explorer.App.tsx`
+- Obsolete Storybook golden stories importing removed examples.
+
+---
+
+## 0.6.0-alpha.0 Known limitations
+
+- This package is not production-ready.
+- Public APIs and contracts may still change before a stable release.
+- Real Figma Make validation is still required.
+- Accessibility and visual regression review are not complete production gates yet.
+- v0.7.0 will focus on decision progressive disclosure and component-level decision experience.
+
+---
+
 ## 0.5.1 — GenAI Guidance Hardening
 
 Version `0.5.1` hardens the controlled generation standard introduced in `0.5.0`.
@@ -40,12 +110,6 @@ It aligns guidelines, contracts, prompts, examples, review checklists, repair pr
 ---
 
 ## 0.5.1 Migration notes
-
-Read:
-
-```txt
-guidelines/migration/v0.5.0-to-v0.5.1.md
-```
 
 Runtime React migration is not expected for consuming apps.
 
@@ -111,12 +175,6 @@ It adds machine-readable rules, stricter critical props, tested golden examples,
 ---
 
 ## 0.5.0 Migration notes
-
-Read:
-
-```txt
-guidelines/migration/v0.4-to-v0.5.md
-```
 
 Main migration tasks:
 
