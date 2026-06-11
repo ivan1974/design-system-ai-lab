@@ -9,6 +9,8 @@ const readJson = <T>(relativePath: string) => JSON.parse(read(relativePath)) as 
 type PrimitiveArchitectureContract = {
   implementationModel: string;
   publicGenerationSurface: string;
+  publicStylesheetSurface: string;
+  internalPrimitiveLayer: string;
   allowedImplementationInfluences: string[];
   forbiddenGeneratedImports: string[];
   requiredGeneratedImports: string[];
@@ -20,14 +22,22 @@ const contract = readJson<PrimitiveArchitectureContract>("contracts/primitive-ar
 const runtime = read("guidelines/runtime/primitive-implementation-strategy.md");
 const decision = read("docs/audit/v0.7.0-shadcn-compatible-primitive-decision.md");
 const source = read("guidelines/source/prototypes/figma-make-shadcn-baseline.md");
+const internalBoundary = read("src/design-system/internal/primitives/README.md");
 
 describe("generation rules: primitive architecture", () => {
   it("allows shadcn-compatible implementation without changing the public generation surface", () => {
     expect(contract.implementationModel).toBe("shadcn-compatible");
     expect(contract.publicGenerationSurface).toBe("design-system-ai-lab");
+    expect(contract.publicStylesheetSurface).toBe("design-system-ai-lab/styles.css");
     expect(contract.allowedImplementationInfluences).toEqual(
       expect.arrayContaining(["shadcn-compatible patterns", "Radix UI primitives"]),
     );
+  });
+
+  it("declares an internal primitive layer that is not a generation target", () => {
+    expect(contract.internalPrimitiveLayer).toBe("src/design-system/internal/primitives");
+    expect(contract.rules).toEqual(expect.arrayContaining(["internal primitives are not generation targets"]));
+    expect(internalBoundary).toContain("not public generation targets");
   });
 
   it("forbids generated imports from local UI, internal primitives and Radix", () => {
@@ -38,6 +48,7 @@ describe("generation rules: primitive architecture", () => {
         "./components/ui",
         "components/ui",
         "src/design-system/internal",
+        "src/design-system/internal/primitives",
         "src/design-system/primitives",
       ]),
     );
