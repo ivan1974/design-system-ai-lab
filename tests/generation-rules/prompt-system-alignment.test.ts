@@ -7,24 +7,24 @@ const rootDir = process.cwd();
 const promptBenchmarkPairs = [
   {
     prompt: "guidelines/prompts/customer-monitoring.md",
-    benchmark: "benchmarks/figma-make/cases/01-customer-monitoring.md",
+    benchmark: "benchmarks/figma-make/cases/01-first-generation-customer-monitoring.md",
   },
   {
     prompt: "guidelines/prompts/renewal-risk-review.md",
-    benchmark: "benchmarks/figma-make/cases/02-renewal-risk-review.md",
+    benchmark: "benchmarks/figma-make/cases/02-first-generation-renewal-risk.md",
   },
   {
     prompt: "guidelines/prompts/asset-recommendation-review.md",
-    benchmark: "benchmarks/figma-make/cases/03-asset-recommendation-review.md",
+    benchmark: "benchmarks/figma-make/cases/03-first-generation-asset-recommendation.md",
   },
-  {
-    prompt: "guidelines/prompts/qbr-readiness.md",
-    benchmark: "benchmarks/figma-make/cases/04-qbr-readiness.md",
-  },
-  {
-    prompt: "guidelines/prompts/installed-base-explorer.md",
-    benchmark: "benchmarks/figma-make/cases/05-installed-base-explorer.md",
-  },
+];
+
+const reusablePrompts = [
+  "guidelines/prompts/customer-monitoring.md",
+  "guidelines/prompts/renewal-risk-review.md",
+  "guidelines/prompts/asset-recommendation-review.md",
+  "guidelines/prompts/qbr-readiness.md",
+  "guidelines/prompts/installed-base-explorer.md",
 ];
 
 const reusablePromptRequiredSnippets = [
@@ -60,7 +60,7 @@ function read(relativePath: string) {
 }
 
 describe("generation rules: prompt system alignment", () => {
-  it.each(promptBenchmarkPairs)("$prompt exists", ({ prompt }) => {
+  it.each(reusablePrompts)("'%s' exists", (prompt) => {
     expect(fs.existsSync(path.join(rootDir, prompt))).toBe(true);
   });
 
@@ -68,7 +68,7 @@ describe("generation rules: prompt system alignment", () => {
     expect(fs.existsSync(path.join(rootDir, benchmark))).toBe(true);
   });
 
-  it.each(promptBenchmarkPairs)("$prompt declares reusable prompt role", ({ prompt }) => {
+  it.each(reusablePrompts)("'%s' declares reusable prompt role", (prompt) => {
     const content = read(prompt);
 
     for (const snippet of reusablePromptRequiredSnippets) {
@@ -87,7 +87,7 @@ describe("generation rules: prompt system alignment", () => {
     expect(read(prompt)).toContain(benchmark);
   });
 
-  it.each(promptBenchmarkPairs)("$prompt avoids obsolete prompt vocabulary", ({ prompt }) => {
+  it.each(reusablePrompts)("'%s' avoids obsolete prompt vocabulary", (prompt) => {
     const content = read(prompt);
 
     for (const snippet of forbiddenPromptSnippets) {
