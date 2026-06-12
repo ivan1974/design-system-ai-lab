@@ -31,6 +31,10 @@ const metricBlockSource = read("src/design-system/decision/metric-block.tsx");
 const decisionBlockSource = read("src/design-system/decision/decision-block.tsx");
 const evidenceBlockSource = read("src/design-system/decision/evidence-block.tsx");
 const actionBlockSource = read("src/design-system/decision/action-block.tsx");
+const metricBlockGuideline = read("guidelines/reference/decision/metric-block.md");
+const decisionBlockGuideline = read("guidelines/reference/decision/decision-block.md");
+const evidenceBlockGuideline = read("guidelines/reference/decision/evidence-block.md");
+const actionBlockGuideline = read("guidelines/reference/decision/action-block.md");
 
 const targetBlocks = ["MetricBlock", "DecisionBlock", "EvidenceBlock", "ActionBlock"];
 const legacyCards = ["MetricCard", "AlertCard", "RecommendationCard", "ActionCard", "EvidenceCard"];
@@ -104,5 +108,21 @@ describe("generation rules: v0.8 decision block regeneration", () => {
     expect(actionBlockSource).toContain("priority?: ActionPriority");
     expect(actionBlockSource).toContain("status?: ActionStatus");
     expect(actionBlockSource).not.toContain("ActionCard");
+  });
+
+  it("keeps decision block guidelines aligned with target replacements", () => {
+    expect(metricBlockGuideline).toContain("Prefer this component over");
+    expect(metricBlockGuideline).toContain("MetricCard");
+    expect(decisionBlockGuideline).toContain("AlertCard");
+    expect(decisionBlockGuideline).toContain("RecommendationCard");
+    expect(evidenceBlockGuideline).toContain("EvidenceCard");
+    expect(actionBlockGuideline).toContain("ActionCard");
+  });
+
+  it("keeps decision block guidance from hiding trust, rationale or ownership", () => {
+    expect(metricBlockGuideline).toContain("Do not use `MetricBlock` as a recommendation container");
+    expect(decisionBlockGuideline).toContain("Attach `EvidenceBlock` or `EvidenceRow` when the recommendation depends on proof");
+    expect(evidenceBlockGuideline).toContain("Do not hide proof in tooltips or metadata only");
+    expect(actionBlockGuideline).toContain("Include owner when the action is assigned");
   });
 });
