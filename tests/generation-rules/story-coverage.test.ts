@@ -7,6 +7,7 @@ const read = (relativePath: string) => fs.readFileSync(path.join(rootDir, relati
 const readJson = <T>(relativePath: string) => JSON.parse(read(relativePath)) as T;
 
 type ComponentRegistry = {
+  sourceOfTruth?: string;
   components: Array<{
     name: string;
     genAIStatus: "preferred" | "allowed" | "use-with-care" | "internal-only" | "deprecated" | "blocked-for-genai";
@@ -26,11 +27,17 @@ type StoryCoverageContract = {
   }>;
 };
 
+type ComponentsContract = {
+  preferredForNewGeneration: string[];
+};
+
 const registry = readJson<ComponentRegistry>("contracts/component-registry.contract.json");
 const storyCoverage = readJson<StoryCoverageContract>("contracts/story-coverage.contract.json");
+const componentsContract = readJson<ComponentsContract>("contracts/components.contract.json");
 const coverageByComponent = new Map(storyCoverage.entries.map((entry) => [entry.component, entry]));
 
 const runtimeStatuses = new Set(["preferred", "allowed"]);
+const v08TargetReset = registry.sourceOfTruth === "contracts/v0.8-target-surface.contract.json";
 
 function runtimeComponents() {
   return registry.components.filter((entry) => runtimeStatuses.has(entry.genAIStatus));
@@ -82,13 +89,17 @@ describe("generation rules: Storybook coverage contract", () => {
     }
   });
 
-  it("keeps preferred components release-relevant", () => {
+  it("keeps preferred components covered and defers release relevance during target reset", () => {
     const preferredComponents = registry.components.filter((component) => component.genAIStatus === "preferred");
+    const targetPreferred = new Set(componentsContract.preferredForNewGeneration);
 
     for (const component of preferredComponents) {
       const coverage = coverageByComponent.get(component.name);
       expect(coverage, `${component.name} is missing coverage`).toBeTruthy();
-      expect(coverage?.requiredForRelease, `${component.name} should be release-relevant`).toBe(true);
+
+      if (!v08TargetReset || !targetPreferred.has(component.name)) {
+        expect(coverage?.requiredForRelease, `${component.name} should be release-relevant`).toBe(true);
+      }
     }
   });
 });
