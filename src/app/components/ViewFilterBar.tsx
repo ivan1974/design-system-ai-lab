@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { SlidersHorizontal, ChevronDown, List, Globe, Zap, Check } from 'lucide-react';
+import { Badge } from '../../design-system/primitives';
 import { quickFilterOptions } from '../data/assets';
 
 type View = 'list' | 'geography' | 'electrical';
@@ -14,8 +15,8 @@ interface ViewFilterBarProps {
 }
 
 const VIEWS: { id: View; label: string; icon: React.ReactNode }[] = [
-  { id: 'list',       label: 'List',       icon: <List size={13} /> },
-  { id: 'geography',  label: 'Geography',  icon: <Globe size={13} /> },
+  { id: 'list', label: 'List', icon: <List size={13} /> },
+  { id: 'geography', label: 'Geography', icon: <Globe size={13} /> },
   { id: 'electrical', label: 'Electrical', icon: <Zap size={13} /> },
 ];
 
@@ -24,10 +25,7 @@ export function ViewFilterBar({
   activeFilterCount, activeFilters, onToggleOption,
 }: ViewFilterBarProps) {
   return (
-    <div
-      className="bg-white border-b border-neutral-200/80 px-5 flex items-center justify-between gap-4 h-[46px] flex-shrink-0"
-    >
-      {/* Left: Toggle button group (§4 v1.1 style) */}
+    <div className="bg-white border-b border-neutral-200/80 px-5 flex items-center justify-between gap-4 h-[46px] flex-shrink-0">
       <div className="flex items-center">
         <div className="flex rounded-lg border border-neutral-200 overflow-hidden bg-neutral-100 p-0.5 gap-0.5">
           {VIEWS.map(view => {
@@ -36,11 +34,7 @@ export function ViewFilterBar({
               <button
                 key={view.id}
                 onClick={() => onViewChange(view.id)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[13px] transition-all duration-150 whitespace-nowrap ${
-                  active
-                    ? 'bg-white text-neutral-900 shadow-sm'
-                    : 'text-neutral-500 hover:text-neutral-700'
-                }`}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[13px] transition-all duration-150 whitespace-nowrap ${active ? 'bg-white text-neutral-900 shadow-sm' : 'text-neutral-500 hover:text-neutral-700'}`}
                 style={{ fontWeight: active ? 600 : 400 }}
               >
                 <span className={active ? 'text-[#00985F]' : 'text-neutral-400'}>{view.icon}</span>
@@ -51,7 +45,6 @@ export function ViewFilterBar({
         </div>
       </div>
 
-      {/* Right: Functional quick filters + All Filters */}
       <div className="flex items-center gap-2">
         {Object.keys(quickFilterOptions).map(category => (
           <QuickFilterDropdown
@@ -65,22 +58,21 @@ export function ViewFilterBar({
 
         <button
           onClick={onAllFilters}
-          className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-[13px] border transition-all duration-150 whitespace-nowrap ${
-            activeFilterCount > 0
-              ? 'bg-[#00985F] text-white border-[#00985F] hover:bg-[#007A4A]'
-              : 'bg-white text-neutral-600 border-neutral-200 hover:border-neutral-300 hover:bg-neutral-50 hover:text-neutral-800'
-          }`}
+          className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-[13px] border transition-all duration-150 whitespace-nowrap ${activeFilterCount > 0 ? 'bg-[#00985F] text-white border-[#00985F] hover:bg-[#007A4A]' : 'bg-white text-neutral-600 border-neutral-200 hover:border-neutral-300 hover:bg-neutral-50 hover:text-neutral-800'}`}
           style={{ fontWeight: 500 }}
         >
           <SlidersHorizontal size={13} />
           All Filters
           {activeFilterCount > 0 && (
-            <span
-              className="w-[18px] h-[18px] rounded-full flex items-center justify-center text-[10px] bg-white text-[#00985F] flex-shrink-0"
+            <Badge
+              variant="success"
+              size="xs"
+              shape="pill"
+              className="w-[18px] h-[18px] px-0 border-0 bg-white text-[#00985F] justify-center flex-shrink-0"
               style={{ fontWeight: 700 }}
             >
               {activeFilterCount}
-            </span>
+            </Badge>
           )}
         </button>
       </div>
@@ -88,7 +80,6 @@ export function ViewFilterBar({
   );
 }
 
-// Functional quick-filter dropdown
 function QuickFilterDropdown({
   label, options, selected, onToggle,
 }: {
@@ -113,30 +104,26 @@ function QuickFilterDropdown({
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen(o => !o)}
-        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[13px] border transition-all duration-150 whitespace-nowrap ${
-          count > 0
-            ? 'border-[#00985F] text-[#00985F] bg-[#f0faf5]'
-            : 'border-neutral-200 text-neutral-600 bg-white hover:border-neutral-300 hover:bg-neutral-50 hover:text-neutral-800'
-        }`}
+        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[13px] border transition-all duration-150 whitespace-nowrap ${count > 0 ? 'border-[#00985F] text-[#00985F] bg-[#f0faf5]' : 'border-neutral-200 text-neutral-600 bg-white hover:border-neutral-300 hover:bg-neutral-50 hover:text-neutral-800'}`}
         style={{ fontWeight: count > 0 ? 600 : 400 }}
       >
         {label}
         {count > 0 && (
-          <span
-            className="w-4 h-4 rounded-full flex items-center justify-center text-[10px] text-white flex-shrink-0"
-            style={{ backgroundColor: '#00985F', fontWeight: 700 }}
+          <Badge
+            variant="success"
+            size="xs"
+            shape="pill"
+            className="w-4 h-4 px-0 border-0 bg-[#00985F] text-white justify-center flex-shrink-0"
+            style={{ fontWeight: 700 }}
           >
             {count}
-          </span>
+          </Badge>
         )}
         <ChevronDown size={12} className={`text-neutral-400 transition-transform ${open ? 'rotate-180' : ''}`} />
       </button>
 
       {open && (
-        <div
-          className="absolute top-full right-0 mt-1.5 min-w-[180px] bg-white border border-neutral-200 rounded-xl z-50 py-1.5 overflow-hidden"
-          style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.10)' }}
-        >
+        <div className="absolute top-full right-0 mt-1.5 min-w-[180px] bg-white border border-neutral-200 rounded-xl z-50 py-1.5 overflow-hidden" style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.10)' }}>
           {options.map(opt => {
             const checked = selected.includes(opt);
             return (
