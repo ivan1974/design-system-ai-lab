@@ -43,12 +43,14 @@ export const StatusIndicator = forwardRef<HTMLSpanElement, StatusIndicatorProps>
     const iconNode = icon === "none" ? null : icon === "dot" ? (
       <span aria-hidden="true" className={["h-1.5 w-1.5 rounded-full", dotClasses[tone]].join(" ")} />
     ) : (
-      <span aria-hidden="true" className={toneClasses[tone]}>{iconText[icon]}</span>
+      <span aria-hidden="true" className={toneClasses[tone]}>
+        {iconText[icon]}
+      </span>
     );
 
     return (
       <span ref={ref} className={["inline-flex flex-col gap-0.5 text-xs", className].join(" ")} {...props}>
-        <span className="inline-flex items-center gap-1.5 font-medium text-(--ec-color-text-primary)">
+        <span className={["inline-flex items-center gap-1.5 font-medium", toneClasses[tone]].join(" ")}>
           {iconNode}
           <span>{label}</span>
         </span>
