@@ -9,8 +9,8 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
       <select
         ref={ref}
         className={[
-          "h-10 w-full rounded-(--ec-radius-sm)",
-          "border border-(--ec-color-border) bg-(--ec-color-surface)",
+          "h-(--ec-density-control-height-md) w-full rounded-(--ec-radius-sm)",
+          "border border-(--ec-color-border) bg-(--ec-color-input-background)",
           "px-3 text-sm text-(--ec-color-text-primary)",
           "focus-visible:outline-none focus-visible:ring-2",
           "focus-visible:ring-(--ec-color-primary) focus-visible:ring-offset-2",
