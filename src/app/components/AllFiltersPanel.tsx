@@ -1,5 +1,5 @@
 import { X } from 'lucide-react';
-import { Badge, Button } from '../../design-system/primitives';
+import { Badge, Button, Pill } from '../../design-system/primitives';
 import { filterCategories } from '../data/assets';
 
 interface AllFiltersPanelProps {
@@ -97,17 +97,17 @@ export function AllFiltersPanel({
                       const checked = (activeFilters[category] || []).includes(opt);
                       const hc = HEALTH_PILL_COLORS[opt];
                       return (
-                        <button
+                        <Pill
                           key={opt}
+                          active={checked}
                           onClick={() => onToggleOption(category, opt)}
-                          className={`px-3 py-1 rounded-full text-[12px] border transition-all duration-100 ${checked
+                          className={`px-3 py-1 text-[12px] ${checked
                             ? `${hc.activeBg} ${hc.activeText} ${hc.activeBorder}`
                             : `${hc.bg} ${hc.text} ${hc.border} hover:border-neutral-300`
                             }`}
-                          style={{ fontWeight: checked ? 600 : 400 }}
                         >
                           {opt}
-                        </button>
+                        </Pill>
                       );
                     })}
                   </div>
