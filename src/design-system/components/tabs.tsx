@@ -22,8 +22,8 @@ export type TabsProps = HTMLAttributes<HTMLDivElement> & {
 };
 
 const sizeClasses: Record<TabsSize, string> = {
-  sm: "px-3 py-2 text-sm",
-  md: "px-4 py-3 text-sm",
+  sm: "h-(--ec-density-control-height-sm) px-3 text-sm",
+  md: "h-(--ec-density-control-height-md) px-4 text-sm",
 };
 
 export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
@@ -66,12 +66,14 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
                 aria-selected={active ? "true" : "false"}
                 disabled={tab.disabled}
                 className={[
-                  "inline-flex items-center gap-2 whitespace-nowrap font-medium transition-colors disabled:pointer-events-none disabled:opacity-45",
+                  "inline-flex items-center gap-2 whitespace-nowrap rounded-(--ec-radius-sm)",
+                  "font-medium transition-colors duration-(--ec-transition-fast)",
+                  "disabled:pointer-events-none disabled:opacity-45",
                   sizeClasses[size],
                   variant === "contained"
                     ? active
-                      ? "rounded-(--ec-radius-sm) bg-(--ec-color-surface) text-(--ec-color-text-primary)"
-                      : "rounded-(--ec-radius-sm) text-(--ec-color-text-secondary) hover:text-(--ec-color-text-primary)"
+                      ? "bg-(--ec-color-surface) text-(--ec-color-text-primary) shadow-(--ec-shadow-control)"
+                      : "text-(--ec-color-text-secondary) hover:bg-(--ec-color-surface-soft) hover:text-(--ec-color-text-primary)"
                     : active
                       ? "border-b-2 border-(--ec-color-primary) text-(--ec-color-text-primary)"
                       : "border-b-2 border-transparent text-(--ec-color-text-secondary) hover:text-(--ec-color-text-primary)",
