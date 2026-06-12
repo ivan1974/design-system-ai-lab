@@ -42,6 +42,14 @@ The first target is not a generic component library.
 
 The first target is a product-grounded screen system derived directly from the Installed Base Intelligence prototype.
 
+After the first runtime extraction, the target must expand into a generic component vocabulary.
+
+```txt
+Product-grounded extraction first.
+Generic component vocabulary second.
+GenAI-facing guidelines and contracts third.
+```
+
 ## Founding screen
 
 ```txt
@@ -100,6 +108,7 @@ real product reference
 → component extraction
 → tokens
 → props
+→ generic component vocabulary
 → patterns
 → principles
 → knowledge
@@ -120,7 +129,33 @@ GenAI rules
 
 The prototype is the starting point, but the target is broader than reproducing one screen.
 
-The target is a GenAI-ready design system that helps an assistant reason with the design system’s components, patterns, principles and domain knowledge.
+The target is a GenAI-ready design system that helps an assistant reason with the design system’s generic components, patterns, principles and domain knowledge.
+
+## Generic component vocabulary principle
+
+Phase 3 must separate form, data, usage and domain.
+
+```txt
+Form = generic UI component
+Data = injected content and state
+Usage = guidance that says when and why to use a component
+Domain = example or context, not a fixed component API
+```
+
+This means:
+
+```txt
+Do not confuse domain data with domain components.
+Do not create a new component only because the text, icon or state is domain-specific.
+Do not encode business vocabulary into a component API unless the visual or interaction grammar genuinely requires it.
+```
+
+Example:
+
+```txt
+Bad target: HealthBadge, DPPStatus, ConnectivityLabel
+Good target: StatusBadge, StatusIndicator, DataLabel, SignalDot, ScoreBar
+```
 
 ## What must be preserved from the previous repository
 
@@ -374,12 +409,62 @@ src/design-system/primitives/* = runtime design-system primitive source
 src/app/components/ui/* = temporary generated support layer or removed
 ```
 
-### Phase 3 — Patterns, principles and knowledge
+### Phase 3 — Generic component vocabulary
 
 Goal:
 
 ```txt
-Document what the prototype teaches, not only what it contains.
+De-specialize the extracted runtime material into a generic, composable component vocabulary that GenAI can select according to brief, data type and recommended usage.
+```
+
+This phase must not create fixed business components for every domain label.
+
+It must convert product-grounded extraction into generic forms:
+
+```txt
+HealthBadge -> StatusBadge / StatusIndicator
+DPPStatus -> DataLabel / StatusBadge
+ConnectivityLabel -> SignalDot + StatusIndicator
+InstalledBaseViewFilterBar -> ViewSwitcher + FilterToolbar + FilterDropdown
+AssetInventoryRow -> DataRow / DataGridRow composition
+InstalledBaseWorkspace -> ListDetailWorkspace / FilterableWorkspace pattern
+```
+
+Target generic component groups:
+
+```txt
+Form controls:
+SearchField, CheckboxOption, FilterDropdown
+
+Navigation and view controls:
+ViewSwitcher, Toolbar, IconButton
+
+Data display:
+DataGrid, DataRow, Field, MetricRow, StatusBadge, ScoreBar
+
+Panels and sections:
+SidePanel, DetailPanel, Section, Tabs
+
+Reusable patterns:
+FilterableWorkspace, ListDetailWorkspace, TabbedDetailPanel
+```
+
+Acceptance criteria:
+
+```txt
+generic component vocabulary documented
+current over-specific/transitional components identified
+target generic APIs proposed
+patterns separated from domain examples
+GenAI guidelines postponed until the vocabulary exists
+```
+
+### Phase 4 — Patterns, principles and GenAI-facing guidelines
+
+Goal:
+
+```txt
+Document what the prototype teaches, not only what it contains, and turn the generic vocabulary into usable GenAI guidance.
 ```
 
 This phase must capture:
@@ -394,6 +479,7 @@ white-first visual system
 domain concepts
 user needs
 open questions
+component selection guidance
 ```
 
 Initial files:
@@ -415,7 +501,19 @@ docs/domain-knowledge/
 docs/decisions/
 ```
 
-### Phase 4 — Guardrail contracts
+Guideline sequence:
+
+```txt
+Given a brief, identify the user intent.
+Choose a layout pattern.
+Choose relevant data display components.
+Choose the right interaction components.
+Inject domain data.
+Respect contracts.
+Avoid inventing decorative UI.
+```
+
+### Phase 5 — Guardrail contracts
 
 Goal:
 
@@ -440,7 +538,7 @@ non-negotiable guardrails = must always be respected
 quality guidance = preferred behavior that can be justified when adapted
 ```
 
-### Phase 5 — Make kit
+### Phase 6 — Make kit
 
 Goal:
 
@@ -461,7 +559,7 @@ avoid critical generation failures
 explain new candidate patterns when needed
 ```
 
-### Phase 6 — Guided extension
+### Phase 7 — Guided extension
 
 Only after Installed Base Intelligence is stable, extend toward other screens:
 
@@ -479,7 +577,7 @@ Every new screen must follow the same sequence:
 ```txt
 real prototype or reference
 → domain model
-→ required components
+→ required generic components
 → patterns
 → principles
 → knowledge
@@ -518,14 +616,4 @@ action plan
 owner
 due date
 proof point
-value outcome
-review status
 ```
-
-## Non-negotiable rule
-
-No component enters the new design system unless it can be linked to a real product need.
-
-For the first release, that product need must come from the Installed Base Intelligence prototype.
-
-No runtime guideline enters the default generation path unless it helps Figma Make avoid a concrete generation failure or make a materially better design decision.
