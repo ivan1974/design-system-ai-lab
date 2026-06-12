@@ -21,10 +21,10 @@ export function MainNavigation({
 }: MainNavigationProps) {
   return (
     <nav
-      className="h-[60px] bg-white border-b border-neutral-200/80 flex items-center px-5 gap-5 flex-shrink-0 z-50"
+      className="h-[60px] bg-white border-b border-neutral-200/80 flex items-center px-5 gap-5 shrink-0 z-50"
       style={{ boxShadow: '0 1px 0 rgba(0,0,0,0.06)' }}
     >
-      <div className="flex items-center gap-3 flex-shrink-0">
+      <div className="flex items-center gap-3 shrink-0">
         <SELogo />
         <div className="flex flex-col leading-none gap-0.5">
           <span
@@ -39,7 +39,7 @@ export function MainNavigation({
         </div>
       </div>
 
-      <div className="w-px h-6 bg-neutral-200 flex-shrink-0 mx-1" />
+      <div className="w-px h-6 bg-neutral-200 shrink-0 mx-1" />
 
       <div className="relative flex-1 max-w-[360px]">
         <Search
@@ -70,7 +70,7 @@ export function MainNavigation({
         />
       </div>
 
-      <div className="flex items-center gap-1 ml-auto flex-shrink-0">
+      <div className="flex items-center gap-1 ml-auto shrink-0">
         <button
           type="button"
           className="w-8 h-8 rounded-lg flex items-center justify-center text-neutral-400 hover:text-neutral-600 hover:bg-neutral-100 transition-colors"
@@ -81,7 +81,7 @@ export function MainNavigation({
 
         <button type="button" className="flex items-center gap-2 pl-1 pr-2.5 py-1 ml-1 rounded-lg hover:bg-neutral-100 transition-colors group">
           <div
-            className="w-7 h-7 rounded-full flex items-center justify-center text-white text-[11px] flex-shrink-0"
+            className="w-7 h-7 rounded-full flex items-center justify-center text-white text-[11px] shrink-0"
             style={{ background: 'linear-gradient(135deg, #00985F 0%, #007A4A 100%)', fontWeight: 700 }}
           >
             {userInitials}
@@ -97,7 +97,7 @@ export function MainNavigation({
 function SELogo() {
   return (
     <div
-      className="w-[34px] h-[34px] rounded-[7px] flex items-center justify-center flex-shrink-0"
+      className="w-[34px] h-[34px] rounded-[7px] flex items-center justify-center shrink-0"
       style={{ background: 'linear-gradient(145deg, #00985F 0%, #007A4A 100%)' }}
     >
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
