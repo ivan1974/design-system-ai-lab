@@ -24,16 +24,21 @@ type RegistryEntry = {
 };
 
 type ComponentRegistry = {
+  sourceOfTruth?: string;
   statusValues: RegistryEntry["genAIStatus"][];
   defaults: Partial<RegistryEntry>;
   components: RegistryEntry[];
 };
 
 type ComponentsContract = {
+  sourceOfTruth?: string;
   approvedImports: Record<string, string[]>;
+  preferredForNewGeneration?: string[];
+  deprecatedMakeSurface?: string[];
 };
 
 type PropsContract = {
+  sourceOfTruth?: string;
   components: Record<string, Record<string, string[]>>;
 };
 
@@ -89,6 +94,12 @@ describe("generation rules: component registry alignment", () => {
     expect(registryNames).toEqual(approvedImportNames);
   });
 
+  it("uses the v0.8 target surface as shared source of truth", () => {
+    expect(registry.sourceOfTruth).toBe("contracts/v0.8-target-surface.contract.json");
+    expect(componentsContract.sourceOfTruth).toBe("contracts/v0.8-target-surface.contract.json");
+    expect(propsContract.sourceOfTruth).toBe("contracts/v0.8-target-surface.contract.json");
+  });
+
   it("uses only allowed GenAI statuses", () => {
     const allowedStatuses = new Set(registry.statusValues);
 
@@ -140,25 +151,35 @@ describe("generation rules: component registry alignment", () => {
     }
   });
 
-  it("enforces v0.6.0 status decisions for priority components", () => {
+  it("enforces v0.8 target reset status decisions for priority components", () => {
     const expectedStatuses: Record<string, RegistryEntry["genAIStatus"]> = {
       WorkspaceShell: "preferred",
       PageHeading: "preferred",
-      PageHeader: "blocked-for-genai",
+      PageHeader: "deprecated",
       WorkspaceDetailPanel: "preferred",
       DetailPanel: "use-with-care",
+      SidePanel: "preferred",
       ListContainer: "preferred",
       Card: "use-with-care",
-      MetricStrip: "preferred",
-      MetricCard: "use-with-care",
-      ComponentHierarchy: "preferred",
+      MetricStrip: "use-with-care",
+      MetricCard: "deprecated",
+      ComponentHierarchy: "use-with-care",
       ComponentHierarchyItem: "internal-only",
+      Button: "preferred",
+      Table: "preferred",
+      Tabs: "preferred",
+      SemanticTag: "preferred",
+      SemanticPill: "preferred",
+      StatusIndicator: "preferred",
+      MetaLabel: "preferred",
       ActionRow: "preferred",
-      ActionCard: "allowed",
-      AlertCard: "allowed",
-      RecommendationCard: "allowed",
-      RecommendationReviewPanel: "preferred",
-      ValueProofCard: "allowed",
+      ActionCard: "deprecated",
+      AlertCard: "deprecated",
+      RecommendationCard: "deprecated",
+      ReviewQueueRow: "preferred",
+      StatusSummary: "preferred",
+      RecommendationReviewPanel: "use-with-care",
+      ValueProofCard: "use-with-care",
       Timeline: "use-with-care",
     };
 
@@ -167,7 +188,7 @@ describe("generation rules: component registry alignment", () => {
     }
   });
 
-  it("keeps evidence and action rule flags visible for sensitive entries", () => {
+  it("keeps evidence and action rule flags visible for sensitive transition entries", () => {
     expect(registryByName.get("ActionRow")?.requiresActionRules).toBe(true);
     expect(registryByName.get("AlertCard")?.requiresActionRules).toBe(true);
     expect(registryByName.get("RecommendationCard")?.requiresEvidenceRules).toBe(true);
