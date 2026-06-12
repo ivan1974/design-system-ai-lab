@@ -1,4 +1,5 @@
 import { ChevronRight } from 'lucide-react';
+import { Badge } from '../../design-system/primitives';
 import type { Asset, Health, Activity } from '../data/assets';
 
 interface AssetListProps {
@@ -173,12 +174,9 @@ function ConnectivityLabel({ connectivity }: { connectivity: Asset['connectivity
 // §8 v1.1: Type column style = Tag
 function TypeTag({ type }: { type: string }) {
   return (
-    <span
-      className="inline-block px-2 py-0.5 rounded border text-[11px] bg-neutral-50 text-neutral-600 border-neutral-200 truncate max-w-full"
-      style={{ fontWeight: 500 }}
-    >
+    <Badge variant="subtle" size="sm" shape="rounded" className="truncate max-w-full">
       {type}
-    </span>
+    </Badge>
   );
 }
 
