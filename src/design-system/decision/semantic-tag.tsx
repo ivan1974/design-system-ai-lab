@@ -1,8 +1,7 @@
 import { forwardRef } from "react";
 import type { HTMLAttributes, ReactNode } from "react";
-import type { BadgeTone } from "../components/badge";
 
-export type SemanticTagTone = BadgeTone;
+export type SemanticTagTone = "neutral" | "muted" | "primary" | "info" | "success" | "warning" | "danger";
 
 export type SemanticTagProps = HTMLAttributes<HTMLSpanElement> & {
   tone?: SemanticTagTone;
@@ -11,10 +10,12 @@ export type SemanticTagProps = HTMLAttributes<HTMLSpanElement> & {
 
 const toneClasses: Record<SemanticTagTone, string> = {
   neutral: "border-(--ec-color-border) bg-(--ec-color-surface) text-(--ec-color-text-secondary)",
-  primary: "border-blue-100 bg-blue-50 text-(--ec-color-primary)",
-  success: "border-green-100 bg-green-50 text-(--ec-color-success)",
-  warning: "border-amber-100 bg-amber-50 text-(--ec-color-warning)",
-  danger: "border-red-100 bg-red-50 text-(--ec-color-danger)",
+  muted: "border-(--ec-color-neutral-border) bg-(--ec-color-neutral-soft) text-(--ec-color-neutral)",
+  primary: "border-(--ec-color-primary-border) bg-(--ec-color-primary-soft) text-(--ec-color-primary-hover)",
+  info: "border-(--ec-color-info-border) bg-(--ec-color-info-soft) text-(--ec-color-info)",
+  success: "border-(--ec-color-success-border) bg-(--ec-color-success-soft) text-(--ec-color-success)",
+  warning: "border-(--ec-color-warning-border) bg-(--ec-color-warning-soft) text-(--ec-color-warning)",
+  danger: "border-(--ec-color-danger-border) bg-(--ec-color-danger-soft) text-(--ec-color-danger)",
 };
 
 export const SemanticTag = forwardRef<HTMLSpanElement, SemanticTagProps>(
@@ -23,7 +24,7 @@ export const SemanticTag = forwardRef<HTMLSpanElement, SemanticTagProps>(
       <span
         ref={ref}
         className={[
-          "inline-flex items-center rounded-(--ec-radius-sm) border px-2 py-0.5 text-xs font-medium",
+          "inline-flex items-center rounded-(--ec-radius-sm) border px-2 py-0.5 text-xs font-medium leading-4",
           toneClasses[tone],
           className,
         ].join(" ")}
