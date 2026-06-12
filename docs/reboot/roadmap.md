@@ -101,20 +101,17 @@ docs/* = source knowledge, decisions and rationale
 
 ## Rebuild direction
 
-The new project must follow this order:
+The project must follow this order:
 
 ```txt
 real product reference
-→ component extraction
-→ tokens
-→ props
+→ runtime extraction
 → generic component vocabulary
-→ patterns
-→ principles
-→ knowledge
-→ guidelines
+→ reusable patterns
+→ principles and knowledge routing
+→ GenAI-facing guidelines
 → guardrail contracts
-→ tests
+→ tests / benchmarks
 → Make kit
 ```
 
@@ -123,13 +120,50 @@ It must not follow this order:
 ```txt
 GenAI rules
 → abstract contracts
-→ generic components
+→ generic components detached from product use
 → attempt to recreate the prototype
 ```
 
 The prototype is the starting point, but the target is broader than reproducing one screen.
 
 The target is a GenAI-ready design system that helps an assistant reason with the design system’s generic components, patterns, principles and domain knowledge.
+
+## Control model
+
+The project must never lose control of context as it advances.
+
+Each phase must state:
+
+```txt
+objective = what we are trying to achieve
+intention = why it matters for GenAI and product quality
+scope = what is included
+non-scope = what is deliberately excluded
+source of truth = which files or decisions guide the work
+acceptance criteria = how we know the phase is complete
+stop conditions = when to pause before continuing
+```
+
+Every extraction must preserve:
+
+```txt
+build stability
+visual parity
+interaction parity
+source boundary
+no premature domain-specific component API
+```
+
+Every new component or pattern must answer:
+
+```txt
+What user or interface need does it serve?
+What data shape does it support?
+What interaction does it own?
+What remains injected by the app or by the brief?
+Why is it generic enough to belong in the design system?
+Which guideline will tell GenAI when to use it?
+```
 
 ## Generic component vocabulary principle
 
@@ -328,16 +362,40 @@ Contracts prevent critical generation failures.
 
 ### Phase 0 — Freeze
 
-Do not repair the old repository.
+Objective:
 
-Preserve the old repository state and work only on the reboot branch.
+```txt
+Preserve the previous repository state and avoid repairing the old project while rebooting.
+```
+
+Scope:
+
+```txt
+legacy branch
+reboot branch
+repository reset decisions
+```
+
+Acceptance criteria:
+
+```txt
+legacy state preserved
+reboot branch isolated
+no hidden migration from old codebase
+```
 
 ### Phase 1 — Clean import of the Figma Make prototype
 
-Goal:
+Objective:
 
 ```txt
 Run the prototype exactly as-is before design-system extraction.
+```
+
+Intention:
+
+```txt
+Establish a working product reference before abstracting anything.
 ```
 
 Tasks:
@@ -350,12 +408,27 @@ keep App.tsx as demo
 avoid premature abstraction
 ```
 
+Acceptance criteria:
+
+```txt
+npm run build passes
+npm run dev starts
+prototype visual behavior preserved
+source prototype documented
+```
+
 ### Phase 2 — Minimal design system extraction
 
-Goal:
+Objective:
 
 ```txt
 Extract reliable interface material without changing the UI.
+```
+
+Intention:
+
+```txt
+Create stable runtime material from a real product reference before writing GenAI-facing guidance.
 ```
 
 The extracted components are not the generation API by themselves.
@@ -364,7 +437,7 @@ They are reliable interface material that GenAI must use together with patterns,
 
 During Phase 2, documentation is limited to extraction audits and decision records. GenAI-facing guidelines, contracts and Make kit instructions are created after the runtime design-system material is stable.
 
-Order:
+Completed extraction order:
 
 ```txt
 1. tokens
@@ -374,7 +447,7 @@ Order:
 5. ViewFilterBar
 6. AllFiltersPanel
 7. AssetInventoryRow
-8. AssetDetailPanel
+8. AssetDetailPanel integration helpers
 9. InstalledBaseWorkspace
 ```
 
@@ -391,17 +464,6 @@ Generated UI audit rule:
 After each replacement of generated Figma or shadcn UI support code with a design-system primitive, audit the related src/app/components/ui/* material.
 ```
 
-The audit must identify:
-
-```txt
-which generated UI files are still used
-which files duplicate current or future design-system primitives
-which files are only generated support code
-which files should be kept temporarily, migrated, archived or deleted
-```
-
-Do not delete generated UI support files one by one without this audit.
-
 The intended long-term state is:
 
 ```txt
@@ -409,12 +471,36 @@ src/design-system/primitives/* = runtime design-system primitive source
 src/app/components/ui/* = temporary generated support layer or removed
 ```
 
+Acceptance criteria:
+
+```txt
+runtime design-system foundations exist
+core primitives are used by the product reference
+core extracted components are used through app wrappers
+npm run build passes
+npm run dev starts
+visual parity confirmed
+phase decision record exists
+```
+
+Stop conditions:
+
+```txt
+Do not continue to GenAI-facing guidelines until Phase 3 generic vocabulary direction is agreed.
+```
+
 ### Phase 3 — Generic component vocabulary
 
-Goal:
+Objective:
 
 ```txt
 De-specialize the extracted runtime material into a generic, composable component vocabulary that GenAI can select according to brief, data type and recommended usage.
+```
+
+Intention:
+
+```txt
+Give GenAI a broad but controlled UI vocabulary without turning domain labels into component APIs.
 ```
 
 This phase must not create fixed business components for every domain label.
@@ -430,41 +516,314 @@ AssetInventoryRow -> DataRow / DataGridRow composition
 InstalledBaseWorkspace -> ListDetailWorkspace / FilterableWorkspace pattern
 ```
 
-Target generic component groups:
+#### Phase 3 source of truth
+
+Primary doctrine:
 
 ```txt
-Form controls:
-SearchField, CheckboxOption, FilterDropdown
+docs/foundation-principles/generic-component-vocabulary-audit.md
+```
 
-Navigation and view controls:
-ViewSwitcher, Toolbar, IconButton
+Supporting decisions:
 
-Data display:
-DataGrid, DataRow, Field, MetricRow, StatusBadge, ScoreBar
+```txt
+docs/decisions/phase-2-runtime-extraction-record.md
+docs/foundation-principles/primitive-audit.md
+docs/foundation-principles/generated-ui-layer-follow-up-audit.md
+```
 
-Panels and sections:
-SidePanel, DetailPanel, Section, Tabs
+#### Phase 3 operating rules
 
-Reusable patterns:
-FilterableWorkspace, ListDetailWorkspace, TabbedDetailPanel
+```txt
+Separate form from data.
+Separate usage guidance from component API.
+Keep domain as examples and test data.
+Extract generic components only from visible repeated UI grammar or clear product need.
+Do not create a component because a domain noun exists.
+Do not use generated ui/* as naming or API authority.
+Preserve visual and interaction parity after each extraction.
+```
+
+#### Phase 3.1 — Generic form and option controls
+
+Goal:
+
+```txt
+Extract generic controls that let GenAI represent search, option selection and filter choices without knowing the business domain.
+```
+
+Candidates:
+
+```txt
+SearchField
+Checkbox
+CheckboxOption
+FilterOption
+FilterDropdown
+ActiveFilterCount
+```
+
+Likely source locations:
+
+```txt
+MainNavigation -> SearchField
+AllFiltersPanel -> CheckboxOption / FilterOption
+ViewFilterBar -> FilterDropdown / ActiveFilterCount
 ```
 
 Acceptance criteria:
 
 ```txt
-generic component vocabulary documented
-current over-specific/transitional components identified
-target generic APIs proposed
-patterns separated from domain examples
-GenAI guidelines postponed until the vocabulary exists
+search field API is generic
+filter options accept injected label, value, active state and optional tone
+no category names such as Health, Location or DPP appear in the component API
+app wrappers still supply product data
 ```
 
-### Phase 4 — Patterns, principles and GenAI-facing guidelines
+#### Phase 3.2 — Navigation and view controls
 
 Goal:
 
 ```txt
+Extract generic navigation and view-selection controls that can work across different screen types.
+```
+
+Candidates:
+
+```txt
+TopNavigation
+ProductIdentity
+IconButton
+UserMenuTrigger
+ViewSwitcher
+ViewSwitcherItem
+Toolbar
+FilterToolbar
+```
+
+Likely source locations:
+
+```txt
+MainNavigation -> TopNavigation / ProductIdentity / IconButton / UserMenuTrigger
+ViewFilterBar -> ViewSwitcher / Toolbar / FilterToolbar
+```
+
+Acceptance criteria:
+
+```txt
+ViewSwitcher accepts injected options
+List, Geography and Electrical are option data, not component variants
+Toolbar composes controls without owning business logic
+MainNavigation can remain as a composed shell
+```
+
+#### Phase 3.3 — Generic data display
+
+Goal:
+
+```txt
+Extract generic components for dense operational data, status, metrics and fields.
+```
+
+Candidates:
+
+```txt
+DataGrid
+DataGridHeader
+DataGridRow
+DataGridCell
+DataRow
+Field
+Metric
+MetricRow
+StatusBadge
+StatusIndicator
+SignalDot
+DataLabel
+ScoreBar
+EmptyState
+```
+
+Likely source locations:
+
+```txt
+AssetList -> DataGridHeader / GroupedListSection / EmptyState
+AssetInventoryRow -> DataRow / StatusBadge / SignalDot / DataLabel
+AssetDetailPanel -> Field / MetricRow / ScoreBar
+```
+
+Acceptance criteria:
+
+```txt
+health, connectivity, DPP and activity become injected labels or state values
+status and tone are generic props
+no HealthBadge / DPPStatus / ConnectivityLabel target APIs
+AssetInventoryRow can become a use case of DataRow / DataGridRow
+```
+
+#### Phase 3.4 — Panels, sections and tabs
+
+Goal:
+
+```txt
+Extract generic structural components for panels, sections, tabbed content and detail views.
+```
+
+Candidates:
+
+```txt
+Panel
+SidePanel
+DetailPanel
+PanelHeader
+PanelFooter
+Section
+Tabs
+TabList
+TabPanel
+```
+
+Likely source locations:
+
+```txt
+AllFiltersPanel -> SidePanel / PanelHeader / PanelFooter
+AssetDetailPanel -> DetailPanel / Tabs / Section
+```
+
+Acceptance criteria:
+
+```txt
+panel components do not know Installed Base
+section and tab labels are injected
+panel behavior remains controlled by app state
+app wrappers continue to own product-specific content
+```
+
+#### Phase 3.5 — Evidence, timeline and recommendation components
+
+Goal:
+
+```txt
+Extract generic components for proof, history and suggested actions without hard-coding domain narratives.
+```
+
+Candidates:
+
+```txt
+Timeline
+TimelineEvent
+EvidenceList
+DocumentRow
+RecommendationCard
+```
+
+Likely source locations:
+
+```txt
+AssetDetailPanel -> TimelineEvent / DocumentRow / RecommendationCard
+```
+
+Acceptance criteria:
+
+```txt
+recommendation priority is generic
+proof/evidence labels are injected
+document rows accept generic document metadata
+no product-specific claim is hard-coded in the component API
+```
+
+#### Phase 3.6 — Reusable patterns
+
+Goal:
+
+```txt
+Compose generic components into screen patterns that GenAI can select before selecting individual components.
+```
+
+Candidates:
+
+```txt
+FilterableWorkspace
+ListDetailWorkspace
+TabbedDetailPanel
+FilterableDataGrid
+EvidenceSection
+RecommendationSection
+StatusSummary
+```
+
+Likely source locations:
+
+```txt
+InstalledBaseWorkspace -> FilterableWorkspace / ListDetailWorkspace
+AssetDetailPanel -> TabbedDetailPanel / EvidenceSection / RecommendationSection
+```
+
+Acceptance criteria:
+
+```txt
+patterns define layout and composition roles
+patterns do not import demo data
+patterns accept slots or generic data structures
+patterns can be reused for other screen briefs
+```
+
+#### Phase 3 validation loop
+
+For every component or pattern extraction:
+
+```txt
+1. identify source usage
+2. name generic form and usage
+3. define minimal props
+4. extract one component
+5. replace one usage site
+6. run npm run build
+7. run npm run dev
+8. visually compare
+9. document decision if naming or scope is non-obvious
+```
+
+Do not batch many extractions without validation.
+
+#### Phase 3 stop conditions
+
+Pause before continuing if:
+
+```txt
+a component API starts using business nouns unnecessarily
+a component requires domain-specific data to render
+visual parity becomes uncertain
+an extraction causes broad rewrites
+an existing wrapper becomes harder to understand
+GenAI usage guidance cannot explain when the component should be selected
+```
+
+#### Phase 3 acceptance criteria
+
+Phase 3 is complete when:
+
+```txt
+generic component vocabulary exists and is exported
+transitional product-grounded helpers are de-specialized or clearly marked
+major reusable UI forms have generic names and generic props
+at least one reusable pattern exists
+build and visual parity are preserved
+component selection can be documented for GenAI
+```
+
+### Phase 4 — Patterns, principles and GenAI-facing guidelines
+
+Objective:
+
+```txt
 Document what the prototype teaches, not only what it contains, and turn the generic vocabulary into usable GenAI guidance.
+```
+
+Intention:
+
+```txt
+Teach GenAI how to select the right component or pattern for a brief, data type and user task.
 ```
 
 This phase must capture:
@@ -513,9 +872,18 @@ Respect contracts.
 Avoid inventing decorative UI.
 ```
 
+Acceptance criteria:
+
+```txt
+GenAI can choose components from usage rules, not from domain names
+component-selection guidance references generic vocabulary
+contracts can verify critical boundaries
+Make kit instructions can stay concise
+```
+
 ### Phase 5 — Guardrail contracts
 
-Goal:
+Objective:
 
 ```txt
 Turn critical design and generation decisions into verifiable guardrails.
@@ -538,12 +906,20 @@ non-negotiable guardrails = must always be respected
 quality guidance = preferred behavior that can be justified when adapted
 ```
 
-### Phase 6 — Make kit
-
-Goal:
+Acceptance criteria:
 
 ```txt
-Allow Figma Make to generate a strong Installed Base Intelligence screen using the package, patterns, principles, knowledge and guardrails.
+critical failures can be detected
+component registry reflects generic vocabulary
+contracts do not over-constrain valid design choices
+```
+
+### Phase 6 — Make kit
+
+Objective:
+
+```txt
+Allow Figma Make to generate strong product screens using the package, generic components, patterns, principles, knowledge and guardrails.
 ```
 
 The Make kit should not merely assemble approved components.
@@ -557,6 +933,15 @@ apply design system principles
 use domain knowledge appropriately
 avoid critical generation failures
 explain new candidate patterns when needed
+```
+
+Acceptance criteria:
+
+```txt
+Make can generate a strong Installed Base Intelligence screen
+Make can explain component and pattern choices
+Make reads only the smallest useful guidance
+Make does not use raw prototype files as mandatory building blocks
 ```
 
 ### Phase 7 — Guided extension
