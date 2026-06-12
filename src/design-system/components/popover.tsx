@@ -51,13 +51,13 @@ export function Popover({
     onClick: () => setOpen(!isOpen),
   };
 
-  const renderedTrigger = isValidElement(trigger)
-    ? cloneElement(trigger as ReactElement, triggerProps)
-    : (
-      <button type="button" {...triggerProps}>
-        {trigger}
-      </button>
-    );
+  const renderedTrigger = isValidElement(trigger) ? (
+    cloneElement(trigger as ReactElement, triggerProps)
+  ) : (
+    <button type="button" {...triggerProps}>
+      {trigger}
+    </button>
+  );
 
   return (
     <span className="relative inline-flex">
@@ -67,7 +67,9 @@ export function Popover({
           id={fallbackId}
           role="dialog"
           className={[
-            "absolute z-400 min-w-64 rounded-(--ec-radius-md) border border-(--ec-color-border) bg-(--ec-color-surface) p-4 text-sm text-(--ec-color-text-primary) shadow-md",
+            "absolute z-400 min-w-64 rounded-(--ec-radius-md)",
+            "border border-(--ec-color-border) bg-(--ec-color-surface) p-4",
+            "text-sm leading-5 text-(--ec-color-text-primary) shadow-(--ec-shadow-popover)",
             sideClasses[side],
             side === "top" || side === "bottom" ? alignClasses[align] : "",
           ].join(" ")}
