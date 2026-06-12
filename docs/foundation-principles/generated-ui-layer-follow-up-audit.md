@@ -41,6 +41,28 @@ src/app/components/AssetList.tsx
 src/app/App.tsx
 ```
 
+## Phase 3 clarification
+
+The generated UI layer must not become the shortcut for building the generic component vocabulary.
+
+Phase 3 should be:
+
+```txt
+product-grounded
+form-first
+usage-guided
+not shadcn-grounded
+not domain-labeled
+```
+
+This means:
+
+```txt
+Do not promote generated shadcn components just because they already exist.
+Do not create product-specific components just because domain labels exist.
+Extract generic components from real usage and document when GenAI should select them.
+```
+
 ## Generated UI folder status
 
 The generated support folder remains:
@@ -103,6 +125,34 @@ New product extraction must import from src/design-system/*.
 New product extraction must not import from src/app/components/ui/*.
 ```
 
+## Relationship to generic component vocabulary
+
+The target Phase 3 component vocabulary should be generic and selected by usage guidance.
+
+Examples:
+
+```txt
+SearchField
+ViewSwitcher
+FilterDropdown
+SidePanel
+DetailPanel
+DataGrid
+StatusBadge
+ScoreBar
+Timeline
+RecommendationCard
+```
+
+Generated `ui/*` files may be useful as implementation reference, but they are not naming authority, API authority or selection authority.
+
+Decision:
+
+```txt
+Generic component vocabulary should be derived from product use and design-system intent.
+It should not be copied from generated shadcn file names.
+```
+
 ## Why not delete generated ui/* now
 
 Do not delete the generated UI files yet.
@@ -153,8 +203,8 @@ Option A — keep generated ui/* temporarily as source reference.
 Reason:
 
 ```txt
-The project is moving from runtime extraction into GenAI-facing design-system knowledge.
-Deleting generated support code is less important than documenting how GenAI should use the extracted runtime material.
+The project is moving from runtime extraction into generic component vocabulary work.
+Deleting generated support code is less important than documenting and extracting the right generic UI vocabulary.
 ```
 
 ## Guardrail for future work
@@ -165,6 +215,7 @@ Add this rule to future guidelines and contracts:
 Use src/design-system/* as runtime design-system source.
 Use src/app/* as product reference and demo app.
 Do not use src/app/components/ui/* as generation API unless explicitly promoted by a decision record.
+Do not use generated ui/* as the source of generic component naming or API decisions.
 ```
 
 ## Acceptance criteria
@@ -176,4 +227,5 @@ Phase 2 runtime source is clearly separated from generated support material.
 generated ui/* remains non-authoritative.
 future cleanup options are documented.
 no broad deletion or migration is performed without usage proof.
+Phase 3 generic component vocabulary remains product-grounded and usage-guided.
 ```
