@@ -399,7 +399,7 @@ avoid critical generation failures
 explain new candidate patterns when needed
 ```
 
-### Phase 6 — Controlled extension
+### Phase 6 — Guided extension
 
 Only after Installed Base Intelligence is stable, extend toward other screens:
 
@@ -421,7 +421,7 @@ real prototype or reference
 → patterns
 → principles
 → knowledge
-→ screen contract or guardrails
+→ screen guidance or guardrails
 → guidelines
 → tests / benchmarks
 ```
