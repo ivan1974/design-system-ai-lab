@@ -115,7 +115,7 @@ function DPPStatus({ dpp }: { dpp: boolean }) {
     : <span className="text-[11px] text-neutral-400">No DPP</span>;
 }
 
-const HEALTH_CONFIG: Record<AssetHealth, { bg: string; dot: string; text: string; bar: number }> = {
+export const HEALTH_CONFIG: Record<AssetHealth, { bg: string; dot: string; text: string; bar: number }> = {
   Critical: { bg: 'bg-red-50', dot: 'bg-red-500', text: 'text-red-600', bar: 10 },
   Poor: { bg: 'bg-orange-50', dot: 'bg-orange-500', text: 'text-orange-600', bar: 28 },
   Fair: { bg: 'bg-amber-50', dot: 'bg-amber-500', text: 'text-amber-600', bar: 52 },
