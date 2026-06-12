@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { InstalledBaseWorkspace } from '../design-system/components';
 import { MainNav } from './components/MainNav';
 import { PageHeader } from './components/PageHeader';
 import { ViewFilterBar } from './components/ViewFilterBar';
@@ -64,19 +65,10 @@ export default function App() {
   }
 
   return (
-    <div
-      className="flex flex-col h-screen overflow-hidden"
-      style={{ fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}
-    >
-      {/* LAYER 1: Main Navigation */}
-      <MainNav searchQuery={searchQuery} onSearchChange={setSearchQuery} />
-
-      {/* LAYER 2: Page Header */}
-      <PageHeader />
-
-      {/* App body */}
-      <div className="flex-1 flex overflow-hidden relative bg-neutral-50/60">
-        {/* All Filters Panel */}
+    <InstalledBaseWorkspace
+      navigation={<MainNav searchQuery={searchQuery} onSearchChange={setSearchQuery} />}
+      header={<PageHeader />}
+      filtersPanel={
         <AllFiltersPanel
           isOpen={filtersOpen}
           activeFilters={activeFilters}
@@ -85,37 +77,32 @@ export default function App() {
           onApply={() => setFiltersOpen(false)}
           onClose={() => setFiltersOpen(false)}
         />
-
-        {/* Main content */}
-        <div className="flex-1 flex flex-col overflow-hidden">
-          {/* LAYER 3: View & Filter Bar */}
-          <ViewFilterBar
-            activeView={activeView}
-            onViewChange={setActiveView}
-            onAllFilters={() => setFiltersOpen(true)}
-            activeFilterCount={totalActiveFilters}
-            activeFilters={activeFilters}
-            onToggleOption={toggleFilterOption}
-          />
-
-          {/* LAYER 4: Installed Base List */}
-          <AssetList
-            assets={filteredAssets}
-            selectedId={selectedAsset?.asset_id ?? null}
-            onSelect={handleSelectAsset}
-          />
-        </div>
-
-        {/* LAYER 5: Asset Detail Panel */}
-        {selectedAsset && (
-          <AssetDetailPanel
-            asset={selectedAsset}
-            activeTab={activeTab}
-            onTabChange={setActiveTab}
-            onClose={() => setSelectedAsset(null)}
-          />
-        )}
-      </div>
-    </div>
+      }
+      toolbar={
+        <ViewFilterBar
+          activeView={activeView}
+          onViewChange={setActiveView}
+          onAllFilters={() => setFiltersOpen(true)}
+          activeFilterCount={totalActiveFilters}
+          activeFilters={activeFilters}
+          onToggleOption={toggleFilterOption}
+        />
+      }
+      list={
+        <AssetList
+          assets={filteredAssets}
+          selectedId={selectedAsset?.asset_id ?? null}
+          onSelect={handleSelectAsset}
+        />
+      }
+      detailPanel={selectedAsset && (
+        <AssetDetailPanel
+          asset={selectedAsset}
+          activeTab={activeTab}
+          onTabChange={setActiveTab}
+          onClose={() => setSelectedAsset(null)}
+        />
+      )}
+    />
   );
 }
