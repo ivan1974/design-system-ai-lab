@@ -112,12 +112,13 @@ describe("generation rules: v0.8 composition regeneration", () => {
     expect(listContainerSource).toContain("divide-(--ec-color-border-soft)");
   });
 
-  it("keeps MasterDetailLayout as the preferred list-detail coordinator", () => {
+  it("keeps MasterDetailLayout as the generic list-detail coordinator", () => {
+    expect(masterDetailLayoutSource).toContain("detail: ReactNode");
     expect(masterDetailLayoutSource).toContain("detailMode?: MasterDetailLayoutDetailMode");
     expect(masterDetailLayoutSource).toContain("detailOpen?: boolean");
     expect(masterDetailLayoutSource).toContain("onDetailOpenChange?: (open: boolean) => void");
-    expect(masterDetailLayoutSource).toContain("WorkspaceDetailPanel");
     expect(masterDetailLayoutSource).not.toContain("const Drawer");
+    expect(interactivePanelsGuideline).toContain("<WorkspaceDetailPanel />");
   });
 
   it("keeps WorkspaceDetailPanel as the selected-item detail target", () => {
