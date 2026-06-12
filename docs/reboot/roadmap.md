@@ -327,6 +327,8 @@ The extracted components are not the generation API by themselves.
 
 They are reliable interface material that GenAI must use together with patterns, principles, domain knowledge and guardrails.
 
+During Phase 2, documentation is limited to extraction audits and decision records. GenAI-facing guidelines, contracts and Make kit instructions are created after the runtime design-system material is stable.
+
 Order:
 
 ```txt
