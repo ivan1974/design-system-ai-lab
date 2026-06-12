@@ -1,7 +1,7 @@
 import { X, MapPin, Download, PhoneCall, Wrench } from 'lucide-react';
 import { Button } from '../../design-system/primitives';
-import type { Asset, Health, Activity } from '../data/assets';
-import { HealthBadge, StatusLabel, HEALTH_CONFIG } from './AssetList';
+import { HealthBadge, StatusLabel, HEALTH_CONFIG } from '../../design-system/components';
+import type { Asset } from '../data/assets';
 
 export type PanelTab = 'overview' | 'health' | 'intelligence' | 'passport' | 'history' | 'documents';
 
