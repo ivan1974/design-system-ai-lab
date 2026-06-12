@@ -1,5 +1,7 @@
 export { AllFiltersPanel } from './all-filters-panel';
 export type { AllFiltersPanelProps, FilterOptionStyle, PillColorClasses } from './all-filters-panel';
+export { AssetInventoryRow, HealthBadge, StatusLabel } from './asset-inventory-row';
+export type { AssetActivity, AssetConnectivity, AssetHealth, AssetInventoryRowData, AssetInventoryRowProps } from './asset-inventory-row';
 export { InstalledBaseHeader } from './installed-base-header';
 export type { InstalledBaseHeaderProps } from './installed-base-header';
 export { MainNavigation } from './main-navigation';
