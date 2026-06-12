@@ -15,11 +15,11 @@ export type MainNavigationProps = HTMLAttributes<HTMLElement> & {
 export const MainNavigation = forwardRef<HTMLElement, MainNavigationProps>(
   (
     {
-      logo = "Reference Company Logo",
-      productName = "Installed Base Intelligence",
-      searchPlaceholder = "Search assets, sites, documents",
+      logo = "Product logo",
+      productName = "Workspace",
+      searchPlaceholder = "Search",
       helpLabel = "Help",
-      userName = "User Name",
+      userName = "User",
       userAvatar,
       className = "",
       ...props
@@ -41,11 +41,11 @@ export const MainNavigation = forwardRef<HTMLElement, MainNavigationProps>(
         <div className="text-sm font-semibold text-(--ec-color-text-primary)">{productName}</div>
       </div>
       <div className="min-w-64 flex-1">
-        <Input aria-label="Global Search" placeholder={searchPlaceholder} />
+        <Input aria-label="Global search" placeholder={searchPlaceholder} />
       </div>
       <Button variant="ghost" size="sm">{helpLabel}</Button>
       <div className="flex items-center gap-2 text-sm text-(--ec-color-text-primary)">
-        {userAvatar ?? <span className="grid h-8 w-8 place-items-center rounded-full bg-(--ec-color-surface-muted) text-xs">UA</span>}
+        {userAvatar ?? <span className="grid h-8 w-8 place-items-center rounded-full bg-(--ec-color-surface-muted) text-xs">U</span>}
         <span>{userName}</span>
       </div>
     </nav>
