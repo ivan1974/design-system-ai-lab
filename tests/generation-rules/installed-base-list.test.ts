@@ -79,9 +79,12 @@ describe("generation rules: installed base list", () => {
     }
 
     expect(list).toContain("Table");
-    expect(row).toContain("ConnectivityLabel");
-    expect(row).toContain("CoverageTag");
-    expect(row).toContain("HealthPill");
-    expect(row).toContain("StatusWithIcon");
+    expect(row).toContain("StatusIndicator");
+    expect(row).toContain("SemanticTag");
+    expect(row).toContain("SemanticPill");
+    expect(row).not.toContain("ConnectivityLabel");
+    expect(row).not.toContain("CoverageTag");
+    expect(row).not.toContain("HealthPill");
+    expect(row).not.toContain("StatusWithIcon");
   });
 });
