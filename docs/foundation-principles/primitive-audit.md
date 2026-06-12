@@ -24,6 +24,30 @@ Pill
 Tag
 ```
 
+## Phase 3 clarification
+
+This audit remains valid as a Phase 2 primitive extraction record.
+
+However, the generic component vocabulary decision clarifies the target direction:
+
+```txt
+Primitive extraction must remain form-first.
+Domain-specific labels, icons or states must not become primitive APIs.
+Phase 3 must de-specialize product-grounded helpers into generic component vocabulary.
+```
+
+This means that examples such as `HealthBadge`, `DPPStatus` or `ConnectivityLabel` should be understood as transitional product-grounded examples, not final target component names.
+
+The target direction is closer to:
+
+```txt
+StatusBadge
+StatusIndicator
+SignalDot
+DataLabel
+ScoreBar
+```
+
 ## Guiding principle
 
 Prototype files are not the generation API.
@@ -184,7 +208,7 @@ coverage
 filterCategory
 ```
 
-Those belong to product components or domain-aware patterns, not the base primitive.
+Those belong to product components, generic higher-level components or injected data, not the base primitive.
 
 ### Do not extract yet
 
@@ -268,7 +292,9 @@ children: ReactNode
 
 The base `Badge` should not know the Installed Base domain.
 
-Domain-specific badges should wrap it later, for example:
+Do not turn domain examples into target component APIs.
+
+Earlier examples such as:
 
 ```txt
 HealthBadge
@@ -277,11 +303,23 @@ ConnectivityBadge
 DPPBadge
 ```
 
+should now be treated as transitional examples or wrappers only.
+
+Target generic direction:
+
+```txt
+StatusBadge
+StatusIndicator
+DataLabel
+SignalDot
+ScoreBar
+```
+
 ### Do not extract yet
 
 Do not extract health semantics into the base badge.
 
-Health-specific mapping belongs to a domain component or domain token layer:
+Health-specific mapping belongs to injected data, a generic status/score configuration, or a transitional product wrapper:
 
 ```txt
 Critical
@@ -347,7 +385,7 @@ onClick?: () => void
 
 Do not create a health-specific `HealthPill` as a primitive.
 
-If needed, `HealthPill` should be a product/domain component built on top of `Pill`.
+If needed, health options should be represented through a generic `Pill` or `PillOption` with injected label, tone and active state.
 
 ## Candidate: Tag
 
@@ -439,27 +477,23 @@ Lifecycle Status
 
 Status labels communicate operational state in a dense screen.
 
-They are important, but they are more domain-aware than generic Badge / Tag / Pill primitives.
+They are important, but they are more semantic than generic Badge / Tag / Pill primitives.
 
 ### Extraction recommendation
 
 Do not extract as a primitive in the first pass.
 
-Treat as product/domain component candidates:
+Phase 3 should de-specialize these examples into generic components:
 
 ```txt
-ConnectivityStatus
-ActivityStatus
-DPPStatus
+StatusIndicator
+StatusBadge
+SignalDot
+DataLabel
+ScoreBar
 ```
 
-These should likely live closer to:
-
-```txt
-src/design-system/domain/
-```
-
-or a product-specific component layer, not the base primitive layer.
+Domain values such as connectivity, health, DPP or activity should be injected as data and guided by usage rules.
 
 ## Candidate: Count indicator
 
@@ -485,7 +519,7 @@ filter category selected count
 
 Do not extract as a standalone primitive yet.
 
-It may become a `Badge` variant or a specialized count badge after the base `Badge` is extracted.
+It may become a `Badge` variant, `ActiveFilterCount`, or a generic count indicator after the base `Badge` is stable.
 
 ## Candidate: Input
 
@@ -510,13 +544,13 @@ Only one strong product use exists so far.
 Focus behavior is still prototype-specific.
 ```
 
-Potential later primitive:
+Potential later component:
 
 ```txt
-SearchInput
+SearchField
 ```
 
-but it should be extracted only after another search or input need appears.
+This should be extracted during Phase 3 if search becomes part of the generic component vocabulary.
 
 ## Candidate: Checkbox
 
@@ -544,7 +578,8 @@ Potential later extraction:
 
 ```txt
 Checkbox
-FilterCheckboxOption
+CheckboxOption
+FilterOption
 ```
 
 ## Recommended extraction order
@@ -584,6 +619,20 @@ Do not move product components yet.
 
 Do not create `src/design-system/components` until at least one primitive is stable and used by the prototype.
 
+Phase 3 target structure may expand into:
+
+```txt
+src/design-system/components/
+  search-field.tsx
+  view-switcher.tsx
+  filter-dropdown.tsx
+  side-panel.tsx
+  detail-panel.tsx
+  data-grid.tsx
+  status-badge.tsx
+  score-bar.tsx
+```
+
 ## Extraction rules
 
 For each primitive extraction:
@@ -619,8 +668,8 @@ Before implementation, clarify:
 ```txt
 Should Badge and Pill share a base visual recipe?
 Should Tag support selection now or later?
-Should Button variants include filter and tab, or should those remain product-specific patterns?
-Should health color mapping stay in AssetList temporarily or move to a domain helper first?
+Should Button variants include filter and tab, or should those become generic controls?
+Should health color mapping stay transitional until StatusBadge / ScoreBar exists?
 ```
 
 ## Decision
@@ -637,3 +686,5 @@ validate build and visual parity
 ```
 
 Do not extract all button-like controls at once.
+
+Phase 3 supersedes any earlier implication that domain-specific wrappers should become the final target vocabulary.
