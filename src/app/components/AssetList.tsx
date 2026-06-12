@@ -27,7 +27,7 @@ export function AssetList({ assets, selectedId, onSelect }: AssetListProps) {
     return (
       <div className="flex-1 flex items-center justify-center bg-neutral-50">
         <div className="text-center">
-          <div className="text-[32px] mb-3">Search</div>
+          <div className="text-[32px] mb-3">🔍</div>
           <div className="text-[14px] text-neutral-700" style={{ fontWeight: 600 }}>No assets match your filters</div>
           <div className="text-[13px] text-neutral-400 mt-1">Try adjusting or clearing your filters</div>
         </div>
