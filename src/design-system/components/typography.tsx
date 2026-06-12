@@ -94,7 +94,7 @@ export const PageHeading = forwardRef<HTMLElement, PageHeadingProps>(
         {...props}
       >
         <div className="min-w-0 space-y-3">
-          {eyebrow && <div className="text-(length:--ec-text-caption-size) font-medium uppercase tracking-[0.08em] text-(--ec-color-primary)">{eyebrow}</div>}
+          {eyebrow && <div className="text-[length:var(--ec-text-caption-size)] font-medium uppercase tracking-[0.08em] text-(--ec-color-primary)">{eyebrow}</div>}
           <Heading level={1} size="page">{title}</Heading>
           {description && <Text className="max-w-3xl">{description}</Text>}
         </div>
@@ -116,7 +116,7 @@ export const SectionHeading = forwardRef<HTMLElement, SectionHeadingProps>(
         {...props}
       >
         <div className="min-w-0 space-y-2">
-          {eyebrow && <div className="text-(length:--ec-text-caption-size) font-medium uppercase tracking-[0.08em] text-(--ec-color-text-muted)">{eyebrow}</div>}
+          {eyebrow && <div className="text-[length:var(--ec-text-caption-size)] font-medium uppercase tracking-[0.08em] text-(--ec-color-text-muted)">{eyebrow}</div>}
           <Heading level={2} size="section">{title}</Heading>
           {description && <Text className="max-w-2xl">{description}</Text>}
         </div>
