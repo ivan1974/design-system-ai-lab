@@ -26,7 +26,7 @@ It is navigation, not filtering or status display.
 
 ## Never generate
 
-- secondary navigation from invented IA pages
+- secondary navigation from invented pages
 - navigation items that behave like filters
 - action buttons inside navigation
 
@@ -51,7 +51,7 @@ No enum-like controlled values.
 
 Failure: Make creates navigation items for states or statuses.
 Why it fails: Navigation should represent destinations.
-Fix: Use `StatusPill`, `FilterBar` or tabs as appropriate.
+Fix: Use `SemanticPill`, `StatusIndicator`, `FilterBar` or `Tabs` as appropriate.
 
 Failure: Make uses custom links.
 Why it fails: It bypasses package navigation vocabulary.
