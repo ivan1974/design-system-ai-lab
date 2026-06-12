@@ -20,11 +20,11 @@ export function InstalledBaseHeader({
   portfolioTitle,
 }: InstalledBaseHeaderProps) {
   return (
-    <div className="bg-white border-b border-neutral-200/80 flex-shrink-0">
+    <div className="bg-white border-b border-neutral-200/80 shrink-0">
       <div className="px-6 py-3 flex items-center gap-4">
         <div className="flex items-center gap-2">
           <div
-            className="w-6 h-6 rounded flex items-center justify-center flex-shrink-0"
+            className="w-6 h-6 rounded flex items-center justify-center shrink-0"
             style={{ backgroundColor: '#f0faf5' }}
           >
             <MapPin size={12} style={{ color: '#00985F' }} />
@@ -34,13 +34,13 @@ export function InstalledBaseHeader({
           </span>
         </div>
 
-        <div className="w-px h-4 bg-neutral-200 flex-shrink-0" />
+        <div className="w-px h-4 bg-neutral-200 shrink-0" />
 
         <Badge variant="success" size="sm" shape="pill" className="px-2.5" style={{ fontWeight: 600 }}>
           {contextLabel}
         </Badge>
 
-        <div className="w-px h-4 bg-neutral-200 flex-shrink-0" />
+        <div className="w-px h-4 bg-neutral-200 shrink-0" />
 
         <div className="flex items-center gap-4">
           <StatChip icon={<Building2 size={11} />} value={buildingCount} label="Buildings" />
@@ -51,7 +51,7 @@ export function InstalledBaseHeader({
           </div>
         </div>
 
-        <div className="ml-auto text-right flex-shrink-0">
+        <div className="ml-auto text-right shrink-0">
           <div className="text-[13px] text-neutral-900" style={{ fontWeight: 700 }}>{portfolioTitle}</div>
         </div>
       </div>
