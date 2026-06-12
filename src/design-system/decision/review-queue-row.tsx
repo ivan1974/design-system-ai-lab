@@ -2,11 +2,11 @@ import { forwardRef } from "react";
 import type { HTMLAttributes, ReactNode } from "react";
 
 import type { ActionPriority } from "./action-card";
-import { PriorityPill } from "./priority-pill";
-import type { SourceStrength } from "./source-strength-pill";
-import { SourceStrengthPill } from "./source-strength-pill";
-import { StatusPill } from "./status-pill";
-import type { StatusPillTone } from "./status-pill";
+import type { SourceStrength } from "../types/trust";
+import { actionPriorityLabels } from "../types/action";
+import { sourceStrengthLabels } from "../types/trust";
+import { SemanticPill } from "./semantic-pill";
+import type { SemanticPillTone } from "./semantic-pill";
 
 export type ReviewQueueRowDensity = "comfortable" | "spacious";
 
@@ -22,7 +22,7 @@ export type ReviewQueueRowProps = HTMLAttributes<HTMLDivElement> & {
   leading?: ReactNode;
   tags?: ReactNode;
   status?: ReactNode;
-  statusTone?: StatusPillTone;
+  statusTone?: SemanticPillTone;
   priority?: ActionPriority;
   sourceStrength?: SourceStrength;
   metrics?: ReviewQueueRowMetric[];
@@ -35,6 +35,25 @@ export type ReviewQueueRowProps = HTMLAttributes<HTMLDivElement> & {
 const densityClasses: Record<ReviewQueueRowDensity, string> = {
   comfortable: "px-5 py-5",
   spacious: "px-6 py-6",
+};
+
+const priorityTone: Record<ActionPriority, SemanticPillTone> = {
+  critical: "danger",
+  high: "danger",
+  medium: "warning",
+  low: "neutral",
+};
+
+const sourceStrengthTone: Record<SourceStrength, SemanticPillTone> = {
+  unknown: "neutral",
+  partial: "warning",
+  "single-source": "info",
+  "multi-source": "success",
+  validated: "success",
+  strong: "success",
+  needs_review: "warning",
+  internal: "neutral",
+  customer_ready: "info",
 };
 
 export const ReviewQueueRow = forwardRef<HTMLDivElement, ReviewQueueRowProps>(
@@ -95,9 +114,9 @@ export const ReviewQueueRow = forwardRef<HTMLDivElement, ReviewQueueRowProps>(
             {(tags || status || priority || sourceStrength) && (
               <div className="flex flex-wrap items-center gap-2">
                 {tags}
-                {status && <StatusPill tone={statusTone}>{status}</StatusPill>}
-                {priority && <PriorityPill priority={priority} />}
-                {sourceStrength && <SourceStrengthPill strength={sourceStrength} />}
+                {status && <SemanticPill tone={statusTone}>{status}</SemanticPill>}
+                {priority && <SemanticPill tone={priorityTone[priority]}>{actionPriorityLabels[priority]}</SemanticPill>}
+                {sourceStrength && <SemanticPill tone={sourceStrengthTone[sourceStrength]}>{sourceStrengthLabels[sourceStrength]}</SemanticPill>}
               </div>
             )}
           </div>
