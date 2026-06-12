@@ -10,7 +10,16 @@ Use them for review flows where the user selects a customer, asset, risk or reco
 
 ## Components
 
-Use generic panel primitives:
+Prefer target workspace composition components:
+
+```tsx
+<MasterDetailLayout />
+<WorkspaceDetailPanel />
+<SidePanel />
+<StickyActionBar />
+```
+
+Use lower-level panel primitives only inside package-owned components or transitional implementation details:
 
 ```tsx
 <PanelHeader />
@@ -20,13 +29,7 @@ Use generic panel primitives:
 <SlideOverPanel />
 ```
 
-Use the workspace composition component:
-
-```tsx
-<WorkspaceDetailPanel />
-```
-
-Use `MasterDetailLayout` to control whether detail appears inline or as an overlay.
+`SlideOverPanel` is not the default Make-facing recommendation in v0.8.
 
 ---
 
@@ -46,6 +49,8 @@ Use inline mode when the detail panel should be part of the desktop layout.
 
 Use overlay mode when the central workspace should keep its full width or when screen width is constrained.
 
+Use `SidePanel` for transverse panels such as full filters, analysis settings or workspace-level controls.
+
 ---
 
 ## Recommended pattern
@@ -63,8 +68,8 @@ const [detailOpen, setDetailOpen] = useState(true);
       open={detailOpen}
       onOpenChange={setDetailOpen}
       mode="inline"
-      title="SM6 Bus Coupler"
-      description="Selected asset detail."
+      title="Selected asset"
+      description="Selected item detail."
     >
       ...
     </WorkspaceDetailPanel>
@@ -85,12 +90,20 @@ For overlay:
       open={detailOpen}
       onOpenChange={setDetailOpen}
       mode="overlay"
-      title="SM6 Bus Coupler"
+      title="Selected asset"
     >
       ...
     </WorkspaceDetailPanel>
   }
 />
+```
+
+For transverse panels:
+
+```tsx
+<SidePanel open={open} onClose={closePanel} title="All filters">
+  ...
+</SidePanel>
 ```
 
 ---
@@ -102,8 +115,10 @@ When a list/detail workspace needs a detail panel that can open and close, Make 
 ```txt
 MasterDetailLayout detailOpen detailMode onDetailOpenChange
 WorkspaceDetailPanel
-PanelHeader / PanelBody / PanelFooter only for lower-level composition
-SlideOverPanel only for custom overlay panels
+SidePanel for transverse filter or analysis panels
+StickyActionBar for persistent final actions
+PanelHeader / PanelBody / PanelFooter only for lower-level package composition
+SlideOverPanel only as a transition-level internal primitive
 ```
 
 Do not create local slide-over or drawer components.
@@ -143,13 +158,13 @@ const Drawer = () => <aside className="fixed right-0 ...">...</aside>
 Prefer:
 
 ```tsx
-<SlideOverPanel open={open} onOpenChange={setOpen}>...</SlideOverPanel>
+<WorkspaceDetailPanel open={open} onOpenChange={setOpen}>...</WorkspaceDetailPanel>
 ```
 
 or:
 
 ```tsx
-<WorkspaceDetailPanel open={open} onOpenChange={setOpen}>...</WorkspaceDetailPanel>
+<SidePanel open={open} onClose={closePanel}>...</SidePanel>
 ```
 
 ---
@@ -161,7 +176,7 @@ A generated screen is better if:
 - detail can be closed when it competes with central workspace space
 - inline detail closure expands the central workspace
 - overlay detail slides from the right
-- panel header/body/footer use package components
+- panel header/body/footer use package components internally
 - close control is accessible
 - no local drawer or slide-over implementation is created
 - selected row context remains visible
