@@ -1,0 +1,173 @@
+{
+  "$schema": "./schema/generation-contract.schema.json",
+  "name": "v0.8-regeneration-plan",
+  "version": "0.8.0-alpha.0",
+  "status": "regeneration-readiness",
+  "sourceOfTruth": "contracts/v0.8-target-surface.contract.json",
+  "purpose": "Define the ordered regeneration plan after the v0.8 target surface reset.",
+  "strategy": [
+    "do-not-polish-legacy",
+    "regenerate-target-layers-in-order",
+    "keep-tests-transition-aware-until-regeneration-completes",
+    "delete-legacy-after-target-surface-is-implemented"
+  ],
+  "orderedLayers": [
+    {
+      "id": "foundations",
+      "goal": "Keep prototype-derived tokens and visual rules as the stable base.",
+      "sourceFiles": [
+        "src/design-system/foundations/tokens.css",
+        "src/design-system/styles.css",
+        "guidelines/tokens.md",
+        "guidelines/styles.md",
+        "guidelines/runtime/visual-rules.md",
+        "contracts/tokens.contract.json",
+        "contracts/visual-rules.contract.json"
+      ],
+      "exitCriteria": [
+        "canonical token file remains src/design-system/foundations/tokens.css",
+        "src/design-system/tokens.css is not recreated",
+        "visual rules apply to all-active-ds-surface",
+        "runtime visual rules do not recommend obsolete semantic wrappers"
+      ]
+    },
+    {
+      "id": "core-primitives",
+      "goal": "Regenerate the low-level visual primitives used by the rest of the DS.",
+      "targetComponents": [
+        "Button",
+        "Card",
+        "Table",
+        "Tabs",
+        "Divider",
+        "Dialog",
+        "Popover",
+        "Tooltip",
+        "Checkbox",
+        "Field",
+        "Input",
+        "Label",
+        "Select",
+        "Textarea"
+      ],
+      "exitCriteria": [
+        "no local visual grammar",
+        "no hardcoded prototype values outside tokens",
+        "component docs are regenerated or explicitly transitional",
+        "Storybook coverage is release-relevant after regeneration"
+      ]
+    },
+    {
+      "id": "semantic-display",
+      "goal": "Regenerate semantic display as four public primitives.",
+      "targetComponents": [
+        "SemanticTag",
+        "SemanticPill",
+        "StatusIndicator",
+        "MetaLabel"
+      ],
+      "deleteOrInternalize": [
+        "HealthPill",
+        "CoverageTag",
+        "DppTag",
+        "ConnectivityLabel",
+        "StatusWithIcon",
+        "PriorityPill",
+        "PriorityLabel",
+        "ProofStatus",
+        "SourceStrengthPill",
+        "StatusPill"
+      ],
+      "exitCriteria": [
+        "no obsolete semantic wrapper remains public",
+        "golden examples use only target semantic primitives",
+        "runtime and prompt guidance route only to target semantic primitives"
+      ]
+    },
+    {
+      "id": "composition",
+      "goal": "Regenerate the reusable screen structure layer.",
+      "targetComponents": [
+        "WorkspaceShell",
+        "MainNavigation",
+        "PageHeading",
+        "FilterBar",
+        "MasterDetailLayout",
+        "WorkspaceDetailPanel",
+        "SidePanel",
+        "SectionStack",
+        "SectionBlock",
+        "ListContainer",
+        "StickyActionBar"
+      ],
+      "exitCriteria": [
+        "screen layout uses reusable composition only",
+        "panel behavior is package-owned",
+        "shared transitional panel docs are split or regenerated when release-ready"
+      ]
+    },
+    {
+      "id": "decision-blocks",
+      "goal": "Regenerate decision layer around cognitive structures rather than business cards.",
+      "targetComponents": [
+        "MetricBlock",
+        "DecisionBlock",
+        "EvidenceBlock",
+        "ActionBlock",
+        "StatusSummary",
+        "ReviewQueueRow",
+        "ActionRow",
+        "EvidenceRow"
+      ],
+      "deleteOrInternalize": [
+        "MetricCard",
+        "AlertCard",
+        "RecommendationCard",
+        "ActionCard",
+        "EvidenceCard",
+        "InsightCard",
+        "RiskCard"
+      ],
+      "exitCriteria": [
+        "card differences come from props and slots, not duplicate components",
+        "decision folder contains reusable decision structures only",
+        "props contract anchors are moved from transitional cards to target blocks"
+      ]
+    },
+    {
+      "id": "screen-patterns",
+      "goal": "Regenerate only reusable Make-facing screen patterns.",
+      "targetPatterns": [
+        "Installed Base Intelligence",
+        "Customer Monitoring"
+      ],
+      "exitCriteria": [
+        "Installed Base remains strict and contractual",
+        "Customer Monitoring proves generalization",
+        "application-specific wrappers are moved to examples or deleted"
+      ]
+    },
+    {
+      "id": "examples-and-benchmarks",
+      "goal": "Regenerate active examples, stories, prompts and benchmarks against the target surface.",
+      "targetExamples": [
+        "guidelines/examples/golden/installed-base-intelligence.App.tsx",
+        "guidelines/examples/golden/customer-monitoring.App.tsx",
+        "guidelines/examples/golden/renewal-risk-review.App.tsx",
+        "guidelines/examples/golden/asset-recommendation-review.App.tsx"
+      ],
+      "exitCriteria": [
+        "all active examples share the same v0.8 visual grammar",
+        "prompts generate without local components",
+        "benchmarks penalize component proliferation and visual drift"
+      ]
+    }
+  ],
+  "releaseExitCriteria": [
+    "npm run check passes",
+    "npm run build-storybook passes",
+    "npm pack --dry-run shows a clean package surface",
+    "legacy wrappers are deleted or moved out of active Make-facing surface",
+    "README and CHANGELOG describe the v0.8 target surface"
+  ]
+}
