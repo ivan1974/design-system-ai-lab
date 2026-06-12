@@ -4,6 +4,8 @@ export { AssetInventoryRow, HealthBadge, HEALTH_CONFIG, StatusLabel } from './as
 export type { AssetActivity, AssetConnectivity, AssetHealth, AssetInventoryRowData, AssetInventoryRowProps } from './asset-inventory-row';
 export { InstalledBaseHeader } from './installed-base-header';
 export type { InstalledBaseHeaderProps } from './installed-base-header';
+export { InstalledBaseWorkspace } from './installed-base-workspace';
+export type { InstalledBaseWorkspaceProps } from './installed-base-workspace';
 export { MainNavigation } from './main-navigation';
 export type { MainNavigationProps } from './main-navigation';
 export { ViewFilterBar } from './view-filter-bar';
