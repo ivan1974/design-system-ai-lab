@@ -348,6 +348,30 @@ Do not abstract before a real product need exists.
 Do not expose raw src/app prototype files as mandatory generation building blocks.
 ```
 
+Generated UI audit rule:
+
+```txt
+After each replacement of generated Figma or shadcn UI support code with a design-system primitive, audit the related src/app/components/ui/* material.
+```
+
+The audit must identify:
+
+```txt
+which generated UI files are still used
+which files duplicate current or future design-system primitives
+which files are only generated support code
+which files should be kept temporarily, migrated, archived or deleted
+```
+
+Do not delete generated UI support files one by one without this audit.
+
+The intended long-term state is:
+
+```txt
+src/design-system/primitives/* = runtime design-system primitive source
+src/app/components/ui/* = temporary generated support layer or removed
+```
+
 ### Phase 3 — Patterns, principles and knowledge
 
 Goal:
