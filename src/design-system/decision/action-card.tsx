@@ -2,13 +2,13 @@ import { forwardRef } from "react";
 import type { HTMLAttributes } from "react";
 import { KeyValueList, KeyValueRow } from "../components/key-value-list";
 import type { ActionPriority, ActionStatus } from "../types/action";
-import { actionStatusLabels } from "../types/action";
+import { actionPriorityLabels, actionStatusLabels } from "../types/action";
 import type { ProofReadiness } from "../types/evidence";
 import { proofReadinessLabels } from "../types/evidence";
 import type { ValidationStatus } from "../types/trust";
 import { validationStatusLabels } from "../types/trust";
-import { PriorityPill } from "./priority-pill";
-import { StatusPill } from "./status-pill";
+import { SemanticPill } from "./semantic-pill";
+import type { SemanticPillTone } from "./semantic-pill";
 
 export type { ActionPriority, ActionStatus } from "../types/action";
 
@@ -27,12 +27,19 @@ export type ActionCardProps = HTMLAttributes<HTMLElement> & {
   proofReadinessLabel?: string;
 };
 
-const statusTone: Record<ActionStatus, "neutral" | "primary" | "warning" | "success"> = {
+const statusTone: Record<ActionStatus, SemanticPillTone> = {
   todo: "neutral",
   "in-progress": "primary",
   in_progress: "primary",
   blocked: "warning",
   done: "success",
+};
+
+const priorityTone: Record<ActionPriority, SemanticPillTone> = {
+  critical: "danger",
+  high: "danger",
+  medium: "warning",
+  low: "neutral",
 };
 
 export const ActionCard = forwardRef<HTMLElement, ActionCardProps>(
@@ -69,8 +76,8 @@ export const ActionCard = forwardRef<HTMLElement, ActionCardProps>(
           <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
             <div className="min-w-0 space-y-2">
               <div className="flex flex-wrap gap-2">
-                <PriorityPill priority={priority} />
-                {status && <StatusPill tone={statusTone[status]}>{actionStatusLabels[status]}</StatusPill>}
+                <SemanticPill tone={priorityTone[priority]}>{actionPriorityLabels[priority]}</SemanticPill>
+                {status && <SemanticPill tone={statusTone[status]}>{actionStatusLabels[status]}</SemanticPill>}
               </div>
               <h3 className="text-sm font-semibold text-(--ec-color-text-primary)">{title}</h3>
               {context && <p className="text-sm text-(--ec-color-text-secondary)">{context}</p>}
