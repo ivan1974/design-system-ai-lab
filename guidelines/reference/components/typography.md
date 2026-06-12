@@ -60,7 +60,7 @@ Fix: Use `PageHeading`.
 
 Failure: Make uses plain text for status.
 Why it fails: Status and trust values need controlled components.
-Fix: Use `StatusPill`, `Badge` or `SourceStrengthPill`.
+Fix: Use `StatusIndicator`, `SemanticPill`, `SemanticTag` or `MetaLabel`.
 
 ## Repair prompt
 
