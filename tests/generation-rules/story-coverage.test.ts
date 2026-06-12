@@ -27,13 +27,8 @@ type StoryCoverageContract = {
   }>;
 };
 
-type ComponentsContract = {
-  preferredForNewGeneration: string[];
-};
-
 const registry = readJson<ComponentRegistry>("contracts/component-registry.contract.json");
 const storyCoverage = readJson<StoryCoverageContract>("contracts/story-coverage.contract.json");
-const componentsContract = readJson<ComponentsContract>("contracts/components.contract.json");
 const coverageByComponent = new Map(storyCoverage.entries.map((entry) => [entry.component, entry]));
 
 const runtimeStatuses = new Set(["preferred", "allowed"]);
@@ -91,13 +86,12 @@ describe("generation rules: Storybook coverage contract", () => {
 
   it("keeps preferred components covered and defers release relevance during target reset", () => {
     const preferredComponents = registry.components.filter((component) => component.genAIStatus === "preferred");
-    const targetPreferred = new Set(componentsContract.preferredForNewGeneration);
 
     for (const component of preferredComponents) {
       const coverage = coverageByComponent.get(component.name);
       expect(coverage, `${component.name} is missing coverage`).toBeTruthy();
 
-      if (!v08TargetReset || !targetPreferred.has(component.name)) {
+      if (!v08TargetReset) {
         expect(coverage?.requiredForRelease, `${component.name} should be release-relevant`).toBe(true);
       }
     }
