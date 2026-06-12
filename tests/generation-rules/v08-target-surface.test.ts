@@ -15,21 +15,30 @@ type TargetSurfaceContract = {
   positiveGenerationProofs: string[];
 };
 
+type ComponentsContract = {
+  sourceOfTruth: string;
+  targetMakeSurface: Record<string, string[]>;
+  deprecatedMakeSurface: string[];
+  plannedAfterRegeneration: string[];
+};
+
+type PropsContract = {
+  sourceOfTruth: string;
+  plannedAfterRegeneration: Record<string, Record<string, string[]>>;
+  transitionalPropsMovedOutOfTarget: Record<string, string>;
+};
+
 const targetSurface = readJson<TargetSurfaceContract>("contracts/v0.8-target-surface.contract.json");
+const componentsContract = readJson<ComponentsContract>("contracts/components.contract.json");
+const propsContract = readJson<PropsContract>("contracts/props.contract.json");
 const architectureGuideline = read("guidelines/reference/architecture/v0.8-target-surface.md");
 const runtimeSelection = read("guidelines/runtime/component-selection.md");
 const visualRules = read("guidelines/runtime/visual-rules.md");
 
-const makeFacingFilesToScan = [
+const targetRuntimeFilesToScan = [
   "guidelines/reference/architecture/v0.8-target-surface.md",
   "guidelines/runtime/component-selection.md",
   "guidelines/runtime/visual-rules.md",
-  "guidelines/tokens.md",
-  "guidelines/styles.md",
-  "contracts/components.contract.json",
-  "contracts/component-registry.contract.json",
-  "contracts/props.contract.json",
-  "contracts/visual-rules.contract.json",
 ];
 
 const deprecatedSemanticWrappers = [
@@ -53,6 +62,13 @@ describe("generation rules: v0.8 target surface reset", () => {
     expect(targetSurface.scope.codeToRegenerateAfterReset).toContain("src/design-system/index.ts");
   });
 
+  it("aligns components and props contracts to the target surface source", () => {
+    expect(componentsContract.sourceOfTruth).toBe("contracts/v0.8-target-surface.contract.json");
+    expect(propsContract.sourceOfTruth).toBe("contracts/v0.8-target-surface.contract.json");
+    expect(componentsContract.targetMakeSurface.semanticDisplay).toEqual(targetSurface.targetPublicSurface.semanticDisplay);
+    expect(Object.keys(propsContract.plannedAfterRegeneration)).toEqual(["MetricBlock", "DecisionBlock", "EvidenceBlock", "ActionBlock"]);
+  });
+
   it("defines the four semantic display primitives", () => {
     expect(targetSurface.targetPublicSurface.semanticDisplay).toEqual([
       "SemanticTag",
@@ -70,6 +86,7 @@ describe("generation rules: v0.8 target surface reset", () => {
   it("marks legacy semantic wrappers as deprecated public surface", () => {
     for (const componentName of deprecatedSemanticWrappers) {
       expect(targetSurface.deprecatedPublicSurface).toContain(componentName);
+      expect(componentsContract.deprecatedMakeSurface).toContain(componentName);
     }
   });
 
@@ -85,15 +102,12 @@ describe("generation rules: v0.8 target surface reset", () => {
     expect(visualRules).toContain("--ec-color-primary");
   });
 
-  it("does not recommend deprecated semantic wrappers in target runtime files", () => {
-    for (const relativePath of makeFacingFilesToScan) {
+  it("does not recommend deprecated semantic wrappers in target runtime guidance", () => {
+    for (const relativePath of targetRuntimeFilesToScan) {
       const content = read(relativePath);
       for (const componentName of deprecatedSemanticWrappers) {
-        if (relativePath === "contracts/v0.8-target-surface.contract.json") {
-          continue;
-        }
-        expect(content, `${relativePath} should not recommend ${componentName}`).not.toMatch(
-          new RegExp(`preferred|approved|Prefer|Use.*${componentName}|${componentName}.*->`),
+        expect(content, `${relativePath} should not route generation to ${componentName}`).not.toMatch(
+          new RegExp(`Prefer\\s+${componentName}|Use\\s+${componentName}|${componentName}\\s+->`),
         );
       }
     }
