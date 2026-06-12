@@ -15,8 +15,8 @@ import {
   SectionBlock,
   SectionHeading,
   SectionStack,
+  SemanticPill,
   SemanticTag,
-  StatusPill,
   StickyActionBar,
   Tabs,
   WorkspaceDetailPanel,
@@ -124,7 +124,7 @@ export default function App() {
               mode="inline"
               title="Main switchboard"
               description="Selected asset detail. Visibility limits appear before interpretation."
-              meta={<StatusPill tone="warning">Review needed</StatusPill>}
+              meta={<SemanticPill tone="warning">Review needed</SemanticPill>}
               footer={
                 <StickyActionBar
                   context="Next action: confirm coverage before the next customer touchpoint."
@@ -181,15 +181,6 @@ export default function App() {
           <ActionRow title="Review monitoring scope" owner="Account owner" dueDate="This week" priority="high" status="todo" context="Clarify what is visible before customer communication." />
           <ActionRow title="Confirm asset connection status" owner="Remote Support" dueDate="Next 3 business days" priority="high" status="in-progress" context="Validate connected status before recommendations are shared." />
         </SectionBlock>
-
-        {/*
-          v0.5.1 reference:
-          - CustomerStatusCard handles customer context instead of a local fact block.
-          - ConnectivityCoverageCard handles coverage and visibility limits.
-          - AssetQueueRow inside ListContainer replaces generic rows.
-          - WorkspaceDetailPanel provides package-controlled detail review.
-          - Trust values use canonical sourceStrength and validationStatus values.
-        */}
       </WorkspaceShell>
     </main>
   );
