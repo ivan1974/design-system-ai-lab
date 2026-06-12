@@ -28,7 +28,12 @@ export function Tooltip({
             side={side}
             align={align}
             sideOffset={6}
-            className="z-400 max-w-xs rounded-(--ec-radius-sm) border border-(--ec-color-border) bg-(--ec-color-surface) px-3 py-2 text-xs leading-relaxed text-(--ec-color-text-primary) shadow-sm"
+            className={[
+              "z-400 max-w-xs rounded-(--ec-radius-sm)",
+              "border border-(--ec-color-border) bg-(--ec-color-surface)",
+              "px-3 py-2 text-xs leading-relaxed text-(--ec-color-text-primary)",
+              "shadow-(--ec-shadow-popover)",
+            ].join(" ")}
           >
             {content}
             <TooltipPrimitive.Arrow className="fill-(--ec-color-surface)" />
