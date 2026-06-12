@@ -1,4 +1,5 @@
 import { X, MapPin, Download, PhoneCall, Wrench } from 'lucide-react';
+import { Button } from '../../design-system/primitives';
 import type { Asset, Health, Activity } from '../data/assets';
 import { HealthBadge, StatusLabel, HEALTH_CONFIG } from './AssetList';
 
@@ -68,15 +69,15 @@ export function AssetDetailPanel({ asset, activeTab, onTabChange, onClose }: Ass
 
         {/* ── Action Area (spec §18) — §0 v1.1: width by text, single line ── */}
         <div className="px-5 py-4 border-t border-neutral-100 flex gap-2.5 flex-shrink-0 bg-neutral-50/60">
-          <SecondaryAction icon={<Download size={14} />} label="Download Report" />
-          <SecondaryAction icon={<PhoneCall size={14} />} label="Contact Expert" />
-          <button
-            className="flex items-center justify-center gap-1.5 py-2.5 px-5 rounded-lg text-white text-[13px] transition-opacity hover:opacity-90 whitespace-nowrap"
-            style={{ backgroundColor: '#00985F', fontWeight: 600 }}
-          >
-            <Wrench size={14} />
+          <Button variant="secondary" size="md" icon={<Download size={14} />}>
+            Download Report
+          </Button>
+          <Button variant="secondary" size="md" icon={<PhoneCall size={14} />}>
+            Contact Expert
+          </Button>
+          <Button variant="primary" size="md" icon={<Wrench size={14} />} className="px-5">
             Schedule Service
-          </button>
+          </Button>
         </div>
       </div>
     </>
@@ -190,19 +191,6 @@ function Field({ label, value }: { label: string; value: React.ReactNode }) {
       <span className="text-[13px] text-neutral-500">{label}</span>
       <span className="text-[13px] text-neutral-900 text-right ml-6" style={{ fontWeight: 500 }}>{value}</span>
     </div>
-  );
-}
-
-// §0 v1.1: button width by text, single line
-function SecondaryAction({ icon, label }: { icon: React.ReactNode; label: string }) {
-  return (
-    <button
-      className="flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-lg text-neutral-700 text-[13px] border border-neutral-200 bg-white hover:bg-neutral-50 hover:border-neutral-300 transition-all whitespace-nowrap"
-      style={{ fontWeight: 500 }}
-    >
-      {icon}
-      {label}
-    </button>
   );
 }
 
