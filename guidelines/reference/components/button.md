@@ -4,13 +4,7 @@
 
 `Button` triggers an explicit user action.
 
-It is not a status label, metric, badge or proof claim.
-
-## Status
-
-v0.7.0 shadcn-compatible primitive.
-
-`Button` keeps the DS public API while aligning with familiar shadcn-like variant and size patterns.
+It is not a passive label, metric, badge, pill, tag or proof claim.
 
 ## Use this component when
 
@@ -22,24 +16,25 @@ v0.7.0 shadcn-compatible primitive.
 ## Do not use this component when
 
 - The content is a status, priority, source strength or metadata label.
-- The user cannot actually trigger an action.
-- The label implies AI has already validated a decision.
+- The element is only passive information.
 - The action needs owner, due date and priority; use `ActionRow` or `CreateActionDialog` instead.
 
 ## Prefer this component over
 
 - local buttons
-- styled `<button>` elements
-- clickable badges or pills
+- local action elements
+- clickable badges, tags or pills
 
 Prefer other components when the element is not an action:
 
 ```txt
-status → StatusPill or Badge
-priority → PriorityPill
-source strength → SourceStrengthPill
-owned action → ActionRow
-creation flow → CreateActionDialog
+status -> StatusIndicator or SemanticPill
+priority -> SemanticPill
+source strength -> SemanticPill
+metadata -> MetaLabel
+category or scope -> SemanticTag
+owned action -> ActionRow
+creation flow -> CreateActionDialog
 ```
 
 ## Never generate
@@ -54,7 +49,7 @@ creation flow → CreateActionDialog
 
 ```txt
 children
-variant when emphasis or risk of action matters
+variant when emphasis matters
 size when density matters
 ```
 
@@ -68,7 +63,7 @@ size: sm | md | lg | icon
 ## GenAI generation rules
 
 1. Use one primary action per decision area.
-2. Use `danger` only for destructive or high-risk user actions, not risk status.
+2. Use `danger` only for high-risk user actions, not risk status.
 3. Use `ghost` for reset, cancel or low-emphasis actions.
 4. Use `outline` for secondary visible actions when `ghost` would be too subtle.
 5. Use `icon` only when accessible text or surrounding label makes the action clear.
@@ -79,15 +74,11 @@ size: sm | md | lg | icon
 
 Failure: The generated screen uses a button as a status label.
 Why it fails: Buttons imply user action.
-Fix: Use `Badge`, `StatusPill`, `SemanticTag` or `SourceStrengthPill`.
+Fix: Use `Badge`, `SemanticPill`, `SemanticTag`, `StatusIndicator` or `MetaLabel`.
 
 Failure: Every action is primary.
 Why it fails: The user cannot see the main next step.
 Fix: Keep one primary action and downgrade the rest to `secondary`, `outline` or `ghost`.
-
-Failure: The button says the system has validated a recommendation.
-Why it fails: Validation must remain visible and human-accountable.
-Fix: Use review wording such as `Request expert review` or `Assign owner`.
 
 ## Repair prompt
 
