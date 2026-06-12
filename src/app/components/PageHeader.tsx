@@ -1,4 +1,5 @@
 import { MapPin, Building2, Zap } from 'lucide-react';
+import { Badge } from '../../design-system/primitives';
 
 export function PageHeader() {
   return (
@@ -21,17 +22,9 @@ export function PageHeader() {
         <div className="w-px h-4 bg-neutral-200 flex-shrink-0" />
 
         {/* Context pill */}
-        <span
-          className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] border"
-          style={{
-            backgroundColor: '#f0faf5',
-            color: '#00985F',
-            borderColor: '#b3e6d0',
-            fontWeight: 600,
-          }}
-        >
+        <Badge variant="success" size="sm" shape="pill" className="px-2.5" style={{ fontWeight: 600 }}>
           Reference Campus
-        </span>
+        </Badge>
 
         {/* Separator */}
         <div className="w-px h-4 bg-neutral-200 flex-shrink-0" />
