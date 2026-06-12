@@ -12,6 +12,7 @@ type ComponentsContract = {
   legacyOrUseWithCare: Array<{ component: string; reason: string }>;
   deprecatedMakeSurface?: string[];
   targetMakeSurface?: Record<string, string[]>;
+  plannedAfterRegeneration?: string[];
 };
 
 type PropsContract = {
@@ -32,12 +33,14 @@ const publicIndex = read("src/design-system/index.ts");
 const approvedImports = new Set(Object.values(componentsContract.approvedImports).flat());
 const legacyComponents = new Set(componentsContract.legacyOrUseWithCare.map((entry) => entry.component));
 const deprecatedMakeSurface = new Set(componentsContract.deprecatedMakeSurface ?? []);
+const plannedAfterRegeneration = new Set(componentsContract.plannedAfterRegeneration ?? []);
 const guidelineByComponent = new Map(componentRegistry.components.map((entry) => [entry.name, entry.guideline]));
 const targetMakeSurface = new Set(Object.values(componentsContract.targetMakeSurface ?? {}).flat());
 
 const allowedPascalCaseTokens = new Set([
   ...approvedImports,
   ...deprecatedMakeSurface,
+  ...plannedAfterRegeneration,
   "OK",
   "Submit",
   "CreateActionDialogValues",
