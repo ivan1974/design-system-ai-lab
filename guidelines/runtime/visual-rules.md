@@ -51,6 +51,12 @@ shadow-heavy
 
 Use the package token grammar for the whole active design system surface, not only for Installed Base.
 
+Coverage key:
+
+```txt
+all-active-ds-surface
+```
+
 Required baseline:
 
 ```txt
@@ -127,8 +133,10 @@ Tabs
 MetricStrip
 ActionRow
 EvidenceRow
-StatusPill
+StatusIndicator
+SemanticPill
 SemanticTag
+MetaLabel
 Screen-contract patterns
 ```
 
