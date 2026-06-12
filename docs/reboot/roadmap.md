@@ -10,19 +10,33 @@ The previous repository state is preserved in:
 legacy/pre-reboot-main
 ```
 
-This reboot does not migrate the previous repository as-is. It uses the previous work as a source of reusable rules, contracts, principles and benchmarks.
+This reboot does not migrate the previous repository as-is. It uses the previous work as a source of reusable components, rules, contracts, principles, domain knowledge and benchmarks.
 
 ## Core decision
 
 ```txt
-Figma Make zip prototype = product source
-Previous repository = rule and knowledge library
-New branch = clean React/Vite design system package
+Figma Make zip prototype = product reference source
+Previous repository = design system knowledge and rule library
+New branch = clean React/Vite GenAI-ready design system package
 ```
 
 ## Reboot objective
 
-Rebuild a small, strict and extensible React/Vite design system and Figma Make kit for generating controlled Installed Base Intelligence screens.
+Rebuild a small, strict where needed, and extensible React/Vite design system and Figma Make kit for helping GenAI generate better product screens.
+
+The goal is not to restrict GenAI to component assembly.
+
+The goal is to make GenAI design with the knowledge of the design system.
+
+This means the system must provide:
+
+```txt
+components = reliable interface material
+patterns = reusable composition structures
+principles = design judgment
+knowledge = domain, user and product context
+contracts = guardrails against critical generation failures
+```
 
 The first target is not a generic component library.
 
@@ -34,7 +48,7 @@ The first target is a product-grounded screen system derived directly from the I
 Installed Base Intelligence
 ```
 
-Required screen layers:
+Required reference layers:
 
 ```txt
 1. Main Navigation
@@ -44,18 +58,22 @@ Required screen layers:
 5. Asset Detail Panel
 ```
 
+These layers define the first product reference. They are not meant to make every future screen follow the same structure.
+
 ## Rebuild direction
 
 The new project must follow this order:
 
 ```txt
-prototype real source
+real product reference
 → component extraction
 → tokens
 → props
 → patterns
+→ principles
+→ knowledge
 → guidelines
-→ contracts
+→ guardrail contracts
 → tests
 → Make kit
 ```
@@ -69,9 +87,13 @@ GenAI rules
 → attempt to recreate the prototype
 ```
 
+The prototype is the starting point, but the target is broader than reproducing one screen.
+
+The target is a GenAI-ready design system that helps an assistant reason with the design system’s components, patterns, principles and domain knowledge.
+
 ## What must be preserved from the previous repository
 
-Keep as reference:
+Keep as reusable generation and review material:
 
 ```txt
 guidelines/Guidelines.md
@@ -91,7 +113,7 @@ evaluation/review/
 evaluation/repair/
 ```
 
-Keep as human reference, not runtime generation input:
+Keep as design knowledge, not as default execution rules:
 
 ```txt
 principles
@@ -101,13 +123,90 @@ domain insights
 research notes
 ```
 
-## Runtime generation boundary
+## Knowledge and principles boundary
 
-Figma Make should read little.
+Figma Make should still read little.
 
-By default, Figma Make should only read the active runtime guidelines and the relevant screen contract.
+But knowledge and principles are not merely human archive material.
 
-Knowledge and principles are not runtime generation instructions. They are references for designers, reviewers and future guideline evolution.
+They are design knowledge that can guide reasoning, review and screen improvement when the task requires judgment beyond direct component assembly.
+
+By default, Figma Make should start with the active guidelines and the relevant screen or pattern reference.
+
+It may then use principles and knowledge selectively when the task requires:
+
+```txt
+screen strategy
+new screen type exploration
+recommendation or decision component design
+UX improvement
+review and repair
+pattern extension
+domain interpretation
+```
+
+Knowledge and principles must not be treated as uncontrolled prompt context.
+
+They should be structured and routed so the assistant reads the smallest useful source for the design problem.
+
+## Generation philosophy
+
+The project moves from controlled generation to guided design generation.
+
+```txt
+controlled generation = assemble only what is explicitly allowed
+guided design generation = prefer approved components, apply DS principles, use domain knowledge, and respect critical guardrails
+```
+
+GenAI should prefer approved components and patterns.
+
+It should apply design system principles when choosing hierarchy, density, disclosure, evidence, interaction and layout.
+
+It may propose a new pattern or component candidate only when the design system does not yet cover the user need.
+
+When it proposes a new candidate, it must explain:
+
+```txt
+what user need is not covered
+why existing components are insufficient
+which DS principles it follows
+which future component or pattern should be extracted
+```
+
+## Contracts as guardrails
+
+Contracts are not meant to turn the system into a rigid screen generator.
+
+They should separate non-negotiable guardrails from quality guidance.
+
+Non-negotiable guardrails include:
+
+```txt
+no invented evidence
+no invented sources
+no internal imports
+no local design system clone
+controlled domain values where required
+minimum accessibility requirements
+facts vs interpretation separation
+no misleading value claims
+```
+
+Quality guidance includes:
+
+```txt
+recommended hierarchy
+preferred components
+preferred density
+preferred disclosure model
+recommended layout
+white-first visual system
+decision-first, then proof
+```
+
+A generated screen may diverge from quality guidance if there is a clear UX reason.
+
+A generated screen must respect the non-negotiable guardrails.
 
 ## New principle
 
@@ -138,6 +237,26 @@ The decision structures the interface.
 The proof supports the decision.
 
 The proof must not become the interface.
+
+This principle does not replace evidence and trust.
+
+It clarifies the hierarchy:
+
+```txt
+Decision-first, then proof = what should the user understand or decide first?
+Evidence and trust = can the user trust this information or recommendation?
+```
+
+## Updated project formula
+
+```txt
+The zip grounds the product reference.
+Components give GenAI reliable interface material.
+Patterns give GenAI reusable composition structures.
+Principles give GenAI design judgment.
+Knowledge gives GenAI domain, user and product context.
+Contracts prevent critical generation failures.
+```
 
 ## Rebuild phases
 
@@ -187,12 +306,32 @@ Order:
 9. InstalledBaseWorkspace
 ```
 
-### Phase 3 — Guidelines
+Extraction rule:
+
+```txt
+Do not abstract before a real product need exists.
+```
+
+### Phase 3 — Patterns, principles and knowledge
 
 Goal:
 
 ```txt
-Document only what exists.
+Document what the prototype teaches, not only what it contains.
+```
+
+This phase must capture:
+
+```txt
+screen composition patterns
+information hierarchy decisions
+operational density rules
+facts vs interpretation boundaries
+decision-first, then proof
+white-first visual system
+domain concepts
+user needs
+open questions
 ```
 
 Initial files:
@@ -208,14 +347,18 @@ guidelines/runtime/visual-rules.md
 guidelines/runtime/progressive-decision-disclosure.md
 guidelines/runtime/decision-first-then-proof.md
 guidelines/reference/screen-contracts/installed-base-intelligence.md
+
+docs/foundation-principles/
+docs/domain-knowledge/
+docs/decisions/
 ```
 
-### Phase 4 — Contracts
+### Phase 4 — Guardrail contracts
 
 Goal:
 
 ```txt
-Turn design and generation decisions into verifiable rules.
+Turn critical design and generation decisions into verifiable guardrails.
 ```
 
 Priority contracts:
@@ -228,12 +371,32 @@ installed-base-intelligence.contract.json
 generation-blockers.contract.json
 ```
 
+Contracts must distinguish:
+
+```txt
+non-negotiable guardrails = must always be respected
+quality guidance = preferred behavior that can be justified when adapted
+```
+
 ### Phase 5 — Make kit
 
 Goal:
 
 ```txt
-Allow Figma Make to generate a compliant Installed Base Intelligence screen using only the package and the guidelines.
+Allow Figma Make to generate a strong Installed Base Intelligence screen using the package, patterns, principles, knowledge and guardrails.
+```
+
+The Make kit should not merely assemble approved components.
+
+It should help GenAI:
+
+```txt
+select relevant components
+compose them into a useful screen
+apply design system principles
+use domain knowledge appropriately
+avoid critical generation failures
+explain new candidate patterns when needed
 ```
 
 ### Phase 6 — Controlled extension
@@ -256,13 +419,51 @@ real prototype or reference
 → domain model
 → required components
 → patterns
-→ screen contract
+→ principles
+→ knowledge
+→ screen contract or guardrails
 → guidelines
 → tests / benchmarks
 ```
 
+Example: Customer Success Plan is not just a variant of Installed Base Intelligence.
+
+Installed Base Intelligence answers:
+
+```txt
+What assets do we have?
+What is their condition?
+What requires attention?
+What should be done next?
+```
+
+Customer Success Plan answers:
+
+```txt
+What outcomes are we trying to achieve?
+What recommendations support those outcomes?
+What actions are agreed?
+What value is being delivered over time?
+```
+
+It will need its own domain model, for example:
+
+```txt
+customer objective
+success milestone
+recommendation
+action plan
+owner
+due date
+proof point
+value outcome
+review status
+```
+
 ## Non-negotiable rule
 
-No component enters the new design system unless it can be linked directly to the Installed Base Intelligence prototype.
+No component enters the new design system unless it can be linked to a real product need.
 
-No guideline enters the runtime path unless it helps Figma Make avoid a concrete generation failure.
+For the first release, that product need must come from the Installed Base Intelligence prototype.
+
+No runtime guideline enters the default generation path unless it helps Figma Make avoid a concrete generation failure or make a materially better design decision.
