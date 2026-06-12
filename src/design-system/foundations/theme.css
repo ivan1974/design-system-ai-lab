@@ -1,4 +1,3 @@
-/* css-lint-disable unknownAtRules */
 @custom-variant dark (&:is(.dark *));
 
 :root {
