@@ -2,32 +2,28 @@ import { forwardRef } from "react";
 import type { HTMLAttributes } from "react";
 import type { ActionPriority } from "../types/action";
 import { actionPriorityLabels } from "../types/action";
+import { SemanticPill } from "./semantic-pill";
+import type { SemanticPillTone } from "./semantic-pill";
 
+/** @deprecated Use SemanticPill with contract-controlled priority mapping. */
 export type PriorityPillProps = HTMLAttributes<HTMLSpanElement> & {
   priority: ActionPriority;
 };
 
-const priorityClasses: Record<ActionPriority, string> = {
-  critical: "bg-red-50 text-(--ec-color-danger)",
-  high: "bg-red-50 text-(--ec-color-danger)",
-  medium: "bg-amber-50 text-(--ec-color-warning)",
-  low: "bg-(--ec-color-surface-muted) text-(--ec-color-text-secondary)",
+const priorityTone: Record<ActionPriority, SemanticPillTone> = {
+  critical: "danger",
+  high: "danger",
+  medium: "warning",
+  low: "neutral",
 };
 
+/** @deprecated Use SemanticPill with contract-controlled priority mapping. */
 export const PriorityPill = forwardRef<HTMLSpanElement, PriorityPillProps>(
   ({ priority, className = "", ...props }, ref) => {
     return (
-      <span
-        ref={ref}
-        className={[
-          "inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold",
-          priorityClasses[priority],
-          className,
-        ].join(" ")}
-        {...props}
-      >
+      <SemanticPill ref={ref} tone={priorityTone[priority]} className={className} {...props}>
         {actionPriorityLabels[priority]}
-      </span>
+      </SemanticPill>
     );
   },
 );
