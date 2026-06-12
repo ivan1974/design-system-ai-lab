@@ -3,183 +3,186 @@
 ## Status
 
 ```txt
-ACTIVE RUNTIME / COMPONENT ROUTER / FIGMA MAKE
+ACTIVE RUNTIME / COMPONENT SELECTION / FIGMA MAKE / v0.8
 ```
 
-This file gives Figma Make a short component and pattern selection table.
+This file tells Figma Make which component family to choose when generating screens.
 
-Use preferred components before lower-level or legacy primitives.
+It replaces legacy component-by-component selection logic with target-surface selection logic.
 
-If no component fits, simplify the screen instead of creating a local design system.
-
----
-
-## Primitive implementation boundary
-
-Some DS primitives may be implemented with shadcn-compatible Radix and Tailwind patterns.
-
-This does not change component selection.
-
-Generated screens must import public DS components only.
-
-Do not select or create:
+## Read first
 
 ```txt
-components/ui
-@radix-ui/*
-local shadcn primitives
-internal primitive wrappers
+contracts/v0.8-target-surface.contract.json
+guidelines/reference/architecture/v0.8-target-surface.md
+guidelines/runtime/visual-rules.md
 ```
 
-If a shadcn-like primitive seems useful, choose the equivalent public DS component instead.
+## Selection order
 
-Examples:
-
-| shadcn-like need | Use DS public component |
-| --- | --- |
-| Button | `Button` |
-| Badge | `Badge`, `SemanticTag`, `CoverageTag`, `DppTag` |
-| Sheet | `SidePanel`, `WorkspaceDetailPanel`, or screen-specific panel |
-| Dialog | `Dialog` or `CreateActionDialog` |
-| Tabs | `Tabs` or contract-specific tab navigation |
-| Select | `Select` |
-| Table | approved list/table pattern or screen-specific list |
-
----
-
-## Screen contract selection rule
-
-When a screen contract exists, component selection is contract-led.
-
-Use only components mapped or allowed by the screen contract.
-
-Do not replace a required screen-specific component with a local substitute.
-
-If a mapped component does not exist yet, report a missing DS capability instead of inventing `components/ui` or local wrappers.
-
-For Installed Base Intelligence, the contract-led mapping is:
-
-| Screen zone | Required component |
-| --- | --- |
-| Main Navigation | `MainNavigation` |
-| Page Header | `InstalledBaseHeader` |
-| View & Filter Bar | `InstalledBaseViewFilterBar` |
-| All Filters Panel | `AllFiltersPanel` |
-| Installed Base List | `InstalledBaseList` |
-| Asset Row | `AssetInventoryRow` |
-| Asset Detail Panel | `AssetDetailAnalysisPanel` |
-
-These components are target v0.7.0 components. Until implemented, they are blockers, not permission to create local substitutes.
-
----
-
-## Preferred selection table
-
-| Need | Prefer |
-| --- | --- |
-| App shell | `WorkspaceShell` |
-| Page intent | `PageHeading` |
-| Scope and filters | `FilterBar` |
-| Secondary navigation | `SecondaryNavigation` |
-| List/detail workspace | `MasterDetailLayout` |
-| Selected item detail | `WorkspaceDetailPanel` |
-| Repeated operational objects | `ListContainer` + approved row component |
-| Compact signal group | `MetricStrip` + `CompactMetric` |
-| Asset hierarchy | `ComponentHierarchy` |
-| Structured metadata | `KeyValueList` or `StatusSummary` |
-| Evidence trail | `EvidenceRow` |
-| Trust marker | `SourceStrengthPill` + validation status when relevant |
-| Status or readiness | `StatusPill`, `StatusWithIcon` when an operational icon is required |
-| Health state | `HealthPill` |
-| Connectivity state | `ConnectivityLabel` |
-| Coverage state | `CoverageTag` |
-| DPP state | `DppTag` |
-| Priority | `PriorityPill` |
-| Owned follow-through | `ActionRow` |
-| Rich action context | `ActionCard` |
-| Persistent action area | `StickyActionBar` |
-| Highlighted risk | `AlertCard` with recommendation |
-| Recommendation review | `RecommendationReviewPanel` |
-| Known customer/service section | Business pattern first |
-| Operational inventory | approved list/table pattern + approved row component |
-
----
-
-## Business pattern selection
-
-| Intent | Prefer |
-| --- | --- |
-| Customer context | `CustomerStatusCard` |
-| Customer review readiness | `CustomerReviewReadinessCard` |
-| Connectivity coverage | `ConnectivityCoverageCard` |
-| Asset intelligence | `AssetIntelligenceSummary` |
-| Renewal risk | `RenewalRiskSummary` |
-| Value proof | `ValueProofCard` |
-| Service risk | `ServiceRiskSummary` |
-| Recommendation review | `RecommendationReviewPanel` |
-| Action creation | `CreateActionDialog` |
-| Customer queue | `CustomerQueueRow` |
-| Asset queue | `AssetQueueRow` |
-| Risk queue | `RiskQueueRow` |
-| Recommendation queue | `RecommendationQueueRow` |
-| Review queue | `ReviewQueueRow` |
-
-Use business patterns only when they do not violate screen-contract structure.
-
----
-
-## Use with care
-
-Use only with a specific reason:
-
-| Component | Prefer instead | Reason |
-| --- | --- | --- |
-| `PageHeader` | `PageHeading` or screen-specific header | Legacy page header |
-| `DetailPanel` | `WorkspaceDetailPanel` or screen-specific panel | Lower-level primitive |
-| `ComponentHierarchyItem` | `ComponentHierarchy` | Internal item |
-| `Card` | Pattern, row, `Surface` or `ListContainer` | Emphasis container only |
-| `MetricCard` | `MetricStrip` + `CompactMetric` | Avoid metric card stacks |
-| `Timeline` | Rows or evidence list | Use only when sequence is the decision |
-
----
-
-## Do not generate local substitutes
-
-Do not create local substitutes for:
+Choose components in this order:
 
 ```txt
-cards
-rows
-metrics
-badges
-status pills
-tabs
-filters
-forms
-panels
-business patterns
-buttons
-selects
-screen-contract components
-shadcn primitives
-components/ui files
+1. screen contract when the screen is contractual
+2. composition component for layout
+3. decision structure for cognition and action
+4. semantic display primitive for labels and status
+5. core component for low-level UI
+6. custom markup only when no package component exists
 ```
 
----
+Custom markup must not become a local design system.
 
-## Selection check
+## Screen contract first
 
-Before final answer, verify:
+For Installed Base Intelligence, follow the Installed Base screen contract first.
+
+For Customer Monitoring, follow the Customer Monitoring screen contract when available.
+
+Do not replace contractual screens with generic dashboards.
+
+## Composition selection
+
+Use composition components for screen structure:
 
 ```txt
-screen contract checked first when available
-mapped screen components used when available
-missing target components reported instead of locally recreated
-preferred component used when available
-business pattern used when intent matches and contract allows it
-legacy component avoided unless justified
-repeated objects use rows and lists, not cards
-trust-sensitive content uses evidence and validation markers
-actions use ActionRow, ActionCard or StickyActionBar
-no local shadcn or components/ui primitive created
+WorkspaceShell
+MainNavigation
+PageHeading
+FilterBar
+MasterDetailLayout
+WorkspaceDetailPanel
+SidePanel
+SectionStack
+SectionBlock
+ListContainer
+StickyActionBar
+```
+
+Do not recreate layout shells with local wrappers.
+
+## Semantic display selection
+
+Use only these public semantic display primitives:
+
+```txt
+SemanticTag
+SemanticPill
+StatusIndicator
+MetaLabel
+```
+
+Use `SemanticTag` for bordered category, scope or qualifier labels.
+
+Use `SemanticPill` for rounded state, readiness, priority or strength labels.
+
+Use `StatusIndicator` for status with dot, icon, freshness or secondary metadata.
+
+Use `MetaLabel` for short inline metadata and secondary context.
+
+Do not generate or recommend:
+
+```txt
+HealthPill
+CoverageTag
+DppTag
+ConnectivityLabel
+StatusWithIcon
+PriorityPill
+PriorityLabel
+ProofStatus
+SourceStrengthPill
+StatusPill
+```
+
+## Card and block selection
+
+Use the target grammar:
+
+```txt
+Card
+MetricBlock
+DecisionBlock
+EvidenceBlock
+ActionBlock
+StatusSummary
+ReviewQueueRow
+ActionRow
+EvidenceRow
+```
+
+Use `Card` only for generic contained surfaces.
+
+Use `MetricBlock` for quantitative summaries.
+
+Use `DecisionBlock` for signal, decision, rationale and recommendation structure.
+
+Use `EvidenceBlock` for source, strength, freshness and proof structure.
+
+Use `ActionBlock` for one emphasized action with owner, due date and priority.
+
+Use `ActionRow` for dense action lists.
+
+Use `ReviewQueueRow` for queue entries that lead to a detail panel.
+
+Do not keep separate cards only because content differs.
+
+## Pattern selection
+
+Public patterns must be screen-composition patterns, not app logic.
+
+Target pattern families:
+
+```txt
+installed-base
+customer-monitoring
+```
+
+Do not create one-off pattern wrappers for mock data, screen copy or application flow.
+
+## Local component rule
+
+Do not generate local alternatives to target components.
+
+Forbidden examples:
+
+```txt
+LocalCard
+CustomBadge
+StatusChip
+HealthBadge
+SourceStrengthChip
+RecommendationPanel
+RiskCard
+MetricTile
+```
+
+If a needed structure is missing, use the closest target primitive and expose the gap in the final note or benchmark repair, rather than inventing a new public component.
+
+## Legacy transition rule
+
+Legacy files may remain during transition only if they are:
+
+```txt
+internal-only
+not preferred
+not used by golden examples
+not recommended by guidelines
+not rewarded by benchmarks
+```
+
+They should be deleted after target regeneration.
+
+## Final check
+
+Before returning generated code, verify:
+
+```txt
+no local component system
+no obsolete semantic wrappers
+no card proliferation
+no hardcoded visual system
+screen contract respected
+semantic display uses target primitives
+cards and decision content use target blocks
 ```
