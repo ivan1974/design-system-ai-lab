@@ -1,5 +1,5 @@
 import { X } from 'lucide-react';
-import { Badge, Button, Pill } from '../../design-system/primitives';
+import { Badge, Button, Pill, Tag } from '../../design-system/primitives';
 import { filterCategories } from '../data/assets';
 
 interface AllFiltersPanelProps {
@@ -119,17 +119,16 @@ export function AllFiltersPanel({
                     {options.map(opt => {
                       const checked = (activeFilters[category] || []).includes(opt);
                       return (
-                        <button
+                        <Tag
                           key={opt}
+                          as="button"
+                          variant="success"
+                          active={checked}
                           onClick={() => onToggleOption(category, opt)}
-                          className={`px-3 py-1.5 rounded-lg text-[12px] border text-left transition-all duration-100 ${checked
-                            ? 'bg-[#f0faf5] text-[#00985F] border-[#00985F]'
-                            : 'bg-white text-neutral-600 border-neutral-200 hover:border-neutral-300 hover:bg-neutral-50'
-                            }`}
-                          style={{ fontWeight: checked ? 600 : 400 }}
+                          className={!checked ? 'hover:border-neutral-300 hover:bg-neutral-50' : undefined}
                         >
                           {opt}
-                        </button>
+                        </Tag>
                       );
                     })}
                   </div>
