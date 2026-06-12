@@ -31,9 +31,14 @@ const buttonSource = read("src/design-system/components/button.tsx");
 const cardSource = read("src/design-system/components/card.tsx");
 const tableSource = read("src/design-system/components/table.tsx");
 const tabsSource = read("src/design-system/components/tabs.tsx");
+const dialogSource = read("src/design-system/components/dialog.tsx");
+const popoverSource = read("src/design-system/components/popover.tsx");
+const tooltipSource = read("src/design-system/components/tooltip.tsx");
 const cardGuideline = read("guidelines/reference/components/card.md");
 const tableGuideline = read("guidelines/reference/components/table.md");
 const tabsGuideline = read("guidelines/reference/components/tabs.md");
+const popoverGuideline = read("guidelines/reference/components/popover.md");
+const tooltipGuideline = read("guidelines/reference/components/tooltip.md");
 const coreLayer = regenerationPlan.orderedLayers.find((layer) => layer.id === "core-primitives");
 
 const expectedCorePrimitives = [
@@ -125,6 +130,16 @@ describe("generation rules: v0.8 core primitives regeneration readiness", () => 
     expect(tabsSource).toContain("--ec-shadow-control");
   });
 
+  it("keeps regenerated overlay primitives neutral, tokenized and package-owned", () => {
+    expect(dialogSource).toContain("cancelLabel = \"Cancel\"");
+    expect(dialogSource).toContain("confirmLabel = \"Confirm\"");
+    expect(dialogSource).toContain("border-(--ec-color-border)");
+    expect(popoverSource).toContain("--ec-shadow-popover");
+    expect(popoverSource).not.toContain("shadow-md");
+    expect(tooltipSource).toContain("--ec-shadow-popover");
+    expect(tooltipSource).not.toContain("shadow-sm");
+  });
+
   it("keeps Card guidance aligned with target blocks rather than legacy business cards", () => {
     expect(cardGuideline).toContain("MetricBlock");
     expect(cardGuideline).toContain("DecisionBlock");
@@ -142,6 +157,13 @@ describe("generation rules: v0.8 core primitives regeneration readiness", () => 
     expect(tabsGuideline).toContain("It is not filtering");
     expect(tabsGuideline).toContain("variant: underline | contained");
     expect(tabsGuideline).toContain("Use `FilterBar` for filters");
+  });
+
+  it("keeps Popover and Tooltip guidance within lightweight-context boundaries", () => {
+    expect(popoverGuideline).toContain("It is not a drawer, modal, analysis panel, filter panel or decision workflow");
+    expect(popoverGuideline).toContain("Do not use popovers for decision-critical evidence");
+    expect(tooltipGuideline).toContain("It is not an evidence container");
+    expect(tooltipGuideline).toContain("Do not hide critical evidence or actions in a tooltip");
   });
 
   it("keeps core primitives free from business semantics", () => {
