@@ -29,8 +29,8 @@ export function Dialog({
   title,
   description,
   children,
-  cancelLabel = "Annuler",
-  confirmLabel = "Créer l’action",
+  cancelLabel = "Cancel",
+  confirmLabel = "Confirm",
   contentClassName = "",
   overlayClassName = "",
   contentProps,
@@ -52,19 +52,19 @@ export function Dialog({
           className={[
             "fixed left-1/2 top-1/2 w-[min(520px,calc(100vw-32px))]",
             "-translate-x-1/2 -translate-y-1/2 rounded-(--ec-radius-lg)",
-            "bg-(--ec-color-surface) p-6 shadow-(--ec-shadow-popover)",
+            "border border-(--ec-color-border) bg-(--ec-color-surface) p-6 shadow-(--ec-shadow-popover)",
             "focus-visible:outline-none",
             contentClassName,
           ].join(" ")}
           {...contentProps}
         >
-          <div className="mb-6">
-            <DialogPrimitive.Title className="text-lg font-semibold text-(--ec-color-text-primary)">
+          <div className="mb-6 space-y-2">
+            <DialogPrimitive.Title className="text-lg font-semibold leading-7 text-(--ec-color-text-primary)">
               {title}
             </DialogPrimitive.Title>
 
             {description && (
-              <DialogPrimitive.Description className="mt-2 text-sm text-(--ec-color-text-secondary)">
+              <DialogPrimitive.Description className="text-sm leading-5 text-(--ec-color-text-secondary)">
                 {description}
               </DialogPrimitive.Description>
             )}
