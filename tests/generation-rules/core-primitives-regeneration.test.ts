@@ -29,7 +29,11 @@ const propsContract = readJson<PropsContract>("contracts/props.contract.json");
 const spec = read("docs/audit/v0.8.0-core-primitives-regeneration-spec.md");
 const buttonSource = read("src/design-system/components/button.tsx");
 const cardSource = read("src/design-system/components/card.tsx");
+const tableSource = read("src/design-system/components/table.tsx");
+const tabsSource = read("src/design-system/components/tabs.tsx");
 const cardGuideline = read("guidelines/reference/components/card.md");
+const tableGuideline = read("guidelines/reference/components/table.md");
+const tabsGuideline = read("guidelines/reference/components/tabs.md");
 const coreLayer = regenerationPlan.orderedLayers.find((layer) => layer.id === "core-primitives");
 
 const expectedCorePrimitives = [
@@ -104,6 +108,23 @@ describe("generation rules: v0.8 core primitives regeneration readiness", () => 
     expect(cardSource).not.toContain("MetricCard");
   });
 
+  it("keeps regenerated Table compact, tokenized and comparison-oriented", () => {
+    expect(tableSource).toContain("export type TableDensity = \"compact\" | \"default\"");
+    expect(tableSource).toContain("density = \"compact\"");
+    expect(tableSource).toContain("--ec-density-table-cell-x");
+    expect(tableSource).toContain("--ec-density-table-cell-y");
+    expect(tableSource).toContain("--ec-color-row-hover");
+    expect(tableSource).toContain("--ec-color-row-selected");
+  });
+
+  it("keeps regenerated Tabs tokenized and within the allowed API", () => {
+    expect(tabsSource).toContain("export type TabsVariant = \"underline\" | \"contained\"");
+    expect(tabsSource).toContain("export type TabsSize = \"sm\" | \"md\"");
+    expect(tabsSource).toContain("--ec-density-control-height-sm");
+    expect(tabsSource).toContain("--ec-density-control-height-md");
+    expect(tabsSource).toContain("--ec-shadow-control");
+  });
+
   it("keeps Card guidance aligned with target blocks rather than legacy business cards", () => {
     expect(cardGuideline).toContain("MetricBlock");
     expect(cardGuideline).toContain("DecisionBlock");
@@ -112,6 +133,15 @@ describe("generation rules: v0.8 core primitives regeneration readiness", () => 
     expect(cardGuideline).not.toContain("MetricCard or MetricStrip");
     expect(cardGuideline).not.toContain("RecommendationCard");
     expect(cardGuideline).not.toContain("ActionCard");
+  });
+
+  it("keeps Table and Tabs guidance aligned with v0.8 generation boundaries", () => {
+    expect(tableGuideline).toContain("card grids for operational inventories");
+    expect(tableGuideline).toContain("density: compact | default");
+    expect(tableGuideline).toContain("Do not replace contractual screen lists with generic tables");
+    expect(tabsGuideline).toContain("It is not filtering");
+    expect(tabsGuideline).toContain("variant: underline | contained");
+    expect(tabsGuideline).toContain("Use `FilterBar` for filters");
   });
 
   it("keeps core primitives free from business semantics", () => {
