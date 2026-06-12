@@ -1,4 +1,4 @@
-# StatusIndicator
+# StatusIndicator Guidelines
 
 ## Purpose
 
@@ -8,22 +8,35 @@ It replaces public business-specific status variants when the visual structure i
 
 ## Use this component when
 
-Use `StatusIndicator` for operational status, connectivity status, activity status or date-backed status.
+- The value is an operational status.
+- The status needs a dot, icon, freshness, date or secondary context.
+- The label must remain readable without relying on color alone.
+- The same structure can represent connectivity, activity, readiness or lifecycle status.
 
 ## Do not use this component when
 
-Do not use it for simple tags, rounded pills or long explanatory content.
+- The value is a simple rounded label; use `SemanticPill`.
+- The value is a bordered category or qualifier; use `SemanticTag`.
+- The value is only inline metadata; use `MetaLabel`.
+- The content is a long explanation or evidence section.
 
 ## Prefer this component over
 
 ```txt
 ConnectivityLabel
 StatusWithIcon
+local status chips
+custom icon labels
+color-only status text
 ```
 
 ## Never generate
 
-Do not create custom status chips, local icon labels or color-only statuses.
+- color-only statuses
+- local status chips
+- business-specific status components with the same structure
+- status text that hides freshness when trust depends on it
+- decorative status icons without a readable label
 
 ## Required props
 
@@ -61,23 +74,42 @@ dash
 
 ## GenAI generation rules
 
-Always include a readable label. Use metadata for dates, freshness or secondary status context.
+1. Always include a readable label.
+2. Use `meta` for dates, freshness or secondary status context.
+3. Use a tone from the contract.
+4. Do not communicate status by color alone.
+5. Do not hide trust-critical freshness or validation status.
 
 ## Common generation failures
 
-```txt
-color-only status
-local status chip
-missing freshness or date when trust depends on it
-```
+Failure: Make creates a local status chip.
+Why it fails: It duplicates the same status structure.
+Fix: Use `StatusIndicator` with an allowed `tone` and `icon`.
+
+Failure: Make uses only color for status.
+Why it fails: Status must remain readable without color.
+Fix: Add a visible label and use icon or metadata when useful.
+
+Failure: Make omits freshness when it affects trust.
+Why it fails: The user cannot assess whether the status is current.
+Fix: Add `meta` with freshness, date or source context.
 
 ## Repair prompt
 
-Replace custom or business-specific status labels with `StatusIndicator` and use allowed `tone` and `icon` values.
+Use:
+
+```txt
+guidelines/evaluation/repair/missing-source-strength.md
+guidelines/evaluation/repair/missing-human-validation.md
+guidelines/evaluation/repair/expected-outcomes-as-proven-value.md
+```
 
 ## Related stories
 
-Story coverage can be grouped with semantic display primitives.
+```txt
+src/design-system/stories/decision/status-indicator.stories.tsx
+Story status: component-level proof expected. If absent locally, covered through semantic display stories.
+```
 
 ## Related contracts
 
