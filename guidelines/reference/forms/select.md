@@ -29,10 +29,10 @@ It should constrain choices when the value must match a controlled vocabulary.
 Prefer alternatives:
 
 ```txt
-short free text → Input
-long text → Textarea
-static status display → StatusPill or StatusSummary
-action creation → CreateActionDialog
+short free text -> Input
+long text -> Textarea
+static status display -> StatusIndicator or StatusSummary
+action creation -> CreateActionDialog
 ```
 
 ## Never generate
