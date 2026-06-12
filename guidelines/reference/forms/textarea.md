@@ -29,10 +29,10 @@ It should support a clear user task, such as adding context, rationale or notes.
 Prefer alternatives:
 
 ```txt
-short value → Input
-limited choice → Select
-display-only narrative → Text
-recommendation display → RecommendationCard
+short value -> Input
+limited choice -> Select
+display-only narrative -> Text
+recommendation display -> DecisionBlock or a contracted pattern
 ```
 
 ## Never generate
@@ -74,7 +74,7 @@ Fix: Use `Textarea` inside `Field`.
 
 Failure: Make uses `Textarea` for read-only recommendation content.
 Why it fails: Textarea implies editing.
-Fix: Use `RecommendationCard`, `Text` or a business pattern.
+Fix: Use `DecisionBlock`, `Text` or a contracted pattern.
 
 Failure: Make uses a textarea for controlled values such as priority or status.
 Why it fails: Controlled values must not become free text.
