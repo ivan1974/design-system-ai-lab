@@ -30,7 +30,7 @@ export function ViewFilterBar<TView extends string = string>({
   onToggleOption,
 }: ViewFilterBarProps<TView>) {
   return (
-    <div className="bg-white border-b border-neutral-200/80 px-5 flex items-center justify-between gap-4 h-[46px] flex-shrink-0">
+    <div className="bg-white border-b border-neutral-200/80 px-5 flex items-center justify-between gap-4 h-[46px] shrink-0">
       <div className="flex items-center">
         <div className="flex rounded-lg border border-neutral-200 overflow-hidden bg-neutral-100 p-0.5 gap-0.5">
           {views.map(view => {
@@ -75,7 +75,7 @@ export function ViewFilterBar<TView extends string = string>({
               variant="success"
               size="xs"
               shape="pill"
-              className="w-[18px] h-[18px] px-0 border-0 bg-white text-[#00985F] justify-center flex-shrink-0"
+              className="w-[18px] h-[18px] px-0 border-0 bg-white text-[#00985F] justify-center shrink-0"
               style={{ fontWeight: 700 }}
             >
               {activeFilterCount}
@@ -104,7 +104,8 @@ function QuickFilterDropdown({
 
   useEffect(() => {
     function handle(event: MouseEvent) {
-      if (ref.current && !ref.current.contains(event.target as Node)) setOpen(false);
+      const target = event.target;
+      if (target instanceof Node && ref.current && !ref.current.contains(target)) setOpen(false);
     }
     document.addEventListener('mousedown', handle);
     return () => document.removeEventListener('mousedown', handle);
@@ -124,7 +125,7 @@ function QuickFilterDropdown({
             variant="success"
             size="xs"
             shape="pill"
-            className="w-4 h-4 px-0 border-0 bg-[#00985F] text-white justify-center flex-shrink-0"
+            className="w-4 h-4 px-0 border-0 bg-[#00985F] text-white justify-center shrink-0"
             style={{ fontWeight: 700 }}
           >
             {count}
