@@ -1,4 +1,5 @@
 import { X } from 'lucide-react';
+import { Button } from '../../design-system/primitives';
 import { filterCategories } from '../data/assets';
 
 interface AllFiltersPanelProps {
@@ -171,20 +172,22 @@ export function AllFiltersPanel({
 
         {/* Footer — §5: Clear All required */}
         <div className="px-4 py-4 border-t border-neutral-100 flex gap-2.5 flex-shrink-0">
-          <button
+          <Button
+            variant="secondary"
+            size="md"
             onClick={onClearAll}
-            className="flex-1 py-2.5 text-[13px] text-neutral-600 border border-neutral-200 rounded-lg bg-white hover:bg-neutral-50 transition-colors whitespace-nowrap"
-            style={{ fontWeight: 500 }}
+            className="flex-1 text-neutral-600 hover:bg-neutral-50 transition-colors"
           >
             Clear All
-          </button>
-          <button
+          </Button>
+          <Button
+            variant="primary"
+            size="md"
             onClick={onApply}
-            className="flex-1 py-2.5 text-[13px] text-white rounded-lg hover:opacity-90 transition-opacity whitespace-nowrap"
-            style={{ backgroundColor: '#00985F', fontWeight: 600 }}
+            className="flex-1"
           >
             Apply
-          </button>
+          </Button>
         </div>
       </div>
     </>
