@@ -60,6 +60,37 @@ Required reference layers:
 
 These layers define the first product reference. They are not meant to make every future screen follow the same structure.
 
+## Reference files are not the generation API
+
+The imported prototype files under `src/app` are product reference material.
+
+They should not be exposed to GenAI as mandatory building blocks.
+
+They should be analyzed to extract:
+
+```txt
+reliable components where useful
+reusable patterns where structure matters
+principles where design judgment matters
+domain knowledge where meaning matters
+contracts where failure prevention matters
+benchmarks where evaluation matters
+```
+
+The goal is not to make GenAI assemble the prototype.
+
+The goal is to make GenAI learn from the prototype, then design with the system’s components, patterns, principles, knowledge and guardrails.
+
+Expected boundary:
+
+```txt
+src/app/* = product reference and demo app
+src/design-system/* = reusable interface material
+guidelines/* = design judgment and generation guidance
+contracts/* = guardrails and verifiable rules
+docs/* = source knowledge, decisions and rationale
+```
+
 ## Rebuild direction
 
 The new project must follow this order:
@@ -289,8 +320,12 @@ avoid premature abstraction
 Goal:
 
 ```txt
-Extract components without changing the UI.
+Extract reliable interface material without changing the UI.
 ```
+
+The extracted components are not the generation API by themselves.
+
+They are reliable interface material that GenAI must use together with patterns, principles, domain knowledge and guardrails.
 
 Order:
 
@@ -310,6 +345,7 @@ Extraction rule:
 
 ```txt
 Do not abstract before a real product need exists.
+Do not expose raw src/app prototype files as mandatory generation building blocks.
 ```
 
 ### Phase 3 — Patterns, principles and knowledge
