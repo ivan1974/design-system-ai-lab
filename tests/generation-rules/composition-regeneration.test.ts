@@ -29,6 +29,11 @@ const typographySource = read("src/design-system/components/typography.tsx");
 const filterBarSource = read("src/design-system/composition/filter-bar.tsx");
 const sectionStackSource = read("src/design-system/composition/section-stack.tsx");
 const listContainerSource = read("src/design-system/components/list-container.tsx");
+const masterDetailLayoutSource = read("src/design-system/composition/master-detail-layout.tsx");
+const workspaceDetailPanelSource = read("src/design-system/composition/workspace-detail-panel.tsx");
+const sidePanelSource = read("src/design-system/composition/side-panel.tsx");
+const stickyActionBarSource = read("src/design-system/composition/sticky-action-bar.tsx");
+const interactivePanelsGuideline = read("guidelines/reference/components/interactive-panels.md");
 
 const trancheOne = [
   "WorkspaceShell",
@@ -38,6 +43,13 @@ const trancheOne = [
   "SectionStack",
   "SectionBlock",
   "ListContainer",
+];
+
+const trancheTwo = [
+  "MasterDetailLayout",
+  "WorkspaceDetailPanel",
+  "SidePanel",
+  "StickyActionBar",
 ];
 
 describe("generation rules: v0.8 composition regeneration", () => {
@@ -50,6 +62,13 @@ describe("generation rules: v0.8 composition regeneration", () => {
 
   it("covers tranche one structure components", () => {
     for (const componentName of trancheOne) {
+      expect(targetSurface.targetPublicSurface.composition).toContain(componentName);
+      expect(compositionLayer?.targetComponents).toContain(componentName);
+    }
+  });
+
+  it("covers tranche two detail and action composition components", () => {
+    for (const componentName of trancheTwo) {
       expect(targetSurface.targetPublicSurface.composition).toContain(componentName);
       expect(compositionLayer?.targetComponents).toContain(componentName);
     }
@@ -91,5 +110,38 @@ describe("generation rules: v0.8 composition regeneration", () => {
     expect(listContainerSource).toContain("spacing?: ListContainerSpacing");
     expect(listContainerSource).toContain("divided?: boolean");
     expect(listContainerSource).toContain("divide-(--ec-color-border-soft)");
+  });
+
+  it("keeps MasterDetailLayout as the preferred list-detail coordinator", () => {
+    expect(masterDetailLayoutSource).toContain("detailMode?: MasterDetailLayoutDetailMode");
+    expect(masterDetailLayoutSource).toContain("detailOpen?: boolean");
+    expect(masterDetailLayoutSource).toContain("onDetailOpenChange?: (open: boolean) => void");
+    expect(masterDetailLayoutSource).toContain("WorkspaceDetailPanel");
+    expect(masterDetailLayoutSource).not.toContain("const Drawer");
+  });
+
+  it("keeps WorkspaceDetailPanel as the selected-item detail target", () => {
+    expect(workspaceDetailPanelSource).toContain("mode?: WorkspaceDetailPanelMode");
+    expect(workspaceDetailPanelSource).toContain("title: string");
+    expect(workspaceDetailPanelSource).toContain("PanelHeader");
+    expect(workspaceDetailPanelSource).toContain("PanelBody");
+    expect(workspaceDetailPanelSource).toContain("PanelFooter");
+  });
+
+  it("keeps SidePanel and StickyActionBar as explicit composition targets", () => {
+    expect(sidePanelSource).toContain("closeOnOverlay?: boolean");
+    expect(sidePanelSource).toContain("closeOnEscape?: boolean");
+    expect(sidePanelSource).toContain("lockBackgroundScroll?: boolean");
+    expect(stickyActionBarSource).toContain("primaryAction?: ReactNode");
+    expect(stickyActionBarSource).toContain("secondaryActions?: ReactNode");
+    expect(stickyActionBarSource).toContain("context?: ReactNode");
+  });
+
+  it("keeps interactive panel guidance target-first", () => {
+    expect(interactivePanelsGuideline).toContain("<MasterDetailLayout />");
+    expect(interactivePanelsGuideline).toContain("<WorkspaceDetailPanel />");
+    expect(interactivePanelsGuideline).toContain("<SidePanel />");
+    expect(interactivePanelsGuideline).toContain("SlideOverPanel` is not the default Make-facing recommendation in v0.8");
+    expect(interactivePanelsGuideline).toContain("SlideOverPanel only as a transition-level internal primitive");
   });
 });
