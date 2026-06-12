@@ -34,11 +34,20 @@ const tabsSource = read("src/design-system/components/tabs.tsx");
 const dialogSource = read("src/design-system/components/dialog.tsx");
 const popoverSource = read("src/design-system/components/popover.tsx");
 const tooltipSource = read("src/design-system/components/tooltip.tsx");
+const dividerSource = read("src/design-system/components/divider.tsx");
+const checkboxSource = read("src/design-system/forms/checkbox.tsx");
+const fieldSource = read("src/design-system/forms/field.tsx");
+const inputSource = read("src/design-system/forms/input.tsx");
+const labelSource = read("src/design-system/forms/label.tsx");
+const selectSource = read("src/design-system/forms/select.tsx");
+const textareaSource = read("src/design-system/forms/textarea.tsx");
 const cardGuideline = read("guidelines/reference/components/card.md");
 const tableGuideline = read("guidelines/reference/components/table.md");
 const tabsGuideline = read("guidelines/reference/components/tabs.md");
 const popoverGuideline = read("guidelines/reference/components/popover.md");
 const tooltipGuideline = read("guidelines/reference/components/tooltip.md");
+const selectGuideline = read("guidelines/reference/forms/select.md");
+const textareaGuideline = read("guidelines/reference/forms/textarea.md");
 const coreLayer = regenerationPlan.orderedLayers.find((layer) => layer.id === "core-primitives");
 
 const expectedCorePrimitives = [
@@ -140,6 +149,18 @@ describe("generation rules: v0.8 core primitives regeneration readiness", () => 
     expect(tooltipSource).not.toContain("shadow-sm");
   });
 
+  it("keeps Divider and Forms tokenized with compact v0.8 density", () => {
+    expect(dividerSource).toContain("--ec-color-border-soft");
+    expect(inputSource).toContain("h-(--ec-density-control-height-md)");
+    expect(inputSource).toContain("--ec-color-input-background");
+    expect(selectSource).toContain("h-(--ec-density-control-height-md)");
+    expect(selectSource).toContain("--ec-color-input-background");
+    expect(textareaSource).toContain("--ec-color-input-background");
+    expect(checkboxSource).toContain("--ec-color-primary");
+    expect(fieldSource).toContain("text-(--ec-color-danger)");
+    expect(labelSource).toContain("text-(--ec-color-text-primary)");
+  });
+
   it("keeps Card guidance aligned with target blocks rather than legacy business cards", () => {
     expect(cardGuideline).toContain("MetricBlock");
     expect(cardGuideline).toContain("DecisionBlock");
@@ -164,6 +185,13 @@ describe("generation rules: v0.8 core primitives regeneration readiness", () => 
     expect(popoverGuideline).toContain("Do not use popovers for decision-critical evidence");
     expect(tooltipGuideline).toContain("It is not an evidence container");
     expect(tooltipGuideline).toContain("Do not hide critical evidence or actions in a tooltip");
+  });
+
+  it("keeps Select and Textarea guidance aligned with v0.8 semantic targets", () => {
+    expect(selectGuideline).toContain("static status display -> StatusIndicator or StatusSummary");
+    expect(selectGuideline).not.toContain("StatusPill");
+    expect(textareaGuideline).toContain("recommendation display -> DecisionBlock or a contracted pattern");
+    expect(textareaGuideline).not.toContain("RecommendationCard");
   });
 
   it("keeps core primitives free from business semantics", () => {
