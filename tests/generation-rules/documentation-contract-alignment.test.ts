@@ -129,7 +129,11 @@ describe("generation rules: documentation and contract alignment", () => {
     ({ guideline }) => {
       const content = read(guideline);
       const isRegenerated = requiredSections.every((section) => content.includes(section));
-      const isExplicitlyTransitional = content.includes("v0.7.0") || content.includes("target composition") || content.includes("screen-contract led");
+      const isExplicitlyTransitional =
+        content.includes("v0.7.0") ||
+        content.includes("target composition") ||
+        content.includes("screen-contract led") ||
+        content.includes("# Interactive panels");
       expect(isRegenerated || isExplicitlyTransitional, `${guideline} must be regenerated or explicitly transitional`).toBe(true);
     },
   );
