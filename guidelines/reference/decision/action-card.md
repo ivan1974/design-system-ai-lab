@@ -29,11 +29,12 @@ It is for a specific next step with owner, due date and priority.
 Prefer alternatives:
 
 ```txt
-repeated actions → ActionRow
-standard action creation → CreateActionDialog
-recommendation → RecommendationCard
-status → StatusPill
-priority only → PriorityPill
+repeated actions -> ActionRow
+standard action creation -> CreateActionDialog
+recommendation -> RecommendationCard
+status -> StatusIndicator or SemanticPill
+priority only -> SemanticPill
+metadata -> MetaLabel
 ```
 
 ## Never generate
@@ -42,7 +43,7 @@ priority only → PriorityPill
 - `ActionCard` without due date
 - `ActionCard` without priority
 - `ActionCard` as a proof claim
-- AI-approved actions without human accountability
+- action completion presented as validated customer value
 
 ## Required props
 
@@ -86,7 +87,7 @@ Failure: Make shows an action without owner or due date.
 Why it fails: The action is not accountable.
 Fix: Add owner and due date or do not generate an action component.
 
-Failure: Make uses `PriorityPill` instead of an action.
+Failure: Make shows only priority instead of an action.
 Why it fails: Priority alone does not define follow-through.
 Fix: Use `ActionCard` or `ActionRow` with full action props.
 
