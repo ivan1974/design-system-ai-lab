@@ -38,11 +38,11 @@ knowledge = domain, user and product context
 contracts = guardrails against critical generation failures
 ```
 
-The first target is not a generic component library.
+The first target is not a generic component library detached from product use.
 
 The first target is a product-grounded screen system derived directly from the Installed Base Intelligence prototype.
 
-After the first runtime extraction, the target must expand into a generic component vocabulary.
+After the first runtime extraction, the target expands into a generic component vocabulary grounded in real product usage.
 
 ```txt
 Product-grounded extraction first.
@@ -307,6 +307,8 @@ decision-first, then proof
 A generated screen may diverge from quality guidance if there is a clear UX reason.
 
 A generated screen must respect the non-negotiable guardrails.
+
+Some contract candidates may be drafted during Phase 3 and Phase 4, especially component registry and props rules, but they become authoritative only in Phase 5.
 
 ## New principle
 
@@ -804,7 +806,7 @@ GenAI usage guidance cannot explain when the component should be selected
 Phase 3 is complete when:
 
 ```txt
-generic component vocabulary exists and is exported
+a first usable generic component vocabulary exists and is exported
 transitional product-grounded helpers are de-specialized or clearly marked
 major reusable UI forms have generic names and generic props
 at least one reusable pattern exists
@@ -812,12 +814,12 @@ build and visual parity are preserved
 component selection can be documented for GenAI
 ```
 
-### Phase 4 — Patterns, principles and GenAI-facing guidelines
+### Phase 4 — Principles, knowledge routing and GenAI-facing guidelines
 
 Objective:
 
 ```txt
-Document what the prototype teaches, not only what it contains, and turn the generic vocabulary into usable GenAI guidance.
+Document what the prototype teaches, not only what it contains, and turn the generic vocabulary and reusable patterns into usable GenAI guidance.
 ```
 
 Intention:
@@ -826,10 +828,14 @@ Intention:
 Teach GenAI how to select the right component or pattern for a brief, data type and user task.
 ```
 
+Patterns created or stabilized in Phase 3.6 are not recreated here.
+
+Phase 4 documents how GenAI should select, adapt and justify those patterns.
+
 This phase must capture:
 
 ```txt
-screen composition patterns
+screen composition guidance
 information hierarchy decisions
 operational density rules
 facts vs interpretation boundaries
@@ -839,6 +845,8 @@ domain concepts
 user needs
 open questions
 component selection guidance
+pattern selection guidance
+knowledge routing rules
 ```
 
 Initial files:
@@ -876,7 +884,9 @@ Acceptance criteria:
 
 ```txt
 GenAI can choose components from usage rules, not from domain names
+GenAI can choose patterns before individual components
 component-selection guidance references generic vocabulary
+knowledge routing remains minimal and purposeful
 contracts can verify critical boundaries
 Make kit instructions can stay concise
 ```
@@ -888,6 +898,8 @@ Objective:
 ```txt
 Turn critical design and generation decisions into verifiable guardrails.
 ```
+
+Some contract candidates may be drafted during Phase 3 and Phase 4, especially component registry and props rules, but they become authoritative only in Phase 5.
 
 Priority contracts:
 
@@ -962,7 +974,9 @@ Every new screen must follow the same sequence:
 ```txt
 real prototype or reference
 → domain model
+→ existing generic vocabulary review
 → required generic components
+→ missing component or pattern candidates
 → patterns
 → principles
 → knowledge
@@ -970,6 +984,8 @@ real prototype or reference
 → guidelines
 → tests / benchmarks
 ```
+
+Every new screen must reuse existing generic components and patterns before creating new candidates.
 
 Example: Customer Success Plan is not just a variant of Installed Base Intelligence.
 
