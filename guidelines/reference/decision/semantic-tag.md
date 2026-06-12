@@ -2,9 +2,9 @@
 
 ## Purpose
 
-`SemanticTag` shows lightweight semantic metadata.
+`SemanticTag` shows lightweight semantic metadata. In v0.8 it is the public primitive for compact bordered tags.
 
-It is useful for categories, qualifiers and short contextual flags.
+It is useful for categories, qualifiers, coverage labels, DPP labels and short contextual flags.
 
 ## Use this component when
 
@@ -14,21 +14,24 @@ It is useful for categories, qualifiers and short contextual flags.
 
 ## Do not use this component when
 
-- The value is a formal status; use `StatusPill`.
-- The value is source strength; use `SourceStrengthPill`.
-- The value is action priority; use `PriorityPill`.
+- The value needs a rounded pill; use `SemanticPill`.
+- The value needs icon/date status; use `StatusIndicator`.
 - The value is clickable; use `Button`.
 
 ## Prefer this component over
 
-- local tags
-- generic badges when the label has semantic tone
-- raw text flags that reduce scanability
+```txt
+CoverageTag
+DppTag
+local tags
+generic badges when the label has semantic tone
+raw text flags that reduce scanability
+```
 
 ## Never generate
 
-- `SemanticTag` for source strength
-- `SemanticTag` for action priority
+- local tags
+- business-specific tag variants for the same visual structure
 - `SemanticTag` as a button
 - many tags that drown out the decision content
 
@@ -36,27 +39,34 @@ It is useful for categories, qualifiers and short contextual flags.
 
 ```txt
 children
-tone when the tag carries semantic weight
+tone
 ```
 
 ## Controlled values
 
 ```txt
-tone: neutral | primary | success | warning | danger
+neutral
+muted
+primary
+info
+success
+warning
+danger
 ```
 
 ## GenAI generation rules
 
 1. Use for lightweight semantic metadata.
-2. Prefer specialized pills when the meaning is controlled.
-3. Keep tag text short.
-4. Do not use tags as the only trust or validation signal.
+2. Keep tag text short.
+3. Use contract-controlled mappings for business meanings.
+4. Do not invent tones.
+5. Do not use tags as the only trust or validation signal.
 
 ## Common generation failures
 
-Failure: Make uses `SemanticTag` for source strength.
-Why it fails: Source strength has strict controlled values and dedicated UI.
-Fix: Use `SourceStrengthPill`.
+Failure: Make creates a local coverage or DPP tag.
+Why it fails: coverage and DPP are semantic labels with the same tag structure.
+Fix: Use `SemanticTag` with a contract-controlled label and tone.
 
 Failure: Make uses many semantic tags as visual decoration.
 Why it fails: Tags should support scanning, not decorate.
@@ -82,6 +92,6 @@ Story status: component-level proof expected. If absent locally, covered through
 
 ```txt
 contracts/components.contract.json
-contracts/props.contract.json
-contracts/evidence-and-trust.contract.json
+contracts/props.contract.json#SemanticTag
+contracts/component-registry.contract.json
 ```
