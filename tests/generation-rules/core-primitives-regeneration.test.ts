@@ -27,6 +27,9 @@ const regenerationPlan = readJson<RegenerationPlan>("contracts/v0.8-regeneration
 const componentsContract = readJson<ComponentsContract>("contracts/components.contract.json");
 const propsContract = readJson<PropsContract>("contracts/props.contract.json");
 const spec = read("docs/audit/v0.8.0-core-primitives-regeneration-spec.md");
+const buttonSource = read("src/design-system/components/button.tsx");
+const cardSource = read("src/design-system/components/card.tsx");
+const cardGuideline = read("guidelines/reference/components/card.md");
 const coreLayer = regenerationPlan.orderedLayers.find((layer) => layer.id === "core-primitives");
 
 const expectedCorePrimitives = [
@@ -80,6 +83,35 @@ describe("generation rules: v0.8 core primitives regeneration readiness", () => 
     expect(propsContract.components.Button.size).toEqual(["sm", "md", "lg", "icon"]);
     expect(propsContract.components.Tabs.variant).toEqual(["underline", "contained"]);
     expect(propsContract.components.Tabs.size).toEqual(["sm", "md"]);
+  });
+
+  it("keeps regenerated Button tokenized and within the allowed API", () => {
+    expect(buttonSource).toContain("export type ButtonVariant = \"primary\" | \"secondary\" | \"ghost\" | \"danger\" | \"outline\"");
+    expect(buttonSource).toContain("export type ButtonSize = \"sm\" | \"md\" | \"lg\" | \"icon\"");
+    expect(buttonSource).toContain("--ec-density-control-height-sm");
+    expect(buttonSource).toContain("--ec-density-control-height-md");
+    expect(buttonSource).toContain("--ec-color-text-inverse");
+    expect(buttonSource).not.toContain("text-white");
+  });
+
+  it("keeps regenerated Card generic, tokenized and free from business semantics", () => {
+    expect(cardSource).toContain("export type CardDensity = \"compact\" | \"comfortable\" | \"spacious\"");
+    expect(cardSource).toContain("export type CardTone = \"neutral\" | \"muted\" | \"primary\" | \"success\" | \"warning\" | \"danger\"");
+    expect(cardSource).toContain("footer?: ReactNode");
+    expect(cardSource).toContain("--ec-color-surface");
+    expect(cardSource).toContain("--ec-color-primary-soft");
+    expect(cardSource).not.toContain("RecommendationCard");
+    expect(cardSource).not.toContain("MetricCard");
+  });
+
+  it("keeps Card guidance aligned with target blocks rather than legacy business cards", () => {
+    expect(cardGuideline).toContain("MetricBlock");
+    expect(cardGuideline).toContain("DecisionBlock");
+    expect(cardGuideline).toContain("EvidenceBlock");
+    expect(cardGuideline).toContain("ActionBlock");
+    expect(cardGuideline).not.toContain("MetricCard or MetricStrip");
+    expect(cardGuideline).not.toContain("RecommendationCard");
+    expect(cardGuideline).not.toContain("ActionCard");
   });
 
   it("keeps core primitives free from business semantics", () => {
