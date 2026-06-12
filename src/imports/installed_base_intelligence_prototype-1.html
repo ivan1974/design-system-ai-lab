@@ -1,0 +1,1624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Installed Base Intelligence</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --se-green: #00985F;
+            --se-green-hover: #007A4A;
+            --neutral-white: #FFFFFF;
+            --neutral-50: #F9FAFB;
+            --neutral-100: #F3F4F6;
+            --neutral-200: #E5E7EB;
+            --neutral-300: #D1D5DB;
+            --neutral-400: #9CA3AF;
+            --neutral-600: #4B5563;
+            --neutral-700: #374151;
+            --neutral-900: #111827;
+            
+            --health-critical: #DC2626;
+            --health-poor: #EA580C;
+            --health-fair: #F59E0B;
+            --health-good: #10B981;
+            --health-excellent: #00985F;
+            
+            --alert-warning: #F59E0B;
+            --alert-danger: #DC2626;
+            
+            --font-family-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            --font-family-mono: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+        }
+
+        body {
+            font-family: var(--font-family-body);
+            background-color: var(--neutral-50);
+            color: var(--neutral-900);
+            line-height: 1.5;
+        }
+
+        /* LAYER 1: MAIN NAVIGATION */
+        .main-nav {
+            background-color: var(--neutral-white);
+            border-bottom: 1px solid var(--neutral-200);
+            padding: 0 24px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .nav-logo {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--se-green) 0%, #00735A 100%);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .nav-product-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--neutral-900);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .nav-search {
+            flex: 1;
+            max-width: 300px;
+            position: relative;
+        }
+
+        .nav-search input {
+            width: 100%;
+            padding: 8px 12px 8px 32px;
+            border: 1px solid var(--neutral-300);
+            border-radius: 6px;
+            font-size: 13px;
+            background-color: var(--neutral-50);
+            color: var(--neutral-900);
+            transition: all 0.2s ease;
+        }
+
+        .nav-search input::placeholder {
+            color: var(--neutral-400);
+        }
+
+        .nav-search input:focus {
+            outline: none;
+            border-color: var(--se-green);
+            background-color: var(--neutral-white);
+            box-shadow: 0 0 0 3px rgba(0, 152, 95, 0.1);
+        }
+
+        .nav-search::before {
+            content: '🔍';
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 14px;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-shrink: 0;
+        }
+
+        .nav-help, .nav-user {
+            cursor: pointer;
+            font-size: 20px;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+
+        .nav-help:hover, .nav-user:hover {
+            opacity: 1;
+        }
+
+        .nav-user-menu {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 6px;
+            transition: background-color 0.2s;
+        }
+
+        .nav-user-menu:hover {
+            background-color: var(--neutral-100);
+        }
+
+        .nav-user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--se-green) 0%, #00735A 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .nav-user-name {
+            font-size: 12px;
+            color: var(--neutral-600);
+            white-space: nowrap;
+        }
+
+        /* LAYER 2: PAGE HEADER */
+        .page-header {
+            background-color: var(--neutral-white);
+            border-bottom: 1px solid var(--neutral-200);
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .header-site-context {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--neutral-600);
+        }
+
+        .header-site-context strong {
+            color: var(--neutral-900);
+        }
+
+        .header-divider {
+            width: 1px;
+            height: 20px;
+            background-color: var(--neutral-300);
+        }
+
+        .header-pill {
+            background-color: var(--neutral-100);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            color: var(--neutral-600);
+            font-weight: 500;
+        }
+
+        .header-portfolio {
+            margin-left: auto;
+            text-align: right;
+        }
+
+        .header-portfolio-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--neutral-900);
+        }
+
+        .header-portfolio-summary {
+            font-size: 11px;
+            color: var(--neutral-500);
+            margin-top: 2px;
+        }
+
+        /* LAYER 3: VIEW & FILTER BAR */
+        .view-filter-bar {
+            background-color: var(--neutral-white);
+            border-bottom: 1px solid var(--neutral-200);
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .view-tabs {
+            display: flex;
+            gap: 8px;
+        }
+
+        .view-tab {
+            padding: 8px 16px;
+            border: 1px solid transparent;
+            border-radius: 6px;
+            background-color: transparent;
+            color: var(--neutral-600);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .view-tab.active {
+            color: var(--se-green);
+            border-bottom: 2px solid var(--se-green);
+        }
+
+        .view-tab:hover:not(.active) {
+            background-color: var(--neutral-100);
+        }
+
+        .filter-controls {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            border: 1px solid var(--neutral-300);
+            border-radius: 6px;
+            background-color: var(--neutral-white);
+            color: var(--neutral-700);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--neutral-400);
+            background-color: var(--neutral-50);
+        }
+
+        .filter-btn.all-filters {
+            border-color: var(--se-green);
+            color: var(--se-green);
+        }
+
+        .filter-btn.all-filters:hover {
+            background-color: rgba(0, 152, 95, 0.05);
+        }
+
+        .filter-badge {
+            background-color: var(--se-green);
+            color: white;
+            border-radius: 10px;
+            padding: 2px 6px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        /* LAYER 4: INSTALLED BASE LIST */
+        .asset-list-container {
+            background-color: var(--neutral-white);
+            flex: 1;
+            overflow-y: auto;
+            margin: 16px 0;
+            margin-left: 0;
+        }
+
+        .asset-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .asset-group-header {
+            background-color: var(--neutral-100);
+            padding: 12px 24px;
+            font-weight: 600;
+            color: var(--neutral-900);
+            font-size: 12px;
+            border-top: 1px solid var(--neutral-200);
+            border-bottom: 1px solid var(--neutral-200);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .asset-row {
+            border-bottom: 1px solid var(--neutral-200);
+            transition: background-color 0.2s;
+            cursor: pointer;
+            padding: 12px 24px;
+            display: flex;
+            gap: 0;
+        }
+
+        .asset-row:hover {
+            background-color: var(--neutral-50);
+        }
+
+        .asset-row.selected {
+            background-color: rgba(0, 152, 95, 0.05);
+            border-left: 3px solid var(--se-green);
+            padding-left: 21px;
+        }
+
+        .asset-col {
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            font-size: 13px;
+        }
+
+        .asset-col:first-child {
+            padding-left: 0;
+            flex: 0 0 35%;
+            min-width: 0;
+        }
+
+        .asset-col:nth-child(2) {
+            flex: 0 0 12%;
+        }
+
+        .asset-col:nth-child(3) {
+            flex: 0 0 20%;
+        }
+
+        .asset-col:nth-child(4) {
+            flex: 0 0 12%;
+        }
+
+        .asset-col:nth-child(5) {
+            flex: 0 0 10%;
+        }
+
+        .asset-col:nth-child(6) {
+            flex: 0 0 15%;
+        }
+
+        .asset-col:nth-child(7) {
+            flex: 0 0 8%;
+            justify-content: flex-end;
+            padding-right: 0;
+        }
+
+        .asset-content {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            min-width: 0;
+            flex: 1;
+        }
+
+        .asset-connectivity {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--se-green);
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .asset-connectivity.unknown {
+            color: var(--neutral-400);
+        }
+
+        .asset-connectivity.not-connected {
+            color: var(--neutral-600);
+        }
+
+        .asset-name {
+            font-weight: 600;
+            color: var(--neutral-900);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .asset-reference {
+            font-size: 12px;
+            color: var(--neutral-500);
+            font-family: var(--font-family-mono);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .asset-description {
+            font-size: 12px;
+            color: var(--neutral-600);
+            display: none;
+        }
+
+        .health-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .health-critical {
+            background-color: rgba(220, 38, 38, 0.1);
+            color: var(--health-critical);
+        }
+
+        .health-poor {
+            background-color: rgba(234, 88, 12, 0.1);
+            color: var(--health-poor);
+        }
+
+        .health-fair {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--health-fair);
+        }
+
+        .health-good {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--health-good);
+        }
+
+        .health-excellent {
+            background-color: rgba(0, 152, 95, 0.1);
+            color: var(--health-excellent);
+        }
+
+        .health-unknown {
+            background-color: rgba(107, 114, 128, 0.1);
+            color: var(--neutral-600);
+        }
+
+        .activity-label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        .activity-icon {
+            font-size: 14px;
+        }
+
+        .activity-live {
+            color: var(--health-good);
+        }
+
+        .activity-alert {
+            color: var(--health-poor);
+        }
+
+        .activity-issue {
+            color: var(--health-critical);
+        }
+
+        .activity-visit {
+            color: var(--neutral-600);
+        }
+
+        .activity-none {
+            color: var(--neutral-400);
+        }
+
+        .asset-action-btn {
+            background: none;
+            border: none;
+            color: var(--se-green);
+            cursor: pointer;
+            font-size: 16px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .asset-action-btn:hover {
+            background-color: rgba(0, 152, 95, 0.1);
+            color: var(--se-green-hover);
+        }
+
+        /* LAYER 5: ASSET DETAIL PANEL */
+        .detail-panel {
+            position: fixed;
+            right: 0;
+            top: 64px;
+            bottom: 0;
+            width: 480px;
+            background-color: var(--neutral-white);
+            border-left: 1px solid var(--neutral-200);
+            display: none;
+            flex-direction: column;
+            z-index: 90;
+            box-shadow: -2px 0 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .detail-panel.open {
+            display: flex;
+        }
+
+        .detail-panel-overlay {
+            position: fixed;
+            left: 0;
+            top: 64px;
+            right: 480px;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.3);
+            display: none;
+            z-index: 85;
+            transition: opacity 0.2s;
+        }
+
+        .detail-panel-overlay.open {
+            display: block;
+        }
+
+        .panel-header {
+            padding: 16px;
+            border-bottom: 1px solid var(--neutral-200);
+            flex-shrink: 0;
+        }
+
+        .panel-header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .panel-header-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .panel-location {
+            font-size: 11px;
+            color: var(--neutral-500);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .panel-asset-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--neutral-900);
+            margin-bottom: 4px;
+            word-break: break-word;
+        }
+
+        .panel-asset-type {
+            font-size: 12px;
+            color: var(--neutral-600);
+            margin-bottom: 8px;
+        }
+
+        .panel-header-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 8px;
+        }
+
+        .panel-badge {
+            background-color: var(--neutral-100);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            color: var(--neutral-700);
+            font-weight: 500;
+        }
+
+        .panel-close-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: var(--neutral-600);
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .panel-close-btn:hover {
+            background-color: var(--neutral-100);
+            color: var(--neutral-900);
+        }
+
+        /* Tab Navigation */
+        .panel-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--neutral-200);
+            gap: 0;
+            padding: 0 16px;
+            overflow-x: auto;
+            flex-shrink: 0;
+        }
+
+        .panel-tab {
+            padding: 12px 12px;
+            border: none;
+            background: none;
+            color: var(--neutral-600);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .panel-tab:hover {
+            color: var(--neutral-900);
+        }
+
+        .panel-tab.active {
+            color: var(--se-green);
+            border-bottom-color: var(--se-green);
+        }
+
+        /* Tab Content */
+        .panel-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .content-section {
+            margin-bottom: 20px;
+        }
+
+        .content-section-title {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--neutral-600);
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--neutral-200);
+        }
+
+        .content-field {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 8px;
+            margin-bottom: 10px;
+            font-size: 13px;
+        }
+
+        .content-field-label {
+            color: var(--neutral-600);
+            font-weight: 500;
+            flex-shrink: 0;
+        }
+
+        .content-field-value {
+            color: var(--neutral-900);
+            text-align: right;
+            flex: 1;
+        }
+
+        .component-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .component-tag {
+            background-color: var(--neutral-100);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: var(--neutral-700);
+        }
+
+        .metric-row {
+            background-color: var(--neutral-50);
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 3px solid var(--neutral-200);
+        }
+
+        .metric-row.normal {
+            border-left-color: var(--health-good);
+        }
+
+        .metric-row.alert {
+            border-left-color: var(--health-critical);
+            background-color: rgba(220, 38, 38, 0.05);
+        }
+
+        .metric-name {
+            font-size: 12px;
+            color: var(--neutral-600);
+            font-weight: 500;
+        }
+
+        .metric-value {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--neutral-900);
+            font-family: var(--font-family-mono);
+        }
+
+        .recommendation {
+            background-color: var(--neutral-50);
+            border-left: 3px solid var(--se-green);
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 12px;
+        }
+
+        .recommendation-priority {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            color: var(--se-green);
+            margin-bottom: 4px;
+        }
+
+        .recommendation-title {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--neutral-900);
+        }
+
+        /* Action Area */
+        .action-area {
+            padding: 16px;
+            border-top: 1px solid var(--neutral-200);
+            display: flex;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 10px 16px;
+            border: 1px solid var(--neutral-300);
+            border-radius: 6px;
+            background-color: var(--neutral-white);
+            color: var(--neutral-900);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .action-btn:hover {
+            border-color: var(--neutral-400);
+            background-color: var(--neutral-50);
+        }
+
+        .action-btn.primary {
+            background-color: var(--se-green);
+            color: white;
+            border-color: var(--se-green);
+        }
+
+        .action-btn.primary:hover {
+            background-color: var(--se-green-hover);
+            border-color: var(--se-green-hover);
+        }
+
+        /* All Filters Panel */
+        .all-filters-panel {
+            position: fixed;
+            left: 0;
+            top: 64px;
+            bottom: 0;
+            width: 360px;
+            background-color: var(--neutral-white);
+            border-right: 1px solid var(--neutral-200);
+            display: none;
+            flex-direction: column;
+            z-index: 95;
+            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .all-filters-panel.open {
+            display: flex;
+        }
+
+        .filters-header {
+            padding: 16px;
+            border-bottom: 1px solid var(--neutral-200);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .filters-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--neutral-900);
+        }
+
+        .filters-close {
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: var(--neutral-600);
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .filters-close:hover {
+            color: var(--neutral-900);
+        }
+
+        .filters-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+        }
+
+        .filter-group {
+            margin-bottom: 20px;
+        }
+
+        .filter-group-label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--neutral-700);
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .filter-options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+            font-size: 13px;
+            color: var(--neutral-700);
+        }
+
+        .filter-option:hover {
+            background-color: var(--neutral-100);
+        }
+
+        .filter-checkbox {
+            width: 18px;
+            height: 18px;
+            border: 1px solid var(--neutral-300);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            background-color: var(--neutral-white);
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .filter-option:hover .filter-checkbox {
+            border-color: var(--se-green);
+        }
+
+        .filter-checkbox.checked {
+            background-color: var(--se-green);
+            border-color: var(--se-green);
+            color: white;
+        }
+
+        .filter-checkbox.checked::after {
+            content: '✓';
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .filters-footer {
+            padding: 16px;
+            border-top: 1px solid var(--neutral-200);
+            display: flex;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .filters-btn {
+            flex: 1;
+            padding: 10px 16px;
+            border: 1px solid var(--neutral-300);
+            border-radius: 6px;
+            background-color: var(--neutral-white);
+            color: var(--neutral-900);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filters-btn.apply {
+            background-color: var(--se-green);
+            color: white;
+            border-color: var(--se-green);
+        }
+
+        .filters-btn.apply:hover {
+            background-color: var(--se-green-hover);
+        }
+
+        /* Main Layout */
+        .app-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .app-body {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .list-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transition: margin-left 0.3s ease;
+        }
+
+        .list-area.filters-open {
+            margin-left: 360px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .detail-panel {
+                width: 400px;
+            }
+
+            .asset-col:first-child {
+                flex: 0 0 40%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .detail-panel {
+                width: 100%;
+                right: 0;
+            }
+
+            .panel-tabs {
+                overflow-x: auto;
+            }
+
+            .asset-col:nth-child(3) {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- LAYER 1: MAIN NAVIGATION -->
+        <nav class="main-nav">
+            <div class="nav-left">
+                <div class="nav-logo">SE</div>
+                <div class="nav-product-name">Installed Base Intelligence</div>
+                <div class="nav-search">
+                    <input type="text" placeholder="Search assets, sites, documents" id="globalSearch">
+                </div>
+            </div>
+            <div class="nav-right">
+                <div class="nav-help">❓</div>
+                <div class="nav-user-menu">
+                    <div class="nav-user-avatar">AU</div>
+                    <div class="nav-user-name">Anna Utz</div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- LAYER 2: PAGE HEADER -->
+        <div class="page-header">
+            <div class="header-site-context">
+                <span>📍</span>
+                <strong>Demo Data Center — DC-WE01</strong>
+            </div>
+            <div class="header-divider"></div>
+            <div class="header-pill">Reference Campus</div>
+            <div class="header-portfolio">
+                <div class="header-portfolio-title">Asset Portfolio</div>
+                <div class="header-portfolio-summary">2 Buildings · 3 Electrical Rooms · Component hierarchy + intelligence enabled</div>
+            </div>
+        </div>
+
+        <div class="app-body">
+            <!-- ALL FILTERS PANEL (sliding from left) -->
+            <div class="all-filters-panel" id="allFiltersPanel">
+                <div class="filters-header">
+                    <div class="filters-title">Filters</div>
+                    <button class="filters-close" onclick="toggleFiltersPanel()">✕</button>
+                </div>
+                <div class="filters-content" id="filtersContent">
+                    <!-- Generated by JavaScript -->
+                </div>
+                <div class="filters-footer">
+                    <button class="filters-btn" onclick="clearAllFilters()">Clear All</button>
+                    <button class="filters-btn apply" onclick="applyFilters()">Apply</button>
+                </div>
+            </div>
+
+            <!-- LAYER 3 & 4: VIEW/FILTER BAR & LIST -->
+            <div class="list-area" id="listArea">
+                <!-- LAYER 3: VIEW & FILTER BAR -->
+                <div class="view-filter-bar">
+                    <div class="view-tabs">
+                        <button class="view-tab active" data-view="list" onclick="switchView('list')">List</button>
+                        <button class="view-tab" data-view="geography" onclick="switchView('geography')">Geography</button>
+                        <button class="view-tab" data-view="electrical" onclick="switchView('electrical')">Electrical</button>
+                    </div>
+                    <div class="filter-controls">
+                        <button class="filter-btn" onclick="toggleFilter('location')">
+                            Location
+                            <span class="filter-badge" id="locationBadge" style="display:none;">0</span>
+                        </button>
+                        <button class="filter-btn" onclick="toggleFilter('type')">
+                            Asset Type
+                            <span class="filter-badge" id="typeBadge" style="display:none;">0</span>
+                        </button>
+                        <button class="filter-btn" onclick="toggleFilter('contract')">
+                            Contract Type
+                            <span class="filter-badge" id="contractBadge" style="display:none;">0</span>
+                        </button>
+                        <button class="filter-btn all-filters" onclick="toggleFiltersPanel()">
+                            All Filters
+                            <span class="filter-badge" id="allFiltersBadge" style="display:none;">0</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- LAYER 4: INSTALLED BASE LIST -->
+                <div class="asset-list-container" id="assetListContainer">
+                    <table class="asset-table" id="assetTable">
+                        <!-- Generated by JavaScript -->
+                    </table>
+                </div>
+            </div>
+
+            <!-- Panel overlay -->
+            <div class="detail-panel-overlay" id="detailOverlay" onclick="closeDetailPanel()"></div>
+
+            <!-- LAYER 5: ASSET DETAIL PANEL -->
+            <div class="detail-panel" id="detailPanel">
+                <div class="panel-header">
+                    <div class="panel-header-content">
+                        <div class="panel-header-info">
+                            <div class="panel-location" id="panelLocation"></div>
+                            <div class="panel-asset-name" id="panelAssetName"></div>
+                            <div class="panel-asset-type" id="panelAssetType"></div>
+                            <div class="panel-header-badges" id="panelBadges"></div>
+                        </div>
+                        <button class="panel-close-btn" onclick="closeDetailPanel()">✕</button>
+                    </div>
+                </div>
+
+                <!-- Tab Navigation -->
+                <div class="panel-tabs">
+                    <button class="panel-tab active" data-tab="overview" onclick="switchTab('overview')">Overview</button>
+                    <button class="panel-tab" data-tab="health" onclick="switchTab('health')">Health</button>
+                    <button class="panel-tab" data-tab="intelligence" onclick="switchTab('intelligence')">Intelligence</button>
+                    <button class="panel-tab" data-tab="passport" onclick="switchTab('passport')">Passport</button>
+                    <button class="panel-tab" data-tab="history" onclick="switchTab('history')">History</button>
+                    <button class="panel-tab" data-tab="documents" onclick="switchTab('documents')">Documents</button>
+                </div>
+
+                <!-- Tab Content -->
+                <div class="panel-content">
+                    <div class="tab-content active" data-tab="overview" id="tab-overview">
+                        <!-- Generated by JavaScript -->
+                    </div>
+                    <div class="tab-content" data-tab="health" id="tab-health">
+                        <!-- Generated by JavaScript -->
+                    </div>
+                    <div class="tab-content" data-tab="intelligence" id="tab-intelligence">
+                        <!-- Generated by JavaScript -->
+                    </div>
+                    <div class="tab-content" data-tab="passport" id="tab-passport">
+                        <!-- Generated by JavaScript -->
+                    </div>
+                    <div class="tab-content" data-tab="history" id="tab-history">
+                        <!-- Generated by JavaScript -->
+                    </div>
+                    <div class="tab-content" data-tab="documents" id="tab-documents">
+                        <!-- Generated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Action Area -->
+                <div class="action-area">
+                    <button class="action-btn">Download Report</button>
+                    <button class="action-btn">Contact Expert</button>
+                    <button class="action-btn primary" onclick="scheduleService()">Schedule Service</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Asset data (simplified from YAML)
+        const assetsData = [
+            { asset_id: 'AST-001', name: 'SM6 24kV — Utility Intake A', type: 'MV Switchgear', building: 'Building A', area: 'MV Substation', room: 'A-MV01', connectivity: 'connected', coverage: 'EcoCare Advanced', dpp: true, health: 'Excellent', activity: 'Live telemetry', date: '2026-05-28', description: 'Medium-voltage utility intake cell for A-side supply', manufacturer: 'Schneider Electric' },
+            { asset_id: 'AST-002', name: 'SM6 24kV — Bus Coupler', type: 'MV Switchgear', building: 'Building A', area: 'MV Substation', room: 'A-MV01', connectivity: 'connected', coverage: 'EcoCare Advanced', dpp: true, health: 'Poor', activity: 'Active alert', date: '2026-06-01', description: 'Medium-voltage bus coupler cell between A and B MV sections', manufacturer: 'Schneider Electric' },
+            { asset_id: 'AST-003', name: 'Okken — Main LV Switchboard A', type: 'LV Switchgear', building: 'Building A', area: 'LV Room A', room: 'A-LV01', connectivity: 'connected', coverage: 'EcoCare Advanced', dpp: true, health: 'Good', activity: 'Live telemetry', date: '2026-05-28', description: 'A-side main low-voltage switchboard feeding critical loads', manufacturer: 'Schneider Electric' },
+            { asset_id: 'AST-004', name: 'Galaxy VXL 400kVA — UPS A', type: 'UPS', building: 'Building A', area: 'UPS Room', room: 'A-UP01', connectivity: 'connected', coverage: 'EcoCare Essential', dpp: true, health: 'Excellent', activity: 'Live telemetry', date: '2026-05-28', description: 'Mission-critical UPS providing N+1 redundancy', manufacturer: 'Schneider Electric' },
+            { asset_id: 'AST-005', name: 'Netbotz Environmental Sensor A', type: 'Monitoring', building: 'Building A', area: 'LV Room A', room: 'A-LV01', connectivity: 'connected', coverage: 'No Coverage', dpp: false, health: 'Good', activity: 'Live telemetry', date: '2026-05-28', description: 'Environmental monitoring device', manufacturer: 'Schneider Electric' },
+            { asset_id: 'AST-006', name: 'Mitsubishi Cooling Unit — A', type: 'Cooling', building: 'Building A', area: 'Cooling Plant', room: 'A-CL01', connectivity: 'unknown', coverage: 'No Coverage', dpp: false, health: 'Unknown', activity: 'No record', date: null, description: 'Cooling unit for HVAC system', manufacturer: 'Mitsubishi' },
+            { asset_id: 'AST-007', name: 'SM6 24kV — Utility Intake B', type: 'MV Switchgear', building: 'Building B', area: 'MV Substation', room: 'B-MV01', connectivity: 'connected', coverage: 'Adv. Service Plan', dpp: true, health: 'Fair', activity: 'Last service visit', date: '2026-04-15', description: 'Medium-voltage utility intake cell for B-side supply', manufacturer: 'Schneider Electric' },
+            { asset_id: 'AST-008', name: 'Okken — Main LV Switchboard B', type: 'LV Switchgear', building: 'Building B', area: 'LV Room B', room: 'B-LV01', connectivity: 'connected', coverage: 'EcoCare Essential', dpp: true, health: 'Good', activity: 'Live telemetry', date: '2026-05-28', description: 'B-side main low-voltage switchboard feeding critical loads', manufacturer: 'Schneider Electric' },
+            { asset_id: 'AST-009', name: 'Galaxy VXL 400kVA — UPS B', type: 'UPS', building: 'Building B', area: 'UPS Room', room: 'B-UP01', connectivity: 'not-connected', coverage: 'No Coverage', dpp: false, health: 'Good', activity: 'Last service visit', date: '2026-03-10', description: 'Backup UPS unit', manufacturer: 'Schneider Electric' },
+            { asset_id: 'AST-010', name: 'Netbotz Environmental Sensor B', type: 'Monitoring', building: 'Building B', area: 'LV Room B', room: 'B-LV01', connectivity: 'unknown', coverage: 'No Coverage', dpp: false, health: 'Unknown', activity: 'No record', date: null, description: 'Environmental monitoring device', manufacturer: 'Schneider Electric' },
+        ];
+
+        let currentAssets = [...assetsData];
+        let selectedAsset = null;
+        let activeFilters = {};
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeFiltersPanel();
+            renderAssetList();
+        });
+
+        function initializeFiltersPanel() {
+            const filtersContent = document.getElementById('filtersContent');
+            const filterCategories = {
+                'Health': ['Critical', 'Poor', 'Fair', 'Good', 'Excellent'],
+                'Connectivity': ['Connected', 'Non-connected'],
+                'Coverage': ['EcoCare Advanced', 'EcoCare Essential', 'Adv. Service Plan', 'No Coverage'],
+                'DPP': ['With Digital Product Passport', 'Without Digital Product Passport'],
+                'Activity': ['Live Telemetry', 'Active Alert', 'Last Service Visit', 'No Record'],
+                'Age': ['< 5 years', '5–9 years', '10+ years'],
+                'Location': ['Building A', 'Building B'],
+                'Asset Type': ['MV Switchgear', 'LV Switchgear', 'UPS', 'Cooling', 'Monitoring'],
+                'Contract Type': ['EcoCare Advanced', 'EcoCare Essential', 'Adv. Service Plan', 'No Coverage']
+            };
+
+            filtersContent.innerHTML = '';
+            for (const [category, options] of Object.entries(filterCategories)) {
+                const group = document.createElement('div');
+                group.className = 'filter-group';
+                group.innerHTML = `<label class="filter-group-label">${category}</label><div class="filter-options">`;
+                
+                options.forEach(option => {
+                    const optionDiv = document.createElement('div');
+                    optionDiv.className = 'filter-option';
+                    optionDiv.innerHTML = `
+                        <div class="filter-checkbox" onclick="toggleFilterOption('${category}', '${option}', event)"></div>
+                        <span>${option}</span>
+                    `;
+                    group.querySelector('.filter-options').appendChild(optionDiv);
+                });
+                filtersContent.appendChild(group);
+            }
+        }
+
+        function toggleFiltersPanel() {
+            const panel = document.getElementById('allFiltersPanel');
+            const listArea = document.getElementById('listArea');
+            panel.classList.toggle('open');
+            listArea.classList.toggle('filters-open');
+        }
+
+        function toggleFilterOption(category, option, event) {
+            event.stopPropagation();
+            const checkbox = event.target.closest('.filter-checkbox');
+            checkbox.classList.toggle('checked');
+            
+            if (!activeFilters[category]) activeFilters[category] = [];
+            if (checkbox.classList.contains('checked')) {
+                if (!activeFilters[category].includes(option)) activeFilters[category].push(option);
+            } else {
+                activeFilters[category] = activeFilters[category].filter(o => o !== option);
+            }
+        }
+
+        function applyFilters() {
+            filterAssets();
+            toggleFiltersPanel();
+            updateFilterBadges();
+        }
+
+        function filterAssets() {
+            currentAssets = assetsData.filter(asset => {
+                for (const [category, selectedValues] of Object.entries(activeFilters)) {
+                    if (selectedValues.length === 0) continue;
+                    
+                    let assetValue = null;
+                    if (category === 'Health') assetValue = asset.health;
+                    if (category === 'Connectivity') assetValue = asset.connectivity === 'connected' ? 'Connected' : asset.connectivity === 'not-connected' ? 'Non-connected' : 'Unknown';
+                    if (category === 'Coverage') assetValue = asset.coverage;
+                    if (category === 'DPP') assetValue = asset.dpp ? 'With Digital Product Passport' : 'Without Digital Product Passport';
+                    if (category === 'Activity') assetValue = asset.activity.replace(/^./, asset.activity[0].toUpperCase());
+                    if (category === 'Location') assetValue = asset.building;
+                    if (category === 'Asset Type') assetValue = asset.type;
+                    if (category === 'Contract Type') assetValue = asset.coverage;
+                    
+                    if (assetValue && !selectedValues.includes(assetValue)) return false;
+                }
+                return true;
+            });
+            renderAssetList();
+        }
+
+        function clearAllFilters() {
+            activeFilters = {};
+            document.querySelectorAll('.filter-checkbox').forEach(cb => cb.classList.remove('checked'));
+            currentAssets = [...assetsData];
+            renderAssetList();
+            updateFilterBadges();
+        }
+
+        function updateFilterBadges() {
+            const totalActive = Object.values(activeFilters).reduce((sum, arr) => sum + arr.length, 0);
+            const badges = ['locationBadge', 'typeBadge', 'contractBadge', 'allFiltersBadge'];
+            if (totalActive > 0) {
+                badges.forEach(id => {
+                    const badge = document.getElementById(id);
+                    badge.style.display = 'inline-flex';
+                    badge.textContent = totalActive;
+                });
+            } else {
+                badges.forEach(id => document.getElementById(id).style.display = 'none');
+            }
+        }
+
+        function renderAssetList() {
+            const table = document.getElementById('assetTable');
+            table.innerHTML = '';
+
+            // Group by building, then by area, then by room
+            const grouped = {};
+            currentAssets.forEach(asset => {
+                const buildingKey = asset.building;
+                const areaKey = `${asset.building}/${asset.area}`;
+                const roomKey = `${asset.building}/${asset.area}/${asset.room}`;
+                
+                if (!grouped[buildingKey]) grouped[buildingKey] = {};
+                if (!grouped[buildingKey][areaKey]) grouped[buildingKey][areaKey] = {};
+                if (!grouped[buildingKey][areaKey][roomKey]) grouped[buildingKey][areaKey][roomKey] = [];
+                grouped[buildingKey][areaKey][roomKey].push(asset);
+            });
+
+            // Render grouped structure
+            for (const building in grouped) {
+                for (const area in grouped[building]) {
+                    for (const room in grouped[building][area]) {
+                        const roomLabel = room.split('/').pop();
+                        const tr = document.createElement('tr');
+                        tr.className = 'asset-group-header';
+                        tr.innerHTML = `<td colspan="7">${building} → ${area.split('/')[1]} → ${roomLabel}</td>`;
+                        table.appendChild(tr);
+
+                        grouped[building][area][room].forEach(asset => {
+                            const row = document.createElement('tr');
+                            row.className = 'asset-row';
+                            row.id = `asset-${asset.asset_id}`;
+                            row.onclick = () => selectAsset(asset);
+
+                            const connectivity = asset.connectivity === 'connected' ? 'Connected' : asset.connectivity === 'not-connected' ? 'Not connected' : 'Unknown';
+                            
+                            row.innerHTML = `
+                                <td class="asset-col">
+                                    <div class="asset-content">
+                                        <div class="asset-connectivity ${asset.connectivity}">${connectivity}</div>
+                                        <div class="asset-name">${asset.name}</div>
+                                        <div class="asset-reference">${asset.asset_id}</div>
+                                    </div>
+                                </td>
+                                <td class="asset-col">${asset.type}</td>
+                                <td class="asset-col">${asset.area}<br><span style="font-size:11px;color:var(--neutral-500);">${asset.room}</span></td>
+                                <td class="asset-col">${asset.coverage}<br><span style="font-size:11px;color:var(--neutral-500);">${asset.dpp ? 'DPP Enabled' : 'No DPP'}</span></td>
+                                <td class="asset-col"><span class="health-badge health-${asset.health.toLowerCase()}">${asset.health}</span></td>
+                                <td class="asset-col">
+                                    <div class="activity-label">
+                                        <span class="activity-icon activity-${asset.activity.toLowerCase().replace(/ /g, '-')}">${getActivityIcon(asset.activity)}</span>
+                                        <span>${asset.activity}</span>
+                                    </div>
+                                    ${asset.date ? `<span style="font-size:11px;color:var(--neutral-500);">${asset.date}</span>` : ''}
+                                </td>
+                                <td class="asset-col"><button class="asset-action-btn">→</button></td>
+                            `;
+                            table.appendChild(row);
+                        });
+                    }
+                }
+            }
+        }
+
+        function getActivityIcon(activity) {
+            const icons = {
+                'Live telemetry': '✓',
+                'Active alert': '⚠',
+                'Last service visit': '◷',
+                'No record': '—'
+            };
+            return icons[activity] || '—';
+        }
+
+        function selectAsset(asset) {
+            selectedAsset = asset;
+            document.querySelectorAll('.asset-row').forEach(r => r.classList.remove('selected'));
+            document.getElementById(`asset-${asset.asset_id}`)?.classList.add('selected');
+            
+            // Populate detail panel
+            document.getElementById('panelLocation').textContent = `${asset.building} → ${asset.area} → ${asset.room}`;
+            document.getElementById('panelAssetName').textContent = asset.name;
+            document.getElementById('panelAssetType').textContent = asset.type;
+            
+            const badges = document.getElementById('panelBadges');
+            badges.innerHTML = `
+                <span class="panel-badge">${asset.connectivity === 'connected' ? 'Connected' : asset.connectivity === 'not-connected' ? 'Not Connected' : 'Unknown'}</span>
+                <span class="panel-badge">${asset.coverage}</span>
+                <span class="panel-badge">${asset.dpp ? 'DPP Enabled' : 'No DPP'}</span>
+            `;
+
+            populateTabs(asset);
+            
+            document.getElementById('detailPanel').classList.add('open');
+            document.getElementById('detailOverlay').classList.add('open');
+        }
+
+        function populateTabs(asset) {
+            // Overview Tab
+            document.getElementById('tab-overview').innerHTML = `
+                <div class="content-section">
+                    <div class="content-section-title">Identity</div>
+                    <div class="content-field">
+                        <span class="content-field-label">Name</span>
+                        <span class="content-field-value">${asset.name}</span>
+                    </div>
+                    <div class="content-field">
+                        <span class="content-field-label">Type</span>
+                        <span class="content-field-value">${asset.type}</span>
+                    </div>
+                    <div class="content-field">
+                        <span class="content-field-label">Manufacturer</span>
+                        <span class="content-field-value">${asset.manufacturer}</span>
+                    </div>
+                </div>
+                <div class="content-section">
+                    <div class="content-section-title">Service</div>
+                    <div class="content-field">
+                        <span class="content-field-label">Coverage</span>
+                        <span class="content-field-value">${asset.coverage}</span>
+                    </div>
+                    <div class="content-field">
+                        <span class="content-field-label">DPP Enabled</span>
+                        <span class="content-field-value">${asset.dpp ? 'Yes' : 'No'}</span>
+                    </div>
+                </div>
+                <div class="content-section">
+                    <div class="content-section-title">Key Components</div>
+                    <div class="component-list">
+                        <div class="component-tag">Main Module</div>
+                        <div class="component-tag">Protection System</div>
+                        <div class="component-tag">Interface</div>
+                    </div>
+                </div>
+            `;
+
+            // Health Tab
+            document.getElementById('tab-health').innerHTML = `
+                <div class="content-section">
+                    <div class="content-section-title">Condition</div>
+                    <div class="content-field">
+                        <span class="content-field-label">Level</span>
+                        <span class="health-badge health-${asset.health.toLowerCase()}">${asset.health}</span>
+                    </div>
+                    <div class="content-field">
+                        <span class="content-field-label">Trend</span>
+                        <span class="content-field-value">Stable</span>
+                    </div>
+                    <div class="content-field">
+                        <span class="content-field-label">Risk</span>
+                        <span class="content-field-value">Low</span>
+                    </div>
+                </div>
+                <div class="content-section">
+                    <div class="content-section-title">Live Metrics</div>
+                    <div class="metric-row normal">
+                        <span class="metric-name">Voltage</span>
+                        <span class="metric-value">400 V</span>
+                    </div>
+                    <div class="metric-row normal">
+                        <span class="metric-name">Load</span>
+                        <span class="metric-value">72%</span>
+                    </div>
+                    <div class="metric-row normal">
+                        <span class="metric-name">Temperature</span>
+                        <span class="metric-value">34°C</span>
+                    </div>
+                </div>
+                <div class="content-section">
+                    <div class="content-section-title">Last Visit</div>
+                    <div class="content-field">
+                        <span class="content-field-label">Date</span>
+                        <span class="content-field-value">${asset.date || 'N/A'}</span>
+                    </div>
+                    <div class="content-field">
+                        <span class="content-field-label">Type</span>
+                        <span class="content-field-value">Preventive Maintenance</span>
+                    </div>
+                </div>
+            `;
+
+            // Intelligence Tab
+            document.getElementById('tab-intelligence').innerHTML = `
+                <div class="content-section">
+                    <div class="content-section-title">Diagnosis</div>
+                    <p style="font-size:13px;color:var(--neutral-700);line-height:1.6;">Asset condition requires routine monitoring according to service coverage.</p>
+                </div>
+                <div class="content-section">
+                    <div class="content-section-title">Fleet Position</div>
+                    <div class="content-field">
+                        <span class="content-field-label">Position</span>
+                        <span class="content-field-value">Within expected range</span>
+                    </div>
+                    <div class="content-field">
+                        <span class="content-field-label">Cohort</span>
+                        <span class="content-field-value">Comparable service age</span>
+                    </div>
+                </div>
+                <div class="content-section">
+                    <div class="content-section-title">Recommendations</div>
+                    <div class="recommendation">
+                        <div class="recommendation-priority">Medium</div>
+                        <div class="recommendation-title">Continue scheduled maintenance plan</div>
+                    </div>
+                </div>
+            `;
+
+            // Passport Tab
+            document.getElementById('tab-passport').innerHTML = `
+                <div class="content-section">
+                    <div class="content-section-title">Product Information</div>
+                    <div class="content-field">
+                        <span class="content-field-label">Serial Number</span>
+                        <span class="content-field-value" style="font-family:var(--font-family-mono);font-size:11px;">SE-${asset.asset_id}</span>
+                    </div>
+                    <div class="content-field">
+                        <span class="content-field-label">Installation Date</span>
+                        <span class="content-field-value">2022-04-15</span>
+                    </div>
+                    <div class="content-field">
+                        <span class="content-field-label">Lifecycle Status</span>
+                        <span class="content-field-value">Active</span>
+                    </div>
+                </div>
+                <div class="content-section">
+                    <div class="content-section-title">Support</div>
+                    <div class="content-field">
+                        <span class="content-field-label">Firmware</span>
+                        <span class="content-field-value">P7 v3.2</span>
+                    </div>
+                    <div class="content-field">
+                        <span class="content-field-label">End of Support</span>
+                        <span class="content-field-value">2042-12-31</span>
+                    </div>
+                </div>
+            `;
+
+            // History Tab
+            document.getElementById('tab-history').innerHTML = `
+                <div class="content-section">
+                    <div class="content-section-title">Recent Events</div>
+                    <div style="background-color:var(--neutral-50);padding:12px;border-radius:6px;border-left:3px solid var(--se-green);">
+                        <div style="font-size:13px;font-weight:500;color:var(--neutral-900);">Latest Recorded Activity</div>
+                        <div style="font-size:12px;color:var(--neutral-600);margin-top:4px;">${asset.date || 'N/A'}</div>
+                    </div>
+                </div>
+            `;
+
+            // Documents Tab
+            document.getElementById('tab-documents').innerHTML = `
+                <div class="content-section">
+                    <div class="content-section-title">Available Documents</div>
+                    <div style="display:flex;flex-direction:column;gap:8px;">
+                        <div style="background-color:var(--neutral-50);padding:12px;border-radius:6px;display:flex;justify-content:space-between;align-items:center;">
+                            <div>
+                                <div style="font-size:13px;font-weight:500;color:var(--neutral-900);">Asset Datasheet</div>
+                                <div style="font-size:11px;color:var(--neutral-600);margin-top:2px;">DOC-${asset.asset_id}</div>
+                            </div>
+                            <button style="background:none;border:none;color:var(--se-green);cursor:pointer;font-size:16px;">↓</button>
+                        </div>
+                        <div style="background-color:var(--neutral-50);padding:12px;border-radius:6px;display:flex;justify-content:space-between;align-items:center;">
+                            <div>
+                                <div style="font-size:13px;font-weight:500;color:var(--neutral-900);">Maintenance Record</div>
+                                <div style="font-size:11px;color:var(--neutral-600);margin-top:2px;">REC-${asset.asset_id}</div>
+                            </div>
+                            <button style="background:none;border:none;color:var(--se-green);cursor:pointer;font-size:16px;">↓</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.panel-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+            document.getElementById(`tab-${tabName}`).classList.add('active');
+        }
+
+        function closeDetailPanel() {
+            document.getElementById('detailPanel').classList.remove('open');
+            document.getElementById('detailOverlay').classList.remove('open');
+            selectedAsset = null;
+            document.querySelectorAll('.asset-row').forEach(r => r.classList.remove('selected'));
+        }
+
+        function switchView(view) {
+            document.querySelectorAll('.view-tab').forEach(t => t.classList.remove('active'));
+            document.querySelector(`[data-view="${view}"]`).classList.add('active');
+            // In a real app, this would switch between different view modes
+        }
+
+        function toggleFilter(filter) {
+            // Quick filter toggles would go here
+        }
+
+        function scheduleService() {
+            alert('Schedule Service - would open scheduling interface for: ' + selectedAsset.name);
+        }
+
+        // Global search
+        document.getElementById('globalSearch').addEventListener('keyup', function(e) {
+            const query = e.target.value.toLowerCase();
+            currentAssets = assetsData.filter(asset => 
+                asset.name.toLowerCase().includes(query) || 
+                asset.asset_id.toLowerCase().includes(query)
+            );
+            renderAssetList();
+        });
+    </script>
+</body>
+</html>
