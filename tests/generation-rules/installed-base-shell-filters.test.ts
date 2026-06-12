@@ -36,8 +36,10 @@ describe("generation rules: installed base shell and filters", () => {
 
     expect(mainNavigation).toContain("Input");
     expect(mainNavigation).toContain("Button");
-    expect(mainNavigation).toContain("Installed Base Intelligence");
-    expect(mainNavigation).toContain("Search assets, sites, documents");
+    expect(mainNavigation).toContain("productName = \"Workspace\"");
+    expect(mainNavigation).toContain("searchPlaceholder = \"Search\"");
+    expect(mainNavigation).not.toContain("Installed Base Intelligence");
+    expect(mainNavigation).not.toContain("Search assets, sites, documents");
   });
 
   it("keeps installed base header aligned to the five required elements", () => {
