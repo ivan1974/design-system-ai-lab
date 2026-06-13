@@ -3,224 +3,384 @@
 ## Status
 
 ```txt
-RUNTIME GUIDANCE / INTENT / PRINCIPLES / COMPONENT USE
+RUNTIME GUIDANCE / GENAI REASONING / NON-CONTRACTUAL
 ```
 
 ## Purpose
 
-This file explains how GenAI should balance the user's prompt, design-system principles, domain knowledge, component guidance and contracts.
+This file defines how GenAI should reason when generating or reviewing screens with the design system.
 
-It prevents the guidelines from turning GenAI into a rigid screen generator.
+It exists to prevent two failures:
+
+```txt
+1. GenAI ignores the design system and produces arbitrary UI.
+2. GenAI over-applies the design system and becomes a rigid screen assembler.
+```
+
+The target behavior is a design co-pilot:
+
+```txt
+understand the prompt
+preserve user intent
+apply domain knowledge
+use design principles
+choose suitable DS material
+avoid critical failures
+```
 
 ---
 
-## Core rule
+## Core principle
 
 The designer prompt is the brief.
 
-GenAI is the design co-pilot.
+The design system is the guidance system.
 
-The design system provides judgment, vocabulary and guardrails.
+GenAI should not erase the designer's intent.
+
+GenAI should improve the proposal by applying knowledge, principles and good component usage.
 
 ```txt
-Prompt defines intent.
-Principles guide reasoning.
+Prompt defines the desired outcome.
+Principles guide the reasoning.
 Knowledge grounds the domain.
-Components provide UI vocabulary.
+Components provide possible UI vocabulary.
 Contracts block critical failures.
-Reference screens inspire, but do not dictate.
+Reference examples inspire, but do not dictate.
 ```
 
 ---
 
-## Recommended reasoning order
+## Reasoning order
 
-Use this order before generating or reviewing a screen:
+Use this order before composing UI:
 
 ```txt
-1. Understand the user prompt.
-2. Identify the user role and goal when provided or implied.
-3. Identify the primary decision or action the screen should support.
-4. Identify the domain object and business context.
-5. Identify what facts, evidence, interpretation and actions are involved.
-6. Decide whether AI adds value or whether structured data is enough.
-7. Select primitives, usage components or candidate patterns according to intent.
-8. Compose the screen.
-9. Review against principles and light guardrails.
+1. Prompt intent
+2. User role and task
+3. Primary decision or job to be done
+4. Domain object and business context
+5. Evidence, trust and validation needs
+6. Information hierarchy
+7. Component or primitive selection
+8. Visual composition
+9. Review and repair
 ```
 
-Do not start from a component list.
+Do not start at step 7.
 
-Do not force the reference screen unless the prompt asks for it.
+Component selection is a consequence of reasoning.
 
 ---
 
-## How to reconcile principles
+## What each layer does
 
-### Decision-first, proof-second
+### 1. Prompt intent
 
-Use this for screen intent and hierarchy.
-
-Ask:
+Answers:
 
 ```txt
-What decision or action should the screen help the user make?
+What does the designer or user want to create?
+What outcome is expected?
+What constraints are explicit?
 ```
 
-### Facts before interpretation
+Follow the prompt unless it creates a critical failure.
 
-Use this for trust and evidence.
+---
 
-Ask:
+### 2. User role and task
+
+Answers:
 
 ```txt
-What facts or sources support the interpretation or recommendation?
+Who is using this screen?
+What are they trying to do?
+What level of detail do they need?
 ```
 
-These principles do not conflict.
+Avoid role-neutral screens when the prompt implies a specific role.
 
-The screen should be decision-led, while the proof trail should keep facts visibly grounded before interpretation.
+---
 
-Preferred formulation:
+### 3. Primary decision or job to be done
+
+Answers:
 
 ```txt
-Start the screen from the decision need.
-Support interpretation with visible facts.
+What decision, action or understanding should the screen support?
+```
+
+This is the meaning of decision-first.
+
+It does not mean facts disappear.
+
+It means the screen should be organized around a user decision or task, not around all available data.
+
+---
+
+### 4. Domain object and context
+
+Answers:
+
+```txt
+What is the main object?
+Asset?
+Site?
+Recommendation?
+Document?
+Customer?
+Service action?
+```
+
+Use domain knowledge to avoid semantic errors.
+
+---
+
+### 5. Evidence, trust and validation needs
+
+Answers:
+
+```txt
+What supports the claim?
+What is observed?
+What is interpreted?
+What is uncertain?
+What needs validation?
+```
+
+This is where facts-before-interpretation applies.
+
+Facts-before-interpretation is a trust rule, not a mandatory visual order for every screen.
+
+---
+
+### 6. Information hierarchy
+
+Answers:
+
+```txt
+What should be visible first?
+What can be secondary?
+What should be progressively disclosed?
+```
+
+Use:
+
+```txt
+Signal → Decision → Evidence
+```
+
+as a hierarchy model when it supports the prompt.
+
+---
+
+### 7. Component or primitive selection
+
+Answers:
+
+```txt
+Is this a generic UI behavior?
+Is this a recurring product usage?
+Is this a candidate pattern?
+Is this a reference composition?
+```
+
+Choose DS material according to intent.
+
+Do not mechanically map concepts to components.
+
+---
+
+### 8. Visual composition
+
+Answers:
+
+```txt
+How should the screen be arranged for clarity, density, hierarchy and trust?
+```
+
+Prefer sober, operational UI.
+
+Avoid decorative dashboards when the task is decision support.
+
+---
+
+### 9. Review and repair
+
+Answers:
+
+```txt
+Does the screen respect the prompt?
+Does it support the intended decision?
+Does it preserve domain meaning?
+Does it avoid critical failures?
+```
+
+Repair the smallest failing layer.
+
+Do not add more UI to fix a reasoning problem.
+
+---
+
+## Compatibility of key principles
+
+### Decision-first and facts-before-interpretation
+
+These principles are compatible.
+
+```txt
+Decision-first
+  defines what the screen is for.
+
+Facts-before-interpretation
+  defines how trust should be built when claims, recommendations or AI interpretation are shown.
+```
+
+Use this combined rule:
+
+```txt
+Start the screen from the user's decision need.
+Support interpretations with visible or accessible facts.
 Never let AI interpretation replace source evidence.
 ```
 
 ---
 
-## Guidance levels
+### Signal → Decision → Evidence
 
-Use the right strength of rule.
+This is a disclosure model, not a rigid layout.
+
+Use it when users need rapid orientation.
+
+Do not use it to hide evidence required for trust.
+
+---
+
+### BI-first, AI-assisted
+
+Structured facts should come from data, APIs, BI tools, repositories or source systems.
+
+AI should help with:
+
+```txt
+synthesis
+explanation
+prioritization
+recommendation wording
+proof gap explanation
+action-plan drafting
+customer-ready reformulation from grounded facts
+```
+
+AI should not invent or retrieve basic source-system facts.
+
+---
+
+## Rule strength
+
+Use three strengths of guidance.
 
 ### Hard blocker
 
-Use only for critical failures.
+Critical failure to prevent or repair.
 
 Examples:
 
 ```txt
 invented evidence
 AI presented as proof
-expected outcome presented as proven value
+expected outcome shown as proven value
+non-connected asset shown as live-monitored without data
 internal app/ui imports
-unsupported local design system
-sensitive decision without visible validation
+local design-system clone
+critical decision shown as autonomously approved by AI
 ```
 
 ### Strong recommendation
 
-Use for preferred behavior unless the prompt requires another approach.
+Preferred behavior unless the prompt clearly requires another approach.
 
 Examples:
 
 ```txt
-prefer decision-first structure
-prefer rows or tables for asset comparison
-show trust cues when evidence quality matters
-make action ownership visible when follow-through matters
+show relevant context early
+show trust cues when trust matters
+keep actions owned and time-bound when execution matters
+make partial visibility explicit
+prefer dense rows or tables for asset comparison
 ```
 
 ### Flexible guidance
 
-Use for design suggestions.
+Possible design option or DS material.
 
 Examples:
 
 ```txt
-possible components
-candidate patterns
-reference screen examples
-layout variants
-section names
+use Alert for bounded attention signals
+use RecommendationCard for recommended next steps
+use EvidenceList for sources and proof trail
+use Dialog when collecting confirmation
 ```
 
-Do not treat flexible guidance as a contract.
-
----
-
-## When the prompt overrides defaults
-
-The prompt may ask for:
-
-```txt
-executive summary
-single-page overview
-document-first experience
-recommendation review workspace
-service planner queue
-site-level risk overview
-customer-ready QBR view
-```
-
-In these cases, follow the prompt.
-
-But preserve:
-
-```txt
-facts vs interpretation
-evidence vs recommendation
-expected outcome vs proven value
-AI assistance vs source proof
-human validation when trust matters
-component intent over mechanical assembly
-```
+Flexible guidance should never override the prompt.
 
 ---
 
 ## Component selection posture
 
-Component guidance should help GenAI ask:
+Do not think:
 
 ```txt
-What job does this UI element do?
-What abstraction level fits the job?
-Is there an approved usage component?
-Is a primitive enough?
-Is a candidate pattern only guidance, not a requirement?
+Business concept → fixed component
 ```
 
-Do not mechanically translate old component names into new components.
+Think:
 
-Translate the intent behind the old component.
+```txt
+User intent → needed UI behavior → suitable DS material
+```
+
+Example:
+
+```txt
+Intent: show incomplete proof
+Possible material: EvidenceList, StatusBadge, Alert, DetailSection
+Final choice depends on the screen, prompt, density and user role.
+```
 
 ---
 
-## Review posture
+## When to challenge the prompt
 
-When reviewing a generated screen, do not ask only:
-
-```txt
-Did it use the right components?
-```
-
-Ask first:
+GenAI may challenge or adjust the prompt only when:
 
 ```txt
-Did it respect the prompt?
-Did it support the right user decision?
-Did it preserve trust?
-Did it use domain knowledge responsibly?
-Did it choose components for the right reason?
+it asks to invent facts or evidence
+it hides important uncertainty
+it presents AI as proof
+it creates unsafe or misleading recommendations
+it asks for a generic dashboard when the described task is decision support
+it asks for a component choice that conflicts with the intended interaction
 ```
 
-Only then check implementation and visual consistency.
+When challenging, propose a better alternative rather than refusing to design.
 
 ---
 
-## Final principle
+## Review checklist
 
-A good GenAI output may differ from the reference prototype.
-
-It is acceptable if it:
+Before finalizing a generated screen, ask:
 
 ```txt
-respects the user prompt
-supports a clear decision
-uses domain knowledge responsibly
-preserves evidence and validation
-uses DS vocabulary appropriately
-avoids critical failures
+Does it respect the prompt?
+Does it preserve the primary user intent?
+Does it support a clear decision, task or understanding?
+Does it use domain knowledge correctly?
+Are facts, interpretation, recommendation and proof distinct enough?
+Is AI used only where it adds value?
+Are critical guardrails respected?
+Are component choices justified by intent?
+Is the screen simpler than the problem, not more complex?
 ```
