@@ -6,7 +6,7 @@ This file is the mandatory GenAI entry point for `design-system-ai-lab`.
 
 It is a short router, not full documentation.
 
-Use it to find the smallest useful context before generating or reviewing a screen.
+Use it to understand the project character, then read `setup.md` for operational routing.
 
 ```txt
 Read little.
@@ -38,6 +38,26 @@ GenAI must act as an intent-guided design assistant, not as a rigid screen assem
 
 ---
 
+## Required next file
+
+Always read next:
+
+```txt
+guidelines/setup.md
+```
+
+`setup.md` explains:
+
+```txt
+how to reason with this kit
+which principles to read
+which knowledge files to read by prompt type
+which DS material is currently available
+which failures are hard blockers
+```
+
+---
+
 ## Core generation model
 
 Before selecting UI components, follow this reasoning order:
@@ -53,50 +73,6 @@ Before selecting UI components, follow this reasoning order:
 ```
 
 The screen is an outcome of reasoning, not the starting point.
-
----
-
-## Mandatory read order
-
-Read in this order:
-
-```txt
-1. guidelines/Guidelines.md
-2. guidelines/runtime/genai-reasoning-hierarchy.md
-3. guidelines/source/principles/decision-first-proof-second.md
-4. guidelines/source/principles/facts-before-interpretation.md
-5. guidelines/source/principles/progressive-decision-disclosure.md
-6. guidelines/source/principles/ai-usage-and-validation.md
-```
-
-Then read only what the task requires:
-
-```txt
-guidelines/source/knowledge/service-user-needs.md
-  read when the prompt concerns service experience, support, renewal, value proof, user needs or role-specific workflows
-
-guidelines/source/knowledge/service-design-implications.md
-  read when reviewing generation quality or translating user needs into screen structure
-
-guidelines/source/knowledge/industrial-electrical-system-basics.md
-  read when the prompt concerns electrical assets, industrial power systems, asset health, service, maintenance, product passport, recommendations or documents
-
-guidelines/source/knowledge/installed-base-domain-model.md
-  read when the prompt concerns Installed Base workspaces, asset inventory, tab organization, cross-section links or how asset information is structured
-
-guidelines/runtime/*
-  operational generation and selection rules
-
-guidelines/reference/*
-  primitives, components, screen guidance and examples
-
-contracts/*
-  critical blockers only
-```
-
-Knowledge files are not strict screen contracts.
-
-Use them to understand the domain and preserve meaning while respecting the user's prompt.
 
 ---
 
@@ -120,7 +96,7 @@ It must not override the user prompt unless the prompt explicitly asks for refer
 
 ---
 
-## Public source boundary for this repository
+## Public source boundary
 
 Generated or modified product code may import from:
 
@@ -139,37 +115,9 @@ third-party implementation packages
 src/design-system/internal/*
 ```
 
-Primitives may use Radix internally.
+Primitives may use implementation packages internally.
 
 Screens should use the project design-system API.
-
----
-
-## Selection shortcut
-
-Use the right level of abstraction:
-
-```txt
-Primitive
-  generic UI form or behavior
-  examples: Button, Input, Checkbox, Select, Dialog, Popover, Tabs, Table
-
-Usage component
-  recommended composition for a recurring UI use
-  examples: SearchField, FilterDropdown, CheckboxOption, StatusBadge, ScoreBar
-
-Candidate pattern
-  reusable practice or interaction structure under evaluation
-  examples: list/detail workspace, filterable inventory, actionable insight panel
-
-Reference screen component
-  product-grounded example, not necessarily final vocabulary
-  examples: InstalledBaseWorkspace, AssetInventoryRow, AssetDetailPanel
-```
-
-Do not start by assembling random components.
-
-Start by understanding the user decision and the evidence needed to support it.
 
 ---
 
