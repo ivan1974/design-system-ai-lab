@@ -1,5 +1,7 @@
 import type { ButtonHTMLAttributes, HTMLAttributes, ReactNode } from 'react';
 
+import { cn } from '../../lib/utils';
+
 type TagVariant = 'neutral' | 'success';
 type TagSize = 'sm' | 'md';
 type TagAs = 'span' | 'button';
@@ -33,10 +35,6 @@ const sizeClasses: Record<TagSize, string> = {
   md: 'px-3 py-1.5 rounded-lg text-[12px]',
 };
 
-function cx(...classes: Array<string | false | null | undefined>) {
-  return classes.filter(Boolean).join(' ');
-}
-
 export function Tag({
   variant = 'neutral',
   size = 'md',
@@ -47,7 +45,7 @@ export function Tag({
   children,
   ...props
 }: TagProps) {
-  const classes = cx(
+  const classes = cn(
     baseClasses,
     as === 'button' && buttonClasses,
     sizeClasses[size],
