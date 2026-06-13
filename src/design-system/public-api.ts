@@ -1,3 +1,5 @@
+import './styles.css';
+
 export { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './primitives/accordion';
 export { Alert, AlertDescription, AlertTitle } from './primitives/alert';
 export type { AlertProps } from './primitives/alert';
