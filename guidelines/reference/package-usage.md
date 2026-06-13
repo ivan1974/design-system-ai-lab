@@ -12,49 +12,167 @@ This file explains how Figma Make should consume the published design-system pac
 
 Use this when the Make kit uses the package rather than copied source files.
 
+The goal is not to provide business-specific patterns.
+
+The goal is to ensure generated screens use the package visual system and essential components before composing local UI.
+
 ---
 
-## Required package import
+## Required stylesheet import
 
-When using the published package, generated code should import the design-system CSS once at application entry level.
+When using the published package, generated code must import the design-system stylesheet once at application entry level.
 
-```ts
+```tsx
 import "design-system-ai-lab/styles.css";
 ```
 
-This import is required for:
+If the Figma Make wrapper exposes the package as a Make kit package, the stylesheet may appear as:
+
+```tsx
+import "@make-kits/design-system-ai-lab-make-kit/style.css";
+```
+
+Either form is acceptable only if it loads the design-system tokens and component styles.
+
+The stylesheet is required for:
 
 ```txt
+brand visual language
 Tailwind theme utilities
 CSS variables
 base typography
-component visual styles
+component styles
 focus states
 surface and border tokens
 ```
 
-Without this CSS import, components may render structurally but look visually unfinished.
+Do not create a replacement stylesheet for package components.
 
 ---
 
-## Preferred component imports
+## Required component import behavior
 
-Prefer public package imports.
+Generated screens should use package components before creating local equivalents.
 
-```ts
-import { Button, Alert, Badge } from "design-system-ai-lab";
+Prefer root imports from the package API:
+
+```tsx
+import {
+  Alert,
+  Badge,
+  Button,
+  Input,
+  Select,
+  Tabs,
+  Table,
+  SearchField,
+  HealthBadge,
+  StatusLabel
+} from "design-system-ai-lab";
 ```
 
-or package subpath imports when needed:
+If Figma Make exposes only subpath imports, use:
 
-```ts
-import { Button } from "design-system-ai-lab/design-system/primitives";
-import { SearchField } from "design-system-ai-lab/design-system/components";
+```tsx
+import { Button, Input, Select, Alert, Badge, Tabs, Table } from "design-system-ai-lab/design-system/primitives";
+import { SearchField, HealthBadge, StatusLabel } from "design-system-ai-lab/design-system/components";
 ```
 
-Avoid direct implementation paths unless Figma Make only exposes them during package inspection.
+If the Make kit wrapper exposes these components from its own package root, use that public root instead.
 
-Do not import from app-local UI folders.
+Do not import from implementation packages or app-local UI folders.
+
+---
+
+## Essential components that exist
+
+The following components exist and should not be recreated locally when they fit the need:
+
+```txt
+Button
+Input
+Select
+Checkbox
+Switch
+Badge
+Pill
+Tag
+Alert
+Tabs
+Table
+Dialog
+Sheet
+Popover
+Tooltip
+Progress
+ScrollArea
+SearchField
+FilterDropdown
+ViewFilterBar
+AllFiltersPanel
+AssetInventoryRow
+HealthBadge
+StatusLabel
+```
+
+Use these components as the first option for their normal UI role.
+
+Compose with layout containers and simple semantic HTML around them when needed.
+
+---
+
+## Do not recreate local equivalents
+
+Do not create local substitutes such as:
+
+```txt
+CustomButton
+CustomInput
+CustomSelect
+CustomTabs
+CustomBadge
+StatusChip
+StatusPill
+HealthChip
+LocalCard
+BrandPanel
+PremiumCard
+EvidencePill
+PriorityBadge
+ValidationBadge
+```
+
+If the package has a matching component, import and use it.
+
+If the package component does not fit exactly, compose around it rather than replacing it entirely.
+
+---
+
+## Raw HTML rule
+
+Raw HTML controls are allowed only when no package component exists or when a package component cannot support the required behavior.
+
+Do not use raw HTML for these when package components exist:
+
+```txt
+button → use Button
+input → use Input or SearchField
+select → use Select
+checkbox → use Checkbox
+status label → use Badge, Pill, Tag, HealthBadge or StatusLabel
+tabs → use Tabs
+alert message → use Alert
+data table → use Table
+```
+
+Do not write comments such as:
+
+```txt
+no kit Input component available
+no compiled kit Select available
+```
+
+when the component is listed in this file or in design-system-vocabulary.md.
 
 ---
 
@@ -71,7 +189,7 @@ design-system-ai-lab/design-system/components
 
 ---
 
-## Do not import
+## Forbidden imports and paths
 
 Generated code should not import from:
 
@@ -94,10 +212,11 @@ Generated screens should use the public package API.
 If the generated screen uses the correct components but the visual design looks raw, check first:
 
 ```txt
-Is design-system-ai-lab/styles.css imported?
+Is the package stylesheet imported?
 Is the package version current?
 Is the Make kit consuming the published package rather than stale copied files?
 Are custom styles overriding the package styles?
+Are local substitutes replacing package components?
 ```
 
 Do not solve missing package styles by recreating component styles locally.
@@ -109,5 +228,7 @@ Do not solve missing package styles by recreating component styles locally.
 Use package components through the public API.
 
 Import package CSS once.
+
+Compose with primitives and semantic layout when needed.
 
 Do not recreate the design system inside the generated screen.
