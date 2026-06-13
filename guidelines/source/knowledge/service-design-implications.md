@@ -25,6 +25,10 @@ This file is not a pattern catalogue.
 
 It is a bridge between user needs and GenAI generation behavior.
 
+These implications are guidance, not strict screen contracts.
+
+Follow the user's prompt first, then use these implications to improve the quality, clarity and trustworthiness of the generated screen.
+
 ---
 
 ## Core direction
@@ -51,11 +55,30 @@ what is expected vs proven value
 
 ---
 
+## Rule strength
+
+Use the right strength of guidance.
+
+```txt
+Hard blocker
+  critical failure to prevent or repair
+
+Strong recommendation
+  preferred behavior unless the prompt requires another approach
+
+Flexible guidance
+  possible UI material or design option
+```
+
+Most implications in this file are strong recommendations, not blockers.
+
+---
+
 ## Implication 1 — Start with orientation and context
 
-Generated screens should start with clear orientation before detailed signals, evidence or actions.
+Generated screens should usually start with clear orientation before detailed signals, evidence or actions.
 
-GenAI should show:
+GenAI should consider showing:
 
 ```txt
 user-relevant title
@@ -64,7 +87,7 @@ site / asset / customer context when relevant
 status or attention summary
 ```
 
-Use DS material:
+Possible DS material:
 
 ```txt
 InstalledBaseHeader
@@ -74,7 +97,11 @@ StatusBadge
 Alert
 ```
 
-Reject screens where metrics, alerts or actions appear before the user understands the situation.
+Review risk:
+
+```txt
+metrics, alerts or actions appear before the user understands the situation
+```
 
 ---
 
@@ -97,11 +124,23 @@ Do not assemble components just because they exist.
 
 ---
 
-## Implication 3 — Show facts before interpretation
+## Implication 3 — Support interpretation with visible facts
 
-Generated screens should show visible structured facts before interpretation, recommendation or AI-assisted content.
+This implication does not override decision-first generation.
 
-For asset-heavy screens, prefer:
+Use this distinction:
+
+```txt
+decision-first
+  guides the screen intent and hierarchy
+
+facts-before-interpretation
+  guides the proof trail and trust model
+```
+
+Generated screens should not present interpretation, recommendation or AI-assisted content as if it were source fact.
+
+For asset-heavy screens, a useful trust trail may be:
 
 ```txt
 asset context
@@ -112,7 +151,7 @@ asset context
 → recommendation
 ```
 
-Use DS material:
+Possible DS material:
 
 ```txt
 DetailSection
@@ -122,7 +161,17 @@ RecommendationCard
 Tabs
 ```
 
-Reject screens that start with confident AI recommendations before showing supporting facts when trust matters.
+Hard blocker:
+
+```txt
+AI interpretation replaces evidence or is presented as source-system truth
+```
+
+Review risk:
+
+```txt
+confident recommendation appears without visible supporting facts when trust matters
+```
 
 ---
 
@@ -130,7 +179,7 @@ Reject screens that start with confident AI recommendations before showing suppo
 
 When information may be incomplete, outdated, inferred or source-dependent, show that clearly.
 
-Trust cues include:
+Trust cues may include:
 
 ```txt
 source
@@ -143,7 +192,7 @@ review needed
 human validation required
 ```
 
-Use DS material:
+Possible DS material:
 
 ```txt
 EvidenceList
@@ -154,13 +203,23 @@ Alert
 DetailSection
 ```
 
-Reject screens that style uncertain, outdated, incomplete or partial information as confirmed.
+Hard blocker:
+
+```txt
+invented evidence, source, telemetry or validation status
+```
+
+Review risk:
+
+```txt
+uncertain, outdated, incomplete or partial information is styled as confirmed
+```
 
 ---
 
 ## Implication 5 — Prioritize signals, do not dump data
 
-GenAI should select and prioritize decision-relevant signals instead of displaying all available data.
+GenAI should usually select and prioritize decision-relevant signals instead of displaying all available data.
 
 Prefer:
 
@@ -172,7 +231,7 @@ clear next step
 secondary evidence available on demand
 ```
 
-Use DS material:
+Possible DS material:
 
 ```txt
 Table
@@ -184,13 +243,17 @@ Collapsible
 ScrollArea
 ```
 
-Reject over-generated screens with too many metrics, raw tables or equal-priority cards.
+Review risk:
+
+```txt
+too many metrics, raw tables or equal-priority cards
+```
 
 ---
 
 ## Implication 6 — Explain why signals matter
 
-Metrics, health states and alerts should explain why they matter for the current decision.
+Metrics, health states and alerts should explain why they matter for the current decision when interpretation is not obvious.
 
 A useful explanation connects:
 
@@ -201,7 +264,7 @@ signal
 → recommended follow-up
 ```
 
-Use DS material:
+Possible DS material:
 
 ```txt
 RecommendationCard
@@ -211,15 +274,19 @@ DetailSection
 Tooltip or Popover
 ```
 
-Reject alerts or signals that do not explain impact.
+Review risk:
+
+```txt
+alert or signal does not explain impact
+```
 
 ---
 
-## Implication 7 — Convert risk into recommendation
+## Implication 7 — Convert risk into recommendation when action is needed
 
-When a screen shows risk or alert, it should help the user understand the recommended next step.
+When a screen shows risk or alert, it should often help the user understand the recommended next step.
 
-A recommendation should show:
+A recommendation may show:
 
 ```txt
 what is recommended
@@ -229,7 +296,7 @@ what action follows
 what validation is still needed
 ```
 
-Use DS material:
+Possible DS material:
 
 ```txt
 RecommendationCard
@@ -238,15 +305,19 @@ EvidenceList
 StatusBadge
 ```
 
-Reject risk displays with no recommendation or only vague recommendations.
+Review risk:
+
+```txt
+risk display has no next-step path although the prompt expects action
+```
 
 ---
 
 ## Implication 8 — Convert recommendation into owned action
 
-Recommendations should connect to concrete actions with visible ownership, timing and priority.
+Recommendations should connect to concrete actions when follow-through matters.
 
-An action should include:
+An action should usually include:
 
 ```txt
 owner
@@ -255,7 +326,7 @@ priority
 scope or affected asset when relevant
 ```
 
-Use DS material:
+Possible DS material:
 
 ```txt
 RecommendationCard
@@ -264,7 +335,17 @@ Dialog for action creation
 StatusBadge
 ```
 
-Reject actions without owner, timing or priority.
+Hard blocker:
+
+```txt
+critical action implies autonomous AI approval without validation
+```
+
+Review risk:
+
+```txt
+action has no owner, timing or priority when execution matters
+```
 
 ---
 
@@ -283,7 +364,7 @@ recommendation review
 proof preparation
 ```
 
-Use DS material:
+Possible DS material:
 
 ```txt
 RecommendationCard
@@ -292,7 +373,11 @@ StatusBadge
 Alert
 ```
 
-Reject screens that show internal risks without clarifying responsibility or follow-through.
+Review risk:
+
+```txt
+internal risk appears without responsibility or follow-through
+```
 
 ---
 
@@ -313,7 +398,7 @@ last update
 visibility limitation
 ```
 
-Use DS material:
+Possible DS material:
 
 ```txt
 StatusBadge
@@ -323,7 +408,17 @@ Table
 Alert
 ```
 
-Reject screens that imply full system visibility when the data only supports partial coverage.
+Hard blocker:
+
+```txt
+non-connected assets are presented as live-monitored without data
+```
+
+Review risk:
+
+```txt
+screen implies full system visibility when data only supports partial coverage
+```
 
 ---
 
@@ -344,7 +439,7 @@ customer objective
 contract-specific commitment
 ```
 
-Use DS material:
+Possible DS material:
 
 ```txt
 DetailSection
@@ -353,7 +448,11 @@ Alert
 AssetSummaryCard
 ```
 
-Reject screens that ignore important customer-specific context or turn it into uncontrolled custom UI.
+Review risk:
+
+```txt
+important customer-specific context is ignored or turned into unstructured custom UI
+```
 
 ---
 
@@ -373,11 +472,15 @@ customer-ready proof
 proof gap
 ```
 
-Do not invent value proof.
+Hard blockers:
 
-Do not present expected outcomes as proven value.
+```txt
+invented value proof
+expected outcome presented as proven value
+internal evidence presented as customer-ready proof without validation
+```
 
-Use DS material:
+Possible DS material:
 
 ```txt
 EvidenceList
@@ -387,7 +490,11 @@ Progress or ScoreBar when value is provided
 DetailSection
 ```
 
-Reject proof sections with unsupported claims, fake sources or expected outcomes presented as proven value.
+Review risk:
+
+```txt
+proof section uses unsupported claims or fake sources
+```
 
 ---
 
@@ -395,7 +502,7 @@ Reject proof sections with unsupported claims, fake sources or expected outcomes
 
 Structured facts should come from APIs, BI tools, databases or source systems.
 
-GenAI should not retrieve basic facts such as:
+GenAI should not retrieve or invent basic facts such as:
 
 ```txt
 customer name
@@ -420,7 +527,17 @@ action-plan drafting
 customer-ready reformulation from grounded facts
 ```
 
-Reject prompt-first screens that use AI for basic structured retrieval.
+Hard blocker:
+
+```txt
+GenAI invents source-system facts or telemetry values
+```
+
+Review risk:
+
+```txt
+prompt-first interface is used for simple structured retrieval
+```
 
 ---
 
@@ -430,16 +547,18 @@ AI should appear as guided assistance based on visible facts.
 
 Do not hide evidence behind AI output.
 
-For asset-heavy screens:
+For asset-heavy screens, a useful flow is:
 
 ```txt
-Health facts first
-Intelligence interpretation second
-AI-assisted recommendation third
-validation and proof status visible
+Health facts
+→ Intelligence interpretation
+→ AI-assisted recommendation when useful
+→ validation and proof status
 ```
 
-Use DS material:
+This is a trust model, not a mandatory screen order.
+
+Possible DS material:
 
 ```txt
 Alert
@@ -449,7 +568,11 @@ Popover or Tooltip for AI explanation
 StatusBadge
 ```
 
-Reject AI recommendations that are unsupported by visible facts or present AI interpretation as source-system truth.
+Hard blocker:
+
+```txt
+AI recommendation is unsupported by facts or presented as source-system truth
+```
 
 ---
 
@@ -457,7 +580,7 @@ Reject AI recommendations that are unsupported by visible facts or present AI in
 
 Critical customer, contract, service, safety, compliance, renewal, value proof, modernization or asset intelligence decisions should keep human accountability visible.
 
-Show:
+Show when relevant:
 
 ```txt
 review state
@@ -467,7 +590,7 @@ validation required
 customer-ready status
 ```
 
-Use DS material:
+Possible DS material:
 
 ```txt
 StatusBadge
@@ -477,7 +600,11 @@ EvidenceList
 Dialog when approval is required
 ```
 
-Reject screens that imply AI autonomously approved critical decisions.
+Hard blocker:
+
+```txt
+screen implies AI autonomously approved a critical decision
+```
 
 ---
 
@@ -496,7 +623,7 @@ owned actions
 secondary evidence on demand
 ```
 
-Use DS material:
+Possible DS material:
 
 ```txt
 Tabs
@@ -508,15 +635,19 @@ SearchField
 FilterDropdown
 ```
 
-Reject screens that are duplicated, hard to scan or visually noisy.
+Review risk:
+
+```txt
+screen is duplicated, hard to scan or visually noisy
+```
 
 ---
 
 ## Implication 17 — Support role-specific workflows
 
-Generated screens should reflect the role and decision moment.
+Generated screens should reflect the role and decision moment when the prompt provides or implies them.
 
-Every generated screen should make clear:
+A strong generated screen often makes clear:
 
 ```txt
 user role
@@ -527,7 +658,11 @@ decision flow
 next action
 ```
 
-Reject role-neutral screens when the prompt implies a specific role or workflow.
+Review risk:
+
+```txt
+screen is role-neutral even though the prompt implies a specific role or workflow
+```
 
 ---
 
@@ -535,7 +670,7 @@ Reject role-neutral screens when the prompt implies a specific role or workflow.
 
 When a screen involves support, follow-up or handoff, preserve enough context for another role to act without repeated explanation.
 
-Show:
+Show when relevant:
 
 ```txt
 issue or signal
@@ -546,7 +681,11 @@ timing
 supporting evidence or link
 ```
 
-Reject alerts or actions without enough context for another role to understand the next step.
+Review risk:
+
+```txt
+alert or action lacks enough context for another role to understand the next step
+```
 
 ---
 
@@ -566,7 +705,11 @@ Partial coverage → plan coverage review
 Incomplete document set → request missing document
 ```
 
-Reject screens that hide proof gaps, outdated data or unassigned ownership.
+Review risk:
+
+```txt
+proof gaps, outdated data or unassigned ownership are hidden
+```
 
 ---
 
@@ -576,7 +719,7 @@ Display-only facts should use display components, not disabled form controls.
 
 Use form components only when the user can input or change data.
 
-Use DS material:
+Possible display material:
 
 ```txt
 DetailSection
@@ -586,7 +729,7 @@ Table
 AssetSummaryCard
 ```
 
-Use form primitives for input:
+Possible input material:
 
 ```txt
 Input
@@ -597,7 +740,11 @@ RadioGroup when available
 Dialog when collecting confirmation or action data
 ```
 
-Reject screens that use disabled inputs to display customer, contract, asset or service facts.
+Review risk:
+
+```txt
+disabled inputs are used to display customer, contract, asset or service facts
+```
 
 ---
 
@@ -606,16 +753,16 @@ Reject screens that use disabled inputs to display customer, contract, asset or 
 Review a generated service screen with these questions:
 
 ```txt
-Does the screen reflect the user role?
+Does the screen reflect the user role when relevant?
 Does it start with the right context?
-Does it support one clear decision?
-Are facts visible before interpretation?
+Does it support a clear decision or task?
+Are facts and interpretation semantically distinct?
 Are trust cues visible when needed?
 Are signals prioritized?
-Does each alert explain why it matters?
-Is there a concrete recommendation?
-Are actions owned and time-bound?
-Is partial visibility explicit?
+Does each major alert explain why it matters?
+Is there a next-step path when action is expected?
+Are actions owned and time-bound when execution matters?
+Is partial visibility explicit when relevant?
 Is AI used only where it adds value?
 Is human validation visible for critical decisions?
 Are value claims grounded?
@@ -639,16 +786,40 @@ ValueProofCard
 CreateActionDialog
 ```
 
-In the reboot, translate those intentions into the current vocabulary:
+Do not mechanically replace old component names with new components.
+
+Translate the intent behind the legacy component name.
 
 ```txt
-AlertCard → Alert + RecommendationCard when action is needed
-ActionCard / ActionList → RecommendationCard + DetailSection or future Action components
-MetricCard / MetricGrid → ScoreBar, Progress, StatusBadge, DetailSection, Table depending on intent
-ConnectivityCoverageCard → AssetSummaryCard, StatusBadge, EvidenceList, DetailSection
-ValueProofCard → EvidenceList, RecommendationCard, StatusBadge, DetailSection
-CreateActionDialog → Dialog with approved form primitives
-CustomerStatusCard / RenewalRiskSummary → not current components; treat as candidate future usage components or patterns
+AlertCard intent
+  attention signal + impact + optional recommendation
+  possible reboot material: Alert, RecommendationCard, EvidenceList, StatusBadge
+
+ActionCard / ActionList intent
+  owned next step, follow-through, coordination
+  possible reboot material: RecommendationCard, DetailSection, Dialog, future Action component
+
+MetricCard / MetricGrid intent
+  quantitative signal, status, comparison
+  possible reboot material: ScoreBar, Progress, StatusBadge, Table, DetailSection
+
+ConnectivityCoverageCard intent
+  scope, visibility, connected/non-connected coverage
+  possible reboot material: AssetSummaryCard, StatusBadge, EvidenceList, DetailSection, Table
+
+ValueProofCard intent
+  service value, proof, gaps, validated outcomes
+  possible reboot material: EvidenceList, RecommendationCard, StatusBadge, DetailSection
+
+CreateActionDialog intent
+  capture or confirm an action
+  possible reboot material: Dialog + approved form primitives
+
+CustomerStatusCard / RenewalRiskSummary intent
+  customer or renewal context, risk and proof preparation
+  possible reboot material: candidate future usage components or patterns
 ```
 
-Do not reintroduce legacy component names as final public vocabulary without a new design-system decision.
+Legacy names are not final public reboot vocabulary.
+
+Do not reintroduce them as components without a design-system decision.
