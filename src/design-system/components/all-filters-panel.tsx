@@ -1,5 +1,6 @@
 import { X } from 'lucide-react';
 import { Badge, Button, Pill, Tag } from '../primitives';
+import { CheckboxOption } from './checkbox-option';
 
 export type FilterOptionStyle = 'pill' | 'tag' | 'checkbox';
 
@@ -136,26 +137,12 @@ export function AllFiltersPanel({
                     {options.map(option => {
                       const checked = (activeFilters[category] || []).includes(option);
                       return (
-                        <label
+                        <CheckboxOption
                           key={option}
-                          className="flex items-center gap-2.5 px-2 py-1.5 rounded-lg cursor-pointer hover:bg-neutral-50 transition-colors group select-none"
-                          onClick={() => onToggleOption(category, option)}
-                        >
-                          <div className={`w-4 h-4 rounded border flex items-center justify-center shrink-0 transition-all ${checked ? 'bg-[#00985F] border-[#00985F]' : 'border-neutral-300 bg-white group-hover:border-neutral-400'
-                            }`}>
-                            {checked && (
-                              <svg width="9" height="7" viewBox="0 0 9 7" fill="none">
-                                <path d="M1 3.5L3.5 6L8 1" stroke="white" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-                              </svg>
-                            )}
-                          </div>
-                          <span
-                            className={`text-[13px] transition-colors ${checked ? 'text-neutral-900' : 'text-neutral-600 group-hover:text-neutral-800'}`}
-                            style={{ fontWeight: checked ? 500 : 400 }}
-                          >
-                            {option}
-                          </span>
-                        </label>
+                          label={option}
+                          checked={checked}
+                          onChange={() => onToggleOption(category, option)}
+                        />
                       );
                     })}
                   </div>
