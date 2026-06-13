@@ -93,9 +93,37 @@ guidelines/source/principles/decision-first-proof-second.md
 guidelines/source/principles/facts-before-interpretation.md
 guidelines/source/principles/progressive-decision-disclosure.md
 guidelines/source/principles/ai-usage-and-validation.md
+guidelines/source/principles/accessibility.md
+guidelines/source/principles/eco-design.md
+guidelines/source/principles/visual-language.md
 ```
 
 Use principles as judgment, not as fixed layout templates.
+
+### Principle roles
+
+```txt
+decision-first-proof-second
+  what the screen is for and what decision it supports
+
+facts-before-interpretation
+  how trust is built when claims or recommendations are shown
+
+progressive-decision-disclosure
+  how much information to reveal at each layer
+
+ai-usage-and-validation
+  when AI helps and what must remain validated
+
+accessibility
+  whether the screen is understandable, navigable and explicit
+
+eco-design
+  whether the screen is the smallest useful interface
+
+visual-language
+  whether the screen feels calm, operational, readable and trustworthy
+```
 
 ---
 
@@ -352,6 +380,7 @@ non-connected asset presented as live-monitored without data
 critical decision shown as autonomously approved by AI
 local design-system clone
 forbidden import path
+information communicated only through color
 ```
 
 ---
@@ -369,6 +398,8 @@ What evidence or trust state matters?
 What information should be visible first?
 What can be progressively disclosed?
 What DS material best supports the intent?
+What accessibility risks must be avoided?
+What visual or content noise can be removed?
 What critical blockers must be avoided?
 ```
 
@@ -381,7 +412,7 @@ When the result feels weak:
 ```txt
 Do not add decoration first.
 Find the failing layer.
-Repair intent, evidence, hierarchy, component choice or trust.
+Repair intent, evidence, hierarchy, component choice, accessibility, sobriety or trust.
 Use the smallest change that restores meaning.
 Keep the prompt as the primary goal.
 ```
