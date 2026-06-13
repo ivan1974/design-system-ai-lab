@@ -1,5 +1,5 @@
 import { X } from 'lucide-react';
-import { Badge, Button, Pill, Tag } from '../primitives';
+import { Badge, Button, Pill, Separator, Tag } from '../primitives';
 import { CheckboxOption } from './checkbox-option';
 
 export type FilterOptionStyle = 'pill' | 'tag' | 'checkbox';
@@ -48,7 +48,7 @@ export function AllFiltersPanel({
         className={`fixed left-0 top-[60px] bottom-0 w-[300px] bg-white border-r border-neutral-200 z-40 flex flex-col transition-transform duration-200 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}
         style={{ boxShadow: isOpen ? '4px 0 24px rgba(0,0,0,0.08)' : 'none' }}
       >
-        <div className="flex items-center justify-between px-5 py-4 border-b border-neutral-100 shrink-0">
+        <div className="flex items-center justify-between px-5 py-4 shrink-0">
           <div className="flex items-center gap-2.5">
             <span className="text-[14px] text-neutral-900" style={{ fontWeight: 700 }}>Filters</span>
             {totalActive > 0 && (
@@ -71,6 +71,7 @@ export function AllFiltersPanel({
             <X size={15} />
           </button>
         </div>
+        <Separator />
 
         <div className="flex-1 overflow-y-auto px-4 py-3 space-y-5">
           {Object.entries(categories).map(([category, options]) => {
@@ -152,7 +153,8 @@ export function AllFiltersPanel({
           })}
         </div>
 
-        <div className="px-4 py-4 border-t border-neutral-100 flex gap-2.5 shrink-0">
+        <Separator />
+        <div className="px-4 py-4 flex gap-2.5 shrink-0">
           <Button
             variant="secondary"
             size="md"
