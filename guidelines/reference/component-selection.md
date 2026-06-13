@@ -36,6 +36,32 @@ is not allowed as a selection strategy.
 
 ---
 
+## Product components are optional, not mandatory
+
+Use product components when their built-in layout and behavior match the requested screen.
+
+Do not force a product component only because the business object sounds related.
+
+If a product component creates layout friction, alignment issues, unreadable density or broken hierarchy, compose from primitives instead.
+
+```txt
+Product component fits intent and layout
+  use it
+
+Product component matches the business object but not the layout
+  compose with primitives
+
+No product component exists
+  compose with primitives
+
+Need a new component name
+  do not invent it
+```
+
+This is especially important in generated split views, dense tables and detail panels.
+
+---
+
 ## Before selecting a component
 
 Answer:
@@ -45,6 +71,8 @@ Is the user reading, comparing, filtering, editing, confirming or acting?
 Is the information a fact, status, signal, interpretation, evidence, recommendation or action?
 Does the screen need density, disclosure, confirmation or navigation?
 Is the interaction necessary or can the information be displayed directly?
+Does an existing product component fit the required layout without distortion?
+Would primitives create a clearer result?
 ```
 
 Then choose the smallest existing DS material that supports the intent.
@@ -79,6 +107,8 @@ history events
 recommendation list when table density is useful
 ```
 
+Use `Table` or primitive row composition when a product row component does not fit the required columns or split layout.
+
 Avoid when:
 
 ```txt
@@ -89,7 +119,7 @@ user needs a focused detail view
 
 ---
 
-## Use AssetInventoryRow for asset scan and prioritization
+## Use AssetInventoryRow for asset scan and prioritization when it fits
 
 Use:
 
@@ -107,9 +137,20 @@ asset comparison
 selecting an asset from a list
 ```
 
-It is more specific than a generic table row.
+and when the built-in row layout fits the generated screen.
 
-Use only when the object is an asset and the row model fits the asset inventory context.
+It is more specific than a generic table row, but it is not mandatory for every asset list.
+
+Use only when:
+
+```txt
+the object is an asset
+the row model fits the asset inventory context
+the available columns match the intended comparison
+the split view or table layout remains readable
+```
+
+If using `AssetInventoryRow` breaks alignment, creates oversized rows, or prevents the intended column comparison, use `Table` or primitive row composition instead.
 
 Avoid for:
 
@@ -119,6 +160,7 @@ generic tasks
 recommendations without asset row context
 customers
 contracts
+custom comparison tables with incompatible columns
 ```
 
 ---
@@ -134,6 +176,8 @@ InstalledBaseWorkspace
 When the prompt asks for a full Installed Base workspace and the existing composition matches the intent.
 
 Do not use it automatically for every asset-related prompt.
+
+Do not force it when the prompt needs a custom page, custom split view, or focused review screen.
 
 If the prompt asks for a different organization, compose from available primitives and components.
 
@@ -157,6 +201,8 @@ page-level actions or framing
 ```
 
 Avoid using it as a repeated section header.
+
+If the header layout does not fit the prompt, compose a simpler header from primitives and text rather than forcing the component.
 
 ---
 
@@ -201,6 +247,8 @@ Uncovered assets
 ```
 
 Avoid when the need is a simple data filter or a one-off control.
+
+If the built-in view filter layout conflicts with the available width or composition, use `Tabs`, `Button`, `Badge`, `Pill`, `Tag` or primitive composition instead.
 
 ---
 
@@ -251,6 +299,8 @@ document type
 
 Avoid mixing unrelated filter types in a single dropdown.
 
+Use primitive composition if the filter needs a layout that `FilterDropdown` does not support.
+
 ---
 
 ## Use AllFiltersPanel for advanced filtering
@@ -266,6 +316,8 @@ When the user needs multiple filter groups or advanced refinement.
 Use for dense inventories or complex lists.
 
 Avoid when one `SearchField` or one `FilterDropdown` is enough.
+
+Avoid if it creates a heavy panel for a lightweight review screen.
 
 ---
 
@@ -405,6 +457,8 @@ Use tabs when each view has enough distinct content and the user may switch betw
 
 Avoid tabs when content is short, sequential or better handled as progressive detail.
 
+Do not use tabs to hide evidence required to trust the visible recommendation.
+
 ---
 
 ## Use Accordion or Collapsible for optional detail
@@ -474,6 +528,10 @@ asset detail panel
 filter panel
 review side panel
 ```
+
+Use `Sheet` only if the side-panel behavior fits the screen and does not break layout.
+
+For a static split layout inside the page, a regular section, panel or primitive composition may be better than `Sheet`.
 
 Avoid Sheet when a small `Dialog`, `Popover` or inline section would be enough.
 
@@ -581,6 +639,8 @@ Do not:
 invent a component import
 use unavailable component names
 map a business concept to a fixed component
+force a product component because the object name matches
+use a product component when its layout breaks the screen
 use disabled form controls as display
 use badges or cards as buttons
 hide essential evidence in tooltips
@@ -599,10 +659,12 @@ Before finalizing component selection, verify:
 ```txt
 The selected component exists in design-system-vocabulary.md.
 The component supports the user intent.
+The component layout fits the generated screen.
 The component preserves domain meaning.
 The component does not add unnecessary interaction.
 The component does not hide trust-critical information.
 The component choice avoids fictional imports and local clones.
+Primitive composition was considered when a product component did not fit.
 ```
 
 ---
@@ -611,4 +673,8 @@ The component choice avoids fictional imports and local clones.
 
 Select the smallest existing DS material that supports the prompt intent.
 
-When in doubt, prefer clear composition from existing primitives over invented component names.
+Use product components when they fit.
+
+Use primitives when composition needs flexibility.
+
+When in doubt, prefer clear composition from existing primitives over forced or invented component names.
