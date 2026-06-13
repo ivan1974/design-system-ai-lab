@@ -228,9 +228,13 @@ Then read the relevant knowledge and principle files.
 
 ### Selecting components
 
-Read the component selection guidance when available.
+Read:
 
-Until a dedicated component-selection file exists, use this rule:
+```txt
+guidelines/reference/design-system-vocabulary.md
+```
+
+Use this rule:
 
 ```txt
 User intent → needed UI behavior → suitable DS material
@@ -249,6 +253,7 @@ Read:
 ```txt
 guidelines/source/knowledge/service-design-implications.md
 guidelines/runtime/genai-reasoning-hierarchy.md
+guidelines/reference/design-system-vocabulary.md
 ```
 
 Then check critical blockers.
@@ -282,89 +287,15 @@ Screens should use the project design-system API.
 
 ## Current DS material
 
-Use current project vocabulary.
-
-### Primitives
+Read the current vocabulary in:
 
 ```txt
-Accordion
-Alert
-Badge
-Button
-Checkbox
-Collapsible
-Dialog
-DropdownMenu
-Input
-Popover
-Progress
-ScrollArea
-Select
-Separator
-Sheet
-Switch
-Table
-Tabs
-Tag
-Tooltip
-```
-
-### Usage components
-
-```txt
-AssetSummaryCard
-CheckboxOption
-DetailSection
-EvidenceList
-FilterDropdown
-RecommendationCard
-ScoreBar
-SearchField
-StatusBadge
+guidelines/reference/design-system-vocabulary.md
 ```
 
 Do not invent unavailable component names.
 
-If a needed component does not exist, compose from primitives or mark it as a future candidate.
-
----
-
-## Component selection posture
-
-Use DS material by intent.
-
-Examples:
-
-```txt
-Table or dense rows
-  asset inventory, comparison, prioritization
-
-Tabs
-  stable views of the same object or workspace
-
-Accordion / Collapsible
-  optional detail or evidence depth
-
-Alert
-  bounded attention signal
-
-EvidenceList
-  source, freshness, validation or proof trail
-
-RecommendationCard
-  recommendation, rationale, action path
-
-DetailSection
-  grouped facts or reference information
-
-Dialog
-  confirmation or action data capture
-
-Popover / Tooltip
-  lightweight explanation or contextual help
-```
-
-These are possible choices, not forced mappings.
+If a needed component does not exist, compose from current primitives and components.
 
 ---
 
@@ -381,6 +312,7 @@ critical decision shown as autonomously approved by AI
 local design-system clone
 forbidden import path
 information communicated only through color
+fictional component import
 ```
 
 ---
@@ -398,6 +330,7 @@ What evidence or trust state matters?
 What information should be visible first?
 What can be progressively disclosed?
 What DS material best supports the intent?
+Is that DS material available in design-system-vocabulary.md?
 What accessibility risks must be avoided?
 What visual or content noise can be removed?
 What critical blockers must be avoided?
