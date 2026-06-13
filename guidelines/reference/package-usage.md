@@ -19,7 +19,7 @@ Use this when the Make kit uses the package rather than copied source files.
 When using the published package, generated code should import the design-system CSS once at application entry level.
 
 ```ts
-import "@make-kits/ds-kit/styles.css";
+import "design-system-ai-lab/styles.css";
 ```
 
 This import is required for:
@@ -42,14 +42,14 @@ Without this CSS import, components may render structurally but look visually un
 Prefer public package imports.
 
 ```ts
-import { Button, Alert, Badge } from "@make-kits/ds-kit";
+import { Button, Alert, Badge } from "design-system-ai-lab";
 ```
 
 or package subpath imports when needed:
 
 ```ts
-import { Button } from "@make-kits/ds-kit/design-system/primitives";
-import { SearchField } from "@make-kits/ds-kit/design-system/components";
+import { Button } from "design-system-ai-lab/design-system/primitives";
+import { SearchField } from "design-system-ai-lab/design-system/components";
 ```
 
 Avoid direct implementation paths unless Figma Make only exposes them during package inspection.
@@ -63,10 +63,10 @@ Do not import from app-local UI folders.
 The package exposes:
 
 ```txt
-@make-kits/ds-kit
-@make-kits/ds-kit/styles.css
-@make-kits/ds-kit/design-system/primitives
-@make-kits/ds-kit/design-system/components
+design-system-ai-lab
+design-system-ai-lab/styles.css
+design-system-ai-lab/design-system/primitives
+design-system-ai-lab/design-system/components
 ```
 
 ---
@@ -94,7 +94,7 @@ Generated screens should use the public package API.
 If the generated screen uses the correct components but the visual design looks raw, check first:
 
 ```txt
-Is @make-kits/ds-kit/styles.css imported?
+Is design-system-ai-lab/styles.css imported?
 Is the package version current?
 Is the Make kit consuming the published package rather than stale copied files?
 Are custom styles overriding the package styles?
