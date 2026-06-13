@@ -97,6 +97,18 @@ Use these files to avoid invented tokens, arbitrary palettes, local restyling an
 
 ---
 
+## Package usage file
+
+When using the published package in a Make kit, read:
+
+```txt
+guidelines/reference/package-usage.md
+```
+
+Use it to ensure the package CSS is imported once and generated screens use the public package API.
+
+---
+
 ## Principles to read
 
 Read these when generating or reviewing any operational service screen:
@@ -261,6 +273,16 @@ Do not use:
 Business concept → fixed component
 ```
 
+### Using the published package
+
+Read:
+
+```txt
+guidelines/reference/package-usage.md
+```
+
+Generated code should import package CSS once at application entry level when the published package is used.
+
 ### Reviewing a generated screen
 
 Read:
@@ -271,6 +293,7 @@ guidelines/runtime/genai-reasoning-hierarchy.md
 guidelines/reference/screen-composition.md
 guidelines/reference/design-system-vocabulary.md
 guidelines/reference/component-selection.md
+guidelines/reference/package-usage.md
 guidelines/tokens.md
 guidelines/styles.md
 ```
@@ -289,6 +312,8 @@ src/design-system/components
 src/design-system/foundations
 ```
 
+When using the published package, generated product code should import from the public package API and package CSS.
+
 Generated product code should not import from:
 
 ```txt
@@ -300,7 +325,7 @@ src/design-system/internal/*
 
 Primitives may use implementation packages internally.
 
-Screens should use the project design-system API.
+Screens should use the project design-system API or the public package API.
 
 ---
 
@@ -322,6 +347,12 @@ Read screen structure guidance in:
 
 ```txt
 guidelines/reference/screen-composition.md
+```
+
+Read package usage guidance in:
+
+```txt
+guidelines/reference/package-usage.md
 ```
 
 Read visual foundation guidance in:
@@ -352,6 +383,7 @@ forbidden import path
 information communicated only through color
 fictional component import
 fictional token or arbitrary visual system
+published package used without importing package CSS
 ```
 
 ---
@@ -372,6 +404,7 @@ What screen structure best supports the task?
 What DS material best supports the intent?
 Is that DS material available in design-system-vocabulary.md?
 Does component-selection.md support this choice?
+If using the package, is the package CSS imported once?
 Do tokens.md and styles.md support the visual choices?
 What accessibility risks must be avoided?
 What visual or content noise can be removed?
@@ -387,7 +420,7 @@ When the result feels weak:
 ```txt
 Do not add decoration first.
 Find the failing layer.
-Repair intent, evidence, hierarchy, composition, component choice, token use, style, accessibility, sobriety or trust.
+Repair intent, evidence, hierarchy, composition, component choice, package CSS import, token use, style, accessibility, sobriety or trust.
 Use the smallest change that restores meaning.
 Keep the prompt as the primary goal.
 ```
