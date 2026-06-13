@@ -1,5 +1,7 @@
 import type { ButtonHTMLAttributes, ReactNode } from 'react';
 
+import { cn } from '../../lib/utils';
+
 type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'filter' | 'icon';
 type ButtonSize = 'sm' | 'md';
 
@@ -30,10 +32,6 @@ const iconSizeClasses: Record<ButtonSize, string> = {
   md: 'h-8 w-8',
 };
 
-function cx(...classes: Array<string | false | null | undefined>) {
-  return classes.filter(Boolean).join(' ');
-}
-
 export function Button({
   variant = 'secondary',
   size = 'md',
@@ -51,7 +49,7 @@ export function Button({
   return (
     <button
       type={type}
-      className={cx(
+      className={cn(
         baseClasses,
         variantClasses[variant],
         isIcon ? iconSizeClasses[size] : sizeClasses[size],
