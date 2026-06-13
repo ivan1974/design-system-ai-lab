@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { MapPin, Building2, Zap } from 'lucide-react';
-import { Badge } from '../primitives';
+import { Badge, Separator } from '../primitives';
 
 export interface InstalledBaseHeaderProps {
   siteName: string;
@@ -34,13 +34,13 @@ export function InstalledBaseHeader({
           </span>
         </div>
 
-        <div className="w-px h-4 bg-neutral-200 shrink-0" />
+        <Separator orientation="vertical" className="h-4" />
 
         <Badge variant="success" size="sm" shape="pill" className="px-2.5" style={{ fontWeight: 600 }}>
           {contextLabel}
         </Badge>
 
-        <div className="w-px h-4 bg-neutral-200 shrink-0" />
+        <Separator orientation="vertical" className="h-4" />
 
         <div className="flex items-center gap-4">
           <StatChip icon={<Building2 size={11} />} value={buildingCount} label="Buildings" />
