@@ -1,0 +1,16 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "declarationDir": "dist/types",
+    "noEmit": false,
+    "rootDir": "src",
+    "allowImportingTsExtensions": true
+  },
+  "include": [
+    "src/design-system/**/*.ts",
+    "src/design-system/**/*.tsx",
+    "src/lib/**/*.ts"
+  ]
+}
