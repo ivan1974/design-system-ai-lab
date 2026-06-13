@@ -1,5 +1,7 @@
 import type { ButtonHTMLAttributes, ReactNode } from 'react';
 
+import { cn } from '../../lib/utils';
+
 type PillVariant = 'neutral' | 'success' | 'warning' | 'danger';
 type PillSize = 'sm' | 'md';
 
@@ -31,31 +33,24 @@ const sizeClasses: Record<PillSize, string> = {
   md: 'px-3 py-1 text-[12px]',
 };
 
-function cx(...classes: Array<string | false | null | undefined>) {
-  return classes.filter(Boolean).join(' ');
-}
+export function Pill(props: PillProps) {
+  const {
+    variant = 'neutral',
+    size = 'md',
+    active = false,
+    className,
+    style,
+    children,
+    type = 'button',
+    ...rest
+  } = props;
 
-export function Pill({
-  variant = 'neutral',
-  size = 'md',
-  active = false,
-  className,
-  style,
-  children,
-  type = 'button',
-  ...props
-}: PillProps) {
   return (
     <button
       type={type}
-      className={cx(
-        baseClasses,
-        sizeClasses[size],
-        active ? activeClasses[variant] : inactiveClasses[variant],
-        className,
-      )}
+      className={cn(baseClasses, sizeClasses[size], active ? activeClasses[variant] : inactiveClasses[variant], className)}
       style={{ fontWeight: active ? 600 : 400, ...style }}
-      {...props}
+      {...rest}
     >
       {children}
     </button>
