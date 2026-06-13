@@ -4,6 +4,8 @@ export { AssetInventoryRow, HealthBadge, HEALTH_CONFIG, StatusLabel } from './as
 export type { AssetActivity, AssetConnectivity, AssetHealth, AssetInventoryRowData, AssetInventoryRowProps } from './asset-inventory-row';
 export { CheckboxOption } from './checkbox-option';
 export type { CheckboxOptionProps } from './checkbox-option';
+export { FilterDropdown } from './filter-dropdown';
+export type { FilterDropdownOption, FilterDropdownProps } from './filter-dropdown';
 export { InstalledBaseHeader } from './installed-base-header';
 export type { InstalledBaseHeaderProps } from './installed-base-header';
 export { InstalledBaseWorkspace } from './installed-base-workspace';
