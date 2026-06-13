@@ -43,6 +43,24 @@ screens that invent evidence or source data
 
 ---
 
+## Non-negotiable package setup
+
+When generating React application code, always import the published package stylesheet:
+
+```tsx
+import "design-system-ai-lab/styles.css";
+```
+
+The package is the mandatory visual foundation.
+
+Using a specific component is conditional.
+
+Use package primitives and components when they support the brief intent, fit the layout and preserve hierarchy.
+
+Compose local screen-specific components when needed, but do not recreate the visual system.
+
+---
+
 ## Generation posture
 
 The designer prompt is the brief.
@@ -57,7 +75,8 @@ identify the user role and task
 identify the primary decision or job to be done
 use domain knowledge when relevant
 use design principles to shape the screen
-select suitable DS material
+select suitable DS material when useful
+compose locally when DS material does not fit
 avoid critical failures
 ```
 
@@ -68,6 +87,7 @@ override the designer's intent without reason
 apply components mechanically
 turn every business concept into a component
 reproduce reference screens unless explicitly asked
+recreate the design-system visual language locally
 ```
 
 ---
@@ -105,7 +125,19 @@ When using the published package in a Make kit, read:
 guidelines/reference/package-usage.md
 ```
 
-Use it to ensure the package CSS is imported once and generated screens use the public package API.
+Use it to ensure package CSS is imported once, package imports use the public package API, and component usage remains conditional on the brief intent.
+
+---
+
+## Component usage cards
+
+Before deciding whether to use a primitive/component or compose locally, read:
+
+```txt
+guidelines/reference/component-usage-cards.md
+```
+
+Use it to understand when each primitive or component helps, when it should not be forced, and when local composition is acceptable.
 
 ---
 
@@ -259,18 +291,19 @@ Read:
 ```txt
 guidelines/reference/design-system-vocabulary.md
 guidelines/reference/component-selection.md
+guidelines/reference/component-usage-cards.md
 ```
 
 Use this rule:
 
 ```txt
-User intent → needed UI behavior → suitable DS material
+User intent -> needed UI behavior -> suitable DS material or local composition
 ```
 
 Do not use:
 
 ```txt
-Business concept → fixed component
+Business concept -> fixed component
 ```
 
 ### Using the published package
@@ -279,9 +312,10 @@ Read:
 
 ```txt
 guidelines/reference/package-usage.md
+guidelines/reference/component-usage-cards.md
 ```
 
-Generated code should import package CSS once at application entry level when the published package is used.
+Generated code must import `design-system-ai-lab/styles.css` once at application entry level.
 
 ### Reviewing a generated screen
 
@@ -293,6 +327,7 @@ guidelines/runtime/genai-reasoning-hierarchy.md
 guidelines/reference/screen-composition.md
 guidelines/reference/design-system-vocabulary.md
 guidelines/reference/component-selection.md
+guidelines/reference/component-usage-cards.md
 guidelines/reference/package-usage.md
 guidelines/tokens.md
 guidelines/styles.md
@@ -343,6 +378,12 @@ Read selection guidance in:
 guidelines/reference/component-selection.md
 ```
 
+Read concise component usage cards in:
+
+```txt
+guidelines/reference/component-usage-cards.md
+```
+
 Read screen structure guidance in:
 
 ```txt
@@ -364,7 +405,7 @@ guidelines/styles.md
 
 Do not invent unavailable component names.
 
-If a needed component does not exist, compose from current primitives and components.
+If a needed component does not exist or does not fit, compose from current primitives, components, local screen-specific components and the package visual language.
 
 ---
 
@@ -404,7 +445,8 @@ What screen structure best supports the task?
 What DS material best supports the intent?
 Is that DS material available in design-system-vocabulary.md?
 Does component-selection.md support this choice?
-If using the package, is the package CSS imported once?
+Does component-usage-cards.md help decide whether to use or compose?
+If using the package, is design-system-ai-lab/styles.css imported once?
 Do tokens.md and styles.md support the visual choices?
 What accessibility risks must be avoided?
 What visual or content noise can be removed?
