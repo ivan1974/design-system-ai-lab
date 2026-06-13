@@ -8,5 +8,7 @@ export { InstalledBaseWorkspace } from './installed-base-workspace';
 export type { InstalledBaseWorkspaceProps } from './installed-base-workspace';
 export { MainNavigation } from './main-navigation';
 export type { MainNavigationProps } from './main-navigation';
+export { SearchField } from './search-field';
+export type { SearchFieldProps } from './search-field';
 export { ViewFilterBar } from './view-filter-bar';
 export type { ViewFilterBarProps, ViewFilterBarView } from './view-filter-bar';
