@@ -36,10 +36,7 @@ export default defineConfig({
   },
   build: {
     lib: {
-      entry: [
-        path.resolve(__dirname, "src/design-system/public-api.ts"),
-        path.resolve(__dirname, "src/design-system/styles.css"),
-      ],
+      entry: path.resolve(__dirname, "src/design-system/public-api.ts"),
       formats: ["es"],
       cssFileName: "styles",
     },
