@@ -18,21 +18,33 @@ The goal is to ensure generated screens use the package visual system and essent
 
 ---
 
+## Canonical package
+
+The package to import in generated React files is:
+
+```txt
+design-system-ai-lab
+```
+
+Do not import the design system from:
+
+```txt
+@make-kits/design-system-ai-lab-make-kit
+```
+
+That package name can appear in Figma Make internal project dependencies, but it is not the canonical design-system import path for generated code.
+
+Generated application code should import from `design-system-ai-lab`.
+
+---
+
 ## Required stylesheet import
 
-When using the published package, generated code must import the design-system stylesheet once at application entry level.
+Generated code must import the design-system stylesheet once at application entry level.
 
 ```tsx
 import "design-system-ai-lab/styles.css";
 ```
-
-If the Figma Make wrapper exposes the package as a Make kit package, the stylesheet may appear as:
-
-```tsx
-import "@make-kits/design-system-ai-lab-make-kit/style.css";
-```
-
-Either form is acceptable only if it loads the design-system tokens and component styles.
 
 The stylesheet is required for:
 
@@ -47,6 +59,8 @@ surface and border tokens
 ```
 
 Do not create a replacement stylesheet for package components.
+
+Do not use a Make-kit wrapper stylesheet instead of the canonical package stylesheet in generated application code.
 
 ---
 
@@ -78,9 +92,7 @@ import { Button, Input, Select, Alert, Badge, Tabs, Table } from "design-system-
 import { SearchField, HealthBadge, StatusLabel } from "design-system-ai-lab/design-system/components";
 ```
 
-If the Make kit wrapper exposes these components from its own package root, use that public root instead.
-
-Do not import from implementation packages or app-local UI folders.
+Do not import components from implementation packages, Make-kit wrapper packages, or app-local UI folders.
 
 ---
 
@@ -194,6 +206,7 @@ design-system-ai-lab/design-system/components
 Generated code should not import from:
 
 ```txt
+@make-kits/design-system-ai-lab-make-kit
 src/app/components/ui/*
 @radix-ui/*
 third-party implementation packages
@@ -212,9 +225,9 @@ Generated screens should use the public package API.
 If the generated screen uses the correct components but the visual design looks raw, check first:
 
 ```txt
-Is the package stylesheet imported?
-Is the package version current?
-Is the Make kit consuming the published package rather than stale copied files?
+Is design-system-ai-lab/styles.css imported?
+Is design-system-ai-lab@0.8.0 or later installed?
+Is generated code importing components from design-system-ai-lab?
 Are custom styles overriding the package styles?
 Are local substitutes replacing package components?
 ```
@@ -227,7 +240,7 @@ Do not solve missing package styles by recreating component styles locally.
 
 Use package components through the public API.
 
-Import package CSS once.
+Import `design-system-ai-lab/styles.css` once.
 
 Compose with primitives and semantic layout when needed.
 
