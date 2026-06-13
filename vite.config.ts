@@ -41,6 +41,7 @@ export default defineConfig({
         path.resolve(__dirname, "src/design-system/styles.css"),
       ],
       formats: ["es"],
+      cssFileName: "styles",
     },
     rollupOptions: {
       external: [
