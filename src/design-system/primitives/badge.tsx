@@ -1,5 +1,7 @@
 import type { HTMLAttributes, ReactNode } from 'react';
 
+import { cn } from '../../lib/utils';
+
 type BadgeVariant = 'neutral' | 'subtle' | 'success' | 'info' | 'warning' | 'danger';
 type BadgeSize = 'xs' | 'sm';
 type BadgeShape = 'pill' | 'rounded';
@@ -32,10 +34,6 @@ const shapeClasses: Record<BadgeShape, string> = {
   rounded: 'rounded-md',
 };
 
-function cx(...classes: Array<string | false | null | undefined>) {
-  return classes.filter(Boolean).join(' ');
-}
-
 export function Badge({
   variant = 'neutral',
   size = 'sm',
@@ -47,7 +45,7 @@ export function Badge({
 }: BadgeProps) {
   return (
     <span
-      className={cx(baseClasses, variantClasses[variant], sizeClasses[size], shapeClasses[shape], className)}
+      className={cn(baseClasses, variantClasses[variant], sizeClasses[size], shapeClasses[shape], className)}
       style={{ fontWeight: 500, ...style }}
       {...props}
     >
