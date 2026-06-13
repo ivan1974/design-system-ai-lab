@@ -10,95 +10,98 @@ REFERENCE / PACKAGE USAGE / FIGMA MAKE
 
 This file explains how Figma Make should consume the published design-system package.
 
-Use this when the Make kit uses the package rather than copied source files.
+The package is the mandatory visual foundation. Specific component usage is conditional.
 
-The goal is not to provide business-specific patterns.
-
-The goal is to ensure generated screens use the package visual system and essential components before composing local UI.
+The brief intent, user decision, evidence rules, principles and domain knowledge take priority over mechanical component usage.
 
 ---
 
-## Canonical package
+## Non-negotiable setup
 
-The package to import in generated React files is:
-
-```txt
-design-system-ai-lab
-```
-
-Do not import the design system from:
-
-```txt
-@make-kits/design-system-ai-lab-make-kit
-```
-
-That package name can appear in Figma Make internal project dependencies, but it is not the canonical design-system import path for generated code.
-
-Generated application code should import from `design-system-ai-lab`.
-
----
-
-## Required stylesheet import
-
-Generated code must import the design-system stylesheet once at application entry level.
+Generated application code must import the published package stylesheet:
 
 ```tsx
 import "design-system-ai-lab/styles.css";
 ```
 
-The stylesheet is required for:
+This import is mandatory, even if the generated screen uses only a few package components.
 
-```txt
-brand visual language
-Tailwind theme utilities
-CSS variables
-base typography
-component styles
-focus states
-surface and border tokens
-```
+The generated screen should use the design-system visual language, tokens and base styles.
 
-Do not create a replacement stylesheet for package components.
-
-Do not use a Make-kit wrapper stylesheet instead of the canonical package stylesheet in generated application code.
-
----
-
-## Required component import behavior
-
-Generated screens should use package components before creating local equivalents.
-
-Prefer root imports from the package API:
+Generated code should import components from the published package when they are useful:
 
 ```tsx
-import {
-  Alert,
-  Badge,
-  Button,
-  Input,
-  Select,
-  Tabs,
-  Table,
-  SearchField,
-  HealthBadge,
-  StatusLabel
-} from "design-system-ai-lab";
+import { Button, Alert, Badge } from "design-system-ai-lab";
 ```
 
-If Figma Make exposes only subpath imports, use:
+If subpath imports are needed, use only public package paths:
 
 ```tsx
-import { Button, Input, Select, Alert, Badge, Tabs, Table } from "design-system-ai-lab/design-system/primitives";
+import { Button, Input, Select } from "design-system-ai-lab/design-system/primitives";
 import { SearchField, HealthBadge, StatusLabel } from "design-system-ai-lab/design-system/components";
 ```
 
-Do not import components from implementation packages, Make-kit wrapper packages, or app-local UI folders.
+The canonical package import path is `design-system-ai-lab`.
 
 ---
 
-## Essential components that exist
+## Component usage is conditional
 
-The following components exist and should not be recreated locally when they fit the need:
+Importing the package stylesheet is mandatory.
+
+Using a specific component is conditional.
+
+Use existing package primitives or components when they:
+
+```txt
+support the user intent
+fit the required layout
+preserve screen hierarchy
+improve consistency with the design system
+do not hide trust-critical information
+```
+
+Do not force a product component only because the business object sounds related.
+
+If no component fits, create local screen-specific components or patterns, but compose them on top of the design-system visual language and principles.
+
+---
+
+## Local composition is allowed
+
+Local components are allowed when they are screen-specific compositions, for example:
+
+```txt
+EvidenceRow
+AssetDetailSection
+RecommendationBlock
+ReviewActionItem
+SourceContextBlock
+```
+
+These are acceptable when they compose existing DS material and do not redefine the visual system.
+
+They should use package primitives where useful, such as:
+
+```txt
+Badge
+Alert
+Button
+Tabs
+Table
+Separator
+ScrollArea
+Tooltip
+Input
+Select
+SearchField
+```
+
+---
+
+## Essential components to consider
+
+Before creating local UI, consider whether one of these existing components fits the need:
 
 ```txt
 Button
@@ -127,15 +130,13 @@ HealthBadge
 StatusLabel
 ```
 
-Use these components as the first option for their normal UI role.
-
-Compose with layout containers and simple semantic HTML around them when needed.
+Use these components when they support the brief. Do not force them when they break the brief.
 
 ---
 
-## Do not recreate local equivalents
+## Do not recreate design-system essentials
 
-Do not create local substitutes such as:
+Do not create local substitutes for existing essential components when they fit:
 
 ```txt
 CustomButton
@@ -144,19 +145,14 @@ CustomSelect
 CustomTabs
 CustomBadge
 StatusChip
-StatusPill
 HealthChip
-LocalCard
 BrandPanel
 PremiumCard
-EvidencePill
-PriorityBadge
-ValidationBadge
 ```
 
-If the package has a matching component, import and use it.
+If the package has a matching essential component and it fits, import and use it.
 
-If the package component does not fit exactly, compose around it rather than replacing it entirely.
+If it does not fit, compose locally while keeping the design-system styling and rules.
 
 ---
 
@@ -164,17 +160,17 @@ If the package component does not fit exactly, compose around it rather than rep
 
 Raw HTML controls are allowed only when no package component exists or when a package component cannot support the required behavior.
 
-Do not use raw HTML for these when package components exist:
+Do not use raw HTML for these when package components fit:
 
 ```txt
-button → use Button
-input → use Input or SearchField
-select → use Select
-checkbox → use Checkbox
-status label → use Badge, Pill, Tag, HealthBadge or StatusLabel
-tabs → use Tabs
-alert message → use Alert
-data table → use Table
+button -> use Button
+input -> use Input or SearchField
+select -> use Select
+checkbox -> use Checkbox
+status label -> use Badge, Pill, Tag, HealthBadge or StatusLabel
+tabs -> use Tabs
+alert message -> use Alert
+data table -> use Table
 ```
 
 Do not write comments such as:
@@ -203,10 +199,9 @@ design-system-ai-lab/design-system/components
 
 ## Forbidden imports and paths
 
-Generated code should not import from:
+Generated code should not import design-system UI from:
 
 ```txt
-@make-kits/design-system-ai-lab-make-kit
 src/app/components/ui/*
 @radix-ui/*
 third-party implementation packages
@@ -222,14 +217,14 @@ Generated screens should use the public package API.
 
 ## Visual failure diagnosis
 
-If the generated screen uses the correct components but the visual design looks raw, check first:
+If the generated screen uses the correct package but the visual design looks raw, check first:
 
 ```txt
 Is design-system-ai-lab/styles.css imported?
 Is design-system-ai-lab@0.8.0 or later installed?
-Is generated code importing components from design-system-ai-lab?
+Is generated code importing available components from design-system-ai-lab when useful?
 Are custom styles overriding the package styles?
-Are local substitutes replacing package components?
+Are local components replacing package essentials instead of composing with them?
 ```
 
 Do not solve missing package styles by recreating component styles locally.
@@ -238,10 +233,12 @@ Do not solve missing package styles by recreating component styles locally.
 
 ## Final principle
 
-Use package components through the public API.
+Always import `design-system-ai-lab/styles.css`.
 
-Import `design-system-ai-lab/styles.css` once.
+Always read and follow the guidelines.
 
-Compose with primitives and semantic layout when needed.
+Use package primitives and components when they help.
 
-Do not recreate the design system inside the generated screen.
+Create local screen-specific components when needed.
+
+Never recreate the design system itself.
