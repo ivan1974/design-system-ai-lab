@@ -5,7 +5,7 @@ import {
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from '../../app/components/ui/dropdown-menu';
+} from '../internal/ui/dropdown-menu';
 import { Badge } from '../primitives';
 
 export interface FilterDropdownOption {
