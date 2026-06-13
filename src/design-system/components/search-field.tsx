@@ -1,6 +1,6 @@
 import { Search } from 'lucide-react';
 
-import { Input } from '../../app/components/ui/input';
+import { Input } from '../internal/ui/input';
 
 export interface SearchFieldProps {
   value: string;
