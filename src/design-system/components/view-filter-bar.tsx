@@ -1,6 +1,6 @@
 import { type ReactNode } from 'react';
 import { SlidersHorizontal } from 'lucide-react';
-import { Badge } from '../primitives';
+import { Badge, Tabs, TabsList, TabsTrigger } from '../primitives';
 import { FilterDropdown } from './filter-dropdown';
 
 export interface ViewFilterBarView<TView extends string = string> {
@@ -32,25 +32,24 @@ export function ViewFilterBar<TView extends string = string>({
 }: ViewFilterBarProps<TView>) {
   return (
     <div className="bg-white border-b border-neutral-200/80 px-5 flex items-center justify-between gap-4 h-[46px] shrink-0">
-      <div className="flex items-center">
-        <div className="flex rounded-lg border border-neutral-200 overflow-hidden bg-neutral-100 p-0.5 gap-0.5">
+      <Tabs value={activeView} onValueChange={(value) => onViewChange(value as TView)}>
+        <TabsList className="flex rounded-lg border border-neutral-200 overflow-hidden bg-neutral-100 p-0.5 gap-0.5 h-auto w-auto">
           {views.map(view => {
             const active = activeView === view.id;
             return (
-              <button
+              <TabsTrigger
                 key={view.id}
-                type="button"
-                onClick={() => onViewChange(view.id)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[13px] transition-all duration-150 whitespace-nowrap ${active ? 'bg-white text-neutral-900 shadow-sm' : 'text-neutral-500 hover:text-neutral-700'}`}
+                value={view.id}
+                className="flex-none flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[13px] transition-all duration-150 whitespace-nowrap data-[state=active]:bg-white data-[state=active]:text-neutral-900 data-[state=active]:shadow-sm text-neutral-500 hover:text-neutral-700"
                 style={{ fontWeight: active ? 600 : 400 }}
               >
                 <span className={active ? 'text-[#00985F]' : 'text-neutral-400'}>{view.icon}</span>
                 {view.label}
-              </button>
+              </TabsTrigger>
             );
           })}
-        </div>
-      </div>
+        </TabsList>
+      </Tabs>
 
       <div className="flex items-center gap-2">
         {Object.keys(quickFilterOptions).map(category => (
