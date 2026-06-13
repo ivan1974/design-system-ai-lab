@@ -1,5 +1,5 @@
 import { X, MapPin, Download, PhoneCall, Wrench } from 'lucide-react';
-import { Button } from '../../design-system/primitives';
+import { Button, Tabs, TabsContent, TabsList, TabsTrigger } from '../../design-system/primitives';
 import { HealthBadge, StatusLabel, HEALTH_CONFIG } from '../../design-system/components';
 import type { Asset } from '../data/assets';
 
@@ -38,34 +38,46 @@ export function AssetDetailPanel({ asset, activeTab, onTabChange, onClose }: Ass
         {/* ── Panel Header (spec §15) ── */}
         <PanelHeader asset={asset} onClose={onClose} />
 
-        {/* ── Tab Navigation (spec §16) ── */}
-        <div className="flex border-b border-neutral-200 px-5 overflow-x-auto flex-shrink-0 scrollbar-none">
-          {TABS.map(tab => {
-            const active = activeTab === tab.id;
-            return (
-              <button
+        <Tabs
+          value={activeTab}
+          onValueChange={(value) => onTabChange(value as PanelTab)}
+          className="flex-1 min-h-0 gap-0"
+        >
+          {/* ── Tab Navigation (spec §16) ── */}
+          <TabsList className="flex border-b border-neutral-200 px-5 overflow-x-auto flex-shrink-0 scrollbar-none bg-white p-0 h-auto rounded-none w-full justify-start">
+            {TABS.map(tab => (
+              <TabsTrigger
                 key={tab.id}
-                onClick={() => onTabChange(tab.id)}
-                className={`py-3 px-3.5 text-[13px] whitespace-nowrap border-b-2 transition-all duration-150 ${
-                  active ? 'text-[#00985F] border-[#00985F]' : 'text-neutral-500 border-transparent hover:text-neutral-800'
-                }`}
-                style={{ fontWeight: active ? 600 : 400 }}
+                value={tab.id}
+                className="flex-none py-3 px-3.5 text-[13px] whitespace-nowrap border-b-2 rounded-none shadow-none transition-all duration-150 data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-[#00985F] data-[state=active]:border-[#00985F] data-[state=active]:font-semibold text-neutral-500 border-transparent hover:text-neutral-800 font-normal"
               >
                 {tab.label}
-              </button>
-            );
-          })}
-        </div>
+              </TabsTrigger>
+            ))}
+          </TabsList>
 
-        {/* ── Tab Content ── */}
-        <div className="flex-1 overflow-y-auto">
-          {activeTab === 'overview'     && <OverviewTab asset={asset} />}
-          {activeTab === 'health'       && <HealthTab asset={asset} />}
-          {activeTab === 'intelligence' && <IntelligenceTab asset={asset} />}
-          {activeTab === 'passport'     && <PassportTab asset={asset} />}
-          {activeTab === 'history'      && <HistoryTab asset={asset} />}
-          {activeTab === 'documents'    && <DocumentsTab asset={asset} />}
-        </div>
+          {/* ── Tab Content ── */}
+          <div className="flex-1 overflow-y-auto">
+            <TabsContent value="overview" className="m-0">
+              <OverviewTab asset={asset} />
+            </TabsContent>
+            <TabsContent value="health" className="m-0">
+              <HealthTab asset={asset} />
+            </TabsContent>
+            <TabsContent value="intelligence" className="m-0">
+              <IntelligenceTab asset={asset} />
+            </TabsContent>
+            <TabsContent value="passport" className="m-0">
+              <PassportTab asset={asset} />
+            </TabsContent>
+            <TabsContent value="history" className="m-0">
+              <HistoryTab asset={asset} />
+            </TabsContent>
+            <TabsContent value="documents" className="m-0">
+              <DocumentsTab asset={asset} />
+            </TabsContent>
+          </div>
+        </Tabs>
 
         {/* ── Action Area (spec §18) — §0 v1.1: width by text, single line ── */}
         <div className="px-5 py-4 border-t border-neutral-100 flex gap-2.5 flex-shrink-0 bg-neutral-50/60">
