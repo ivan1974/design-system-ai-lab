@@ -84,6 +84,19 @@ It explains how prompt intent, principles, knowledge, components, examples and g
 
 ---
 
+## Root visual files
+
+For token and style guidance, read:
+
+```txt
+guidelines/tokens.md
+guidelines/styles.md
+```
+
+Use these files to avoid invented tokens, arbitrary palettes, local restyling and decorative visual drift.
+
+---
+
 ## Principles to read
 
 Read these when generating or reviewing any operational service screen:
@@ -225,7 +238,7 @@ guidelines/runtime/genai-reasoning-hierarchy.md
 guidelines/reference/screen-composition.md
 ```
 
-Then read the relevant knowledge and principle files.
+Then read the relevant knowledge, principle, token and style files.
 
 ### Selecting components
 
@@ -258,6 +271,8 @@ guidelines/runtime/genai-reasoning-hierarchy.md
 guidelines/reference/screen-composition.md
 guidelines/reference/design-system-vocabulary.md
 guidelines/reference/component-selection.md
+guidelines/tokens.md
+guidelines/styles.md
 ```
 
 Then check critical blockers.
@@ -309,6 +324,13 @@ Read screen structure guidance in:
 guidelines/reference/screen-composition.md
 ```
 
+Read visual foundation guidance in:
+
+```txt
+guidelines/tokens.md
+guidelines/styles.md
+```
+
 Do not invent unavailable component names.
 
 If a needed component does not exist, compose from current primitives and components.
@@ -329,6 +351,7 @@ local design-system clone
 forbidden import path
 information communicated only through color
 fictional component import
+fictional token or arbitrary visual system
 ```
 
 ---
@@ -349,6 +372,7 @@ What screen structure best supports the task?
 What DS material best supports the intent?
 Is that DS material available in design-system-vocabulary.md?
 Does component-selection.md support this choice?
+Do tokens.md and styles.md support the visual choices?
 What accessibility risks must be avoided?
 What visual or content noise can be removed?
 What critical blockers must be avoided?
@@ -363,7 +387,7 @@ When the result feels weak:
 ```txt
 Do not add decoration first.
 Find the failing layer.
-Repair intent, evidence, hierarchy, composition, component choice, accessibility, sobriety or trust.
+Repair intent, evidence, hierarchy, composition, component choice, token use, style, accessibility, sobriety or trust.
 Use the smallest change that restores meaning.
 Keep the prompt as the primary goal.
 ```
