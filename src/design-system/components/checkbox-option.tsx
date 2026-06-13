@@ -1,4 +1,4 @@
-import { Checkbox } from '../internal/ui/checkbox';
+import { Checkbox } from '../primitives';
 
 export interface CheckboxOptionProps {
   label: string;
@@ -26,7 +26,6 @@ export function CheckboxOption({
       <Checkbox
         checked={checked}
         tabIndex={-1}
-        aria-hidden="true"
         className="pointer-events-none group-hover:border-neutral-400"
       />
       <span
