@@ -71,8 +71,11 @@ Read in this order:
 Then read only what the task requires:
 
 ```txt
-guidelines/source/knowledge/*
-  domain and product meaning
+guidelines/source/knowledge/industrial-electrical-system-basics.md
+  read when the prompt concerns electrical assets, industrial power systems, asset health, service, maintenance, product passport, recommendations or documents
+
+guidelines/source/knowledge/installed-base-domain-model.md
+  read when the prompt concerns Installed Base workspaces, asset inventory, tab organization, cross-section links or how asset information is structured
 
 guidelines/runtime/*
   operational generation and selection rules
@@ -83,6 +86,10 @@ guidelines/reference/*
 contracts/*
   critical blockers only
 ```
+
+Knowledge files are not strict screen contracts.
+
+Use them to understand the domain and preserve meaning while respecting the user's prompt.
 
 ---
 
