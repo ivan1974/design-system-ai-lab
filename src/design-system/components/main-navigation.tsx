@@ -1,4 +1,6 @@
-import { Search, HelpCircle, ChevronDown } from 'lucide-react';
+import { HelpCircle, ChevronDown } from 'lucide-react';
+
+import { SearchField } from './search-field';
 
 export interface MainNavigationProps {
   productName: string;
@@ -41,34 +43,13 @@ export function MainNavigation({
 
       <div className="w-px h-6 bg-neutral-200 shrink-0 mx-1" />
 
-      <div className="relative flex-1 max-w-[360px]">
-        <Search
-          size={14}
-          className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none"
-          style={{ color: '#9CA3AF' }}
-        />
-        <input
-          type="text"
-          placeholder={searchPlaceholder}
-          value={searchQuery}
-          onChange={event => onSearchChange(event.target.value)}
-          className="w-full pl-9 pr-4 py-[7px] text-[13px] rounded-lg border border-neutral-200 bg-neutral-50 text-neutral-900 placeholder-neutral-400 outline-none transition-all duration-150"
-          style={{
-            fontFamily: 'inherit',
-            boxShadow: 'none',
-          }}
-          onFocus={event => {
-            event.target.style.borderColor = '#00985F';
-            event.target.style.backgroundColor = '#fff';
-            event.target.style.boxShadow = '0 0 0 3px rgba(0,152,95,0.08)';
-          }}
-          onBlur={event => {
-            event.target.style.borderColor = '';
-            event.target.style.backgroundColor = '';
-            event.target.style.boxShadow = '';
-          }}
-        />
-      </div>
+      <SearchField
+        className="flex-1 max-w-[360px]"
+        value={searchQuery}
+        placeholder={searchPlaceholder}
+        ariaLabel="Search assets, sites and documents"
+        onChange={onSearchChange}
+      />
 
       <div className="flex items-center gap-1 ml-auto shrink-0">
         <button
