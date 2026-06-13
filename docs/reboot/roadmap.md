@@ -46,8 +46,9 @@ After the first runtime extraction, the target expands into a generic component 
 
 ```txt
 Product-grounded extraction first.
-Generic component vocabulary second.
-GenAI-facing guidelines and contracts third.
+Implementation acceleration second.
+Generic component vocabulary third.
+GenAI-facing guidelines and contracts fourth.
 ```
 
 ## Founding screen
@@ -106,6 +107,7 @@ The project must follow this order:
 ```txt
 real product reference
 → runtime extraction
+→ implementation accelerator setup
 → generic component vocabulary
 → reusable patterns
 → principles and knowledge routing
@@ -121,6 +123,7 @@ It must not follow this order:
 GenAI rules
 → abstract contracts
 → generic components detached from product use
+→ third-party UI kit exposed as generation API
 → attempt to recreate the prototype
 ```
 
@@ -189,6 +192,26 @@ Example:
 ```txt
 Bad target: HealthBadge, DPPStatus, ConnectivityLabel
 Good target: StatusBadge, StatusIndicator, DataLabel, SignalDot, ScoreBar
+```
+
+## Implementation accelerator principle
+
+The project may use an external component source to accelerate implementation, but only behind the project design-system API.
+
+Decision:
+
+```txt
+shadcn/ui may provide internal implementation material.
+src/design-system/* remains the public API.
+GenAI must not import directly from shadcn/ui or src/app/components/ui/*.
+```
+
+This keeps the demo focused on the intended lesson:
+
+```txt
+brief GenAI with design-system principles
+force GenAI to use a controlled component set
+keep implementation speed high without losing DS authority
 ```
 
 ## What must be preserved from the previous repository
@@ -530,8 +553,68 @@ Supporting decisions:
 
 ```txt
 docs/decisions/phase-2-runtime-extraction-record.md
+docs/decisions/shadcn-implementation-accelerator.md
 docs/foundation-principles/primitive-audit.md
 docs/foundation-principles/generated-ui-layer-follow-up-audit.md
+```
+
+#### Phase 3.0 — Adopt shadcn/ui as implementation accelerator
+
+Goal:
+
+```txt
+Accelerate base component implementation without exposing shadcn/ui as the design-system or GenAI API.
+```
+
+Decision:
+
+```txt
+Use shadcn/ui as internal implementation material.
+Keep src/design-system/* as the public API.
+Forbid direct screen imports from src/app/components/ui/* or generated shadcn files.
+```
+
+Initial components to add:
+
+```txt
+input
+checkbox
+dropdown-menu
+tabs
+sheet
+table
+separator
+tooltip
+```
+
+Potential later additions:
+
+```txt
+popover
+select
+command
+calendar
+dialog
+scroll-area
+```
+
+Acceptance criteria:
+
+```txt
+shadcn/ui is installed or prepared as an internal accelerator
+component source remains local and auditable
+src/design-system/* remains the only public component API
+current product-grounded primitives are not replaced without need
+visual identity stays aligned with the current Installed Base Intelligence screen
+```
+
+Stop conditions:
+
+```txt
+shadcn default styling changes the product visual identity
+app screens start importing directly from generated ui/*
+shadcn file names start driving our generic component vocabulary
+installation causes build instability
 ```
 
 #### Phase 3 operating rules
@@ -542,7 +625,7 @@ Separate usage guidance from component API.
 Keep domain as examples and test data.
 Extract generic components only from visible repeated UI grammar or clear product need.
 Do not create a component because a domain noun exists.
-Do not use generated ui/* as naming or API authority.
+Do not use generated ui/* or shadcn names as naming or API authority.
 Preserve visual and interaction parity after each extraction.
 ```
 
@@ -571,6 +654,14 @@ Likely source locations:
 MainNavigation -> SearchField
 AllFiltersPanel -> CheckboxOption / FilterOption
 ViewFilterBar -> FilterDropdown / ActiveFilterCount
+```
+
+Likely shadcn implementation support:
+
+```txt
+Input
+Checkbox
+DropdownMenu
 ```
 
 Acceptance criteria:
@@ -654,6 +745,14 @@ AssetInventoryRow -> DataRow / StatusBadge / SignalDot / DataLabel
 AssetDetailPanel -> Field / MetricRow / ScoreBar
 ```
 
+Likely shadcn implementation support:
+
+```txt
+Table
+Separator
+Tooltip
+```
+
 Acceptance criteria:
 
 ```txt
@@ -690,6 +789,14 @@ Likely source locations:
 ```txt
 AllFiltersPanel -> SidePanel / PanelHeader / PanelFooter
 AssetDetailPanel -> DetailPanel / Tabs / Section
+```
+
+Likely shadcn implementation support:
+
+```txt
+Sheet
+Tabs
+Separator
 ```
 
 Acceptance criteria:
@@ -778,12 +885,13 @@ For every component or pattern extraction:
 1. identify source usage
 2. name generic form and usage
 3. define minimal props
-4. extract one component
-5. replace one usage site
-6. run npm run build
-7. run npm run dev
-8. visually compare
-9. document decision if naming or scope is non-obvious
+4. use shadcn internally only when it accelerates implementation
+5. extract one component
+6. replace one usage site
+7. run npm run build
+8. run npm run dev
+9. visually compare
+10. document decision if naming or scope is non-obvious
 ```
 
 Do not batch many extractions without validation.
@@ -799,6 +907,7 @@ visual parity becomes uncertain
 an extraction causes broad rewrites
 an existing wrapper becomes harder to understand
 GenAI usage guidance cannot explain when the component should be selected
+shadcn implementation details leak into app or GenAI-facing APIs
 ```
 
 #### Phase 3 acceptance criteria
@@ -812,6 +921,7 @@ major reusable UI forms have generic names and generic props
 at least one reusable pattern exists
 build and visual parity are preserved
 component selection can be documented for GenAI
+implementation accelerator remains internal
 ```
 
 ### Phase 4 — Principles, knowledge routing and GenAI-facing guidelines
@@ -924,6 +1034,7 @@ Acceptance criteria:
 critical failures can be detected
 component registry reflects generic vocabulary
 contracts do not over-constrain valid design choices
+contracts forbid direct generated ui/* imports in generated screens
 ```
 
 ### Phase 6 — Make kit
@@ -954,6 +1065,7 @@ Make can generate a strong Installed Base Intelligence screen
 Make can explain component and pattern choices
 Make reads only the smallest useful guidance
 Make does not use raw prototype files as mandatory building blocks
+Make imports only from src/design-system/* public API
 ```
 
 ### Phase 7 — Guided extension
