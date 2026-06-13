@@ -1,4 +1,4 @@
-import { Checkbox } from '../../app/components/ui/checkbox';
+import { Checkbox } from '../internal/ui/checkbox';
 
 export interface CheckboxOptionProps {
   label: string;
