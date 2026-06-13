@@ -50,6 +50,33 @@ Then choose the smallest screen structure that supports that intent.
 
 ---
 
+## Composition before component forcing
+
+Choose the screen structure first.
+
+Choose components second.
+
+Do not force a product component when its built-in layout breaks the chosen structure.
+
+```txt
+Good composition + primitive structure
+  better than forced product component with broken layout
+
+Existing product component that fits
+  use it
+
+Existing product component that does not fit
+  compose with primitives
+```
+
+The screen may use existing primitives to create a clear table, panel, row, section or detail area.
+
+Do not invent component names.
+
+Do not import from forbidden paths.
+
+---
+
 ## Common composition flow
 
 For operational service screens, a useful structure is often:
@@ -114,13 +141,14 @@ short status overview
 Possible DS material:
 
 ```txt
-InstalledBaseHeader
+InstalledBaseHeader when it fits
 Alert
 Badge / Pill / Tag
 Button
 Table for short structured lists
 Accordion / Collapsible for optional detail
 Dialog for short confirmation
+primitive sections when product components do not fit
 ```
 
 Avoid a simple page when the user must compare many records or switch between stable views.
@@ -151,12 +179,14 @@ Possible DS material:
 
 ```txt
 Table
-AssetInventoryRow
+AssetInventoryRow when its row layout fits
 ScrollArea
-Sheet
+Sheet when side-panel behavior is needed
+regular split panel when static side-by-side layout is better
 Tabs inside the detail area when views are stable
 Alert for selected item attention
 Badge / Pill / Tag for compact state
+primitive row or section composition when product components do not fit
 ```
 
 Use list/detail when the user benefits from staying in flow while changing selection.
@@ -190,17 +220,23 @@ Possible DS material:
 
 ```txt
 Table
-AssetInventoryRow
+AssetInventoryRow only if its row model fits the columns and density
 SearchField
 FilterDropdown
-AllFiltersPanel
+AllFiltersPanel when filtering is complex
 ScrollArea
-Sheet
+Sheet only if side-panel behavior is needed
+regular split panel for static table/detail layouts
 Badge / Pill / Tag
 Alert
+primitive row composition for custom comparison needs
 ```
 
 Prefer this over card grids when the user is comparing many operational records.
+
+Do not force `AssetInventoryRow` if a custom table/grid is needed.
+
+If row alignment, column density or split-panel proportion breaks, compose a cleaner table or row structure from primitives.
 
 Avoid when the content is mostly narrative or when there are only a few items.
 
@@ -299,11 +335,12 @@ recommended next step when relevant
 Possible DS material:
 
 ```txt
-InstalledBaseHeader
+InstalledBaseHeader when it fits
 Alert
 Badge / Pill / Tag
 Progress when value is provided
 Table for prioritized records
+primitive summary blocks when a card grid would be noisy
 ```
 
 Do not generate decorative dashboards by default.
@@ -329,7 +366,7 @@ Collapsible
 Tabs
 Popover
 Tooltip
-Sheet
+Sheet when side-panel behavior is needed
 ScrollArea
 ```
 
@@ -369,7 +406,8 @@ selected item detail is secondary to the working list
 Possible DS material:
 
 ```txt
-Sheet
+Sheet when side-panel behavior is needed
+regular split panel when the panel is always visible
 ScrollArea
 Tabs
 Accordion
@@ -387,6 +425,8 @@ the prompt asks for a focused single page
 ```
 
 Do not create a side panel only for visual drama.
+
+A side panel can be composed from primitives if `Sheet` behavior is not appropriate.
 
 ---
 
@@ -479,6 +519,10 @@ header
 → recommendation or action path
 ```
 
+Use asset product components only when their layout fits.
+
+For custom asset comparison, use `Table` or primitive row composition rather than forcing `AssetInventoryRow`.
+
 ---
 
 ### Recommendation-centered screen
@@ -505,6 +549,10 @@ context
 → validation status
 ```
 
+Compose recommendation content from existing primitives and sections.
+
+Do not invent `RecommendationCard` unless it exists in the current vocabulary.
+
 ---
 
 ### Document-centered screen
@@ -530,6 +578,10 @@ search / filters
 → action
 ```
 
+Compose with current primitives and available filters/search.
+
+Do not invent document-specific components.
+
 ---
 
 ### History-centered screen
@@ -552,6 +604,10 @@ event list
 → selected event detail
 → related document or recommendation link
 ```
+
+Compose with current primitives.
+
+Do not invent timeline components unless they exist in the current vocabulary.
 
 ---
 
@@ -589,6 +645,9 @@ side panels used as decoration
 dashboards used for record comparison
 all data exposed without prioritization
 the same content repeated across sections
+forced product components that break layout
+oversized rows when dense comparison is needed
+inline styles used to patch a broken component fit
 ```
 
 ---
@@ -607,6 +666,8 @@ Evidence is visible or accessible when trust matters.
 Actions have a clear path when action is expected.
 The selected structure is not heavier than the task requires.
 The structure uses only current DS material.
+Product components are used only when they fit the structure.
+Primitive composition is used when flexibility is needed.
 ```
 
 ---
@@ -618,3 +679,5 @@ Choose the smallest screen structure that preserves intent, meaning, evidence an
 Do not generate a dashboard when the user needs a workspace.
 
 Do not generate a complex workspace when a simple page is enough.
+
+Do not force a product component when primitive composition would produce a clearer result.
