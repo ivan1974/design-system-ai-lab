@@ -232,6 +232,7 @@ Read:
 
 ```txt
 guidelines/reference/design-system-vocabulary.md
+guidelines/reference/component-selection.md
 ```
 
 Use this rule:
@@ -254,6 +255,7 @@ Read:
 guidelines/source/knowledge/service-design-implications.md
 guidelines/runtime/genai-reasoning-hierarchy.md
 guidelines/reference/design-system-vocabulary.md
+guidelines/reference/component-selection.md
 ```
 
 Then check critical blockers.
@@ -291,6 +293,12 @@ Read the current vocabulary in:
 
 ```txt
 guidelines/reference/design-system-vocabulary.md
+```
+
+Read selection guidance in:
+
+```txt
+guidelines/reference/component-selection.md
 ```
 
 Do not invent unavailable component names.
@@ -331,6 +339,7 @@ What information should be visible first?
 What can be progressively disclosed?
 What DS material best supports the intent?
 Is that DS material available in design-system-vocabulary.md?
+Does component-selection.md support this choice?
 What accessibility risks must be avoided?
 What visual or content noise can be removed?
 What critical blockers must be avoided?
