@@ -9,6 +9,7 @@
     "allowImportingTsExtensions": true
   },
   "include": [
+    "src/vite-env.d.ts",
     "src/design-system/**/*.ts",
     "src/design-system/**/*.tsx",
     "src/lib/**/*.ts"
