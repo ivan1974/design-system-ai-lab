@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState, type ReactNode } from 'react';
-import { Check, ChevronDown, SlidersHorizontal } from 'lucide-react';
+import { type ReactNode } from 'react';
+import { SlidersHorizontal } from 'lucide-react';
 import { Badge } from '../primitives';
+import { FilterDropdown } from './filter-dropdown';
 
 export interface ViewFilterBarView<TView extends string = string> {
   id: TView;
@@ -53,11 +54,11 @@ export function ViewFilterBar<TView extends string = string>({
 
       <div className="flex items-center gap-2">
         {Object.keys(quickFilterOptions).map(category => (
-          <QuickFilterDropdown
+          <FilterDropdown
             key={category}
             label={category}
-            options={quickFilterOptions[category]}
-            selected={activeFilters[category] || []}
+            options={quickFilterOptions[category].map(option => ({ label: option, value: option }))}
+            selectedValues={activeFilters[category] || []}
             onToggle={(option) => onToggleOption(category, option)}
           />
         ))}
@@ -83,76 +84,6 @@ export function ViewFilterBar<TView extends string = string>({
           )}
         </button>
       </div>
-    </div>
-  );
-}
-
-function QuickFilterDropdown({
-  label,
-  options,
-  selected,
-  onToggle,
-}: {
-  label: string;
-  options: string[];
-  selected: string[];
-  onToggle: (option: string) => void;
-}) {
-  const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-  const count = selected.length;
-
-  useEffect(() => {
-    function handle(event: MouseEvent) {
-      const target = event.target;
-      if (target instanceof Node && ref.current && !ref.current.contains(target)) setOpen(false);
-    }
-    document.addEventListener('mousedown', handle);
-    return () => document.removeEventListener('mousedown', handle);
-  }, []);
-
-  return (
-    <div ref={ref} className="relative">
-      <button
-        type="button"
-        onClick={() => setOpen((current) => !current)}
-        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[13px] border transition-all duration-150 whitespace-nowrap ${count > 0 ? 'border-[#00985F] text-[#00985F] bg-[#f0faf5]' : 'border-neutral-200 text-neutral-600 bg-white hover:border-neutral-300 hover:bg-neutral-50 hover:text-neutral-800'}`}
-        style={{ fontWeight: count > 0 ? 600 : 400 }}
-      >
-        {label}
-        {count > 0 && (
-          <Badge
-            variant="success"
-            size="xs"
-            shape="pill"
-            className="w-4 h-4 px-0 border-0 bg-[#00985F] text-white justify-center shrink-0"
-            style={{ fontWeight: 700 }}
-          >
-            {count}
-          </Badge>
-        )}
-        <ChevronDown size={12} className={`text-neutral-400 transition-transform ${open ? 'rotate-180' : ''}`} />
-      </button>
-
-      {open && (
-        <div className="absolute top-full right-0 mt-1.5 min-w-[180px] bg-white border border-neutral-200 rounded-xl z-50 py-1.5 overflow-hidden" style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.10)' }}>
-          {options.map(option => {
-            const checked = selected.includes(option);
-            return (
-              <button
-                key={option}
-                type="button"
-                onClick={() => onToggle(option)}
-                className="w-full flex items-center justify-between px-3 py-2 text-[13px] text-neutral-700 hover:bg-neutral-50 transition-colors"
-                style={{ fontWeight: checked ? 500 : 400 }}
-              >
-                <span>{option}</span>
-                {checked && <Check size={13} style={{ color: '#00985F' }} />}
-              </button>
-            );
-          })}
-        </div>
-      )}
     </div>
   );
 }
