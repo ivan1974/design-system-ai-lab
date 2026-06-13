@@ -62,15 +62,22 @@ Read in this order:
 
 ```txt
 1. guidelines/Guidelines.md
-2. guidelines/source/principles/decision-first-proof-second.md
-3. guidelines/source/principles/facts-before-interpretation.md
-4. guidelines/source/principles/progressive-decision-disclosure.md
-5. guidelines/source/principles/ai-usage-and-validation.md
+2. guidelines/runtime/genai-reasoning-hierarchy.md
+3. guidelines/source/principles/decision-first-proof-second.md
+4. guidelines/source/principles/facts-before-interpretation.md
+5. guidelines/source/principles/progressive-decision-disclosure.md
+6. guidelines/source/principles/ai-usage-and-validation.md
 ```
 
 Then read only what the task requires:
 
 ```txt
+guidelines/source/knowledge/service-user-needs.md
+  read when the prompt concerns service experience, support, renewal, value proof, user needs or role-specific workflows
+
+guidelines/source/knowledge/service-design-implications.md
+  read when reviewing generation quality or translating user needs into screen structure
+
 guidelines/source/knowledge/industrial-electrical-system-basics.md
   read when the prompt concerns electrical assets, industrial power systems, asset health, service, maintenance, product passport, recommendations or documents
 
