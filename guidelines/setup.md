@@ -222,6 +222,7 @@ Read:
 
 ```txt
 guidelines/runtime/genai-reasoning-hierarchy.md
+guidelines/reference/screen-composition.md
 ```
 
 Then read the relevant knowledge and principle files.
@@ -254,6 +255,7 @@ Read:
 ```txt
 guidelines/source/knowledge/service-design-implications.md
 guidelines/runtime/genai-reasoning-hierarchy.md
+guidelines/reference/screen-composition.md
 guidelines/reference/design-system-vocabulary.md
 guidelines/reference/component-selection.md
 ```
@@ -301,6 +303,12 @@ Read selection guidance in:
 guidelines/reference/component-selection.md
 ```
 
+Read screen structure guidance in:
+
+```txt
+guidelines/reference/screen-composition.md
+```
+
 Do not invent unavailable component names.
 
 If a needed component does not exist, compose from current primitives and components.
@@ -337,6 +345,7 @@ What is the main domain object?
 What evidence or trust state matters?
 What information should be visible first?
 What can be progressively disclosed?
+What screen structure best supports the task?
 What DS material best supports the intent?
 Is that DS material available in design-system-vocabulary.md?
 Does component-selection.md support this choice?
@@ -354,7 +363,7 @@ When the result feels weak:
 ```txt
 Do not add decoration first.
 Find the failing layer.
-Repair intent, evidence, hierarchy, component choice, accessibility, sobriety or trust.
+Repair intent, evidence, hierarchy, composition, component choice, accessibility, sobriety or trust.
 Use the smallest change that restores meaning.
 Keep the prompt as the primary goal.
 ```
