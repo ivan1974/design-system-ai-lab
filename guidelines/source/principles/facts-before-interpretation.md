@@ -6,43 +6,67 @@
 SOURCE PRINCIPLE / TRUST / GENAI DESIGN JUDGMENT
 ```
 
-## Core idea
+## Purpose
 
-Observed facts should appear before AI interpretation.
+This principle keeps observed facts, AI interpretation, recommendations and proof clearly distinct.
+
+---
+
+## Core idea
 
 ```txt
 Facts
-→ signal
-→ interpretation
-→ recommendation
-→ action
+-> signal
+-> interpretation
+-> recommendation
+-> action
 ```
 
 Do not make an AI conclusion look like a verified fact.
 
 ---
 
-## Why this matters
+## Must
 
-Operational screens often mix facts, signals and recommendations.
+You must distinguish observed facts from signals, interpretations, recommendations and proof.
 
-If this hierarchy is unclear, the user may over-trust an interpretation or act on weak evidence.
+You must not present AI interpretation as source-system truth.
 
-The interface must help users distinguish:
+You must not invent telemetry, source systems, validation state, proof readiness or business value.
 
-```txt
-what is known
-what is inferred
-what is recommended
-what is validated
-what is still uncertain
-```
+You must not present expected outcomes as proven value.
 
 ---
 
-## How GenAI should apply this
+## Should
 
-When generating a screen, classify content before placing it:
+You should expose trust cues when they affect the decision:
+
+```txt
+source
+freshness
+source scope
+connectivity status
+validation state
+review needed
+human validation required
+```
+
+You should keep Health-like content evidence-first and Intelligence-like content interpretation/recommendation-first when using Installed Base semantics.
+
+---
+
+## May
+
+You may use local screen-specific evidence rows or proof sections when no exported component fits.
+
+Local evidence UI must remain visually consistent with the design system and must not claim invented proof.
+
+---
+
+## Content classification
+
+Classify content before placing it:
 
 ```txt
 Observed fact
@@ -61,8 +85,6 @@ Proof / validation
   evidence quality, source, freshness, validation or readiness
 ```
 
-Then place these in a clear sequence.
-
 ---
 
 ## Good generation behavior
@@ -73,10 +95,10 @@ Prefer:
 Asset status: Connected
 Health: Warning
 Last event: Active alert
-→ Signal: Asset requires attention
-→ Interpretation: Relay settings may need inspection
-→ Recommendation: Schedule service
-→ Evidence: telemetry timestamp, source scope, validation state
+-> Signal: Asset requires attention
+-> Interpretation: Relay settings may need inspection
+-> Recommendation: Schedule service
+-> Evidence: telemetry timestamp, source scope, validation state
 ```
 
 ---
@@ -92,46 +114,45 @@ This asset will fail soon
 This recommendation is validated
 ```
 
-unless the provided data explicitly supports it.
-
-Do not invent:
-
-```txt
-telemetry
-source system
-validation state
-proof readiness
-business value
-benchmark data
-```
+unless provided data explicitly supports it.
 
 ---
 
-## Components affected
+## UI material affected
 
-Use components to separate fact from interpretation:
+Use exported DS material or local composition to separate fact from interpretation.
 
-```txt
-DetailSection for facts and fields
-StatusBadge or ScoreBar for signals
-RecommendationCard for recommended actions
-EvidenceList for proof and sources
-Alert for important but bounded messages
-Tabs to separate facts from intelligence when needed
-```
-
-For Installed Base, keep:
+Useful exported material may include:
 
 ```txt
-Health = facts, measurements, observations
-Intelligence = interpretation, diagnosis, recommendation
+Alert
+Badge
+Pill
+Tag
+Table
+Tabs
+Tooltip
+Popover
+Accordion
+Collapsible
 ```
+
+Useful local screen-specific composition may include:
+
+```txt
+local fact section
+local evidence row
+local recommendation block
+local proof gap section
+```
+
+Do not import local composition names from the package unless they are exported.
 
 ---
 
 ## Repair prompt
 
-If an interpretation appears too strong, repair it by asking:
+If an interpretation appears too strong, ask:
 
 ```txt
 Which part is observed fact?
