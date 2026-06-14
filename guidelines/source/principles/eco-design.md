@@ -8,13 +8,9 @@ SOURCE PRINCIPLE / SOBRIETY / GENAI JUDGMENT
 
 ## Purpose
 
-Eco-design means generating the smallest useful interface that supports the user task without unnecessary visual, content, interaction or AI complexity.
+Eco-design means generating the smallest useful interface that supports the user task without unnecessary visual, content, interaction, code or AI complexity.
 
-It is not minimalism for its own sake.
-
-It is useful sobriety.
-
-A generated screen should remove noise without removing the context, evidence or trust cues needed to decide safely.
+It is useful sobriety, not minimalism for its own sake.
 
 ---
 
@@ -38,7 +34,39 @@ Remove what is only decorative, duplicated or weakly related to the task.
 
 ---
 
-## Prefer focused composition
+## Must
+
+You must not remove context, evidence or validation cues that are needed to decide safely.
+
+You must not generate metrics, AI text, interactions or visual effects just to fill space.
+
+You must not use AI to invent or retrieve basic source-system facts.
+
+You must not create local wrappers or visual clones when exported components fit.
+
+---
+
+## Should
+
+You should focus the screen around the current decision or task.
+
+You should limit first-level signals, alerts and metrics to what supports the task.
+
+You should use progressive disclosure for secondary evidence and detail.
+
+You should prefer rows, tables and compact panels for dense operational comparison.
+
+---
+
+## May
+
+You may create local screen-specific components when they reduce effort and no exported component fits.
+
+You may simplify the prompt structure when it adds noise, while preserving intent and trust-critical context.
+
+---
+
+## Useful focused composition
 
 A strong operational screen usually contains:
 
@@ -60,8 +88,6 @@ repeated explanations
 unnecessary AI-generated content
 raw data dumps
 ```
-
-If everything is visible, nothing is prioritized.
 
 ---
 
@@ -88,15 +114,11 @@ Do not hide uncertainty to make the screen shorter.
 
 ## Metric sobriety
 
-Do not generate metrics just to fill space.
-
 Use metrics only when they help the user interpret the situation or decide what to do next.
 
 A useful first-level summary often uses 2 to 4 strong indicators.
 
-More metrics may be appropriate when the prompt explicitly asks for analysis, comparison or monitoring density.
-
-Weak metrics include:
+Do not generate weak metrics such as:
 
 ```txt
 random score
@@ -129,37 +151,6 @@ multi-step flows
 Use interactions when they reduce effort or support progressive disclosure.
 
 Do not hide essential information behind interactions when it should be visible for decision-making.
-
----
-
-## Content sobriety
-
-Generated copy should be concise and useful.
-
-Write less, but make each sentence carry meaning.
-
-Good concise content can still include important qualifiers:
-
-```txt
-partial visibility
-historical evidence
-expected outcome
-not customer-ready proof
-review needed
-```
-
-Do not remove those qualifiers if they prevent false confidence.
-
-Avoid:
-
-```txt
-long paragraph cards
-generic filler text
-repeated helper text
-repeated customer context
-repeated status labels
-repeated proof claims
-```
 
 ---
 
@@ -196,9 +187,9 @@ proven value
 
 ## Component and code sobriety
 
-Use existing DS primitives and usage components before creating custom structures.
+Use exported DS primitives and components before creating custom structures.
 
-Do not create local wrappers when approved DS material exists.
+Create local screen-specific components only when they reduce effort or fit the brief better.
 
 Do not manually rebuild component behavior with raw markup.
 
@@ -224,27 +215,6 @@ visual flourishes that do not help the decision
 ```
 
 Prefer clear text, structured components and meaningful hierarchy.
-
----
-
-## Relationship with accessibility
-
-Eco-design and accessibility support each other.
-
-Reducing unnecessary complexity improves:
-
-```txt
-reading order
-comprehension
-keyboard navigation
-cognitive load
-review quality
-maintainability
-```
-
-Do not reduce content so much that users lose necessary context.
-
-The goal is useful sobriety, not visual emptiness.
 
 ---
 
