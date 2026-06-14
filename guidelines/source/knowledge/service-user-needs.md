@@ -8,9 +8,9 @@ SOURCE KNOWLEDGE / USER NEEDS / GENAI MEMORY
 
 ## Purpose
 
-This file translates service UX research into reusable user needs for GenAI.
+This file translates service UX research into reusable user needs.
 
-Use it when generating or reviewing screens for:
+Use it before generating or reviewing screens for:
 
 ```txt
 Installed Base
@@ -23,9 +23,9 @@ value proof
 service coordination
 ```
 
-This file is not a screen contract.
+This file is not a screen contract and not a component catalogue.
 
-It helps GenAI understand what users need before choosing components.
+It helps understand user needs before choosing components or composing local UI.
 
 ---
 
@@ -44,17 +44,64 @@ who owns the next step
 what proof exists or is still missing
 ```
 
-This applies to customers and internal teams.
-
 Customer experience and employee experience are connected.
 
 A customer-facing issue is often caused or amplified by internal fragmentation, unclear ownership, poor data quality or weak handoffs.
 
 ---
 
-## Covered roles
+## Must
 
-Consider the role implied by the prompt.
+You must identify the user role when the prompt implies one.
+
+You must not invent evidence, data, telemetry, validation state, business value or ownership.
+
+You must not present AI interpretation as source-system truth.
+
+You must not present non-connected assets as live-monitored without provided data.
+
+You must not present expected outcomes as proven value.
+
+---
+
+## Should
+
+You should organize service screens around:
+
+```txt
+situation
+trust state
+priority
+recommended next step
+owner
+proof or proof gap
+```
+
+You should expose partial visibility, missing proof and unknown ownership when they affect the decision.
+
+You should reduce effort by prioritizing what the user needs to understand or do next.
+
+---
+
+## May
+
+You may create local screen-specific components when exported components do not fit.
+
+Useful local components may include:
+
+```txt
+EvidenceRow
+RecommendationBlock
+ActionSummary
+ProofGapSection
+OwnerAssignmentRow
+```
+
+Do not import these names from the package unless they are explicitly exported.
+
+---
+
+## Covered roles
 
 Common roles include:
 
@@ -87,26 +134,16 @@ User need:
 I need to understand the current situation without reconstructing context from multiple systems, reports, portals or people.
 ```
 
-GenAI should:
+Show:
 
 ```txt
-start with clear orientation
-show the relevant asset, site, customer or service context early
-avoid starting with isolated metrics
-avoid making the user infer the scope
+clear orientation
+relevant asset, site, customer or service context
+scope and visibility limits when relevant
+few decision-relevant signals
 ```
 
-Useful DS material:
-
-```txt
-InstalledBaseHeader
-AssetSummaryCard
-DetailSection
-StatusBadge
-Table or dense rows
-```
-
-Reject screens where the user cannot understand the current situation in the first visible sections.
+Avoid starting with isolated metrics.
 
 ---
 
@@ -118,7 +155,7 @@ User need:
 I need to understand what is included, active, connected, covered or guaranteed.
 ```
 
-GenAI should show relevant context such as:
+Show relevant context such as:
 
 ```txt
 contract or coverage type
@@ -132,18 +169,6 @@ owner or point of contact when relevant
 
 Do not scatter entitlement, coverage or service scope across unrelated cards.
 
-Useful DS material:
-
-```txt
-StatusBadge
-DetailSection
-AssetSummaryCard
-EvidenceList
-FilterDropdown
-```
-
-Reject screens that require the user to infer service scope, asset scope or visibility limits.
-
 ---
 
 ## Need 3 — Trust the information shown
@@ -154,7 +179,7 @@ User need:
 I need to know whether the information is reliable, fresh, confirmed or still requiring review.
 ```
 
-GenAI should expose trust cues when they affect the decision:
+Expose trust cues when they affect the decision:
 
 ```txt
 source
@@ -170,22 +195,6 @@ Health vs Intelligence distinction
 
 Do not make uncertain information look confirmed.
 
-Do not present non-connected assets as live-monitored.
-
-Do not present AI interpretation as source-system truth.
-
-Useful DS material:
-
-```txt
-EvidenceList
-StatusBadge
-Alert
-Tooltip or Popover
-DetailSection
-```
-
-Reject screens that hide trust-sensitive status or make weak evidence look stronger with styling.
-
 ---
 
 ## Need 4 — See what matters most
@@ -196,26 +205,16 @@ User need:
 I need to identify the most important signals, risks or blockers without scanning everything manually.
 ```
 
-GenAI should:
+Prioritize:
 
 ```txt
-prioritize decision-relevant signals
-avoid large undifferentiated data dumps
-avoid too many equal-priority cards
-show severity, urgency or business impact when available
+decision-relevant signals
+severity or urgency when available
+business or operational impact when available
+few strong indicators instead of many equal cards
 ```
 
-Useful DS material:
-
-```txt
-Table or dense rows
-StatusBadge
-ScoreBar
-Alert
-RecommendationCard
-```
-
-Reject screens with too many metrics, too many cards, or no prioritization.
+Avoid raw data dumps and undifferentiated dashboards.
 
 ---
 
@@ -227,16 +226,16 @@ User need:
 I need to understand why a metric, alert, condition or risk matters for the current situation.
 ```
 
-GenAI should connect signal to meaning:
+Connect:
 
 ```txt
 signal
-→ reason
-→ operational impact
-→ recommended follow-up
+-> reason
+-> operational impact
+-> recommended follow-up
 ```
 
-For asset-heavy screens, clarify whether the signal comes from:
+Clarify whether the signal comes from:
 
 ```txt
 live telemetry
@@ -247,18 +246,6 @@ document evidence
 AI-assisted interpretation
 ```
 
-Useful DS material:
-
-```txt
-RecommendationCard
-EvidenceList
-DetailSection
-Alert
-Tooltip or Popover
-```
-
-Reject alerts or metrics that do not explain why the issue matters.
-
 ---
 
 ## Need 6 — Know what to do next
@@ -268,8 +255,6 @@ User need:
 ```txt
 I need to move from awareness to action.
 ```
-
-GenAI should connect risks, alerts and recommendations to concrete next steps.
 
 A useful action includes:
 
@@ -289,17 +274,6 @@ Review later
 Check issue
 ```
 
-Useful DS material:
-
-```txt
-RecommendationCard
-Alert
-Dialog for action creation when user input is required
-DetailSection
-```
-
-Reject screens with alerts but no recommended next step, or actions without owner, due date or priority.
-
 ---
 
 ## Need 7 — Know who owns the next step
@@ -310,7 +284,7 @@ User need:
 I need to know who owns the next step so responsibility does not remain implicit or fragmented.
 ```
 
-GenAI should make ownership visible when the screen includes:
+Make ownership visible when the screen includes:
 
 ```txt
 risk
@@ -324,17 +298,6 @@ customer communication
 
 If ownership is unknown, expose the gap and propose assigning ownership.
 
-Useful DS material:
-
-```txt
-RecommendationCard
-DetailSection
-StatusBadge
-Alert
-```
-
-Reject screens that create actions or risks without clarifying responsibility.
-
 ---
 
 ## Need 8 — Reduce user effort
@@ -345,7 +308,7 @@ User need:
 I need the interface to reduce effort instead of asking me to search, configure or interpret too much manually.
 ```
 
-GenAI should:
+Do:
 
 ```txt
 focus the screen around the current decision
@@ -354,20 +317,6 @@ avoid duplicated context
 avoid raw data dumps
 use progressive disclosure
 ```
-
-Useful DS material:
-
-```txt
-Tabs
-Accordion
-Collapsible
-ScrollArea
-Table
-SearchField
-FilterDropdown
-```
-
-Reject over-generated screens that add cognitive load instead of reducing it.
 
 ---
 
@@ -379,7 +328,7 @@ User need:
 I need to know what is covered, what is not covered, whether visibility is partial and which assets are represented.
 ```
 
-GenAI should show, when relevant:
+Show when relevant:
 
 ```txt
 covered scope
@@ -394,18 +343,6 @@ limits of visibility
 
 Do not imply complete system visibility when the source only supports partial coverage.
 
-Do not present non-connected assets as live-monitored.
-
-Useful DS material:
-
-```txt
-StatusBadge
-EvidenceList
-AssetSummaryCard
-Table or dense rows
-Alert
-```
-
 ---
 
 ## Need 10 — See customer-specific context without losing structure
@@ -416,7 +353,7 @@ User need:
 I need relevant customer-specific constraints and objectives to be visible without making every screen bespoke or inconsistent.
 ```
 
-GenAI should represent specificity as structured context:
+Represent specificity as structured context:
 
 ```txt
 industry
@@ -431,15 +368,6 @@ contract-specific commitment
 
 Do not turn specificity into uncontrolled layout customization.
 
-Useful DS material:
-
-```txt
-DetailSection
-StatusBadge
-AssetSummaryCard
-Alert
-```
-
 ---
 
 ## Need 11 — See value proof over time
@@ -450,7 +378,7 @@ User need:
 I need to see what value has been delivered over time and what proof is still missing.
 ```
 
-GenAI should distinguish:
+Distinguish:
 
 ```txt
 expected outcome
@@ -468,16 +396,6 @@ Do not present expected outcomes as proven value.
 
 Do not present internal operational evidence as customer-ready proof without validation.
 
-Useful DS material:
-
-```txt
-EvidenceList
-RecommendationCard
-DetailSection
-StatusBadge
-Progress or ScoreBar when the value is provided
-```
-
 ---
 
 ## Need 12 — Prepare for renewal or customer discussion
@@ -488,7 +406,7 @@ User need:
 I need customer-ready summaries, proof points and mitigation actions before renewal, QBR or review discussions.
 ```
 
-GenAI should combine:
+Combine:
 
 ```txt
 customer or site context
@@ -499,9 +417,7 @@ validated outcomes
 next mitigation steps
 ```
 
-Show renewal or discussion context before proof gaps, risks and mitigation actions when relevant.
-
-Do not generate a customer-ready proof section when validation is missing.
+Do not generate customer-ready proof when validation is missing.
 
 ---
 
@@ -513,7 +429,7 @@ User need:
 I need basic facts to be visible directly instead of asking AI for information that should come from a source system.
 ```
 
-GenAI should not be used to retrieve:
+AI should not retrieve or invent:
 
 ```txt
 customer name
@@ -528,20 +444,6 @@ lifecycle status
 ```
 
 Use BI, APIs or source systems for structured facts.
-
-Use AI only for:
-
-```txt
-synthesis
-explanation
-prioritization
-recommendation wording
-proof gap explanation
-grounded action-plan drafting
-customer-ready reformulation from facts
-```
-
-Reject prompt-first screens that use AI for basic structured retrieval.
 
 ---
 
@@ -577,7 +479,7 @@ User need:
 I need critical customer, contract, service, safety, compliance or asset decisions to remain human-validated.
 ```
 
-GenAI should keep human validation visible for critical decisions involving:
+Keep human validation visible for critical decisions involving:
 
 ```txt
 customer communication
@@ -592,15 +494,49 @@ modernization action
 
 Do not imply AI autonomously approved critical service decisions.
 
-Useful DS material:
+---
+
+## Useful UI material
+
+Use exported DS material or local composition according to intent.
+
+Useful exported material may include:
 
 ```txt
-StatusBadge
 Alert
-RecommendationCard
-EvidenceList
-Dialog when approval or confirmation is required
+Badge
+Pill
+Tag
+Table
+Tabs
+Accordion
+Collapsible
+Dialog
+Button
+SearchField
+FilterDropdown
+ViewFilterBar
+AllFiltersPanel
+AssetInventoryRow
+HealthBadge
+StatusLabel
+Progress
+Tooltip
+Popover
+ScrollArea
 ```
+
+Useful local screen-specific composition may include:
+
+```txt
+local detail section
+local evidence row
+local recommendation block
+local action summary
+local proof gap section
+```
+
+Do not import local composition names from the package unless they are exported.
 
 ---
 
@@ -638,4 +574,5 @@ actions without owner or timing
 value proof without completed evidence
 customer specificity as uncontrolled custom UI
 partial visibility presented as complete coverage
+fictional package component imports
 ```
