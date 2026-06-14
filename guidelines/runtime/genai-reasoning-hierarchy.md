@@ -3,18 +3,18 @@
 ## Status
 
 ```txt
-RUNTIME GUIDANCE / GENAI REASONING / NON-CONTRACTUAL
+RUNTIME GUIDANCE / GENAI REASONING / FIGMA MAKE
 ```
 
 ## Purpose
 
-This file defines how GenAI should reason when generating or reviewing screens with the design system.
+This file defines how to reason when generating or reviewing screens with the design system.
 
-It exists to prevent two failures:
+It prevents two failures:
 
 ```txt
-1. GenAI ignores the design system and produces arbitrary UI.
-2. GenAI over-applies the design system and becomes a rigid screen assembler.
+1. Ignoring the design system and producing arbitrary UI.
+2. Over-applying the design system and becoming a rigid screen assembler.
 ```
 
 The target behavior is a design co-pilot:
@@ -24,9 +24,55 @@ understand the prompt
 preserve user intent
 apply domain knowledge
 use design principles
-choose suitable DS material
+inspect available DS material
+choose suitable components when useful
+compose locally when needed
 avoid critical failures
 ```
+
+---
+
+## Must
+
+You must preserve the designer prompt as the brief unless it creates a critical failure.
+
+You must apply relevant principles and knowledge.
+
+You must import the package stylesheet when generating React application code:
+
+```tsx
+import "design-system-ai-lab/styles.css";
+```
+
+You must inspect available primitives, components and exports before inventing local UI.
+
+You must not invent evidence, telemetry, source data or proof.
+
+You must not invent package components or fictional imports.
+
+You must not recreate the visual system locally.
+
+---
+
+## Should
+
+You should use package primitives and components when they support the brief intent and layout.
+
+You should compose locally when exported components do not fit.
+
+You should keep facts, interpretation, recommendation and proof distinct when trust matters.
+
+You should repair the smallest failing reasoning layer instead of adding more UI.
+
+---
+
+## May
+
+You may create local screen-specific components when no exported component fits.
+
+You may challenge or adjust the prompt when it creates a critical failure.
+
+You may simplify the screen when the prompt asks for too much structure or too much decoration.
 
 ---
 
@@ -36,15 +82,16 @@ The designer prompt is the brief.
 
 The design system is the guidance system.
 
-GenAI should not erase the designer's intent.
+Do not erase the designer's intent.
 
-GenAI should improve the proposal by applying knowledge, principles and good component usage.
+Improve the proposal by applying knowledge, principles and good component usage.
 
 ```txt
 Prompt defines the desired outcome.
 Principles guide the reasoning.
 Knowledge grounds the domain.
 Components provide possible UI vocabulary.
+Local composition is allowed when components do not fit.
 Contracts block critical failures.
 Reference examples inspire, but do not dictate.
 ```
@@ -62,7 +109,7 @@ Use this order before composing UI:
 4. Domain object and business context
 5. Evidence, trust and validation needs
 6. Information hierarchy
-7. Component or primitive selection
+7. Component, primitive or local composition selection
 8. Visual composition
 9. Review and repair
 ```
@@ -168,27 +215,29 @@ What should be progressively disclosed?
 Use:
 
 ```txt
-Signal → Decision → Evidence
+Signal -> Decision -> Evidence
 ```
 
 as a hierarchy model when it supports the prompt.
 
 ---
 
-### 7. Component or primitive selection
+### 7. Component, primitive or local composition selection
 
 Answers:
 
 ```txt
-Is this a generic UI behavior?
-Is this a recurring product usage?
-Is this a candidate pattern?
-Is this a reference composition?
+Does an exported component fit the brief and layout?
+Does a primitive composition fit better?
+Is a local screen-specific component needed?
+Is the component name actually exported if it is imported from the package?
 ```
 
 Choose DS material according to intent.
 
 Do not mechanically map concepts to components.
+
+Do not invent package component imports.
 
 ---
 
@@ -203,6 +252,8 @@ How should the screen be arranged for clarity, density, hierarchy and trust?
 Prefer sober, operational UI.
 
 Avoid decorative dashboards when the task is decision support.
+
+Local composition must preserve the package visual foundation.
 
 ---
 
@@ -247,7 +298,7 @@ Never let AI interpretation replace source evidence.
 
 ---
 
-### Signal → Decision → Evidence
+### Signal -> Decision -> Evidence
 
 This is a disclosure model, not a rigid layout.
 
@@ -261,7 +312,7 @@ Do not use it to hide evidence required for trust.
 
 Structured facts should come from data, APIs, BI tools, repositories or source systems.
 
-AI should help with:
+AI may help with:
 
 ```txt
 synthesis
@@ -273,17 +324,23 @@ action-plan drafting
 customer-ready reformulation from grounded facts
 ```
 
-AI should not invent or retrieve basic source-system facts.
+AI must not invent or retrieve basic source-system facts.
 
 ---
 
 ## Rule strength
 
-Use three strengths of guidance.
+Use `must`, `should` and `may` consistently.
+
+For instruction language, read:
+
+```txt
+guidelines/reference/instruction-language.md
+```
 
 ### Hard blocker
 
-Critical failure to prevent or repair.
+A critical failure to prevent or repair.
 
 Examples:
 
@@ -292,7 +349,8 @@ invented evidence
 AI presented as proof
 expected outcome shown as proven value
 non-connected asset shown as live-monitored without data
-internal app/ui imports
+package stylesheet missing from generated app code
+fictional package component import
 local design-system clone
 critical decision shown as autonomously approved by AI
 ```
@@ -309,6 +367,7 @@ show trust cues when trust matters
 keep actions owned and time-bound when execution matters
 make partial visibility explicit
 prefer dense rows or tables for asset comparison
+use package components when they fit the brief and layout
 ```
 
 ### Flexible guidance
@@ -319,12 +378,13 @@ Examples:
 
 ```txt
 use Alert for bounded attention signals
-use RecommendationCard for recommended next steps
-use EvidenceList for sources and proof trail
 use Dialog when collecting confirmation
+create local EvidenceRow when no exported component fits
+create local RecommendationBlock when no exported component fits
+compose with semantic sections when package components do not fit
 ```
 
-Flexible guidance should never override the prompt.
+Flexible guidance should never override the prompt or a hard blocker.
 
 ---
 
@@ -333,28 +393,30 @@ Flexible guidance should never override the prompt.
 Do not think:
 
 ```txt
-Business concept → fixed component
+Business concept -> fixed component
 ```
 
 Think:
 
 ```txt
-User intent → needed UI behavior → suitable DS material
+User intent -> needed UI behavior -> suitable DS material or local composition
 ```
 
 Example:
 
 ```txt
 Intent: show incomplete proof
-Possible material: EvidenceList, StatusBadge, Alert, DetailSection
+Possible material: Alert, Badge, Table, Accordion, Collapsible, local EvidenceRow, semantic sections
 Final choice depends on the screen, prompt, density and user role.
 ```
+
+Do not import local composition names from the package unless they are explicitly exported.
 
 ---
 
 ## When to challenge the prompt
 
-GenAI may challenge or adjust the prompt only when:
+You may challenge or adjust the prompt only when:
 
 ```txt
 it asks to invent facts or evidence
@@ -382,5 +444,7 @@ Are facts, interpretation, recommendation and proof distinct enough?
 Is AI used only where it adds value?
 Are critical guardrails respected?
 Are component choices justified by intent?
+Are package imports real?
+Is local composition clearly local and visually consistent?
 Is the screen simpler than the problem, not more complex?
 ```
