@@ -24,13 +24,68 @@ export interface AssetInventoryRowData {
 export interface AssetInventoryRowProps {
   asset: AssetInventoryRowData;
   selected: boolean;
-  columnWidths: string;
+  /**
+   * Grid definition for the row columns.
+   *
+   * Preferred usage for generated code is a valid Tailwind grid-cols class, e.g.
+   * `grid-cols-[minmax(0,2fr)_auto_minmax(0,1fr)_minmax(0,1fr)_auto_auto_2rem]`.
+   *
+   * For compatibility, CSS grid-template values such as `2fr 1.5fr 1fr 1fr auto auto 2rem`
+   * are also accepted and applied as an inline `gridTemplateColumns` value.
+   */
+  columnWidths?: string;
+  /** Alias for Tailwind grid column classes. Prefer this for new code. */
+  columnClassName?: string;
+  /** Explicit CSS grid-template-columns value. Use when a Tailwind arbitrary grid class is not practical. */
+  gridTemplateColumns?: string;
   onSelect: () => void;
 }
 
-export function AssetInventoryRow({ asset, selected, columnWidths, onSelect }: AssetInventoryRowProps) {
+function resolveColumnLayout({
+  columnWidths,
+  columnClassName,
+  gridTemplateColumns,
+}: Pick<AssetInventoryRowProps, 'columnWidths' | 'columnClassName' | 'gridTemplateColumns'>) {
+  const candidate = columnClassName ?? columnWidths;
+
+  if (gridTemplateColumns) {
+    return { columnClass: '', gridTemplateColumns };
+  }
+
+  if (!candidate) {
+    return {
+      columnClass: 'grid-cols-[minmax(0,2fr)_auto_minmax(0,1fr)_minmax(0,1fr)_auto_auto_2rem]',
+      gridTemplateColumns: undefined,
+    };
+  }
+
+  if (candidate.includes('grid-cols-')) {
+    return { columnClass: candidate, gridTemplateColumns: undefined };
+  }
+
+  return { columnClass: '', gridTemplateColumns: candidate };
+}
+
+export function AssetInventoryRow({
+  asset,
+  selected,
+  columnWidths,
+  columnClassName,
+  gridTemplateColumns,
+  onSelect,
+}: AssetInventoryRowProps) {
+  const { columnClass, gridTemplateColumns: resolvedGridTemplateColumns } = resolveColumnLayout({
+    columnWidths,
+    columnClassName,
+    gridTemplateColumns,
+  });
+
   return (
-    <div onClick={onSelect} className={`grid ${columnWidths} px-5 gap-3 cursor-pointer transition-all duration-100 group relative ${selected ? 'bg-[#f0faf5]' : 'hover:bg-neutral-50/80'}`}>
+    <div
+      onClick={onSelect}
+      className={`grid ${columnClass} px-5 gap-3 cursor-pointer transition-all duration-100 group relative ${selected ? 'bg-[#f0faf5]' : 'hover:bg-neutral-50/80'}`}
+      style={resolvedGridTemplateColumns ? { gridTemplateColumns: resolvedGridTemplateColumns } : undefined}
+    >
       {selected && <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-[#00985F] rounded-r" />}
 
       <div className="py-3.5 flex flex-col gap-0.5 min-w-0">
