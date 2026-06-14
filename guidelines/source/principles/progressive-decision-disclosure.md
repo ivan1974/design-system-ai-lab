@@ -6,51 +6,66 @@
 SOURCE PRINCIPLE / HIERARCHY / GENAI DESIGN JUDGMENT
 ```
 
+## Purpose
+
+This principle prevents generated screens from exposing every fact, metric, proof point and action at the same level.
+
+---
+
 ## Core idea
 
-Do not expose every fact, metric, proof point and action at the same level.
-
-Use this hierarchy:
+Use this hierarchy when it supports the brief:
 
 ```txt
-Signal → Decision → Evidence
+Signal -> Decision -> Evidence
 ```
 
-The first view should make the decision understandable. Supporting evidence should remain available without overwhelming the user.
+The first view should make the decision understandable.
+
+Supporting evidence should remain available without overwhelming the user.
 
 ---
 
-## Why this matters
+## Must
 
-GenAI often overproduces content when given rich context.
+You must not hide evidence, validation state or action ownership when trust or execution depends on it.
 
-This creates screens that are technically complete but cognitively weak:
+You must not overload the first view with equal-priority cards, metrics or proof details.
 
-```txt
-too many cards
-too many equal sections
-all evidence visible at once
-no clear action path
-weak prioritization
-```
-
-Progressive disclosure protects decision quality.
+You must not use progressive disclosure to conceal uncertainty.
 
 ---
 
-## How GenAI should apply this
+## Should
 
-Use three levels:
-
-### 1. Signal
-
-Answers:
+You should organize information into three levels:
 
 ```txt
-What requires attention?
+Signal
+  what requires attention
+
+Decision
+  what should be done or understood
+
+Evidence
+  why the user should trust it
 ```
 
-Examples:
+You should make actions visible when action is available.
+
+You should move secondary evidence, history and documents into tabs, sections, panels or local evidence rows when appropriate.
+
+---
+
+## May
+
+You may use Tabs, Accordion, Collapsible, Sheet, ScrollArea or local screen-specific sections for secondary detail.
+
+You may create local evidence or detail components when exported components do not fit.
+
+---
+
+## Useful first-level signals
 
 ```txt
 critical health
@@ -63,15 +78,9 @@ weak evidence
 missing validation
 ```
 
-### 2. Decision
+---
 
-Answers:
-
-```txt
-What should be done?
-```
-
-Examples:
+## Useful decision prompts
 
 ```txt
 schedule service
@@ -83,15 +92,9 @@ request missing information
 download report
 ```
 
-### 3. Evidence
+---
 
-Answers:
-
-```txt
-Why should the user trust this?
-```
-
-Examples:
+## Useful evidence cues
 
 ```txt
 source
@@ -103,28 +106,6 @@ validation status
 history
 documents
 proof readiness
-```
-
----
-
-## Good generation behavior
-
-For operational inventory:
-
-```txt
-show compact rows first
-show attention-required items early
-open detail without losing context
-move evidence, history and documents into detail
-keep actions visible when action is available
-```
-
-For detail panels:
-
-```txt
-summary first
-tabs or sections for evidence
-sticky action area when follow-through matters
 ```
 
 ---
@@ -144,27 +125,40 @@ validation hidden when trust matters
 
 ---
 
-## Components affected
+## UI material affected
 
-Use:
+Useful exported material may include:
 
 ```txt
-Tabs for stable secondary views
-Accordion or Collapsible for optional detail
-Sheet or panel for contextual detail
-Table or row structures for dense operational comparison
-EvidenceList for proof trails
-RecommendationCard for decision support
-Alert for bounded attention signals
+Tabs
+Accordion
+Collapsible
+Sheet
+Table
+ScrollArea
+Alert
+Badge
+Pill
+Tag
+Progress
 ```
 
-Do not use these components to hide required action ownership or validation state.
+Useful local screen-specific composition may include:
+
+```txt
+local evidence row
+local recommendation block
+local detail section
+local action area
+```
+
+Do not import local composition names from the package unless they are exported.
 
 ---
 
 ## Repair prompt
 
-If the screen feels overloaded, repair it by asking:
+If the screen feels overloaded, ask:
 
 ```txt
 What is the signal?
