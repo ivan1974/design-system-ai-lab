@@ -8,37 +8,74 @@ ROOT GUIDELINE / TOKENS / FIGMA MAKE
 
 ## Purpose
 
-This file explains which design tokens Figma Make should use when generating screens for this kit.
+This file explains which design tokens to use when generating screens for this kit.
 
-Use tokens through existing design-system components and Tailwind utilities whenever possible.
+Use tokens through the package stylesheet, existing design-system components and Tailwind utilities.
 
-Do not invent a parallel token system.
-
-Do not hard-code visual values when an existing token or component style already expresses the intent.
+Do not create a parallel token system.
 
 ---
 
-## Core rule
+## Must
 
-Use existing tokens through the design system.
+You must import the package stylesheet when generating React application code:
 
-```txt
-component first
-token second
-custom value last
+```tsx
+import "design-system-ai-lab/styles.css";
 ```
 
-Generated screens should usually not need custom token values.
+You must use the design-system visual language when composing screens.
 
-If a layout needs custom spacing or sizing, use standard Tailwind utility values rather than arbitrary inline styles.
+You must not invent new token names, palettes or semantic color systems.
+
+You must not recreate component styling locally when an exported component fits.
+
+You must not communicate status by color alone.
 
 ---
 
-## Current token model
+## Should
 
-The project uses CSS variables exposed to Tailwind theme values.
+You should use existing components first when they support the brief and layout.
 
-Core semantic tokens include:
+You should use semantic Tailwind utilities when composing locally.
+
+You should prefer standard Tailwind spacing, radius and typography utilities over arbitrary inline styles.
+
+You should keep custom values rare and justified by layout needs.
+
+---
+
+## May
+
+You may compose local screen-specific components when exported components do not fit.
+
+You may use Tailwind utilities for layout, spacing and alignment.
+
+You may use a custom size or layout value when the screen cannot be expressed clearly with existing utilities, but you must preserve the design-system visual language.
+
+---
+
+## Selection order
+
+Use this order:
+
+```txt
+1. Existing component style
+2. Semantic token utility
+3. Standard Tailwind utility
+4. Custom value only when necessary
+```
+
+Generated screens should rarely need custom visual values.
+
+---
+
+## Current semantic tokens
+
+The project exposes semantic CSS variables through Tailwind theme values.
+
+Core tokens include:
 
 ```txt
 --background
@@ -65,13 +102,13 @@ Core semantic tokens include:
 --radius
 ```
 
-Sidebar and chart tokens also exist, but should only be used when the screen genuinely needs sidebar or chart context.
+Sidebar and chart tokens also exist, but use them only when the screen genuinely needs sidebar or chart context.
 
 ---
 
 ## Tailwind token aliases
 
-Tokens are exposed through Tailwind theme aliases such as:
+Use semantic utilities such as:
 
 ```txt
 bg-background
@@ -94,15 +131,13 @@ border-border
 ring-ring
 ```
 
-Use these semantic utilities instead of arbitrary colors.
+Use these instead of arbitrary colors.
 
 ---
 
-## Radius tokens
+## Radius
 
-Use the radius system through Tailwind radius utilities.
-
-Available radius aliases include:
+Use standard radius utilities:
 
 ```txt
 rounded-sm
@@ -117,19 +152,15 @@ The base radius comes from:
 --radius
 ```
 
-Do not hard-code border radius values unless the prompt explicitly requires a special visual treatment and no component fits.
+Do not hard-code border radius values unless no component or standard utility fits the required layout.
 
 ---
 
-## Typography tokens
+## Typography
 
-The base typography uses project CSS variables and Tailwind text utilities.
+Use component-provided typography and standard Tailwind text utilities.
 
-Prefer standard text utilities and component-provided typography.
-
-Use semantic hierarchy before changing sizes manually.
-
-Good:
+Create hierarchy through meaning first:
 
 ```txt
 clear title
@@ -137,6 +168,7 @@ short description
 section label
 body text
 helper text
+explicit action label
 ```
 
 Avoid:
@@ -145,15 +177,14 @@ Avoid:
 large arbitrary text for decoration
 multiple competing heading sizes
 visual hierarchy created only by font size
+marketing-style emphasis
 ```
 
 ---
 
-## Color usage
+## Color
 
-Use color for meaning.
-
-Use the neutral surface tokens for most interface structure:
+Use neutral surface tokens for most structure:
 
 ```txt
 background
@@ -169,49 +200,27 @@ Use primary color for primary actions or strong emphasis.
 
 Use destructive color only for destructive, high-risk or error states.
 
-Do not create arbitrary palettes.
-
 Do not make weak evidence look stronger through color.
 
-Do not communicate status by color alone.
+Always pair color with explicit text when communicating status.
 
 ---
 
-## State and focus tokens
+## Focus and interaction states
 
 Use existing component focus styles.
 
 Do not remove visible focus states.
 
-Use ring/focus tokens through component APIs or Tailwind utilities only when needed.
+Use ring/focus tokens only when needed.
 
 Avoid inline focus styling.
 
 ---
 
-## Spacing and layout
+## Do not invent
 
-Prefer Tailwind spacing utilities and component spacing.
-
-Use spacing to clarify:
-
-```txt
-page structure
-section grouping
-relationship between signal, evidence and action
-list density
-panel hierarchy
-```
-
-Avoid spacing used only for decorative emptiness.
-
-Do not use arbitrary pixel values for common layout spacing.
-
----
-
-## Do not invent these
-
-Do not invent new token names such as:
+Do not invent token names such as:
 
 ```txt
 --ec-primary
@@ -223,7 +232,7 @@ Do not invent new token names such as:
 --success-glow
 ```
 
-If a semantic need is not represented by a token, use existing semantic tokens and readable text labels.
+If a semantic need is not represented by a token, use existing semantic tokens and clear text labels.
 
 ---
 
@@ -232,12 +241,13 @@ If a semantic need is not represented by a token, use existing semantic tokens a
 Before accepting generated code, verify:
 
 ```txt
+package stylesheet is imported
 semantic Tailwind utilities are used instead of arbitrary colors
 existing component styling is not recreated manually
 radius uses standard rounded utilities
 focus styles are preserved
-status is not communicated by color alone
-custom inline styles are avoided
+status is not color-only
+custom inline styles are avoided or justified by layout
 no fictional tokens are introduced
 ```
 
@@ -247,6 +257,6 @@ no fictional tokens are introduced
 
 Tokens support consistency.
 
-They should make the interface calmer and more predictable.
+Use them to make the interface calmer and more predictable.
 
-They should not become a place for GenAI to invent a new visual system.
+Do not use tokens as a place to invent a new visual system.
