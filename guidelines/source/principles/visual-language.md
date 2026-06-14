@@ -8,15 +8,27 @@ SOURCE PRINCIPLE / VISUAL LANGUAGE / GENAI JUDGMENT
 
 ## Purpose
 
-This principle defines the visual direction GenAI should follow when generating operational screens with this design system.
-
-It is not a full brand guideline.
+This principle defines the visual direction for operational screens generated with this design system.
 
 It is a generation guide for visual clarity, hierarchy and trust.
 
+It is not a full brand guideline.
+
 ---
 
-## Target feel
+## Must
+
+You must preserve the package visual language.
+
+You must not recreate surfaces, shadows, selected states, badges, pills, buttons or panels as a local design system.
+
+You must not use arbitrary palettes, decorative effects or visual styling that hides the decision path.
+
+You must not make weak evidence look stronger through color, size or effects.
+
+---
+
+## Should
 
 Generated screens should feel:
 
@@ -32,7 +44,32 @@ evidence-aware
 action-oriented
 ```
 
-They should not feel like:
+You should use visual design to clarify:
+
+```txt
+where am I?
+what matters?
+what can I trust?
+what should I do next?
+```
+
+You should rely on layout, spacing, surfaces, text clarity and status labels before adding visual effects.
+
+---
+
+## May
+
+You may create local screen-specific components when exported components do not fit.
+
+Local styling may support layout, grid, spacing, alignment and responsive sizing.
+
+Local styling must not redefine component identity or create a parallel visual system.
+
+---
+
+## Target feel
+
+Generated screens must not feel like:
 
 ```txt
 generic SaaS dashboards
@@ -40,23 +77,6 @@ gaming control rooms
 marketing landing pages
 decorative concept shots
 neon analytics walls
-```
-
----
-
-## Core rule
-
-Use visual design to clarify the user's decision path.
-
-Do not use visual design to compensate for weak information hierarchy.
-
-A screen should make it easy to see:
-
-```txt
-where am I?
-what matters?
-what can I trust?
-what should I do next?
 ```
 
 ---
@@ -97,17 +117,11 @@ black or near-black text
 subtle borders
 ```
 
-Use the main green as the primary action and confidence accent when appropriate:
-
-```txt
-#00953B
-```
+Use primary color for primary action and strong emphasis when appropriate.
 
 Use warning, danger and success colors only for status, attention or decision meaning.
 
-Do not use arbitrary palettes.
-
-Do not make weak evidence look stronger through color.
+Do not communicate important status through color alone.
 
 ---
 
@@ -117,10 +131,10 @@ A useful operational workspace often has this visual hierarchy:
 
 ```txt
 workspace background
-→ control or filter surface
-→ primary list or review surface
-→ selected detail panel
-→ action area when action is available
+-> control or filter surface
+-> primary list or review surface
+-> selected detail panel
+-> action area when action is available
 ```
 
 This hierarchy is guidance, not a mandatory layout.
@@ -170,26 +184,6 @@ A small amount of softness, opacity or backdrop treatment is acceptable only whe
 
 ---
 
-## Brand and DS boundary
-
-Do not recreate surfaces, shadows, selected states, badges, pills, buttons or panels with local CSS or inline styles.
-
-Use approved DS material and tokens.
-
-If custom layout styling is unavoidable, keep it structural:
-
-```txt
-spacing
-layout
-grid
-alignment
-responsive sizing
-```
-
-Do not use custom styling to redefine component identity.
-
----
-
 ## Relationship with other principles
 
 Visual language should support:
@@ -225,6 +219,7 @@ panels are connected to the workspace
 spacing improves clarity
 there are no arbitrary palettes or decorative effects
 custom styling does not recreate DS components
+local composition remains visually consistent
 visual density matches the user task
 ```
 
