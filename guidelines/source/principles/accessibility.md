@@ -10,35 +10,49 @@ SOURCE PRINCIPLE / ACCESSIBILITY / GENAI JUDGMENT
 
 Accessibility is a baseline quality requirement for generated interfaces.
 
-A generated screen should be:
-
-```txt
-understandable
-navigable
-readable
-usable without relying on color alone
-clear about status, evidence and action
-```
-
-Accessibility is not only technical compliance.
-
-For operational service screens, accessibility also means users should not have to infer critical meaning from layout, color, vague wording, AI confidence or hidden evidence.
+For operational service screens, accessibility also means users should not infer critical meaning from color, layout, vague wording, AI confidence or hidden evidence.
 
 ---
 
-## Core rule
+## Must
 
-Use design-system primitives and usage components because they encode shared interaction, structure and accessibility expectations.
+You must make the screen understandable, navigable and readable.
 
-Do not bypass them with raw HTML, local wrappers or inline-styled replacements when approved DS material exists.
+You must not communicate critical meaning through color alone.
+
+You must use real interactive elements for actions and inputs.
+
+You must not create clickable non-interactive elements.
+
+You must not remove visible focus states.
+
+You must not show display-only facts as disabled form controls.
 
 ---
 
-## Information must not depend on color alone
+## Should
 
-Do not communicate critical meaning only through color.
+You should use design-system primitives and components because they encode shared interaction, structure and accessibility expectations.
 
-This applies to:
+You should give editable form controls visible labels or explicit accessible alternatives.
+
+You should use explicit action labels.
+
+You should align reading order with the intended decision flow.
+
+---
+
+## May
+
+You may create local screen-specific components when exported components do not fit.
+
+Local components must still preserve semantic structure, readable labels, focus behavior and design-system visual language.
+
+---
+
+## Color is not enough
+
+Do not communicate these only through color:
 
 ```txt
 health state
@@ -51,9 +65,7 @@ expected outcome vs proven value
 criticality
 ```
 
-A status should be understandable through text as well as visual treatment.
-
-Good:
+Prefer explicit text:
 
 ```txt
 Connectivity partial
@@ -63,7 +75,7 @@ Expected outcome, not proven
 AI interpretation — review needed
 ```
 
-Weak:
+Avoid vague text:
 
 ```txt
 Status
@@ -73,7 +85,7 @@ High confidence
 
 ---
 
-## Text clarity is accessibility
+## Text clarity
 
 Generated copy should be:
 
@@ -87,37 +99,11 @@ explicit about source or freshness when trust depends on it
 explicit about whether content is observed, interpreted, recommended, expected or proven
 ```
 
-Avoid vague content:
-
-```txt
-Issue detected
-Some data
-Follow up
-More information
-Action needed
-System status
-Proof available
-```
-
-Prefer specific content:
-
-```txt
-Connectivity loss on critical equipment
-Plan connectivity review with the customer
-Partial visibility on UPS Room A
-Non-connected asset — based on service history, not live telemetry
-Expected outcome not yet proven
-```
-
 ---
 
-## Form accessibility
+## Forms
 
 Every editable form control should have a visible label or explicit accessible alternative.
-
-Use form primitives and labels consistently.
-
-Do not rely only on placeholder text.
 
 Good:
 
@@ -136,27 +122,9 @@ Use helper text when it explains how to complete a field or why it matters.
 
 Use error text that explains how to fix the issue.
 
-Good helper text:
-
-```txt
-Assign a clear owner for this action.
-Choose the priority based on customer impact.
-```
-
-Good error text:
-
-```txt
-Owner is required before saving the action.
-Select a priority before continuing.
-```
-
 ---
 
 ## Interactive elements
-
-Use real interactive components.
-
-Do not create clickable non-interactive elements.
 
 Avoid:
 
@@ -170,15 +138,13 @@ Use:
 <Button>Create action</Button>
 ```
 
-Do not remove focus styles.
-
 Do not hide essential actions behind hover-only interaction.
 
 ---
 
 ## Button labels
 
-Buttons should have explicit labels.
+Button labels should explain what will happen.
 
 Good:
 
@@ -201,11 +167,9 @@ Go
 Action
 ```
 
-A button label should explain what will happen.
-
 ---
 
-## Dialog accessibility
+## Dialogs
 
 Dialogs should support one focused task.
 
@@ -239,47 +203,33 @@ Do not use a dialog for long exploration when a panel, tab or page section would
 
 The visual order and reading order should match the intended decision flow.
 
-A useful service flow is often:
+Useful service flow:
 
 ```txt
 context
-→ signal
-→ decision or recommendation
-→ evidence or validation
-→ action
+-> signal
+-> decision or recommendation
+-> evidence or validation
+-> action
 ```
 
-For asset-heavy screens, keep semantic clarity:
-
-```txt
-asset context
-→ source scope and connectivity
-→ observed facts
-→ interpretation
-→ recommendation
-→ action
-→ proof or validation status
-```
-
-This is not a rigid layout.
-
-It is a reading-order principle.
+This is a reading-order principle, not a rigid layout.
 
 ---
 
 ## Display facts are not disabled inputs
 
-If information is display-only, use display components instead of disabled form controls.
-
-Good display material:
+If information is display-only, use display material such as:
 
 ```txt
-DetailSection
-StatusBadge
+text sections
 Badge
+Pill
+Tag
 Table
-AssetSummaryCard
-EvidenceList
+Alert
+local detail section
+local evidence row
 ```
 
 Use form controls only when the user can input or change data.
@@ -302,6 +252,7 @@ dialogs have meaningful titles
 reading order follows the user decision or task
 display-only facts are not shown as disabled inputs
 AI interpretation is labelled when trust depends on it
+local composition remains semantic and accessible
 ```
 
 ---
