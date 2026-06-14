@@ -8,31 +8,78 @@ REFERENCE / COMPONENT SELECTION / CURRENT DS ONLY
 
 ## Purpose
 
-This file helps GenAI choose between existing design-system primitives and components.
+This file explains how to decide between:
 
-It only covers currently exported DS material.
+```txt
+using an existing primitive
+using an existing product component
+creating local screen-specific composition
+```
 
-It does not introduce new component names.
+It is an arbitration guide.
 
-It does not define fixed mappings between business concepts and components.
+It is not a component catalogue and not a props reference.
+
+For the exact list of exported primitives and components, read:
+
+```txt
+guidelines/reference/design-system-vocabulary.md
+guidelines/reference/component-usage-cards.md
+```
+
+For the detailed `AssetInventoryRow` contract, read:
+
+```txt
+guidelines/reference/asset-inventory-row-usage.md
+```
 
 ---
 
 ## Core rule
 
-Choose components by intent.
+Choose UI material by intent.
 
 ```txt
-User intent → needed UI behavior → existing DS material
+User intent -> needed UI behavior -> suitable DS material or local composition
 ```
 
-Do not choose components by business label alone.
+Do not choose UI material by business label alone.
 
 ```txt
-Business concept → fixed component
+Business concept -> fixed component
 ```
 
 is not allowed as a selection strategy.
+
+---
+
+## Mandatory foundation
+
+You must import the design-system package stylesheet in generated application code:
+
+```tsx
+import "design-system-ai-lab/styles.css";
+```
+
+The package visual language is mandatory.
+
+Using any specific component is conditional.
+
+---
+
+## Selection hierarchy
+
+Use this order when selecting UI material:
+
+```txt
+1. Understand the brief and the user decision.
+2. Apply the relevant principles and knowledge.
+3. Check whether an existing product component fits.
+4. Check whether primitives can compose the needed UI clearly.
+5. Create local screen-specific composition only when needed.
+```
+
+The brief intent, user decision, evidence rules, principles and domain knowledge take priority over mechanical component usage.
 
 ---
 
@@ -42,23 +89,47 @@ Use product components when their built-in layout and behavior match the request
 
 Do not force a product component only because the business object sounds related.
 
-If a product component creates layout friction, alignment issues, unreadable density or broken hierarchy, compose from primitives instead.
+If a product component creates layout friction, alignment issues, unreadable density or broken hierarchy, compose from primitives or local screen-specific components instead.
 
 ```txt
 Product component fits intent and layout
   use it
 
 Product component matches the business object but not the layout
-  compose with primitives
+  compose with primitives or local screen-specific UI
 
 No product component exists
-  compose with primitives
+  compose with primitives or local screen-specific UI
 
-Need a new component name
+Need a new imported component name
   do not invent it
 ```
 
-This is especially important in generated split views, dense tables and detail panels.
+---
+
+## Local composition is allowed
+
+You may create local screen-specific components when existing components do not fit the brief.
+
+Acceptable local compositions include things like:
+
+```txt
+EvidenceRow
+AssetDetailSection
+RecommendationBlock
+ReviewActionItem
+SourceContextBlock
+```
+
+These local components are acceptable only when they:
+
+```txt
+serve the brief intent
+compose with package primitives when useful
+respect tokens and visual guidelines
+do not replace an existing component that fits
+do not recreate the visual system
+```
 
 ---
 
@@ -69,571 +140,83 @@ Answer:
 ```txt
 Is the user reading, comparing, filtering, editing, confirming or acting?
 Is the information a fact, status, signal, interpretation, evidence, recommendation or action?
-Does the screen need density, disclosure, confirmation or navigation?
+Does the screen need density, disclosure, confirmation, navigation or comparison?
 Is the interaction necessary or can the information be displayed directly?
 Does an existing product component fit the required layout without distortion?
-Would primitives create a clearer result?
+Would primitives or local composition create a clearer result?
 ```
 
-Then choose the smallest existing DS material that supports the intent.
+Then choose the smallest UI material that supports the intent.
 
 ---
 
-## Use Table when the user compares structured records
+## Common selection choices
 
-Use:
+### Structured comparison
 
-```txt
-Table
-```
+Use `Table` when the user needs to compare records across fields.
 
-When the user needs to:
+Use `AssetInventoryRow` only when the object is an installed-base asset and the built-in row model fits the comparison.
 
-```txt
-compare records
-scan rows
-sort mentally by status or priority
-review structured data
-see multiple fields at once
-```
-
-Common uses:
+If `AssetInventoryRow` is used, read:
 
 ```txt
-asset inventory
-document list
-service records
-history events
-recommendation list when table density is useful
+guidelines/reference/asset-inventory-row-usage.md
 ```
 
-Use `Table` or primitive row composition when a product row component does not fit the required columns or split layout.
+### Asset inventory scan
 
-Avoid when:
+Consider `AssetInventoryRow`, `SearchField`, `FilterDropdown`, `ViewFilterBar`, `HealthBadge`, `StatusLabel`, `ScrollArea` and `Separator`.
 
-```txt
-there is only one object
-content is narrative
-user needs a focused detail view
-```
+Do not force `AssetInventoryRow` when a custom `Table` or local row better supports the decision.
 
----
+### Filtering and search
 
-## Use AssetInventoryRow for asset scan and prioritization when it fits
+Use `SearchField` for known-item text search.
 
-Use:
+Use `FilterDropdown` for one clear filter group.
 
-```txt
-AssetInventoryRow
-```
+Use `AllFiltersPanel` only when multiple filter groups or advanced filtering are genuinely needed.
 
-When the screen is about:
+Use `ViewFilterBar` for stable view switching, not for every small filter.
 
-```txt
-Installed Base inventory
-asset scan
-asset prioritization
-asset comparison
-selecting an asset from a list
-```
+### Attention and trust messages
 
-and when the built-in row layout fits the generated screen.
+Use `Alert` for bounded warnings, risks, missing evidence, partial visibility or validation needs.
 
-It is more specific than a generic table row, but it is not mandatory for every asset list.
+Use `Badge`, `Pill` or `Tag` for compact labels such as status, priority, source type, coverage, validation or category.
 
-Use only when:
+Do not communicate meaning with color alone.
 
-```txt
-the object is an asset
-the row model fits the asset inventory context
-the available columns match the intended comparison
-the split view or table layout remains readable
-```
+### Stable views and disclosure
 
-If using `AssetInventoryRow` breaks alignment, creates oversized rows, or prevents the intended column comparison, use `Table` or primitive row composition instead.
+Use `Tabs` for stable views of the same object or workspace.
 
-Avoid for:
+Use `Accordion` or `Collapsible` for optional secondary detail.
 
-```txt
-documents
-generic tasks
-recommendations without asset row context
-customers
-contracts
-custom comparison tables with incompatible columns
-```
+Use `Tooltip` or `Popover` only for lightweight explanation.
 
----
+Do not hide evidence required to trust a recommendation.
 
-## Use InstalledBaseWorkspace only as a reference composition
+### Actions and forms
 
-Use:
+Use `Button` for actions.
 
-```txt
-InstalledBaseWorkspace
-```
-
-When the prompt asks for a full Installed Base workspace and the existing composition matches the intent.
-
-Do not use it automatically for every asset-related prompt.
-
-Do not force it when the prompt needs a custom page, custom split view, or focused review screen.
-
-If the prompt asks for a different organization, compose from available primitives and components.
-
----
-
-## Use InstalledBaseHeader for page orientation
-
-Use:
-
-```txt
-InstalledBaseHeader
-```
-
-When the screen needs:
-
-```txt
-main Installed Base orientation
-workspace title
-high-level context
-page-level actions or framing
-```
-
-Avoid using it as a repeated section header.
-
-If the header layout does not fit the prompt, compose a simpler header from primitives and text rather than forcing the component.
-
----
-
-## Use MainNavigation for app-level navigation
-
-Use:
-
-```txt
-MainNavigation
-```
-
-When the generated screen needs app-level navigation context.
-
-Avoid for:
-
-```txt
-local tab switching
-filters
-section navigation
-small panels
-```
-
----
-
-## Use ViewFilterBar for stable view switching
-
-Use:
-
-```txt
-ViewFilterBar
-```
-
-When the user switches between stable views of the same inventory or workspace.
-
-Examples:
-
-```txt
-All assets
-Connected assets
-Needs attention
-Uncovered assets
-```
-
-Avoid when the need is a simple data filter or a one-off control.
-
-If the built-in view filter layout conflicts with the available width or composition, use `Tabs`, `Button`, `Badge`, `Pill`, `Tag` or primitive composition instead.
-
----
-
-## Use SearchField for known-item search
-
-Use:
-
-```txt
-SearchField
-```
-
-When the user needs to find or narrow records by text.
-
-Examples:
-
-```txt
-asset name
-asset reference
-site
-room
-document name
-```
-
-Avoid using search when the screen only contains a few visible items.
-
----
-
-## Use FilterDropdown for one filter group
-
-Use:
-
-```txt
-FilterDropdown
-```
-
-When the user filters by one clear category.
-
-Examples:
-
-```txt
-health status
-asset family
-connectivity
-coverage
-vendor
-document type
-```
-
-Avoid mixing unrelated filter types in a single dropdown.
-
-Use primitive composition if the filter needs a layout that `FilterDropdown` does not support.
-
----
-
-## Use AllFiltersPanel for advanced filtering
-
-Use:
-
-```txt
-AllFiltersPanel
-```
-
-When the user needs multiple filter groups or advanced refinement.
-
-Use for dense inventories or complex lists.
-
-Avoid when one `SearchField` or one `FilterDropdown` is enough.
-
-Avoid if it creates a heavy panel for a lightweight review screen.
-
----
-
-## Use CheckboxOption inside multi-select choices
-
-Use:
-
-```txt
-CheckboxOption
-```
-
-When the user selects multiple options inside a filtering or selection experience.
-
-Avoid using it for display-only status.
-
----
-
-## Use Alert for bounded attention signals
-
-Use:
-
-```txt
-Alert
-```
-
-When the screen needs to show:
-
-```txt
-warning
-risk
-missing evidence
-partial visibility
-critical status
-validation required
-```
-
-An alert should be bounded and meaningful.
-
-Avoid using alerts as decorative cards or generic containers.
-
-If action is expected, pair the alert with a clear action path using existing material such as `Button`, `Dialog`, `Table` or structured content.
-
----
-
-## Use Badge, Pill or Tag for compact labels
-
-Use:
-
-```txt
-Badge
-Pill
-Tag
-```
-
-When the UI needs compact labels for:
-
-```txt
-status
-category
-priority
-scope
-validation
-source type
-connectivity
-coverage
-```
-
-Do not rely on color alone.
-
-Prefer specific text:
-
-```txt
-Non-connected
-Partial visibility
-Expected outcome
-Review needed
-```
-
-Avoid vague text:
-
-```txt
-Status
-Info
-AI
-High
-```
-
----
-
-## Use Progress for provided progress or completion values
-
-Use:
-
-```txt
-Progress
-```
-
-When a progress or completion value is provided.
-
-Examples:
-
-```txt
-completion rate
-readiness progress
-coverage completion
-setup progress
-```
-
-Do not invent values.
-
-Do not use progress to imply precision when the underlying data is qualitative.
-
----
-
-## Use Tabs for stable views of the same object
-
-Use:
-
-```txt
-Tabs
-```
-
-When the user moves between stable views of the same object or workspace.
-
-Examples:
-
-```txt
-Overview
-Health
-Intelligence
-Passport
-History
-Documents
-```
-
-Use tabs when each view has enough distinct content and the user may switch between them repeatedly.
-
-Avoid tabs when content is short, sequential or better handled as progressive detail.
-
-Do not use tabs to hide evidence required to trust the visible recommendation.
-
----
-
-## Use Accordion or Collapsible for optional detail
-
-Use:
-
-```txt
-Accordion
-Collapsible
-```
-
-When the screen needs optional or secondary detail.
-
-Examples:
-
-```txt
-component details
-evidence details
-document category details
-advanced explanation
-proof trail detail
-```
-
-Avoid hiding information that is essential for the decision.
-
----
-
-## Use Dialog for focused short tasks
-
-Use:
-
-```txt
-Dialog
-```
-
-When the user must complete a short focused task.
-
-Examples:
-
-```txt
-confirm action
-create simple follow-up
-edit a short field
-review before saving
-```
-
-Avoid dialogs for long exploration, complex review or dense evidence reading.
-
-Use clear title and action labels.
-
----
-
-## Use Sheet for side content when persistent context helps
-
-Use:
-
-```txt
-Sheet
-```
-
-When side content should appear while preserving the current screen context.
-
-Examples:
-
-```txt
-asset detail panel
-filter panel
-review side panel
-```
-
-Use `Sheet` only if the side-panel behavior fits the screen and does not break layout.
-
-For a static split layout inside the page, a regular section, panel or primitive composition may be better than `Sheet`.
-
-Avoid Sheet when a small `Dialog`, `Popover` or inline section would be enough.
-
----
-
-## Use Popover or Tooltip for lightweight explanation
-
-Use:
-
-```txt
-Popover
-Tooltip
-```
-
-When the user needs short contextual help.
-
-Examples:
-
-```txt
-explain a status
-clarify source scope
-explain validation state
-show short contextual detail
-```
-
-Avoid placing essential proof, actions or long content in a tooltip.
-
----
-
-## Use DropdownMenu for action menus
-
-Use:
-
-```txt
-DropdownMenu
-```
-
-When the user needs a compact list of actions or options.
-
-Avoid when the primary action should be immediately visible.
-
----
-
-## Use Input, Select, Checkbox and Switch for real input
-
-Use:
-
-```txt
-Input
-Select
-Checkbox
-Switch
-```
-
-Only when the user can enter, choose or change something.
+Use `Input`, `Select`, `Checkbox` and `Switch` only when the user can enter, choose or change something.
 
 Do not use form controls for static facts.
 
-For display-only facts, compose with text, labels, `Table`, `Badge`, `Pill`, `Tag`, `Separator` and layout.
+### Layout support
 
----
+Use `Separator` for subtle grouping.
 
-## Use Separator for visual grouping
-
-Use:
-
-```txt
-Separator
-```
-
-When a subtle boundary improves scanability.
-
-Avoid using heavy cards or decorative dividers when a simple separator is enough.
-
----
-
-## Use ScrollArea for dense bounded content
-
-Use:
-
-```txt
-ScrollArea
-```
-
-When a section has bounded dense content that should not stretch the full page.
-
-Examples:
-
-```txt
-long asset list
-filter list
-document list
-history list
-```
-
-Avoid hiding important first-level information inside scroll areas.
+Use `ScrollArea` for dense bounded content, such as long lists or split-pane content.
 
 ---
 
 ## Selection anti-patterns
 
-Do not:
+You must not:
 
 ```txt
 invent a component import
@@ -648,6 +231,7 @@ use alerts as decorative cards
 use tabs for short sequential content
 use dialogs for large review workflows
 use progress without a provided value
+recreate the visual system locally
 ```
 
 ---
@@ -657,6 +241,7 @@ use progress without a provided value
 Before finalizing component selection, verify:
 
 ```txt
+The package stylesheet is imported.
 The selected component exists in design-system-vocabulary.md.
 The component supports the user intent.
 The component layout fits the generated screen.
@@ -664,17 +249,17 @@ The component preserves domain meaning.
 The component does not add unnecessary interaction.
 The component does not hide trust-critical information.
 The component choice avoids fictional imports and local clones.
-Primitive composition was considered when a product component did not fit.
+Local composition was considered when a product component did not fit.
 ```
 
 ---
 
 ## Final principle
 
-Select the smallest existing DS material that supports the prompt intent.
+Use the smallest current DS material that supports the prompt intent.
 
-Use product components when they fit.
+Do not invent components.
 
-Use primitives when composition needs flexibility.
+Do not force components.
 
-When in doubt, prefer clear composition from existing primitives over forced or invented component names.
+Compose locally when needed, but keep the design-system visual language.
