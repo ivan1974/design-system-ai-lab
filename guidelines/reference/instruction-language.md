@@ -49,8 +49,10 @@ Examples:
 ```txt
 You must import design-system-ai-lab/styles.css.
 You must read and apply the relevant guidelines.
-You must use available knowledge and principles when the prompt requires them.
+You must apply the relevant principles and use available knowledge.
+You must inspect the available primitives, components and exports.
 You must not invent evidence, telemetry, source data or proof.
+You must not invent package components or fictional imports.
 You must not import Radix or implementation packages directly.
 You must not recreate the design-system visual language locally.
 ```
@@ -66,7 +68,7 @@ Use `should` for strong recommendations that usually improve quality but may hav
 Examples:
 
 ```txt
-You should use package components when they support the brief intent and fit the layout.
+You should use package primitives and components when they support the brief intent and fit the layout.
 You should prefer existing primitives over raw HTML when the primitive fits.
 You should keep evidence visible when it is needed to trust a recommendation.
 ```
@@ -82,12 +84,38 @@ Use `may` for allowed choices.
 Examples:
 
 ```txt
-You may create local screen-specific components when no package component fits.
+You may create local screen-specific components when no exported component fits.
 You may compose from semantic HTML and package primitives.
 You may simplify the screen if component fit is uncertain.
 ```
 
 A `may` rule is permission, not an obligation.
+
+---
+
+## Local components vs fictional package components
+
+Local screen-specific components are allowed.
+
+Fictional package components are not allowed.
+
+Allowed:
+
+```txt
+function EvidenceRow(...) { ... }
+function RecommendationBlock(...) { ... }
+function AssetDetailSection(...) { ... }
+```
+
+Not allowed:
+
+```txt
+import { EvidenceRow } from "design-system-ai-lab";
+import { RecommendationCard } from "design-system-ai-lab";
+import { AssetDetailSection } from "design-system-ai-lab";
+```
+
+unless those names are explicitly exported by the package.
 
 ---
 
