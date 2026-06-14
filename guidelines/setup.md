@@ -31,7 +31,7 @@ asset-oriented
 decision-support workspaces
 ```
 
-It should not generate:
+It must not generate:
 
 ```txt
 generic marketing pages
@@ -43,9 +43,23 @@ screens that invent evidence or source data
 
 ---
 
+## Instruction language
+
+Read:
+
+```txt
+guidelines/reference/instruction-language.md
+```
+
+Use `must` as a hard obligation, `should` as a strong recommendation, and `may` as an allowed choice.
+
+Mandatory package, knowledge, principle and evidence rules must not be treated as optional guidance.
+
+---
+
 ## Non-negotiable package setup
 
-When generating React application code, always import the published package stylesheet:
+You must import the published package stylesheet in generated React application code:
 
 ```tsx
 import "design-system-ai-lab/styles.css";
@@ -55,9 +69,9 @@ The package is the mandatory visual foundation.
 
 Using a specific component is conditional.
 
-Use package primitives and components when they support the brief intent, fit the layout and preserve hierarchy.
+You should use package primitives and components when they support the brief intent, fit the layout and preserve hierarchy.
 
-Compose local screen-specific components when needed, but do not recreate the visual system.
+You may compose local screen-specific components when needed, but you must not recreate the visual system.
 
 ---
 
@@ -67,20 +81,26 @@ The designer prompt is the brief.
 
 The design system is the guidance system.
 
-GenAI should:
+You must:
 
 ```txt
 understand the prompt
 identify the user role and task
 identify the primary decision or job to be done
-use domain knowledge when relevant
-use design principles to shape the screen
-select suitable DS material when useful
-compose locally when DS material does not fit
+use relevant knowledge when the prompt requires it
+apply the design principles
 avoid critical failures
 ```
 
-GenAI should not:
+You should:
+
+```txt
+select suitable DS material when useful
+compose locally when DS material does not fit
+preserve the designer's intent
+```
+
+You must not:
 
 ```txt
 override the designer's intent without reason
@@ -138,6 +158,20 @@ guidelines/reference/component-usage-cards.md
 ```
 
 Use it to understand when each primitive or component helps, when it should not be forced, and when local composition is acceptable.
+
+---
+
+## AssetInventoryRow detailed guidance
+
+When using `AssetInventoryRow`, read:
+
+```txt
+guidelines/reference/asset-inventory-row-usage.md
+```
+
+Use it to keep row and header column layouts aligned.
+
+Do not pass raw CSS grid-template values as invalid Tailwind classes.
 
 ---
 
@@ -306,6 +340,16 @@ Do not use:
 Business concept -> fixed component
 ```
 
+### Using AssetInventoryRow
+
+Read:
+
+```txt
+guidelines/reference/asset-inventory-row-usage.md
+```
+
+Use it when `AssetInventoryRow` is selected for an asset list or split-view inventory.
+
 ### Using the published package
 
 Read:
@@ -328,7 +372,9 @@ guidelines/reference/screen-composition.md
 guidelines/reference/design-system-vocabulary.md
 guidelines/reference/component-selection.md
 guidelines/reference/component-usage-cards.md
+guidelines/reference/asset-inventory-row-usage.md
 guidelines/reference/package-usage.md
+guidelines/reference/instruction-language.md
 guidelines/tokens.md
 guidelines/styles.md
 ```
@@ -382,6 +428,12 @@ Read concise component usage cards in:
 
 ```txt
 guidelines/reference/component-usage-cards.md
+```
+
+Read AssetInventoryRow guidance when relevant:
+
+```txt
+guidelines/reference/asset-inventory-row-usage.md
 ```
 
 Read screen structure guidance in:
@@ -446,6 +498,7 @@ What DS material best supports the intent?
 Is that DS material available in design-system-vocabulary.md?
 Does component-selection.md support this choice?
 Does component-usage-cards.md help decide whether to use or compose?
+If using AssetInventoryRow, is the column layout valid and aligned with the header?
 If using the package, is design-system-ai-lab/styles.css imported once?
 Do tokens.md and styles.md support the visual choices?
 What accessibility risks must be avoided?
