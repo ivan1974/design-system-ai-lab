@@ -6,100 +6,66 @@
 SOURCE PRINCIPLE / AI USAGE / TRUST / GENAI DESIGN JUDGMENT
 ```
 
+## Purpose
+
+This principle clarifies when AI can assist and when validation or proof must remain visible.
+
+---
+
 ## Core idea
-
-AI may support interpretation, prioritization and recommendation.
-
-AI must not become the evidence itself.
 
 ```txt
 AI can assist judgment.
 AI cannot replace proof.
 ```
 
----
+AI may support interpretation, prioritization and recommendation.
 
-## Why this matters
-
-A GenAI-generated screen may look more confident than the underlying information allows.
-
-This is dangerous in operational, service, customer or asset contexts where the user may act on the output.
-
-The interface must make clear:
-
-```txt
-what AI helped with
-what evidence exists
-what remains uncertain
-what needs human validation
-```
+AI must not become the evidence itself.
 
 ---
 
-## What AI may do
+## Must
 
-AI may help with:
+You must not use AI as evidence, source strength, proof readiness, verified fact, customer-ready validation or business value proof.
+
+You must not invent evidence, telemetry, source data, validation state or business value.
+
+You must keep human validation visible for critical decisions when trust depends on it.
+
+You must not make AI-generated content look more authoritative than source-system facts.
+
+---
+
+## Should
+
+You should use AI to reduce cognitive load through:
 
 ```txt
 summarization
 prioritization
-signal detection
+signal explanation
 recommendation drafting
 uncertainty flagging
 next-action suggestion
 content simplification
 ```
 
-Use AI to reduce cognitive load, not to hide uncertainty.
+You should show source, freshness, source scope, proof readiness or review-needed status when trust depends on it.
 
 ---
 
-## What AI must not do
+## May
 
-Do not use AI as:
+You may use AI-assisted sections when they are clearly grounded in visible facts.
 
-```txt
-evidence
-source strength
-proof readiness
-verified fact
-customer-ready validation
-business value proof
-```
-
-Do not write:
-
-```txt
-AI confidence: 92% therefore evidence is strong
-AI confirms this recommendation is valid
-AI predicts savings as proven value
-AI verified the asset condition
-```
-
-unless external validated evidence is explicitly provided.
+You may use local screen-specific explanation or proof-gap sections when exported components do not fit.
 
 ---
 
-## Validation visibility
+## Good wording
 
-Show validation when it matters:
-
-```txt
-source scope
-source freshness
-source strength
-proof readiness
-human validation status
-customer-readiness
-```
-
-Sensitive or customer-facing recommendations should keep human validation visible.
-
----
-
-## Good generation behavior
-
-Prefer wording such as:
+Prefer:
 
 ```txt
 Recommended based on available service history and current alert state.
@@ -107,7 +73,7 @@ Telemetry source is partial; expert validation recommended before customer commu
 AI summary highlights likely next action, but proof readiness is not complete.
 ```
 
-Avoid wording such as:
+Avoid:
 
 ```txt
 AI proves this action will prevent failure.
@@ -117,26 +83,41 @@ Predicted savings are validated.
 
 ---
 
-## Components affected
+## UI material affected
 
-Use:
+Useful exported material may include:
 
 ```txt
-Alert for bounded AI-assisted warnings
-RecommendationCard for AI-supported next steps
-EvidenceList for proof and validation context
-StatusBadge for validation state
-Tooltip or Popover for short explanation of AI usage
-DetailSection for source and proof details
+Alert
+Badge
+Pill
+Tag
+Tooltip
+Popover
+Table
+Tabs
+Accordion
+Collapsible
+Dialog
+Button
 ```
 
-Keep AI explanation close to decisions when trust matters.
+Useful local screen-specific composition may include:
+
+```txt
+local AI explanation section
+local evidence row
+local proof gap section
+local recommendation block
+```
+
+Do not import local composition names from the package unless they are exported.
 
 ---
 
 ## Repair prompt
 
-If an AI claim looks too strong, repair it by asking:
+If an AI claim looks too strong, ask:
 
 ```txt
 Is this evidence or interpretation?
