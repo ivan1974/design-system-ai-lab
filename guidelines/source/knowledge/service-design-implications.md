@@ -8,26 +8,19 @@ SOURCE KNOWLEDGE / DESIGN IMPLICATIONS / GENAI MEMORY
 
 ## Purpose
 
-This file translates service UX insights and user needs into generation implications.
+This file translates service UX insights into generation implications.
 
-Use it when GenAI must decide:
+Use it when deciding:
 
 ```txt
 what to show first
 what to prioritize
 whether AI is useful
-which component level to use
 how to review a generated service screen
 how to repair a weak screen
 ```
 
-This file is not a pattern catalogue.
-
-It is a bridge between user needs and GenAI generation behavior.
-
-These implications are guidance, not strict screen contracts.
-
-Follow the user's prompt first, then use these implications to improve the quality, clarity and trustworthiness of the generated screen.
+This file is not a pattern catalogue and not a component catalogue.
 
 ---
 
@@ -42,7 +35,7 @@ what matters most
 what should happen next
 ```
 
-For asset-heavy service screens, also help users understand:
+For asset-heavy service screens, also clarify:
 
 ```txt
 which assets are represented
@@ -55,59 +48,25 @@ what is expected vs proven value
 
 ---
 
-## Rule strength
+## Must
 
-Use the right strength of guidance.
+You must preserve prompt intent while preventing critical failures.
 
-```txt
-Hard blocker
-  critical failure to prevent or repair
+You must not invent evidence, source, telemetry, validation status or value proof.
 
-Strong recommendation
-  preferred behavior unless the prompt requires another approach
+You must not present AI interpretation as source-system truth.
 
-Flexible guidance
-  possible UI material or design option
-```
+You must not present non-connected assets as live-monitored without data.
 
-Most implications in this file are strong recommendations, not blockers.
+You must not present expected outcomes as proven value.
+
+You must not invent package components or imports.
 
 ---
 
-## Implication 1 — Start with orientation and context
+## Should
 
-Generated screens should usually start with clear orientation before detailed signals, evidence or actions.
-
-GenAI should consider showing:
-
-```txt
-user-relevant title
-object or scope
-site / asset / customer context when relevant
-status or attention summary
-```
-
-Possible DS material:
-
-```txt
-InstalledBaseHeader
-AssetSummaryCard
-DetailSection
-StatusBadge
-Alert
-```
-
-Review risk:
-
-```txt
-metrics, alerts or actions appear before the user understands the situation
-```
-
----
-
-## Implication 2 — Use domain knowledge before UI assembly
-
-Before selecting components, GenAI should identify:
+You should identify before UI assembly:
 
 ```txt
 user role
@@ -118,15 +77,40 @@ evidence state
 next action
 ```
 
-Only then select primitives or usage components.
+You should prioritize signals, explain why they matter, and connect them to next steps when action is expected.
 
-Do not assemble components just because they exist.
+You should make trust cues, ownership and partial visibility visible when they affect the decision.
 
 ---
 
-## Implication 3 — Support interpretation with visible facts
+## May
 
-This implication does not override decision-first generation.
+You may create local screen-specific components when exported components do not fit.
+
+You may reorganize the screen when the prompt requires it, while preserving facts vs interpretation and evidence vs recommendation.
+
+---
+
+## Key implications
+
+### 1. Start with orientation and context
+
+Show:
+
+```txt
+user-relevant title
+object or scope
+site / asset / customer context when relevant
+status or attention summary
+```
+
+Risk to repair:
+
+```txt
+metrics, alerts or actions appear before the user understands the situation
+```
+
+### 2. Support interpretation with visible facts
 
 Use this distinction:
 
@@ -138,48 +122,15 @@ facts-before-interpretation
   guides the proof trail and trust model
 ```
 
-Generated screens should not present interpretation, recommendation or AI-assisted content as if it were source fact.
-
-For asset-heavy screens, a useful trust trail may be:
-
-```txt
-asset context
-→ source scope
-→ connectivity status
-→ raw Health or lifecycle facts
-→ Intelligence interpretation
-→ recommendation
-```
-
-Possible DS material:
-
-```txt
-DetailSection
-EvidenceList
-StatusBadge
-RecommendationCard
-Tabs
-```
-
 Hard blocker:
 
 ```txt
 AI interpretation replaces evidence or is presented as source-system truth
 ```
 
-Review risk:
+### 3. Make trust cues visible
 
-```txt
-confident recommendation appears without visible supporting facts when trust matters
-```
-
----
-
-## Implication 4 — Make trust cues visible
-
-When information may be incomplete, outdated, inferred or source-dependent, show that clearly.
-
-Trust cues may include:
+Show when relevant:
 
 ```txt
 source
@@ -192,34 +143,13 @@ review needed
 human validation required
 ```
 
-Possible DS material:
-
-```txt
-EvidenceList
-StatusBadge
-Tooltip
-Popover
-Alert
-DetailSection
-```
-
 Hard blocker:
 
 ```txt
 invented evidence, source, telemetry or validation status
 ```
 
-Review risk:
-
-```txt
-uncertain, outdated, incomplete or partial information is styled as confirmed
-```
-
----
-
-## Implication 5 — Prioritize signals, do not dump data
-
-GenAI should usually select and prioritize decision-relevant signals instead of displaying all available data.
+### 4. Prioritize signals, do not dump data
 
 Prefer:
 
@@ -231,60 +161,30 @@ clear next step
 secondary evidence available on demand
 ```
 
-Possible DS material:
-
-```txt
-Table
-StatusBadge
-ScoreBar
-Alert
-Accordion
-Collapsible
-ScrollArea
-```
-
-Review risk:
+Risk to repair:
 
 ```txt
 too many metrics, raw tables or equal-priority cards
 ```
 
----
+### 5. Explain why signals matter
 
-## Implication 6 — Explain why signals matter
-
-Metrics, health states and alerts should explain why they matter for the current decision when interpretation is not obvious.
-
-A useful explanation connects:
+Connect:
 
 ```txt
 signal
-→ source
-→ impact
-→ recommended follow-up
+-> source
+-> impact
+-> recommended follow-up
 ```
 
-Possible DS material:
-
-```txt
-RecommendationCard
-EvidenceList
-Alert
-DetailSection
-Tooltip or Popover
-```
-
-Review risk:
+Risk to repair:
 
 ```txt
 alert or signal does not explain impact
 ```
 
----
-
-## Implication 7 — Convert risk into recommendation when action is needed
-
-When a screen shows risk or alert, it should often help the user understand the recommended next step.
+### 6. Convert risk into recommendation when action is needed
 
 A recommendation may show:
 
@@ -296,26 +196,13 @@ what action follows
 what validation is still needed
 ```
 
-Possible DS material:
-
-```txt
-RecommendationCard
-Alert
-EvidenceList
-StatusBadge
-```
-
-Review risk:
+Risk to repair:
 
 ```txt
 risk display has no next-step path although the prompt expects action
 ```
 
----
-
-## Implication 8 — Convert recommendation into owned action
-
-Recommendations should connect to concrete actions when follow-through matters.
+### 7. Convert recommendation into owned action
 
 An action should usually include:
 
@@ -326,34 +213,15 @@ priority
 scope or affected asset when relevant
 ```
 
-Possible DS material:
-
-```txt
-RecommendationCard
-DetailSection
-Dialog for action creation
-StatusBadge
-```
-
 Hard blocker:
 
 ```txt
 critical action implies autonomous AI approval without validation
 ```
 
-Review risk:
+### 8. Make ownership and coordination visible
 
-```txt
-action has no owner, timing or priority when execution matters
-```
-
----
-
-## Implication 9 — Make ownership and coordination visible
-
-When several roles are involved, show responsibility and handoff context.
-
-This matters for:
+Show responsibility and handoff context for:
 
 ```txt
 support follow-up
@@ -364,26 +232,7 @@ recommendation review
 proof preparation
 ```
 
-Possible DS material:
-
-```txt
-RecommendationCard
-DetailSection
-StatusBadge
-Alert
-```
-
-Review risk:
-
-```txt
-internal risk appears without responsibility or follow-through
-```
-
----
-
-## Implication 10 — Make partial visibility explicit
-
-When asset, monitoring or system visibility is partial, show scope and limits.
+### 9. Make partial visibility explicit
 
 Show when relevant:
 
@@ -398,35 +247,15 @@ last update
 visibility limitation
 ```
 
-Possible DS material:
-
-```txt
-StatusBadge
-EvidenceList
-AssetSummaryCard
-Table
-Alert
-```
-
 Hard blocker:
 
 ```txt
 non-connected assets are presented as live-monitored without data
 ```
 
-Review risk:
+### 10. Keep customer specificity structured
 
-```txt
-screen implies full system visibility when data only supports partial coverage
-```
-
----
-
-## Implication 11 — Keep customer specificity structured
-
-Customer-specific constraints should appear as structured context, not bespoke layout chaos.
-
-Examples:
+Represent customer-specific constraints as structured context:
 
 ```txt
 industry
@@ -439,26 +268,9 @@ customer objective
 contract-specific commitment
 ```
 
-Possible DS material:
+Do not turn specificity into unstructured custom UI.
 
-```txt
-DetailSection
-StatusBadge
-Alert
-AssetSummaryCard
-```
-
-Review risk:
-
-```txt
-important customer-specific context is ignored or turned into unstructured custom UI
-```
-
----
-
-## Implication 12 — Make value proof grounded and customer-ready
-
-Value proof must connect service activity to evidence and customer objectives.
+### 11. Make value proof grounded and customer-ready
 
 Distinguish:
 
@@ -480,29 +292,11 @@ expected outcome presented as proven value
 internal evidence presented as customer-ready proof without validation
 ```
 
-Possible DS material:
-
-```txt
-EvidenceList
-RecommendationCard
-StatusBadge
-Progress or ScoreBar when value is provided
-DetailSection
-```
-
-Review risk:
-
-```txt
-proof section uses unsupported claims or fake sources
-```
-
----
-
-## Implication 13 — Use BI first, AI only where it adds value
+### 12. Use BI first, AI only where it adds value
 
 Structured facts should come from APIs, BI tools, databases or source systems.
 
-GenAI should not retrieve or invent basic facts such as:
+AI should not retrieve or invent:
 
 ```txt
 customer name
@@ -527,58 +321,20 @@ action-plan drafting
 customer-ready reformulation from grounded facts
 ```
 
-Hard blocker:
+### 13. Keep AI guided and evidence-aware
 
-```txt
-GenAI invents source-system facts or telemetry values
-```
-
-Review risk:
-
-```txt
-prompt-first interface is used for simple structured retrieval
-```
-
----
-
-## Implication 14 — Keep AI guided and evidence-aware
-
-AI should appear as guided assistance based on visible facts.
-
-Do not hide evidence behind AI output.
-
-For asset-heavy screens, a useful flow is:
+A useful flow is:
 
 ```txt
 Health facts
-→ Intelligence interpretation
-→ AI-assisted recommendation when useful
-→ validation and proof status
+-> Intelligence interpretation
+-> AI-assisted recommendation when useful
+-> validation and proof status
 ```
 
 This is a trust model, not a mandatory screen order.
 
-Possible DS material:
-
-```txt
-Alert
-RecommendationCard
-EvidenceList
-Popover or Tooltip for AI explanation
-StatusBadge
-```
-
-Hard blocker:
-
-```txt
-AI recommendation is unsupported by facts or presented as source-system truth
-```
-
----
-
-## Implication 15 — Keep human validation visible for critical decisions
-
-Critical customer, contract, service, safety, compliance, renewal, value proof, modernization or asset intelligence decisions should keep human accountability visible.
+### 14. Keep human validation visible for critical decisions
 
 Show when relevant:
 
@@ -590,27 +346,13 @@ validation required
 customer-ready status
 ```
 
-Possible DS material:
-
-```txt
-StatusBadge
-Alert
-RecommendationCard
-EvidenceList
-Dialog when approval is required
-```
-
 Hard blocker:
 
 ```txt
 screen implies AI autonomously approved a critical decision
 ```
 
----
-
-## Implication 16 — Reduce effort through composition
-
-Composition should reduce scanning, interpretation and coordination effort.
+### 15. Reduce effort through composition
 
 Prefer:
 
@@ -623,128 +365,49 @@ owned actions
 secondary evidence on demand
 ```
 
-Possible DS material:
+---
+
+## Useful UI material
+
+Use exported DS material or local composition according to intent.
+
+Useful exported material may include:
 
 ```txt
+Alert
+Badge
+Pill
+Tag
+Table
 Tabs
 Accordion
 Collapsible
 ScrollArea
-Table
 SearchField
 FilterDropdown
+ViewFilterBar
+AllFiltersPanel
+AssetInventoryRow
+HealthBadge
+StatusLabel
+Progress
+Tooltip
+Popover
+Dialog
+Button
 ```
 
-Review risk:
+Useful local screen-specific composition may include:
 
 ```txt
-screen is duplicated, hard to scan or visually noisy
+local detail section
+local evidence row
+local recommendation block
+local action summary
+local proof gap section
 ```
 
----
-
-## Implication 17 — Support role-specific workflows
-
-Generated screens should reflect the role and decision moment when the prompt provides or implies them.
-
-A strong generated screen often makes clear:
-
-```txt
-user role
-user goal
-main object
-required context
-decision flow
-next action
-```
-
-Review risk:
-
-```txt
-screen is role-neutral even though the prompt implies a specific role or workflow
-```
-
----
-
-## Implication 18 — Preserve context for handoffs
-
-When a screen involves support, follow-up or handoff, preserve enough context for another role to act without repeated explanation.
-
-Show when relevant:
-
-```txt
-issue or signal
-asset / site / customer scope
-recommendation
-action owner
-timing
-supporting evidence or link
-```
-
-Review risk:
-
-```txt
-alert or action lacks enough context for another role to understand the next step
-```
-
----
-
-## Implication 19 — Expose gaps and turn them into actions
-
-Missing proof, unknown ownership, incomplete data or outdated information should be visible.
-
-When appropriate, convert the gap into a follow-up action.
-
-Examples:
-
-```txt
-Missing proof → prepare evidence package
-Unknown owner → assign owner
-Outdated telemetry → validate source
-Partial coverage → plan coverage review
-Incomplete document set → request missing document
-```
-
-Review risk:
-
-```txt
-proof gaps, outdated data or unassigned ownership are hidden
-```
-
----
-
-## Implication 20 — Do not confuse display facts with user input
-
-Display-only facts should use display components, not disabled form controls.
-
-Use form components only when the user can input or change data.
-
-Possible display material:
-
-```txt
-DetailSection
-StatusBadge
-Badge
-Table
-AssetSummaryCard
-```
-
-Possible input material:
-
-```txt
-Input
-Checkbox
-Select
-Switch
-RadioGroup when available
-Dialog when collecting confirmation or action data
-```
-
-Review risk:
-
-```txt
-disabled inputs are used to display customer, contract, asset or service facts
-```
+Do not import local composition names from the package unless they are exported.
 
 ---
 
@@ -766,5 +429,6 @@ Is partial visibility explicit when relevant?
 Is AI used only where it adds value?
 Is human validation visible for critical decisions?
 Are value claims grounded?
-Does the screen use DS primitives and usage components appropriately?
+Does the screen use DS material or local composition appropriately?
+Are package imports real?
 ```
