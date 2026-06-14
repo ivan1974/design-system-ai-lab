@@ -8,13 +8,11 @@ SOURCE KNOWLEDGE / INSTALLED BASE / GENAI DOMAIN GROUNDING
 
 ## Purpose
 
-This file helps GenAI understand the Installed Base domain before generating screens.
+This file gives domain grounding for Installed Base screens.
 
-It is not a screen contract.
+It is not a screen contract and not a component catalogue.
 
-It is domain knowledge used to preserve meaning, ownership and trust when composing an operational decision workspace.
-
-Use this file when the prompt mentions:
+Use it when the prompt mentions:
 
 ```txt
 Installed Base
@@ -32,38 +30,11 @@ Digital Product Passport
 
 ---
 
-## How to use this knowledge
-
-The structures below are semantic defaults, not fixed screen requirements.
-
-They help GenAI understand what each information type usually means and where it usually belongs in the reference domain model.
-
-GenAI may propose a different screen architecture when the user prompt requires it.
-
-When it does, it should preserve the underlying semantic separation:
-
-```txt
-facts are not interpretations
-evidence is not recommendation
-reference information is not current condition
-history events are not documents
-documents are not actions
-AI confidence is not proof
-```
-
-If the prompt asks for a simpler screen, combine sections carefully.
-
-If the prompt asks for a different structure, explain the design reason.
-
-If the prompt asks for the reference Installed Base experience, use the default ownership model more strictly.
-
----
-
 ## Core domain idea
 
 Installed Base is the structured view of customer assets, their identity, location, service context, condition evidence, recommendations, history and documents.
 
-A good Installed Base screen should help the user understand:
+A good Installed Base screen helps the user understand:
 
 ```txt
 which assets exist
@@ -81,13 +52,58 @@ Treat it as an operational decision workspace.
 
 ---
 
+## Must
+
+You must preserve semantic separation:
+
+```txt
+facts are not interpretations
+evidence is not recommendation
+reference information is not current condition
+history events are not documents
+documents are not actions
+AI confidence is not proof
+```
+
+You must not invent asset facts, telemetry, documents, history, evidence, validation state or proof.
+
+You must not show live metrics for non-connected assets unless explicitly provided.
+
+You must not present expected outcomes as proven value.
+
+You must not invent package components or imports.
+
+---
+
+## Should
+
+You should use Asset as the main object unless the prompt clearly focuses on Site, Recommendation, Evidence, Document or Service action.
+
+You should keep facts, evidence, interpretation, recommendations and actions distinct.
+
+You should use rows, tables or dense lists for asset comparison.
+
+You should show uncertainty when coverage, connectivity or evidence is partial.
+
+You should keep action ownership visible when execution matters.
+
+---
+
+## May
+
+You may merge, rename or reorganize sections if the prompt requires it.
+
+You may create local screen-specific components when exported components do not fit.
+
+You may simplify the default model for compact screens, while preserving semantic clarity.
+
+---
+
 ## Primary object: Asset
 
-An asset is the main domain object.
+An asset is the main Installed Base domain object.
 
-The asset model is the default source of truth for shared identifiers and asset-level facts.
-
-An asset should generally include:
+It usually includes:
 
 ```txt
 asset identity
@@ -107,57 +123,24 @@ history references
 recommendation references
 ```
 
-GenAI should not invent asset facts.
-
 If an asset fact is missing, show an unknown, partial or unavailable state instead of fabricating data.
-
----
-
-## Asset identity
-
-Asset identity answers:
-
-```txt
-What asset is this?
-How is it identified?
-Where is it installed?
-What type of equipment is it?
-Who manufactured it?
-```
-
-Typical fields:
-
-```txt
-asset_id
-asset_name
-asset_reference
-asset_description
-asset_family
-vendor
-location
-product_identity
-```
-
-Asset identity should remain visible in list rows and detail panels unless the prompt is about a different object, such as a site, recommendation, document or service action.
 
 ---
 
 ## Location model
 
-Installed Base assets are usually organized by physical and electrical context.
-
 Use this hierarchy when available:
 
 ```txt
 Site
-→ Building
-→ Electrical Area
-→ Room
-→ Asset
-→ Component
+-> Building
+-> Electrical Area
+-> Room
+-> Asset
+-> Component
 ```
 
-Location is not only metadata. It gives operational context and helps the user understand criticality, grouping and service routing.
+Location gives operational context and helps the user understand criticality, grouping and service routing.
 
 ---
 
@@ -205,9 +188,7 @@ Non-Connected Schneider Asset with Service History
 Third-Party Asset
 ```
 
-Architecture state helps GenAI decide what evidence can exist.
-
-For example:
+Evidence implications:
 
 ```txt
 connected asset
@@ -219,8 +200,6 @@ non-connected asset with service history
 third-party asset
   may have limited product identity, no native coverage, unknown health or no Schneider record
 ```
-
-Do not show live metrics for non-connected assets unless explicitly provided.
 
 ---
 
@@ -242,7 +221,7 @@ Not Connected
 Unknown
 ```
 
-Connectivity is not the same as health.
+Connectivity is not health.
 
 A connected asset can be healthy or unhealthy.
 
@@ -262,44 +241,39 @@ What level of support or contract applies?
 What service evidence may be available?
 ```
 
-Typical fields:
-
-```txt
-contract type
-contract status
-coverage scope
-connectivity status
-```
-
-Coverage is not the same as health.
+Coverage is not health.
 
 No coverage does not automatically mean poor condition.
 
-No coverage does mean the user may have lower visibility, fewer service records or a service risk to review.
+No coverage may mean lower visibility, fewer service records or a service risk to review.
 
 ---
 
 ## Default information ownership model
 
-Use this model as a semantic guide, not as a mandatory tab contract.
+Use this model as semantic guidance, not as a mandatory tab contract.
 
-It tells GenAI where information usually belongs in the reference Installed Base experience.
+### Overview
 
-A generated screen may merge, rename or reorganize sections if the prompt requires it, but it should not blur the meaning of facts, evidence, interpretation, reference data, history and documents.
+Answers:
 
----
+```txt
+What is the current situation and what deserves attention?
+```
 
-## Health
+Use for attention and context, not exhaustive proof detail.
 
-Health answers:
+### Health
+
+Answers:
 
 ```txt
 Why do we believe this condition is true?
 ```
 
-By default, Health is the evidence area.
+Health is evidence-first.
 
-Health usually includes:
+It may include:
 
 ```txt
 evidence sources
@@ -311,35 +285,20 @@ live metrics
 service visit findings
 ```
 
-Avoid placing the following inside Health unless the prompt explicitly asks for a compact combined view and the distinction remains visible:
+Avoid placing recommendations, action plans or expected outcomes inside Health unless a compact combined view is explicitly needed and the distinction remains visible.
 
-```txt
-recommendations
-action plans
-benchmarking
-diagnosis
-root cause analysis
-risk assessment
-```
+### Intelligence
 
-Health is evidence-first.
-
-If the UI needs a recommendation, keep it visually and semantically distinct from Health evidence.
-
----
-
-## Intelligence
-
-Intelligence answers:
+Answers:
 
 ```txt
 What does the available evidence suggest?
 What decision or action may be needed?
 ```
 
-By default, Intelligence is the interpretation and recommendation area.
+Intelligence is interpretation and recommendation oriented.
 
-Intelligence usually includes:
+It may include:
 
 ```txt
 findings
@@ -349,144 +308,51 @@ recommendations
 action plans
 expected outcomes
 recommendation lifecycle
-overview alert generation
 ```
 
-Avoid placing raw evidence as if Intelligence owns it:
+Intelligence may reference evidence but should not duplicate it unnecessarily.
 
-```txt
-raw metrics
-health evidence
-component telemetry
-service reports
-```
+### Passport
 
-Intelligence may reference evidence.
-
-It should not duplicate evidence when a link or reference preserves clarity.
-
-Expected outcomes are potential outcomes, not proven value.
-
----
-
-## Overview
-
-Overview answers:
-
-```txt
-What is the current situation and what deserves attention?
-```
-
-By default, Overview is the situational awareness layer.
-
-Overview usually includes:
-
-```txt
-alert banner
-asset identity
-product identity
-asset status
-asset assessment
-service coverage
-component hierarchy summary
-```
-
-Overview may consume condition and recommendation-driven alerts.
-
-Avoid using Overview as the deep proof, diagnosis or recommendation area unless the prompt explicitly asks for a very compact single-page experience.
-
-Use Overview for attention and context, not for exhaustive proof detail.
-
----
-
-## Passport
-
-Passport answers:
+Answers:
 
 ```txt
 What is the reference information for this product or asset?
 ```
 
-By default, Passport is the reference information area.
+Passport is stable reference information: product identity, specifications, lifecycle status, compliance and certifications.
 
-Passport usually includes:
+It should not own current health, active recommendations, operational metrics or service findings.
 
-```txt
-product identity
-technical specifications
-lifecycle status
-compliance and certifications
-```
+### History
 
-Avoid using Passport for current health, active recommendations, operational metrics or service findings unless the prompt is intentionally designing a merged asset reference view.
-
-Use Passport for stable reference and identity, not for current condition or actions.
-
----
-
-## History
-
-History answers:
+Answers:
 
 ```txt
 What happened to this asset over time?
 ```
 
-By default, History is operational memory.
+History is event-centric operational memory.
 
-History usually includes:
+It may include installation, commissioning, maintenance visits, coverage updates and recommendation-generated events.
 
-```txt
-installation events
-commissioning events
-maintenance visits
-coverage updates
-recommendation generated events
-service reports linked from events
-```
+A history event may link to a service report.
 
-History is event-centric.
+### Documents
 
-Avoid using History as a document library.
-
-Avoid using History as the source of live health metrics.
-
----
-
-## Documents
-
-Documents answers:
+Answers:
 
 ```txt
 Which documents are available for this asset?
 ```
 
-By default, Documents is an asset document library.
+Documents is the asset document library.
 
-Documents usually includes:
-
-```txt
-technical documentation
-engineering documentation
-compliance documentation
-service records
-site documentation
-```
-
-Documents should support search, filters, category grouping and download actions when available.
-
-Avoid placing the following in Documents unless the prompt is intentionally designing a combined work queue and the document nature remains clear:
-
-```txt
-recommendations
-diagnostics
-benchmark information
-operational timeline information
-```
+It may include technical documentation, engineering documentation, compliance documentation, service records and site documentation.
 
 A service report may be linked from History and listed in Documents.
 
-History owns the event meaning.
+History owns event meaning.
 
 Documents owns the document object.
 
@@ -543,15 +409,11 @@ priority or urgency
 effort when available
 ```
 
-Do not present expected outcomes as proven value.
-
 ---
 
 ## Action
 
 An action is the operational follow-through.
-
-Actions should be visible when the screen supports execution.
 
 A useful action should include:
 
@@ -587,81 +449,61 @@ document_id
 event_id
 ```
 
-Common ownership-preserving links:
+Ownership-preserving links:
 
 ```txt
-attention alert → recommendation
-recommendation → health evidence
-event report link → document record
-certification reference → compliance document
-asset ID → all related sections
+attention alert -> recommendation
+recommendation -> health evidence
+event report link -> document record
+certification reference -> compliance document
+asset ID -> all related sections
 ```
 
 Do not duplicate information when a link preserves ownership and readability.
 
-Avoid these semantic confusions:
-
-```txt
-recommendations mixed into evidence without distinction
-raw metrics presented as interpretation
-operational timeline presented as document library
-visual asset generation metadata displayed to users
-```
-
 ---
 
-## GenAI generation guidance
+## Useful UI material
 
-When generating an Installed Base screen:
+Use exported DS material or local composition according to intent.
 
-1. Start with the user decision.
-2. Use Asset as the main object unless the prompt clearly focuses on Site, Recommendation, Evidence or Document.
-3. Keep facts, evidence, interpretation and actions semantically distinct.
-4. Use rows, tables or dense lists for asset comparison.
-5. Use details, tabs, accordions or panels for evidence depth.
-6. Keep action ownership visible.
-7. Show uncertainty when coverage, connectivity or evidence is partial.
-8. Do not invent missing telemetry, history, documents or proof.
-9. If the prompt asks for a different organization, follow the prompt while preserving semantic clarity.
-
----
-
-## Component selection hints
-
-Use:
+Useful exported material may include:
 
 ```txt
-Table or row structures
-  for asset inventory and operational comparison
-
+AssetInventoryRow
+HealthBadge
+StatusLabel
+Table
 Tabs
-  for stable views of the same asset, such as Overview, Health, Intelligence, Passport, History and Documents
-
-Accordion / Collapsible
-  for component health details, document categories or optional evidence detail
-
 Alert
-  for bounded attention signals such as active alert, risk identified or missing evidence
-
-StatusBadge / Badge
-  for compact status, coverage, validation or count display
-
-ScoreBar / Progress
-  for health, readiness or completion indicators when the value is provided
-
-EvidenceList
-  for sources, freshness, validation and proof readiness
-
-RecommendationCard
-  for intelligence-owned recommendations and action plans
-
-DetailSection
-  for grouped facts or reference information
+Badge
+Pill
+Tag
+Progress
+Accordion
+Collapsible
+ScrollArea
+SearchField
+FilterDropdown
+ViewFilterBar
+AllFiltersPanel
+Tooltip
+Popover
+Dialog
+Button
 ```
 
-Do not choose components only because they are available.
+Useful local screen-specific composition may include:
 
-Choose them because they support the user decision and preserve domain meaning.
+```txt
+local detail section
+local evidence row
+local recommendation block
+local action summary
+local proof gap section
+```
+
+Do not import local composition names from the package unless they are exported.
 
 ---
 
@@ -679,13 +521,14 @@ showing live metrics for non-connected assets without data
 showing third-party assets as if they have full Schneider telemetry
 making expected outcomes look like proven value
 creating one component per business label
+fictional package component imports
 ```
 
 ---
 
 ## When the prompt intentionally changes the structure
 
-If the user asks for a different screen structure, GenAI may propose it.
+If the user asks for a different screen structure, follow the prompt while preserving semantic clarity.
 
 Examples:
 
@@ -696,18 +539,6 @@ service planner queue
 document-first experience
 recommendation review workspace
 site-level risk overview
-```
-
-In those cases:
-
-```txt
-follow the prompt
-state the organizing logic
-preserve facts vs interpretation
-preserve evidence vs recommendation
-keep trust and validation visible
-avoid inventing missing data
-use DS components according to intent
 ```
 
 The default ownership model becomes guidance, not a blocker.
@@ -725,6 +556,6 @@ Which content is fact, evidence, interpretation, recommendation or action?
 Does the organization preserve those distinctions?
 Is the screen inventing missing data?
 Is the recommended action owned and time-bound?
-Would a dense row, table, tab, panel or evidence list improve the hierarchy?
+Would a dense row, table, tab, panel or local evidence section improve the hierarchy?
 If the screen departs from the default model, is the reason clear and prompt-driven?
 ```
