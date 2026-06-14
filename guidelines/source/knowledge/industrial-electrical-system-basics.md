@@ -8,7 +8,7 @@ SOURCE KNOWLEDGE / INDUSTRIAL ELECTRICAL SYSTEMS / GENAI DOMAIN GROUNDING
 
 ## Purpose
 
-This file gives GenAI basic domain knowledge about industrial electrical systems.
+This file gives minimum domain grounding about industrial electrical systems.
 
 Use it before generating screens about:
 
@@ -23,9 +23,7 @@ asset health
 industrial operations
 ```
 
-This is not a technical engineering manual.
-
-It is minimum domain grounding so GenAI can produce more relevant screens, wording and component choices.
+This is not a technical engineering manual and not a component catalogue.
 
 ---
 
@@ -47,7 +45,43 @@ compliance exposure
 energy visibility issues
 ```
 
-A good screen should help users understand system condition and decide what to do next.
+A good screen helps users understand system condition and decide what to do next.
+
+---
+
+## Must
+
+You must not invent asset facts, telemetry values, condition values, service history, source scope or proof.
+
+You must not show live metrics for non-connected assets unless explicitly provided.
+
+You must not confuse connectivity, health, coverage, criticality or proof.
+
+You must not create one component per electrical term.
+
+You must not invent package components or imports.
+
+---
+
+## Should
+
+You should identify the asset or system level before designing the screen.
+
+You should keep facts, evidence, interpretation, recommendations and actions distinct.
+
+You should show uncertainty when evidence is missing or partial.
+
+You should make next actions owned and time-bound when action is part of the screen.
+
+You should use technical vocabulary only where it helps the user decide.
+
+---
+
+## May
+
+You may create local screen-specific components when exported components do not fit.
+
+You may simplify technical detail when the user goal is operational rather than engineering analysis.
 
 ---
 
@@ -80,33 +114,33 @@ Use this hierarchy when available:
 
 ```txt
 Site
-→ Building
-→ Electrical Area
-→ Room
-→ Asset
-→ Component
+-> Building
+-> Electrical Area
+-> Room
+-> Asset
+-> Component
 ```
 
 Example:
 
 ```txt
 Datacenter campus
-→ Building A
-→ MV Substation
-→ MV Room A
-→ SM6 switchgear
-→ protection relay / busbar / breaker
+-> Building A
+-> MV Substation
+-> MV Room A
+-> SM6 switchgear
+-> protection relay / busbar / breaker
 ```
 
 This hierarchy helps users understand physical location, electrical topology and service routing.
 
 ---
 
-## What an asset is
+## Asset basics
 
-An asset is a piece of equipment installed at a customer site.
+An electrical asset is installed equipment at a customer site.
 
-An electrical asset usually has:
+It usually has:
 
 ```txt
 identity
@@ -125,23 +159,19 @@ service history
 components
 ```
 
-An asset is not only a database row.
+An asset is operational equipment, not only a database row.
 
-It is operational equipment that may affect continuity, safety or service performance.
+It may affect continuity, safety or service performance.
 
 ---
 
-## Common asset families
+## Common asset families and useful signals
 
 ### MV Switchgear
 
 Medium-voltage switchgear distributes and controls power at medium voltage level.
 
-It may include breakers, busbars, protection relays and insulation systems.
-
-It is often critical because it sits close to incoming utility feeds or major distribution paths.
-
-Useful screen signals:
+Useful signals:
 
 ```txt
 condition level
@@ -153,15 +183,11 @@ service coverage
 critical path dependency
 ```
 
----
-
 ### Transformer
 
 A transformer changes voltage level, often from medium voltage to low voltage.
 
-It is a key asset between upstream supply and downstream distribution.
-
-Useful screen signals:
+Useful signals:
 
 ```txt
 temperature
@@ -175,15 +201,11 @@ coverage
 
 Connected telemetry may be limited. Do not invent live metrics when the asset is not connected.
 
----
-
 ### LV Switchgear
 
 Low-voltage switchgear distributes power to downstream loads.
 
-It may include main breakers, busbars, meters, feeders and protection devices.
-
-Useful screen signals:
+Useful signals:
 
 ```txt
 breaker status
@@ -195,15 +217,11 @@ component health
 maintenance findings
 ```
 
----
-
 ### UPS
 
 A UPS provides backup power and power continuity when normal supply is disrupted.
 
-It is often critical in datacenters and hospitals.
-
-Useful screen signals:
+Useful signals:
 
 ```txt
 load
@@ -215,13 +233,11 @@ service readiness
 N+1 reserve status
 ```
 
----
-
 ### Battery System
 
 Battery systems support UPS runtime and continuity.
 
-Useful screen signals:
+Useful signals:
 
 ```txt
 battery age
@@ -232,13 +248,11 @@ replacement horizon
 service history
 ```
 
----
-
 ### Generator
 
 A generator provides backup power during utility outage.
 
-Useful screen signals:
+Useful signals:
 
 ```txt
 availability
@@ -249,13 +263,11 @@ runtime hours
 inspection status
 ```
 
----
-
 ### PDU / STS / Busway / Rack PDU
 
 These distribute power inside datacenters or critical electrical rooms.
 
-Useful screen signals:
+Useful signals:
 
 ```txt
 load
@@ -266,15 +278,11 @@ critical downstream dependency
 service history
 ```
 
----
-
 ### Power Monitoring / Protection Relay
 
 Monitoring devices and relays provide visibility, measurement and protection logic.
 
-They may not be the largest physical assets, but they can be critical for visibility and control.
-
-Useful screen signals:
+Useful signals:
 
 ```txt
 communication status
@@ -285,15 +293,11 @@ power quality index
 firmware or configuration status
 ```
 
----
-
 ### Cooling electrical assets
 
 Cooling-related electrical equipment supports mechanical cooling systems.
 
-In datacenters, cooling power continuity can be indirectly critical to IT load continuity.
-
-Useful screen signals:
+Useful signals:
 
 ```txt
 MCC health
@@ -306,7 +310,7 @@ aging risk
 
 ---
 
-## What a component is
+## Components inside assets
 
 A component is a meaningful part of an asset.
 
@@ -325,9 +329,9 @@ metering core
 trip output
 ```
 
-Component health is often more precise than asset-level health.
+Component health can be more precise than asset-level health.
 
-GenAI should use component details to explain evidence, not to create unnecessary visual complexity.
+Use component details to explain evidence, not to create unnecessary visual complexity.
 
 ---
 
@@ -347,10 +351,6 @@ healthy = condition is good
 covered = service relationship exists
 ```
 
-A connected asset can be unhealthy.
-
-A non-connected asset can still be operational.
-
 ---
 
 ## Coverage
@@ -363,15 +363,6 @@ Examples:
 EcoCare Advanced
 Preventive Maintenance Contract
 No Coverage
-```
-
-Coverage may indicate available services such as:
-
-```txt
-preventive maintenance
-remote monitoring
-expert support
-field service reporting
 ```
 
 Coverage is not condition.
@@ -409,7 +400,7 @@ Excellent
 Unknown
 ```
 
-GenAI must not calculate health values unless the prompt provides the rule.
+Do not calculate health values unless the prompt provides the rule.
 
 If health data is not provided, show `Unknown`, `Unavailable`, `Not assessed` or an equivalent partial state.
 
@@ -436,26 +427,6 @@ A product passport is not a health tab.
 
 It should not own recommendations, current condition, service findings or live metrics.
 
-Typical content:
-
-```txt
-manufacturer
-commercial name
-product family
-product model
-catalog ID
-serial number
-manufacturing date
-installation date
-model precision
-verification status
-technical specifications
-lifecycle status
-compliance certificates
-```
-
-Use product passport information to support identity, traceability and compliance.
-
 ---
 
 ## Maintenance history
@@ -480,8 +451,6 @@ modernization assessment
 History is event-centric.
 
 A history event may link to a service report, but the report itself belongs to the document library.
-
-Do not replace history with documents, and do not replace documents with history.
 
 ---
 
@@ -527,8 +496,6 @@ Documents do not own recommendations or diagnosis.
 
 A recommendation is a proposed action or decision based on evidence and interpretation.
 
-It may be produced by installed base intelligence, service teams or experts.
-
 A useful recommendation includes:
 
 ```txt
@@ -567,7 +534,7 @@ whether recent service history exists
 
 Do not equate AI confidence with evidence strength.
 
-AI can summarize or prioritize evidence, but it is not itself the source.
+AI can summarize or prioritize evidence, but it is not the source.
 
 ---
 
@@ -610,53 +577,68 @@ site criticality with asset failure evidence
 
 ---
 
+## Useful UI material
+
+Use exported DS material or local composition according to intent.
+
+Useful exported material may include:
+
+```txt
+AssetInventoryRow
+HealthBadge
+StatusLabel
+Table
+Tabs
+Alert
+Badge
+Pill
+Tag
+Progress
+Accordion
+Collapsible
+ScrollArea
+SearchField
+FilterDropdown
+ViewFilterBar
+AllFiltersPanel
+Tooltip
+Popover
+Dialog
+Button
+```
+
+Useful local screen-specific composition may include:
+
+```txt
+local detail section
+local evidence row
+local recommendation block
+local action summary
+local proof gap section
+```
+
+Do not import local composition names from the package unless they are exported.
+
+---
+
 ## GenAI screen guidance
 
 When a prompt is about industrial electrical assets:
 
-1. Identify the asset or system level first.
-2. Identify whether the user needs inventory, condition, evidence, recommendation, reference information, history or documents.
-3. Keep facts, evidence, interpretation, recommendation and actions distinct.
-4. Show uncertainty when evidence is missing or partial.
-5. Use technical vocabulary only where it helps the user decide.
-6. Prefer dense operational structures over decorative dashboards.
-7. Make next actions owned and time-bound when action is part of the screen.
+```txt
+Identify the asset or system level first.
+Identify whether the user needs inventory, condition, evidence, recommendation, reference information, history or documents.
+Keep facts, evidence, interpretation, recommendation and actions distinct.
+Show uncertainty when evidence is missing or partial.
+Use technical vocabulary only where it helps the user decide.
+Prefer dense operational structures over decorative dashboards.
+Make next actions owned and time-bound when action is part of the screen.
+```
 
 ---
 
-## UI implications
+## Final rule
 
-Use these UI choices according to intent:
-
-```txt
-Table or dense rows
-  for asset inventory, comparison and prioritization
-
-StatusBadge / Badge
-  for compact state such as health, connectivity, coverage, validation or priority
-
-ScoreBar / Progress
-  for condition, readiness or completion when value is provided
-
-EvidenceList
-  for source, freshness, validation and proof details
-
-RecommendationCard
-  for proposed action, rationale, owner and timing
-
-DetailSection
-  for stable facts and reference information
-
-Tabs
-  for stable views of the same asset or system
-
-Accordion / Collapsible
-  for component details and optional evidence depth
-
-Alert
-  for urgent but bounded attention signals
-```
+Use generic DS material with domain content.
 
 Do not create a custom component for every electrical term.
-
-Use generic components with domain content.
