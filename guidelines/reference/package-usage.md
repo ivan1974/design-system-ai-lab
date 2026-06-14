@@ -14,6 +14,19 @@ The package is the mandatory visual foundation. Specific component usage is cond
 
 The brief intent, user decision, evidence rules, principles and domain knowledge take priority over mechanical component usage.
 
+For the exact public vocabulary, read:
+
+```txt
+guidelines/reference/design-system-vocabulary.md
+```
+
+For component usage guidance, read:
+
+```txt
+guidelines/reference/component-selection.md
+guidelines/reference/component-usage-cards.md
+```
+
 ---
 
 ## Non-negotiable setup
@@ -50,6 +63,8 @@ The canonical package import path is `design-system-ai-lab`.
 Importing the package stylesheet is mandatory.
 
 Using a specific component is conditional.
+
+You must inspect available primitives, components and exports before creating local UI.
 
 Use existing package primitives or components when they:
 
@@ -113,50 +128,13 @@ import { AssetDetailSection } from "design-system-ai-lab";
 
 unless those names are explicitly exported.
 
-This is allowed:
+This is allowed when the local component is screen-specific and respects the design-system visual language:
 
 ```tsx
 function EvidenceRow() {
-  return <section>...</section>;
+  return <section />;
 }
 ```
-
-when the local component is screen-specific and respects the design-system visual language.
-
----
-
-## Essential components to consider
-
-Before creating local UI, consider whether one of these existing components fits the need:
-
-```txt
-Button
-Input
-Select
-Checkbox
-Switch
-Badge
-Pill
-Tag
-Alert
-Tabs
-Table
-Dialog
-Sheet
-Popover
-Tooltip
-Progress
-ScrollArea
-SearchField
-FilterDropdown
-ViewFilterBar
-AllFiltersPanel
-AssetInventoryRow
-HealthBadge
-StatusLabel
-```
-
-Use these components when they support the brief. Do not force them when they break the brief.
 
 ---
 
@@ -206,7 +184,7 @@ no kit Input component available
 no compiled kit Select available
 ```
 
-when the component is listed in this file or in design-system-vocabulary.md.
+when the component is listed in design-system-vocabulary.md.
 
 ---
 
