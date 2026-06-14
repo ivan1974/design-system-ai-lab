@@ -26,7 +26,7 @@ import "design-system-ai-lab/styles.css";
 
 This import is mandatory, even if the generated screen uses only a few package components.
 
-The generated screen should use the design-system visual language, tokens and base styles.
+The generated screen must use the design-system visual language, tokens and base styles.
 
 Generated code should import components from the published package when they are useful:
 
@@ -96,6 +96,32 @@ Input
 Select
 SearchField
 ```
+
+---
+
+## Do not invent package components
+
+Do not import component names that are not exported by the package.
+
+This is not allowed:
+
+```tsx
+import { EvidenceRow } from "design-system-ai-lab";
+import { RecommendationCard } from "design-system-ai-lab";
+import { AssetDetailSection } from "design-system-ai-lab";
+```
+
+unless those names are explicitly exported.
+
+This is allowed:
+
+```tsx
+function EvidenceRow() {
+  return <section>...</section>;
+}
+```
+
+when the local component is screen-specific and respects the design-system visual language.
 
 ---
 
@@ -242,3 +268,5 @@ Use package primitives and components when they help.
 Create local screen-specific components when needed.
 
 Never recreate the design system itself.
+
+Never invent proof, data, telemetry, sources, imports, or components claimed to belong to the package.
