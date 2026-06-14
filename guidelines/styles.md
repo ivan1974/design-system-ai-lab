@@ -8,7 +8,7 @@ ROOT GUIDELINE / STYLES / FIGMA MAKE
 
 ## Purpose
 
-This file explains the visual style Figma Make should use when generating screens for this kit.
+This file defines the visual style expected for generated screens.
 
 It complements:
 
@@ -19,7 +19,43 @@ guidelines/source/principles/accessibility.md
 guidelines/source/principles/eco-design.md
 ```
 
-Use this file to keep generated screens calm, operational and consistent.
+Use it to keep generated screens calm, operational and consistent.
+
+---
+
+## Must
+
+You must preserve the design-system visual language.
+
+You must not recreate the visual system locally.
+
+You must not create arbitrary palettes, decorative visual systems or unrelated brand styles.
+
+You must not make AI-generated interpretation look more authoritative than source-system facts.
+
+You must not communicate important status through color alone.
+
+---
+
+## Should
+
+You should use exported components when they fit the brief and layout.
+
+You should compose locally when exported components do not fit, while keeping the same visual style.
+
+You should use surfaces, spacing, typography and labels to clarify the decision path.
+
+You should keep the interface sober, structured and readable.
+
+---
+
+## May
+
+You may create local screen-specific components when needed.
+
+You may use Tailwind utilities for layout and spacing.
+
+You may use custom local layout only when it improves the brief outcome and preserves the design-system style.
 
 ---
 
@@ -39,7 +75,7 @@ evidence-aware
 action-oriented
 ```
 
-They should not feel like:
+They must not feel like:
 
 ```txt
 generic SaaS dashboards
@@ -180,8 +216,6 @@ Do not create arbitrary palettes.
 
 Do not use color to make weak evidence appear stronger.
 
-Do not communicate important status through color alone.
-
 Always pair color with explicit text.
 
 ---
@@ -239,8 +273,6 @@ Avoid effects that distract from the decision path.
 
 ## AI-related styling
 
-Do not make AI-generated content look more authoritative than source-system facts.
-
 AI-assisted sections should be visually calm and clearly labelled when trust depends on it.
 
 Use wording and status labels to distinguish:
@@ -292,31 +324,28 @@ Style should remain decision-oriented and avoid decorative metric walls.
 
 ---
 
-## Avoid custom styling when components fit
+## Local composition style
 
-Do not recreate component visuals with local CSS or inline styles.
+Local screen-specific components are allowed when exported components do not fit.
 
-Use existing DS primitives and product components.
-
-Use Tailwind utilities for layout and spacing when needed.
-
-Do not redefine:
+They must:
 
 ```txt
-buttons
-badges
-pills
-tags
-inputs
-selects
-tables
-tabs
-dialogs
-sheets
-alerts
+use the package stylesheet
+respect tokens and semantic utilities
+reuse exported primitives when useful
+keep visual hierarchy calm
+avoid recreating buttons, badges, alerts, tabs, tables or form controls when those fit
 ```
 
-with local styling.
+They must not:
+
+```txt
+create a new brand style
+create a local design-system clone
+claim local components belong to the package
+use arbitrary colors or effects as a new visual language
+```
 
 ---
 
@@ -325,6 +354,7 @@ with local styling.
 Before accepting a generated screen, verify:
 
 ```txt
+package stylesheet is imported
 visual style is calm and operational
 layout supports the decision path
 surfaces clarify structure
@@ -333,7 +363,8 @@ status is not color-only
 text is concise and specific
 there are no decorative effects without task meaning
 AI content is not visually over-authoritative
-existing components are not restyled locally
+existing components are not restyled locally when they fit
+local composition preserves the design-system style
 style supports accessibility and eco-design
 ```
 
