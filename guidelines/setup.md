@@ -69,9 +69,11 @@ The package is the mandatory visual foundation.
 
 Using a specific component is conditional.
 
+You must inspect available primitives, components and exports.
+
 You should use package primitives and components when they support the brief intent, fit the layout and preserve hierarchy.
 
-You may compose local screen-specific components when needed, but you must not recreate the visual system.
+You may compose local screen-specific components when needed, but you must not recreate the visual system or claim that local components belong to the package.
 
 ---
 
@@ -89,6 +91,7 @@ identify the user role and task
 identify the primary decision or job to be done
 use relevant knowledge when the prompt requires it
 apply the design principles
+inspect available primitives, components and exports
 avoid critical failures
 ```
 
@@ -108,6 +111,7 @@ apply components mechanically
 turn every business concept into a component
 reproduce reference screens unless explicitly asked
 recreate the design-system visual language locally
+invent package components or fictional imports
 ```
 
 ---
@@ -455,7 +459,7 @@ guidelines/tokens.md
 guidelines/styles.md
 ```
 
-Do not invent unavailable component names.
+Do not invent package components or fictional imports.
 
 If a needed component does not exist or does not fit, compose from current primitives, components, local screen-specific components and the package visual language.
 
@@ -474,7 +478,7 @@ critical decision shown as autonomously approved by AI
 local design-system clone
 forbidden import path
 information communicated only through color
-fictional component import
+fictional package component import
 fictional token or arbitrary visual system
 published package used without importing package CSS
 ```
