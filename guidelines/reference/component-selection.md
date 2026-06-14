@@ -101,7 +101,7 @@ Product component matches the business object but not the layout
 No product component exists
   compose with primitives or local screen-specific UI
 
-Need a new imported component name
+Need a new imported package component name
   do not invent it
 ```
 
@@ -130,6 +130,8 @@ respect tokens and visual guidelines
 do not replace an existing component that fits
 do not recreate the visual system
 ```
+
+Do not import these local component names from `design-system-ai-lab` unless they are explicitly exported by the package.
 
 ---
 
@@ -219,8 +221,9 @@ Use `ScrollArea` for dense bounded content, such as long lists or split-pane con
 You must not:
 
 ```txt
-invent a component import
-use unavailable component names
+invent a package component import
+claim that a local component belongs to the package
+use unavailable package component names
 map a business concept to a fixed component
 force a product component because the object name matches
 use a product component when its layout breaks the screen
@@ -242,13 +245,13 @@ Before finalizing component selection, verify:
 
 ```txt
 The package stylesheet is imported.
-The selected component exists in design-system-vocabulary.md.
+The selected package component exists in design-system-vocabulary.md.
 The component supports the user intent.
 The component layout fits the generated screen.
 The component preserves domain meaning.
 The component does not add unnecessary interaction.
 The component does not hide trust-critical information.
-The component choice avoids fictional imports and local clones.
+The component choice avoids fictional package imports and local clones.
 Local composition was considered when a product component did not fit.
 ```
 
@@ -258,7 +261,7 @@ Local composition was considered when a product component did not fit.
 
 Use the smallest current DS material that supports the prompt intent.
 
-Do not invent components.
+Do not invent package components or fictional imports.
 
 Do not force components.
 
