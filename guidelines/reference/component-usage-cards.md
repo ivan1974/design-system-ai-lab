@@ -40,7 +40,9 @@ Use a component when it supports the task and layout.
 
 Do not force a component when it distorts the screen.
 
-Local composition is allowed when it keeps the design-system visual language.
+Local screen-specific composition is allowed when it keeps the design-system visual language.
+
+Do not invent package components or fictional imports.
 
 ---
 
@@ -572,7 +574,7 @@ Before generating final code, verify:
 design-system-ai-lab/styles.css is imported
 guidelines were used
 component usage supports the brief
-local composition does not recreate the visual system
+local screen-specific composition does not recreate the visual system
 no Radix or implementation package is imported directly
-no fictional component name is used
+no fictional package component or import is used
 ```
