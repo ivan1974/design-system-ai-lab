@@ -1,0 +1,21 @@
+{
+  "candidates": [
+    {
+      "candidate_name": "replace-with-candidate-name",
+      "candidate_type": "component",
+      "status": "observed_once",
+      "originating_proposal_id": "replace-with-proposal-id",
+      "problem_observed": "Replace with observed DS gap or use [] when no candidate exists.",
+      "user_need": "Replace with user need.",
+      "evidence_from_run": [
+        "Replace with run observation."
+      ],
+      "existing_ds_material_reused": [],
+      "risks_or_guardrails": [],
+      "recommended_next_step": "observe_in_more_runs",
+      "source_guidelines": [
+        "guidelines/reference/component-selection.md"
+      ]
+    }
+  ]
+}
