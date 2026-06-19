@@ -129,11 +129,17 @@ outputs/<run-id>/
   03-screen-architecture.json
   04-component-plan.json
   05-screen-proposal.json
+  05-screen-proposal.md
   06-screen.tsx
-  07-validation-report.json
+  07-trust-validation-report.json
   08-design-system-candidates.json
+  08-design-system-candidates.md
   09-final-summary.md
 ```
+
+Structured JSON files are used for orchestration and validation.
+
+Markdown files are used for human review.
 
 Some outputs are optional depending on the task.
 
@@ -316,6 +322,7 @@ Output:
 
 ```txt
 outputs/<run-id>/05-screen-proposal.json
+outputs/<run-id>/05-screen-proposal.md
 outputs/<run-id>/06-screen.tsx
 ```
 
@@ -362,7 +369,7 @@ outputs/<run-id>/06-screen.tsx
 Output:
 
 ```txt
-outputs/<run-id>/07-validation-report.json
+outputs/<run-id>/07-trust-validation-report.json
 ```
 
 Contract:
@@ -402,13 +409,14 @@ Input:
 
 ```txt
 outputs/<run-id>/05-screen-proposal.json
-outputs/<run-id>/07-validation-report.json
+outputs/<run-id>/07-trust-validation-report.json
 ```
 
 Output:
 
 ```txt
 outputs/<run-id>/08-design-system-candidates.json
+outputs/<run-id>/08-design-system-candidates.md
 ```
 
 Contract:
