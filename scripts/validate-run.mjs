@@ -14,6 +14,11 @@ if (!runDir) {
 const absoluteRunDir = path.resolve(repoRoot, runDir);
 const issues = [];
 
+if (!fs.existsSync(absoluteRunDir)) {
+  console.error(`Run directory does not exist: ${runDir}`);
+  process.exit(2);
+}
+
 function addIssue(severity, check, message, file = null) {
   issues.push({ severity, check, message, file });
 }
@@ -279,6 +284,7 @@ const minors = issues.filter((issue) => issue.severity === "minor");
 
 const report = {
   run_dir: runDir,
+  validated_at: new Date().toISOString(),
   status: blockers.length ? "fail" : majors.length ? "pass_with_warnings" : "pass",
   counts: {
     blockers: blockers.length,
@@ -287,6 +293,12 @@ const report = {
   },
   issues,
 };
+
+fs.writeFileSync(
+  path.join(absoluteRunDir, "10-validation-result.json"),
+  `${JSON.stringify(report, null, 2)}\n`,
+  "utf8"
+);
 
 console.log(JSON.stringify(report, null, 2));
 
