@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://design-system-ai-lab.local/contracts/screen-brief.schema.json",
+  "title": "Screen Brief",
+  "description": "Structured interpretation of a designer prompt before UI composition. This contract defines artifact shape only; reasoning rules remain in guidelines/runtime/genai-reasoning-hierarchy.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "prompt",
+    "interpreted_intent",
+    "user_role",
+    "primary_task",
+    "primary_decision_or_job",
+    "domain_object",
+    "evidence_needs",
+    "trust_and_validation_needs",
+    "constraints"
+  ],
+  "properties": {
+    "prompt": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Original designer prompt preserved as the brief unless it creates a critical failure."
+    },
+    "interpreted_intent": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Concise interpretation of the expected screen outcome."
+    },
+    "user_role": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Primary user or persona implied by the prompt."
+    },
+    "primary_task": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Main task the screen should support."
+    },
+    "primary_decision_or_job": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Decision, action or understanding the screen should make easier."
+    },
+    "domain_object": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Main business object, such as asset, site, recommendation, document, customer or service action."
+    },
+    "business_context": {
+      "type": "string",
+      "description": "Relevant domain context needed to avoid semantic errors."
+    },
+    "evidence_needs": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1,
+      "description": "Facts, proof or source-system signals needed to support trust."
+    },
+    "trust_and_validation_needs": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1,
+      "description": "Uncertainty, validation, proof-gap or safety concerns the proposal must preserve."
+    },
+    "constraints": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "description": "Explicit constraints from the prompt or detected from critical guardrails."
+    },
+    "source_guidelines": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "description": "Guideline paths consulted to interpret the brief."
+    }
+  }
+}
