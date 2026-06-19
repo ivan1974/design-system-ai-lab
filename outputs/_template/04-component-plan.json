@@ -1,0 +1,27 @@
+{
+  "brief_id": "replace-with-run-brief-id",
+  "architecture_id": "replace-with-screen-architecture-id",
+  "inspection_summary": "Describe which DS material was inspected.",
+  "package_components": [
+    "List exported components that fit the brief and layout"
+  ],
+  "package_primitives": [
+    "List exported primitives that fit the brief and layout"
+  ],
+  "local_composition": [
+    "List local screen-specific compositions needed because exported material does not fit"
+  ],
+  "rejected_components": [
+    {
+      "name": "Component name",
+      "reason": "Why it does not fit this brief, layout or hierarchy"
+    }
+  ],
+  "forbidden_imports_checked": true,
+  "package_visual_foundation_preserved": true,
+  "source_guidelines": [
+    "guidelines/reference/component-selection.md",
+    "guidelines/reference/design-system-vocabulary.md",
+    "guidelines/reference/component-usage-cards.md"
+  ]
+}
