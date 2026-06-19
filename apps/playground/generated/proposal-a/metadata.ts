@@ -1,18 +1,19 @@
 export const metadata = {
-  id: "proposal-a",
-  title: "Proposal A — Prioritized asset list",
-  description: "A compact decision-first list for CSMs to identify which risky assets need review first.",
-  packageComponents: [],
-  packagePrimitives: [],
-  localComponents: ["RiskAssetCard"],
-  compliance: {
-    status: "sample",
-    blockers: 0,
-    warnings: 1,
-    notes: [
-      "Uses mock data only.",
-      "Local component is documented as exploratory.",
-      "No live telemetry or proven ROI is claimed."
+  "id": "proposal-a",
+  "sourceRun": "outputs/2026-06-19T16-11-09-057Z-create-a-screen-for-a-csm-to-prioritize-risky-as",
+  "title": "Proposal A — asset",
+  "description": "Local deterministic scaffold for an agentic screen exploration run.",
+  "packageComponents": [],
+  "packagePrimitives": [],
+  "localComponents": [
+    "GeneratedScreen placeholder shell"
+  ],
+  "compliance": {
+    "status": "pass",
+    "blockers": 0,
+    "warnings": 0,
+    "notes": [
+      "Validated at 2026-06-19T16:11:42.349Z."
     ]
   }
 };
