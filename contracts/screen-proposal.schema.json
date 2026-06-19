@@ -1,0 +1,141 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://design-system-ai-lab.local/contracts/screen-proposal.schema.json",
+  "title": "Screen Proposal",
+  "description": "Structured output for an AI-generated screen exploration. This contract defines required traceability around the proposal and does not replace design guidelines.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "brief_id",
+    "proposal_id",
+    "proposal_summary",
+    "primary_decision_supported",
+    "information_hierarchy",
+    "component_plan",
+    "local_components",
+    "reasoning_trace",
+    "known_limits"
+  ],
+  "properties": {
+    "brief_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "proposal_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "proposal_summary": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Short explanation of the proposed screen direction."
+    },
+    "primary_decision_supported": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Decision, task or understanding the proposal supports."
+    },
+    "information_hierarchy": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/hierarchyItem" },
+      "minItems": 1,
+      "description": "Ordered screen hierarchy from most important to secondary content."
+    },
+    "component_plan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["package_components", "package_primitives", "local_composition", "forbidden_imports_checked"],
+      "properties": {
+        "package_components": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "package_primitives": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "local_composition": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "forbidden_imports_checked": {
+          "type": "boolean",
+          "const": true
+        }
+      }
+    },
+    "local_components": {
+      "type": "array",
+      "items": { "$ref": "local-component.schema.json" },
+      "description": "Local component descriptions conforming to local-component.schema.json."
+    },
+    "reasoning_trace": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["must_applied", "should_followed", "should_deviations", "may_explorations"],
+      "properties": {
+        "must_applied": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/ruleTrace" }
+        },
+        "should_followed": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/ruleTrace" }
+        },
+        "should_deviations": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/deviationTrace" }
+        },
+        "may_explorations": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/ruleTrace" }
+        }
+      }
+    },
+    "known_limits": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "description": "Limits, missing data, assumptions or validation gaps that remain visible."
+    },
+    "source_guidelines": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    }
+  },
+  "$defs": {
+    "hierarchyItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rank", "section", "purpose"],
+      "properties": {
+        "rank": { "type": "integer", "minimum": 1 },
+        "section": { "type": "string", "minLength": 1 },
+        "purpose": { "type": "string", "minLength": 1 }
+      }
+    },
+    "ruleTrace": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["summary", "source"],
+      "properties": {
+        "summary": { "type": "string", "minLength": 1 },
+        "source": { "type": "string", "minLength": 1 }
+      }
+    },
+    "deviationTrace": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rule", "reason", "must_rules_preserved"],
+      "properties": {
+        "rule": { "$ref": "#/$defs/ruleTrace" },
+        "reason": { "type": "string", "minLength": 1 },
+        "must_rules_preserved": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/ruleTrace" },
+          "minItems": 1
+        },
+        "design_system_signal": { "type": "boolean" }
+      }
+    }
+  }
+}
