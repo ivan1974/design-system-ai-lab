@@ -59,9 +59,17 @@ Creates a complete scaffolded run:
 
 Runs the deterministic validator on an existing run directory.
 
+It also writes the latest deterministic validation result to:
+
+```txt
+10-validation-result.json
+```
+
 ### ai:report
 
-Prints the final run summary.
+Prints the final run summary and appends the latest deterministic validation result when `10-validation-result.json` exists.
+
+If no deterministic validation result exists yet, the report tells the user to run `pnpm ai:validate` first.
 
 ## Intended use
 
