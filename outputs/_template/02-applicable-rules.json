@@ -1,0 +1,39 @@
+{
+  "brief_id": "replace-with-run-brief-id",
+  "must": [
+    {
+      "id": "replace-with-rule-id",
+      "summary": "Replace with selected MUST rule summary.",
+      "source": "Replace with guideline path or section.",
+      "reason_selected": "Replace with why this rule applies."
+    }
+  ],
+  "should": [
+    {
+      "id": "replace-with-rule-id",
+      "summary": "Replace with selected SHOULD rule summary.",
+      "source": "Replace with guideline path or section.",
+      "reason_selected": "Replace with why this recommendation applies."
+    }
+  ],
+  "may": [
+    {
+      "id": "replace-with-rule-id",
+      "summary": "Replace with selected MAY permission summary.",
+      "source": "Replace with guideline path or section.",
+      "reason_selected": "Replace with why this permission may be useful."
+    }
+  ],
+  "hard_blockers": [
+    {
+      "id": "replace-with-blocker-id",
+      "summary": "Replace with relevant hard blocker.",
+      "source": "Replace with guideline path or section.",
+      "reason_selected": "Replace with why this blocker must be watched."
+    }
+  ],
+  "source_guidelines": [
+    "guidelines/runtime/genai-reasoning-hierarchy.md",
+    "guidelines/reference/instruction-language.md"
+  ]
+}
