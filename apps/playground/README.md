@@ -40,14 +40,23 @@ apps/playground/
     main.tsx
 ```
 
-## Command
+## Commands
+
+Preview the playground:
 
 ```bash
 pnpm playground
 ```
 
+Copy a generated run into a comparison slot:
+
+```bash
+pnpm ai:playground:add outputs/<run-id> --slot proposal-a
+pnpm ai:playground:add outputs/<run-id> --slot proposal-b
+```
+
 ## Current scope
 
-The first version ships with two static sample proposals.
+The playground compares two slots: `proposal-a` and `proposal-b`.
 
-Future versions should allow CLI-generated runs from `outputs/<run-id>/` to be copied or linked into `apps/playground/generated/<run-id>/`.
+The import command copies the generated screen, creates or copies mock data, and regenerates slot metadata from the run artifacts.
