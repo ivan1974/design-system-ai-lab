@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://design-system-ai-lab.local/contracts/local-component.schema.json",
+  "title": "Local Component",
+  "description": "Structured description of a local screen-specific component. This contract supports traceability and must not be used to declare package exports.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "name",
+    "classification",
+    "purpose",
+    "user_need",
+    "reason_existing_ds_material_was_insufficient",
+    "package_import_status",
+    "reused_ds_material",
+    "guardrails"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Local component name used inside the generated screen."
+    },
+    "classification": {
+      "type": "string",
+      "enum": [
+        "one_off_local_component",
+        "reusable_local_pattern",
+        "exploratory_candidate",
+        "candidate_for_design_system_review",
+        "rejected_or_too_specific"
+      ],
+      "description": "Classification used in the GenAI reasoning hierarchy agent output contract."
+    },
+    "purpose": {
+      "type": "string",
+      "minLength": 1,
+      "description": "What the component helps the user understand, decide or do."
+    },
+    "user_need": {
+      "type": "string",
+      "minLength": 1,
+      "description": "User need or interaction need addressed by the local component."
+    },
+    "reason_existing_ds_material_was_insufficient": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Why exported components or primitives did not adequately fit the brief."
+    },
+    "package_import_status": {
+      "type": "string",
+      "const": "local_only_not_package_export",
+      "description": "Local components must not be imported from the package unless explicitly exported."
+    },
+    "reused_ds_material": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "description": "Package primitives, components, tokens or visual conventions reused by the local component."
+    },
+    "guardrails": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1,
+      "description": "Relevant hard blockers or non-negotiable principles preserved by the local component."
+    },
+    "candidate_notes": {
+      "type": "string",
+      "description": "Optional notes explaining whether the component reveals a design-system evolution opportunity."
+    },
+    "source_guidelines": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "description": "Guideline paths used to justify this local component."
+    }
+  }
+}
