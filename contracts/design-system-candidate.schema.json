@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://design-system-ai-lab.local/contracts/design-system-candidate.schema.json",
+  "title": "Design System Candidate",
+  "description": "Structured signal that a local exploration may reveal a reusable design-system opportunity. This contract does not promote anything into the package by itself.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "candidate_name",
+    "candidate_type",
+    "status",
+    "originating_proposal_id",
+    "problem_observed",
+    "user_need",
+    "evidence_from_run",
+    "recommended_next_step"
+  ],
+  "properties": {
+    "candidate_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "candidate_type": {
+      "type": "string",
+      "enum": [
+        "component",
+        "primitive_composition",
+        "interaction_pattern",
+        "information_hierarchy_pattern",
+        "evidence_pattern",
+        "validation_rule"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "observed_once",
+        "repeat_observation_needed",
+        "ready_for_design_review",
+        "rejected_or_too_specific"
+      ],
+      "description": "Review status of the candidate signal."
+    },
+    "originating_proposal_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "problem_observed": {
+      "type": "string",
+      "minLength": 1,
+      "description": "What the existing DS material did not support well enough in this run."
+    },
+    "user_need": {
+      "type": "string",
+      "minLength": 1,
+      "description": "User need or decision need that the candidate could support."
+    },
+    "evidence_from_run": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1,
+      "description": "Concrete observations from the run that justify keeping this as a candidate signal."
+    },
+    "existing_ds_material_reused": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "description": "Existing components, primitives, tokens or guidelines the candidate builds on."
+    },
+    "risks_or_guardrails": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "description": "Risks that must be handled before the candidate could become reusable."
+    },
+    "recommended_next_step": {
+      "type": "string",
+      "enum": [
+        "keep_local",
+        "observe_in_more_runs",
+        "document_usage_guidance",
+        "prototype_package_component",
+        "reject"
+      ]
+    },
+    "source_guidelines": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "description": "Guideline paths used to evaluate the candidate."
+    }
+  }
+}
