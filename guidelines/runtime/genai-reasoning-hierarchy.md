@@ -360,17 +360,19 @@ AI must not invent or retrieve basic source-system facts.
 
 ---
 
-## Rule strength
+## Instruction strength reference
 
-Use `must`, `should` and `may` consistently.
+This file applies instruction strength during runtime reasoning.
 
-For instruction language, read:
+It does not define the vocabulary rules.
+
+For the source of truth on `must`, `should` and `may`, read:
 
 ```txt
 guidelines/reference/instruction-language.md
 ```
 
-### Hard blocker
+### Runtime hard blocker
 
 A critical failure to prevent or repair.
 
@@ -387,9 +389,9 @@ local design-system clone
 critical decision shown as autonomously approved by AI
 ```
 
-### Strong recommendation
+### Runtime strong recommendation
 
-Preferred behavior unless the prompt clearly requires another approach.
+A preferred runtime behavior unless the prompt clearly requires another approach.
 
 Examples:
 
@@ -402,9 +404,9 @@ prefer dense rows or tables for asset comparison
 use package components when they fit the brief and layout
 ```
 
-### Flexible guidance
+### Runtime flexible guidance
 
-Possible design option or DS material.
+A possible design option or DS material.
 
 Examples:
 
@@ -454,7 +456,7 @@ They are not design-system components by default.
 
 A local exploratory component may be useful when it reveals a missing reusable pattern in the design system.
 
-### Must
+### Exploratory component requirements
 
 You must keep exploratory components local to the generated screen unless they are explicitly exported by the package.
 
@@ -466,7 +468,7 @@ You must preserve the package visual foundation.
 
 You must respect all hard blockers and non-negotiable principles.
 
-### Should
+### Exploratory component recommendations
 
 You should name exploratory components according to their user-facing role or interaction behavior.
 
@@ -476,13 +478,13 @@ You should identify which existing design-system material they reuse or build up
 
 You should state whether the component should remain local or be considered as a design-system candidate.
 
-### May
+### Exploratory component permissions
 
 You may propose an exploratory component as a candidate for future design-system evolution.
 
 You may propose multiple exploratory alternatives when the brief is ambiguous or when different interaction models are plausible.
 
-### Example
+### Exploratory component example
 
 A `RecommendationCard` may be created locally when the screen needs to connect evidence, interpretation, recommended action, confidence and user control in one decision-support unit.
 
