@@ -1,0 +1,21 @@
+{
+  "prompt": "Replace with original designer prompt or issue-derived prompt.",
+  "interpreted_intent": "Replace with concise interpretation of the expected screen outcome.",
+  "user_role": "Replace with primary user role.",
+  "primary_task": "Replace with primary task.",
+  "primary_decision_or_job": "Replace with the main decision, action or understanding the screen supports.",
+  "domain_object": "Replace with the main domain object.",
+  "business_context": "Replace with relevant domain context or leave empty if not needed.",
+  "evidence_needs": [
+    "Replace with required facts, proof or source-system signals."
+  ],
+  "trust_and_validation_needs": [
+    "Replace with uncertainty, proof-gap or validation needs."
+  ],
+  "constraints": [
+    "Replace with explicit prompt constraints or detected guardrails."
+  ],
+  "source_guidelines": [
+    "guidelines/runtime/genai-reasoning-hierarchy.md"
+  ]
+}
