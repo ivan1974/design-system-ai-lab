@@ -33,6 +33,7 @@
     "build": "vite build && npm run build:types",
     "build:types": "tsc -p tsconfig.build.json",
     "dev": "vite",
+    "playground": "vite --config apps/playground/vite.config.ts --host 0.0.0.0",
     "validate:run": "node scripts/validate-run.mjs",
     "ai:brief": "node scripts/ai-cli.mjs brief",
     "ai:explore": "node scripts/ai-cli.mjs explore",
