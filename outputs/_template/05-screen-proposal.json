@@ -1,0 +1,24 @@
+{
+  "brief_id": "replace-with-run-brief-id",
+  "proposal_id": "replace-with-proposal-id",
+  "proposal_summary": "Describe the proposed screen direction.",
+  "primary_decision_supported": "Describe the decision supported by the proposal.",
+  "information_hierarchy": [],
+  "component_plan": {
+    "package_components": [],
+    "package_primitives": [],
+    "local_composition": [],
+    "forbidden_imports_checked": true
+  },
+  "local_components": [],
+  "reasoning_trace": {
+    "must_applied": [],
+    "should_followed": [],
+    "should_deviations": [],
+    "may_explorations": []
+  },
+  "known_limits": [],
+  "source_guidelines": [
+    "guidelines/runtime/genai-reasoning-hierarchy.md"
+  ]
+}
