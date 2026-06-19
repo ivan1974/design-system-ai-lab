@@ -1,0 +1,22 @@
+{
+  "brief_id": "replace-with-run-brief-id",
+  "architecture_summary": "Describe the proposed information architecture.",
+  "primary_decision_supported": "Describe the decision, action or understanding supported by the screen.",
+  "disclosure_model": "Describe the chosen disclosure model.",
+  "information_hierarchy": [
+    {
+      "rank": 1,
+      "section": "First visible section",
+      "purpose": "Why this section appears first"
+    }
+  ],
+  "evidence_placement": [
+    "Where evidence, proof gaps or source context should appear"
+  ],
+  "known_risks": [
+    "Hierarchy, trust or complexity risks to watch"
+  ],
+  "source_guidelines": [
+    "guidelines/runtime/genai-reasoning-hierarchy.md"
+  ]
+}
