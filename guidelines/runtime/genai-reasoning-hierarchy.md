@@ -3,12 +3,12 @@
 ## Status
 
 ```txt
-RUNTIME GUIDANCE / GENAI REASONING / FIGMA MAKE
+RUNTIME GUIDANCE / GENAI REASONING / FIGMA MAKE / AGENTIC WORKFLOWS
 ```
 
 ## Purpose
 
-This file defines how to reason when generating or reviewing screens with the design system.
+This file defines how to reason when generating, reviewing or orchestrating screen exploration with the design system.
 
 It prevents two failures:
 
@@ -27,6 +27,7 @@ use design principles
 inspect available DS material
 choose suitable components when useful
 compose locally when needed
+justify controlled exploration
 avoid critical failures
 ```
 
@@ -52,6 +53,8 @@ You must not invent package components or fictional imports.
 
 You must not recreate the visual system locally.
 
+You must explain any significant deviation from a strong recommendation when the deviation affects component choice, information hierarchy, evidence visibility or user control.
+
 ---
 
 ## Should
@@ -64,6 +67,8 @@ You should keep facts, interpretation, recommendation and proof distinct when tr
 
 You should repair the smallest failing reasoning layer instead of adding more UI.
 
+You should distinguish between exported package components, primitive composition, local screen-specific components and exploratory design-system candidates.
+
 ---
 
 ## May
@@ -73,6 +78,10 @@ You may create local screen-specific components when no exported component fits.
 You may challenge or adjust the prompt when it creates a critical failure.
 
 You may simplify the screen when the prompt asks for too much structure or too much decoration.
+
+You may propose a local exploratory component when it reveals a possible missing pattern in the design system.
+
+You may propose multiple screen directions when the brief supports different valid interaction models.
 
 ---
 
@@ -92,6 +101,7 @@ Principles guide the reasoning.
 Knowledge grounds the domain.
 Components provide possible UI vocabulary.
 Local composition is allowed when components do not fit.
+Exploratory components may reveal design-system evolution opportunities.
 Contracts block critical failures.
 Reference examples inspire, but do not dictate.
 ```
@@ -112,11 +122,14 @@ Use this order before composing UI:
 7. Component, primitive or local composition selection
 8. Visual composition
 9. Review and repair
+10. Report reasoning, deviations and candidate patterns
 ```
 
 Do not start at step 7.
 
 Component selection is a consequence of reasoning.
+
+Exploration is allowed only after the intent, decision, evidence needs and component fit have been reasoned through.
 
 ---
 
@@ -274,6 +287,25 @@ Do not add more UI to fix a reasoning problem.
 
 ---
 
+### 10. Report reasoning, deviations and candidate patterns
+
+Answers:
+
+```txt
+Which MUST rules were applied?
+Which SHOULD rules were followed?
+Which SHOULD rules were intentionally deviated from?
+Which MAY explorations were used?
+Which local components were created?
+Do any local components reveal a possible design-system gap?
+```
+
+The report is part of the design output.
+
+A generated screen without reasoning trace is incomplete for agentic workflows.
+
+---
+
 ## Compatibility of key principles
 
 ### Decision-first and facts-before-interpretation
@@ -414,6 +446,118 @@ Do not import local composition names from the package unless they are explicitl
 
 ---
 
+## Exploratory local components
+
+Local screen-specific components are allowed when exported package components or primitives do not adequately support the prompt intent, user task or decision need.
+
+They are not design-system components by default.
+
+A local exploratory component may be useful when it reveals a missing reusable pattern in the design system.
+
+### Must
+
+You must keep exploratory components local to the generated screen unless they are explicitly exported by the package.
+
+You must not import exploratory component names from the package.
+
+You must explain why the existing package components or primitives were insufficient.
+
+You must preserve the package visual foundation.
+
+You must respect all hard blockers and non-negotiable principles.
+
+### Should
+
+You should name exploratory components according to their user-facing role or interaction behavior.
+
+You should describe the design need they address.
+
+You should identify which existing design-system material they reuse or build upon.
+
+You should state whether the component should remain local or be considered as a design-system candidate.
+
+### May
+
+You may propose an exploratory component as a candidate for future design-system evolution.
+
+You may propose multiple exploratory alternatives when the brief is ambiguous or when different interaction models are plausible.
+
+### Example
+
+A `RecommendationCard` may be created locally when the screen needs to connect evidence, interpretation, recommended action, confidence and user control in one decision-support unit.
+
+It must not be imported from the package unless it is explicitly exported.
+
+It should be documented as:
+
+```txt
+purpose
+user need
+reused DS material
+reason existing components were insufficient
+risks or guardrails
+candidate status
+```
+
+---
+
+## Deviation reporting
+
+A deviation is acceptable only when it does not violate a MUST rule or hard blocker.
+
+Deviation reporting is required when a screen intentionally does not follow a relevant SHOULD rule.
+
+For each significant deviation, explain:
+
+```txt
+Which SHOULD rule was not followed?
+Why was the deviation useful for this prompt?
+Which user decision, evidence need or interaction need justified it?
+Which MUST rules remain respected?
+Is the deviation a one-off local decision or a design-system evolution signal?
+```
+
+Do not use deviation reporting to justify invented evidence, fictional imports, unsafe recommendations or local design-system clones.
+
+---
+
+## Agent output contract
+
+For agentic workflows, a screen proposal should include both the generated UI and a reasoning trace.
+
+The output should include:
+
+```txt
+interpreted brief
+primary user role and task
+primary decision or job to be done
+applicable MUST rules
+applicable SHOULD rules
+MAY explorations used
+component and primitive choices
+local components created
+deviations and rationale
+evidence, trust and safety notes
+review result
+design-system candidate signals
+```
+
+A local component should be classified as one of:
+
+```txt
+one-off local component
+reusable local pattern
+exploratory candidate
+candidate for design-system review
+rejected or too specific
+```
+
+The goal is not only to generate a screen.
+
+The goal is to preserve intent, explore within constraints, explain trade-offs, prevent critical failures and reveal how the design system may need to evolve.
+
+---
+
 ## When to challenge the prompt
 
 You may challenge or adjust the prompt only when:
@@ -433,7 +577,7 @@ When challenging, propose a better alternative rather than refusing to design.
 
 ## Review checklist
 
-Before finalizing a generated screen, ask:
+Before finalizing a generated screen or agentic screen proposal, ask:
 
 ```txt
 Does it respect the prompt?
@@ -446,5 +590,7 @@ Are critical guardrails respected?
 Are component choices justified by intent?
 Are package imports real?
 Is local composition clearly local and visually consistent?
+Are exploratory components justified and classified?
+Are deviations from SHOULD rules explained?
 Is the screen simpler than the problem, not more complex?
 ```
