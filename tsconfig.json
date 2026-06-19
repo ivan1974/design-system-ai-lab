@@ -22,6 +22,8 @@
   },
   "include": [
     "src",
+    "apps/**/*.ts",
+    "apps/**/*.tsx",
     "outputs/**/*.tsx",
     "vite.config.ts"
   ],
