@@ -9,6 +9,7 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "../..");
 
 export default defineConfig({
+  root: __dirname,
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
