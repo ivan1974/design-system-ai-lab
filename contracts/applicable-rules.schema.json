@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://design-system-ai-lab.local/contracts/applicable-rules.schema.json",
+  "title": "Applicable Rules",
+  "description": "Structured list of runtime rules selected for a screen brief. This contract references rules; it does not redefine instruction-language or guideline content.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "brief_id",
+    "must",
+    "should",
+    "may",
+    "hard_blockers"
+  ],
+  "properties": {
+    "brief_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Identifier of the screen brief this rule selection applies to."
+    },
+    "must": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/ruleReference" },
+      "description": "Non-negotiable rules selected from the guidelines."
+    },
+    "should": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/ruleReference" },
+      "description": "Strong recommendations selected from the guidelines."
+    },
+    "may": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/ruleReference" },
+      "description": "Allowed exploration options selected from the guidelines."
+    },
+    "hard_blockers": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/ruleReference" },
+      "description": "Critical failures that must prevent or trigger repair of a proposal."
+    },
+    "source_guidelines": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "description": "Guideline paths used as the source of truth for this selection."
+    }
+  },
+  "$defs": {
+    "ruleReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "summary", "source"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Stable local identifier for the selected rule reference."
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Short summary of the selected rule for traceability."
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Guideline path or section where the rule is defined."
+        },
+        "reason_selected": {
+          "type": "string",
+          "description": "Why this rule applies to the current brief."
+        }
+      }
+    }
+  }
+}
