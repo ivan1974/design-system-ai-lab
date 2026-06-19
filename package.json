@@ -38,7 +38,8 @@
     "ai:brief": "node scripts/ai-cli.mjs brief",
     "ai:explore": "node scripts/ai-cli.mjs explore",
     "ai:validate": "node scripts/ai-cli.mjs validate",
-    "ai:report": "node scripts/ai-report.mjs"
+    "ai:report": "node scripts/ai-report.mjs",
+    "ai:playground:add": "node scripts/ai-playground-add.mjs"
   },
   "peerDependencies": {
     "react": "^18.3.0",
