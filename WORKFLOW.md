@@ -1,9 +1,30 @@
+---
+tracker:
+  kind: linear
+  project_slug: $LINEAR_PROJECT_SLUG
+
+polling:
+  interval_ms: 30000
+
+workspace:
+  root: $SYMPHONY_WORKSPACE_ROOT
+
+agent:
+  max_concurrent_agents: 1
+  max_turns: 20
+
+codex:
+  command: codex --config shell_environment_policy.inherit=all app-server
+  approval_policy: never
+  thread_sandbox: workspace-write
+---
+
 # Agentic workflow
 
 ## Status
 
 ```txt
-ROOT WORKFLOW / AGENTIC ORCHESTRATION / DESIGN SYSTEM AI LAB
+ROOT WORKFLOW / AGENTIC ORCHESTRATION / DESIGN SYSTEM AI LAB / SYMPHONY-READY
 ```
 
 ## Purpose
@@ -18,6 +39,32 @@ Contracts define what structured artifacts must contain.
 Agent briefs define who does what.
 This workflow defines the order of work, handoffs and stop conditions.
 ```
+
+## Symphony execution context
+
+When this file is executed by Symphony, use the issue as the orchestration request.
+
+Issue context may be provided by the orchestrator through template variables such as:
+
+```txt
+Identifier: {{ issue.identifier }}
+Title: {{ issue.title }}
+State: {{ issue.state }}
+Labels: {{ issue.labels }}
+URL: {{ issue.url }}
+```
+
+Issue description:
+
+```txt
+{{ issue.description }}
+```
+
+Use the issue title and description as the designer prompt unless the issue explicitly points to another prompt artifact.
+
+Do not duplicate issue-tracker state-management logic in this file.
+
+Follow the orchestration pipeline below and produce the expected run artifacts for human review.
 
 ## Core rule
 
