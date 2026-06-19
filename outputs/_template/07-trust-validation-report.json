@@ -1,0 +1,19 @@
+{
+  "proposal_id": "replace-with-proposal-id",
+  "status": "pass_with_warnings",
+  "summary": "Replace with validation summary.",
+  "checks": [
+    {
+      "name": "prompt_intent_preserved",
+      "status": "not_applicable",
+      "notes": "Replace with check notes."
+    }
+  ],
+  "blocking_issues": [],
+  "warnings": [],
+  "repair_recommendations": [],
+  "source_guidelines": [
+    "guidelines/runtime/genai-reasoning-hierarchy.md",
+    "guidelines/reference/ai-usage-and-validation.md"
+  ]
+}
