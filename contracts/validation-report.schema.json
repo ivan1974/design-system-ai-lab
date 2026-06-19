@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://design-system-ai-lab.local/contracts/validation-report.schema.json",
+  "title": "Validation Report",
+  "description": "Structured report for reviewing a generated screen proposal against selected rules, contracts and deterministic checks. This contract records validation results; it does not define guideline rules.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "proposal_id",
+    "status",
+    "summary",
+    "checks",
+    "blocking_issues",
+    "repair_recommendations"
+  ],
+  "properties": {
+    "proposal_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "type": "string",
+      "enum": ["pass", "pass_with_warnings", "fail"],
+      "description": "Overall validation status."
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Concise validation outcome."
+    },
+    "checks": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/checkResult" },
+      "minItems": 1
+    },
+    "blocking_issues": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/issue" },
+      "description": "Issues that violate hard blockers or prevent safe use of the proposal."
+    },
+    "warnings": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/issue" },
+      "description": "Non-blocking issues or quality concerns."
+    },
+    "repair_recommendations": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "description": "Smallest reasoning or implementation layers to repair first."
+    },
+    "source_guidelines": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "description": "Guideline paths used to validate this proposal."
+    }
+  },
+  "$defs": {
+    "checkResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "status"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "enum": [
+            "prompt_intent_preserved",
+            "primary_decision_supported",
+            "domain_meaning_preserved",
+            "facts_interpretation_recommendation_distinct",
+            "ai_not_presented_as_proof",
+            "evidence_not_invented",
+            "package_stylesheet_imported",
+            "package_imports_real",
+            "local_components_classified",
+            "deviations_reported",
+            "accessibility_reviewed",
+            "visual_foundation_preserved"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": ["pass", "warning", "fail", "not_applicable"]
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "issue": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["severity", "description"],
+      "properties": {
+        "severity": {
+          "type": "string",
+          "enum": ["blocker", "major", "minor"]
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "description": "Guideline, contract or check that raised the issue."
+        }
+      }
+    }
+  }
+}
