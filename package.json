@@ -33,7 +33,11 @@
     "build": "vite build && npm run build:types",
     "build:types": "tsc -p tsconfig.build.json",
     "dev": "vite",
-    "validate:run": "node scripts/validate-run.mjs"
+    "validate:run": "node scripts/validate-run.mjs",
+    "ai:brief": "node scripts/ai-cli.mjs brief",
+    "ai:explore": "node scripts/ai-cli.mjs explore",
+    "ai:validate": "node scripts/ai-cli.mjs validate",
+    "ai:report": "node scripts/ai-cli.mjs report"
   },
   "peerDependencies": {
     "react": "^18.3.0",
