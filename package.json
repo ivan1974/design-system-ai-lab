@@ -32,7 +32,8 @@
   "scripts": {
     "build": "vite build && npm run build:types",
     "build:types": "tsc -p tsconfig.build.json",
-    "dev": "vite"
+    "dev": "vite",
+    "validate:run": "node scripts/validate-run.mjs"
   },
   "peerDependencies": {
     "react": "^18.3.0",
