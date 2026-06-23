@@ -28,7 +28,7 @@ symphony
 
 Enabled.
 
-Runs the local deterministic pipeline.
+Runs the local deterministic pipeline from `deterministic.mjs`.
 
 ```bash
 pnpm ai:run "Create a screen for a CSM to prioritize risky assets" --runner deterministic
@@ -36,9 +36,15 @@ pnpm ai:run "Create a screen for a CSM to prioritize risky assets" --runner dete
 
 ### llm
 
-Registered but not enabled.
+Prepared.
 
-Future use: call an LLM for one or more agent steps while preserving contracts and validators.
+The LLM runner accepts selected agent steps but currently falls back to the deterministic runner to preserve output contracts.
+
+```bash
+pnpm ai:run "Create a screen for a CSM to prioritize risky assets" --runner llm --llm-steps "Brief Interpreter,Screen Explorer"
+```
+
+This makes it possible to replace agents one by one later.
 
 ### symphony
 
