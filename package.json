@@ -37,6 +37,7 @@
     "validate:run": "node scripts/validate-run.mjs",
     "ai:brief": "node scripts/ai-cli.mjs brief",
     "ai:explore": "node scripts/ai-cli.mjs explore",
+    "ai:run": "node scripts/ai-run.mjs",
     "ai:validate": "node scripts/ai-cli.mjs validate",
     "ai:report": "node scripts/ai-report.mjs",
     "ai:playground:add": "node scripts/ai-playground-add.mjs"
