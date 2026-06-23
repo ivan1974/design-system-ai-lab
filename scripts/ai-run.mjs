@@ -5,9 +5,21 @@ import process from "node:process";
 import { spawnSync } from "node:child_process";
 
 const root = process.cwd();
-const prompt = process.argv.slice(2).join(" ").trim();
-if (!prompt) {
-  console.log('Usage: pnpm ai:run "Create a screen for a CSM to prioritize risky assets"');
+const rawArgs = process.argv.slice(2);
+const runnerIndex = rawArgs.indexOf("--runner");
+const runner = runnerIndex >= 0 ? rawArgs[runnerIndex + 1] : "deterministic";
+const prompt = rawArgs.filter((arg, index) => index !== runnerIndex && index !== runnerIndex + 1).join(" ").trim();
+
+if (!prompt || !["deterministic", "llm", "symphony"].includes(runner)) {
+  console.log('Usage: pnpm ai:run "Create a screen for a CSM to prioritize risky assets" --runner deterministic');
+  console.log("Runners: deterministic, llm, symphony");
+  process.exit(2);
+}
+
+if (runner !== "deterministic") {
+  console.error(`Runner '${runner}' is registered but not enabled yet.`);
+  console.error("This project keeps output contracts stable before enabling external execution.");
+  console.error("Use --runner deterministic for now.");
   process.exit(2);
 }
 
@@ -27,6 +39,7 @@ const candidates = step("DS Evolution Reviewer", () => runDsEvolutionReviewer(pr
 writeJson("00-agent-run.json", {
   run_id: runId,
   prompt,
+  runner,
   mode: "local_agentic_deterministic",
   status: "generated",
   steps: trace,
@@ -41,7 +54,7 @@ writeText("06-screen.tsx", screenTsx(brief));
 writeJson("07-trust-validation-report.json", trust);
 writeJson("08-design-system-candidates.json", candidates);
 writeText("08-design-system-candidates.md", candidatesMd(candidates));
-writeText("09-final-summary.md", summaryMd(runId, prompt, trace));
+writeText("09-final-summary.md", summaryMd(runId, prompt, trace, runner));
 
 console.log(`Created agentic run: outputs/${runId}`);
 const validation = spawnSync(process.execPath, ["scripts/validate-run.mjs", `outputs/${runId}`], { cwd: root, stdio: "inherit" });
@@ -52,7 +65,7 @@ process.exit(validation.status ?? 0);
 function step(agent, fn) {
   const startedAt = new Date().toISOString();
   const output = fn();
-  trace.push({ agent, status: "completed", started_at: startedAt, completed_at: new Date().toISOString() });
+  trace.push({ agent, runner, status: "completed", started_at: startedAt, completed_at: new Date().toISOString() });
   return output;
 }
 
@@ -158,7 +171,7 @@ function screenTsx(brief) {
 
 function proposalMd(brief, proposal) { return `# Screen proposal\n\n${proposal.proposal_summary}\n\n## Primary decision\n\n${brief.primary_decision_or_job}\n\n## Known limits\n\n${proposal.known_limits.map((x) => `- ${x}`).join("\n")}\n`; }
 function candidatesMd(c) { return `# Design-system candidates\n\n${c.candidates.map((x) => `- ${x.name}: ${x.status}`).join("\n") || "None"}\n`; }
-function summaryMd(runId, prompt, trace) { return `# Final run summary\n\n## Prompt summary\n\n${prompt}\n\n## Generated artifacts\n\nSee \`outputs/${runId}/\`.\n\n## Agent steps\n\n${trace.map((x) => `- ${x.agent}: ${x.status}`).join("\n")}\n\n## Known limitations\n\nLocal deterministic agentic run.\n`; }
+function summaryMd(runId, prompt, trace, runner) { return `# Final run summary\n\n## Prompt summary\n\n${prompt}\n\n## Runner\n\n${runner}\n\n## Generated artifacts\n\nSee \`outputs/${runId}/\`.\n\n## Agent steps\n\n${trace.map((x) => `- ${x.agent}: ${x.status}`).join("\n")}\n\n## Known limitations\n\nLocal deterministic agentic run.\n`; }
 function writeJson(file, value) { fs.writeFileSync(path.join(runDir, file), `${JSON.stringify(value, null, 2)}\n`, "utf8"); }
 function writeText(file, value) { fs.writeFileSync(path.join(runDir, file), value, "utf8"); }
 function slug(v) { return v.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 48) || "run"; }
